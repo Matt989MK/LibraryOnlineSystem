@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My Prototype</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizer")
+</head>
+<body>
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @Html.ActionLink("Main Menu", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink(" Book Collection", "Index", "Book")</li>
+
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Payments
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Fees", "Payments", "Home",new {userId = Session["UserId"]},null)</li>
+                            <li>@Html.ActionLink("About", "Index", "Home")</li>
+
+                        </ul>
+                    </li>
+
+
+                        <li>@Html.ActionLink("Details", "Index", "Book")</li>
+                  
+
+                          <li>@Html.ActionLink("Loan History", "LoanHistory", "Home",new {userId = Session["Userid"]},null)</li>
+                          <li>@Html.ActionLink("Account", "Account", "Home",new {userId = Session["Userid"]},null)</li>
+                          <li>@Session["UserName"]</li>
+                    </ul>
+            </ul>
+            </div>
+        
+    </div>
+</div>
+
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Library Online System - Prototype</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

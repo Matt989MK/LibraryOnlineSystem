@@ -1,0 +1,87 @@
+﻿@model LibraryOnlineSystem.Book
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_User_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Book</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BookId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BookId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Genre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Genre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateOfPublication)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateOfPublication)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Overview)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Overview)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Publisher)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Publisher)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>
+        <dd>
+            @foreach (BookReview bookReview in Model.bookReviews)
+            {
+                <dd>
+                    @Html.DisplayFor(model=>bookReview.Content);
+                </dd>
+            }
+        </dd>
+    <dd>
+        @Html.ActionLink("Reserve", "RequestBook", new { bookId = Model.BookId, userId = Session["UserId"] }, null)
+        @Html.ActionLink("Review", "BookReview", new { bookId = Model.BookId, userId = Session["UserId"] }, null)
+        @Html.ActionLink("Borrow Book", "BorrowBook", new { bookId = Model.BookId, userId = Session["UserId"] }, null)
+
+    </dd>
+    </dl>
+</div>
+<p>
+  
+    @Html.ActionLink("Back to List", "Index") |
+
+
+</p>

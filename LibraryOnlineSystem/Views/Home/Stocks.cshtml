@@ -1,0 +1,41 @@
+﻿@model IEnumerable<LibraryOnlineSystem.Book>
+
+@{
+    ViewBag.Title = "Stocks";
+    Layout = "~/Views/Shared/_Admin_Layout.cshtml";
+}
+
+<h2>Stocks</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+     
+        <th>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.Quantity)
+        </td>
+        <td>
+            @*@Html.ActionLink("Details", "Details", new { id = item.BookId }) |
+            @Html.ActionLink("Order More", "OrderBook", new { bookId = item.BookId },null) |*@
+            Details |
+            Order Books|
+        </td>
+    </tr>
+}
+
+</table>

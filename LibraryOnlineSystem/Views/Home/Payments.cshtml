@@ -1,0 +1,64 @@
+﻿@model IEnumerable<LibraryOnlineSystem.Payment>
+
+@{
+    ViewBag.Title = "Payments";
+    Layout = "~/Views/Shared/_User_Layout.cshtml";
+}
+
+<h2>Payments</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DatePaid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Booking.BookId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Booking.DateDue)
+        </th>
+       
+    </tr>
+    
+@foreach (var item in Model) {
+<tr>
+
+    <td>
+        @Html.DisplayFor(modelItem => item.UserId)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.DatePaid)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Amount)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Status)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Booking.BookId)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Booking.DateDue)
+    </td>
+    <td>
+
+        @Html.ActionLink("Details", "Details", new { id = item.PaymentId }) |
+
+    </td>
+   
+</tr>
+}
+
+</table>

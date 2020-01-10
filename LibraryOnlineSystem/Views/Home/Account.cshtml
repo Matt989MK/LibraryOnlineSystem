@@ -1,0 +1,122 @@
+﻿@model LibraryOnlineSystem.User
+
+@{
+    ViewBag.Title = "Account";
+    Layout = "~/Views/Shared/_User_Layout.cshtml";
+}
+
+<h2>Account</h2>
+
+<div>
+    <h4>User</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Surname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Surname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateOfBirth)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateOfBirth)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HouseNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HouseNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ZipCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ZipCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserRole)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserRole)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Password)
+        </dd>
+        <div class="row">
+        <div class="col-md-4">
+            <p>
+                @if (Session["isAdmin"].ToString() =="0")
+                {
+                    <h2>Loan History</h2>
+
+                    <dd>
+                        @foreach (var item in Model.Bookings)
+                        {
+                            <dt>
+                                @Html.DisplayNameFor(model => item.BookId)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => item.BookId)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => item.DateCreated)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => item.DateCreated)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => item.DateDue)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => item.DateDue)
+                            </dd>
+                        }
+                    </dd>
+                }
+                
+            </p>
+            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkAuthorId=301865">Learn more &raquo;</a></p>
+        </div>
+       
+       
+        </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "EditUser", "Home",new { userId = Model.UserId },null) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
