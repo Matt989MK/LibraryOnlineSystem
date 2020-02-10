@@ -16,8 +16,7 @@ namespace LibraryOnlineSystem
         public Genre Genre
         { get; set; }
 
-        //public List<Author> AuthorList
-        //{ get; set; }
+        
 
         public DateTime DateOfPublication
         { get; set; }
@@ -32,7 +31,9 @@ namespace LibraryOnlineSystem
         public int Quantity { get; set; }
 
         public List<BookReview> bookReviews { get; set; }
-    public void GetBookList()
+        public virtual List<Author> Authors { get; set; }
+        public virtual List<Comment> Comment { get; set; }//added this
+        public void GetBookList()
         {
             throw new System.NotImplementedException();
         }

@@ -13,6 +13,9 @@ namespace LibraryOnlineSystem.Models
         public DbSet<BookAuthor> BooksToAuthors { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Booking> Bookings { get; set; }
+        public DbSet<Comment> Comment { get; set; }
+        public DbSet<CommentReply> CommentReply { get; set; }
+
         public DbSet<RequestBook> RequestBooks { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<BookReview> BookReviews { get; set; }

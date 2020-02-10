@@ -217,8 +217,18 @@ namespace LibraryOnlineSystem.Controllers
                //int x = context.Users.Count();
                 string email = Request["Email"];
                 string password = Request["Password"];
-                User user1 = context.Users.Where(a => a.Email == email).Single();
-                
+                User user1=new User();
+                if (context.Users.Where(a => a.Email == email).Count() >0)
+                {
+                     user1 = context.Users.Where(a => a.Email == email).Single();
+
+                }
+                else
+                {
+                    //textbox display "user does not exist"
+                }
+
+
                 int x = context.Users.Where(a=>a.Email==email ).Count();//&& a.Password==Request["Password"]
                 if (user1.UserRole == "Admin")
                 {

@@ -132,9 +132,9 @@ namespace LibraryOnlineSystem
             //com4.AuthorID = "1";
             //com4.Content = " So BADDD! ";
             //com4.PersonID = 1;
-            //com4.MovieID = 1;
+            //com4.BookID = 1;
             //com4.PostID = 1;
-            //com1.isBlocked = true;
+            //com4.isBlocked = true;
             //com4.UserRating = 5.7f;
             //context.Comment.Add(com4);
 
@@ -144,14 +144,14 @@ namespace LibraryOnlineSystem
             //-------------------------------------------------------------CommentReply
 
 
-            //CommentReply comReply3 = new CommentReply() { CommentID = 2, CommentReplyID = 4, AuthorID = "1", PersonID = 1, MovieID = 1, PostID = 1, Content = "this is a reply" };
+            //CommentReply comReply3 = new CommentReply() { CommentID = 2, CommentReplyID = 4, AuthorID = "1", PersonID = 1, BookID = 1, PostID = 1, Content = "this is a reply" };
             //context.CommentReply.Add(comReply3);
-            //CommentReply comReply4 = new CommentReply() { CommentID = 2, CommentReplyID = 5, AuthorID = "1", PersonID = 1, MovieID = 1, PostID = 1, Content = "reply1-2" };
+            //CommentReply comReply4 = new CommentReply() { CommentID = 2, CommentReplyID = 5, AuthorID = "1", PersonID = 1, BookID = 1, PostID = 1, Content = "reply1-2" };
             //context.CommentReply.Add(comReply4);
-            //CommentReply comReply5 = new CommentReply() { CommentID = 2, CommentReplyID = 6, AuthorID = "1", PersonID = 1, MovieID = 1, PostID = 1, Content = "this is a reply1-3" };
+            //CommentReply comReply5 = new CommentReply() { CommentID = 2, CommentReplyID = 6, AuthorID = "1", PersonID = 1, BookID = 1, PostID = 1, Content = "this is a reply1-3" };
             //context.CommentReply.Add(comReply5);
 
-            base.Seed(context);
+            //base.Seed(context);
 
         }
 

@@ -143,6 +143,8 @@
     <Compile Include="Models\BookAuthor.cs" />
     <Compile Include="Models\Booking.cs" />
     <Compile Include="Models\BookReview.cs" />
+    <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\CommentReply.cs" />
     <Compile Include="Models\ErrorViewModel.cs" />
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\LibraryContext.cs" />

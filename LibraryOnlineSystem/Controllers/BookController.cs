@@ -116,14 +116,23 @@ namespace LibraryOnlineSystem.Controllers
        
         public ActionResult BorrowBook(int userId,int bookId)
         {
-            Booking boooking=new Booking();
+            Book book=new Book();
+            book.BookId = bookId;
+            if (book.Quantity>0)
+            {
+
+
+                Booking boooking = new Booking();
 
                 boooking.BookId = bookId;
                 boooking.UserId = userId;
                 boooking.DateCreated = DateTime.Now;
                 boooking.DateDue = DateTime.Now.AddDays(7);
-            
-            return View(boooking);
+
+                return View(boooking);
+            }
+
+            return View("book is not in stock");
         }
      
 
