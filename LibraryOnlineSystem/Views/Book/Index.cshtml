@@ -15,10 +15,44 @@ else
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
 <table class="table">
+    <form action="Book">
+        <tr>
+            <th>
+                @Html.TextBox("Name")
+            </th>
+            <th>
+                <select name="Genre">
+                    <option value="Any">Any</option>
+                    <option value="Fantasy">Fantasy</option>
+                    <option value="Thriller">Thriller</option>
+                    <option value="Action">Action</option>
+                    <option value="Horror">Horror</option>
+                </select>
+            </th>
+            <th>
+
+            </th>
+            <th>
+
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Publisher)
+            </th>
+            <th>
+
+            </th>
+            <th>
+                <select name="Rating">
+                    <option value="Best">Best</option>
+                    <option value="Worst">Worst</option>
+                </select>
+
+            </th>
+        </tr>
+        <input type="submit" />
+    </form>
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Name)
@@ -35,23 +69,26 @@ else
         <th>
             @Html.DisplayNameFor(model => model.Publisher)
         </th>
-        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rating)
+        </th>
     </tr>
 
     @foreach (var item in Model)
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.BookId)
+                @Html.ActionLink(item.Name, "Details", new { id = item.BookId })
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
+
             <td>
                 @Html.DisplayFor(modelItem => item.Genre)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DateOfPublication)
+                @Html.DisplayFor(modelItem => item.DateOfPublication.Date.Year)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Overview)
@@ -60,7 +97,10 @@ else
                 @Html.DisplayFor(modelItem => item.Publisher)
             </td>
             <td>
-                @Html.ActionLink("Details", "Details", new {id = item.BookId}) |
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rating)
             </td>
         </tr>
     }

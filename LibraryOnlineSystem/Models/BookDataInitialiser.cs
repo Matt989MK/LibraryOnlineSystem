@@ -15,9 +15,9 @@ namespace LibraryOnlineSystem
             {
                 DateOfPublication = DateTime.Now,
                 Genre = Genre.Action,
-                Name = "HariPota",
-                Overview = "lame book",
-                Publisher = "bubub",
+                Name = "Harry Potter",
+                Overview = "good book",
+                Publisher = "JKR",
                 BookId = 3,
                 Quantity=4
             };
@@ -25,16 +25,28 @@ namespace LibraryOnlineSystem
             Book book2 = new Book()
              {
                 DateOfPublication = DateTime.Now,
-                Genre = Genre.Action,
-                Name = "HariPot2a",
-                Overview = "sadsa book",
-                Publisher = "bubub2",
+                Genre = Genre.Horror,
+                Name = "Lord of The Rings",
+                Overview = "Fantasy book",
+                Publisher = "Tolkien",
                 BookId = 4,
                 Quantity = 5
             };
             context.Books.Add(book2);
-
-
+            BookCode bookCode = new BookCode()
+            {
+                BookCodeId = 1,
+                BookId = 2,
+                BookSerialNumber = "33233"
+            };
+            context.BookCodes.Add(bookCode);
+            BookCode bookCode1 = new BookCode()
+            {
+                BookCodeId = 2,
+                BookId = 2,
+                BookSerialNumber = "33234"
+            };
+            context.BookCodes.Add(bookCode1);
             //=------------------ User
 
             User user=new User();
@@ -93,7 +105,10 @@ namespace LibraryOnlineSystem
             {
                 bookReview.BookId = 1;
                 bookReview.BookReviewId = 1;
-                bookReview.Content = "content";
+                bookReview.Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." +
+                                     " Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure " +
+                                     "dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident," +
+                                     " sunt in culpa qui officia deserunt mollit anim id est laborum.";
                 bookReview.UserId = 1;
                 bookReview.DatePosted = DateTime.Now;
 
@@ -104,7 +119,7 @@ namespace LibraryOnlineSystem
             {
                 bookReview1.BookId = 2;
                 bookReview1.BookReviewId = 2;
-                bookReview1.Content = "content";
+                bookReview1.Content = "content testing";
                 bookReview1.UserId = 1;
                 bookReview1.DatePosted = DateTime.Now;
 
@@ -113,30 +128,33 @@ namespace LibraryOnlineSystem
             //------------------------------------------------
             Booking booking = new Booking();
             {
+                booking.BookCodeId = 1;
+                booking.userId = 1;
                 booking.BookingId = 1;
-                booking.BookId = 1;
+                booking.Book =book2;
                 booking.DateCreated = new DateTime(2019, 12, 05);
                 booking.DateDue = new DateTime(2019, 12, 12);
-                booking.UserId = 2;
-                booking.IsOverdue = 1;
+                booking.User = user;
+                booking.IsOverdue = true;
             }
             context.Bookings.Add(booking);
 
             //--------------------------Payment
+          
             //------------------------------------------------------ COMMENTS
 
 
 
-            //Comment com4 = new Comment();
-            //com4.CommentID = 4;
-            //com4.AuthorID = "1";
-            //com4.Content = " So BADDD! ";
-            //com4.PersonID = 1;
-            //com4.BookID = 1;
-            //com4.PostID = 1;
-            //com4.isBlocked = true;
-            //com4.UserRating = 5.7f;
-            //context.Comment.Add(com4);
+            Comment com4 = new Comment();
+            com4.CommentID = 4;
+            com4.AuthorID = "1";
+            com4.Content = " Great book! ";
+            com4.PersonID = 1;
+            com4.BookID = 1;
+            com4.PostID = 1;
+            com4.isBlocked = true;
+            com4.UserRating = 5.7f;
+            context.Comment.Add(com4);
 
 
             //------------------------------------------------------ 
@@ -146,14 +164,19 @@ namespace LibraryOnlineSystem
 
             //CommentReply comReply3 = new CommentReply() { CommentID = 2, CommentReplyID = 4, AuthorID = "1", PersonID = 1, BookID = 1, PostID = 1, Content = "this is a reply" };
             //context.CommentReply.Add(comReply3);
-            //CommentReply comReply4 = new CommentReply() { CommentID = 2, CommentReplyID = 5, AuthorID = "1", PersonID = 1, BookID = 1, PostID = 1, Content = "reply1-2" };
-            //context.CommentReply.Add(comReply4);
+            CommentReply comReply4 = new CommentReply() { CommentID = 4, CommentReplyID = 5, AuthorID = "1", PersonID = 1, BookID = 1, PostID = 1, Content = "reply1-2" };
+            context.CommentReply.Add(comReply4);
             //CommentReply comReply5 = new CommentReply() { CommentID = 2, CommentReplyID = 6, AuthorID = "1", PersonID = 1, BookID = 1, PostID = 1, Content = "this is a reply1-3" };
             //context.CommentReply.Add(comReply5);
 
             //base.Seed(context);
 
+
+            //--------------------------------------------------------------Loan info
+
+          
         }
 
+        
     }
 }

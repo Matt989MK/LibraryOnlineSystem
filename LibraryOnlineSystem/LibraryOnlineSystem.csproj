@@ -141,7 +141,9 @@
     <Compile Include="Models\Author.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\BookAuthor.cs" />
+    <Compile Include="Models\BookCode.cs" />
     <Compile Include="Models\Booking.cs" />
+    <Compile Include="Models\BookReserve.cs" />
     <Compile Include="Models\BookReview.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\CommentReply.cs" />
@@ -149,6 +151,7 @@
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\LibraryContext.cs" />
     <Compile Include="Models\BookDataInitialiser.cs" />
+    <Compile Include="Models\LibraryRegulations.cs" />
     <Compile Include="Models\Payment.cs" />
     <Compile Include="Models\ProgramSettings.cs" />
     <Compile Include="Models\RequestBook.cs" />
@@ -170,6 +173,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Models\ClassDiagramLBS.cd" />
+    <Content Include="ClassDiagram.cd" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -222,6 +226,7 @@
     <Content Include="Views\Home\UsersAdmin.cshtml" />
     <Content Include="Views\Home\Stocks.cshtml" />
     <Content Include="Views\Home\OrderBooks.cshtml" />
+    <Content Include="Views\Book\CommentReply.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

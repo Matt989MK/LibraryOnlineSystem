@@ -3,29 +3,29 @@
   <Class Name="LibraryOnlineSystem.Book">
     <Position X="4.25" Y="1" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>BBAACAACAEAAAAAACCoAAAQAAAAAgAAAAAAAAAEAgAA=</HashCode>
+      <HashCode>BBAACAAGAAAAAAAACCqAAAQAAABAgAEAAAAAgAEAgAA=</HashCode>
       <FileName>Models\Book.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="LibraryOnlineSystem.Booking">
     <Position X="8.5" Y="0.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>BAAACAAIABAIAAAAAAAAgAoAAQAQIAAAAAAEAAAAAAA=</HashCode>
+      <HashCode>AAABAAAAABgIAABACAAAgAAAAAAAAAAAAAAEAAAAAAA=</HashCode>
       <FileName>Models\Booking.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="LibraryOnlineSystem.User">
     <Position X="1.5" Y="0.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAIACAAAAAEAAAAAAwABRAQAAgjCAAAIAAAAAA=</HashCode>
+      <HashCode>AAAAAAAIACAgAAAEAAAAAAwABRAQAggjGAAAIAAAAAA=</HashCode>
       <FileName>Models\User.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="LibraryOnlineSystem.Payment">
     <Position X="6.5" Y="1.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAABACEACAAAAAAAAAAAAiAAAAAABAAAIAAAAAAAAA=</HashCode>
-      <FileName>Models\Payments.cs</FileName>
+      <HashCode>AAAABACEACAAAAAAAAAAAAiAAABAABAAAIAAAAAAAAA=</HashCode>
+      <FileName>Models\Payment.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="LibraryOnlineSystem.Author">
@@ -47,6 +47,27 @@
     <TypeIdentifier>
       <HashCode>AAACCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
       <FileName>Stock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LibraryOnlineSystem.Models.Comment">
+    <Position X="15.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAACAAQAgAAAAEAAAAAAAAAAAAAAAAgEAIEAAAAAAA=</HashCode>
+      <FileName>Models\Comment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LibraryOnlineSystem.Models.CommentReply">
+    <Position X="17.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAACAAQAgAAAAEAAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Models\CommentReply.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LibraryOnlineSystem.Staff">
+    <Position X="20" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Staff.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

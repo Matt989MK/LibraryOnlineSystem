@@ -33,6 +33,12 @@ namespace LibraryOnlineSystem
         public List<BookReview> bookReviews { get; set; }
         public virtual List<Author> Authors { get; set; }
         public virtual List<Comment> Comment { get; set; }//added this
+        public int Rating { get; set; }
+        public List<BookCode> BookCode { get; set; }
+       // public Image BookCover { get; set; }
+       //public List<BookReserve> BookQueue { get; set; }
+
+        //public List<User>
         public void GetBookList()
         {
             throw new System.NotImplementedException();

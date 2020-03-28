@@ -101,7 +101,12 @@ namespace LibraryOnlineSystem.Controllers
         public ActionResult LoanHistory(int userId)
         {
             User user = db.Users.Where(a => a.UserId == userId).Single();
-            List<Booking> bookingList = db.Bookings.Where(a => a.UserId == userId).ToList();
+            List<Booking> bookingList = db.Bookings.Where(a => a.User.UserId == userId).ToList();
+            foreach (Booking booking in bookingList)
+            {
+                booking.User = db.Users.Where(a => a.UserId == userId).Single();
+                booking.Book = db.Books.Where(a => a.BookId == booking.BookCodeId).Single();
+            }
             user.Bookings = bookingList;
             return View(bookingList);
         }
@@ -109,7 +114,7 @@ namespace LibraryOnlineSystem.Controllers
         {
 
             User user = db.Users.Where(a => a.UserId == userId).Single();
-            List<Booking> bookingList = db.Bookings.Where(a => a.UserId==userId).ToList();
+            List<Booking> bookingList = db.Bookings.Where(a => a.User.UserId==userId).ToList();
             user.Bookings = bookingList;
             return View(user);
         }
@@ -150,7 +155,7 @@ namespace LibraryOnlineSystem.Controllers
             foreach (var booking in bookingList)
             {
                 Payment payment = new Payment();
-                payment.UserId = booking.UserId;
+                payment.UserId = booking.User.UserId;
                 payment.Amount = 2;
                 payment.DatePaid = new DateTime(0001, 1, 1);
                 payment.Status = "Unpaid";
@@ -166,11 +171,15 @@ namespace LibraryOnlineSystem.Controllers
 
         public ActionResult Payments(int userId)
         {
+
             List<Booking> bookingList = new List<Booking>();
             List<Payment> paymentList=new List<Payment>();
-            bookingList = db.Bookings.Where(a => a.UserId == userId && a.DateDue < DateTime.Now).ToList();
+            bookingList = db.Bookings.Where(a => a.User.UserId == userId && a.DateDue < DateTime.Now).ToList();
+
             foreach (var booking in bookingList)
             {
+                //booking.User = db.Users.Where(a => a.UserId == userId).Single();
+                booking.Book = db.Books.Where(a => a.BookId == booking.BookCodeId).Single();
                 Payment payment = new Payment();
                 payment.UserId = userId;
                 payment.Amount = 2;

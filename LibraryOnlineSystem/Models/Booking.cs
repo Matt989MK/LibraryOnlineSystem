@@ -7,11 +7,12 @@ namespace LibraryOnlineSystem
     public class Booking
     {
         public int BookingId { get; set; }
-
-        public int UserId
+        public int BookCodeId { get; set; }
+        public int userId { get; set; }
+        public User User
         { get; set; }
 
-        public int BookId
+        public Book Book
         { get; set; }
 
         public DateTime DateCreated
@@ -20,7 +21,7 @@ namespace LibraryOnlineSystem
         public DateTime DateDue
         { get; set; }
 
-        public int IsOverdue
+        public bool IsOverdue
         { get; set; }
 
 
