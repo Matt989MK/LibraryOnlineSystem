@@ -58,10 +58,17 @@ namespace LibraryOnlineSystem.Controllers
         }
 
 
-        public ActionResult RequestBook(int id)
+        public ActionResult ReservedBook(int bookId, int userId)
         {
-
-            return View(id);
+            Book book= new Book();
+            User user=new User();
+            book = db.Books.Where(a => a.BookId == bookId).Single();
+            user = db.Users.Where(a => a.UserId == userId).Single();
+            BookReserve bookReserve= new BookReserve();
+            bookReserve.User = user;
+            bookReserve.Book = book;
+            bookReserve.ReservationRequestTime=DateTime.Today;
+            return View(bookReserve);
         }
 
 

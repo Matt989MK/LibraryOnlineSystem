@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using LibraryOnlineSystem.Connection;
 using LibraryOnlineSystem.Queries;
-
+using LibraryOnlineSystem.Models;
 namespace LibraryOnlineSystem
 {
     public class DAOBook

@@ -228,6 +228,7 @@
     <Content Include="Views\Home\Stocks.cshtml" />
     <Content Include="Views\Home\OrderBooks.cshtml" />
     <Content Include="Views\Book\CommentReply.cshtml" />
+    <Content Include="Views\Book\ReservedBook.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

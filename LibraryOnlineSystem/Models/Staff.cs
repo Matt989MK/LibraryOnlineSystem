@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace LibraryOnlineSystem
+namespace LibraryOnlineSystem.Models
 {
     public class Staff
     {

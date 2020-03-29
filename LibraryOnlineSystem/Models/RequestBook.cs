@@ -1,5 +1,5 @@
 ﻿
-namespace LibraryOnlineSystem
+namespace LibraryOnlineSystem.Models
 {
     public class RequestBook
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Win32;
 
-namespace LibraryOnlineSystem
+namespace LibraryOnlineSystem.Models
 {
     public class User
     {

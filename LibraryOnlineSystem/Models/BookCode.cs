@@ -10,7 +10,7 @@ namespace LibraryOnlineSystem.Models
         public int BookCodeId { get; set; }
         public int BookId { get; set; }
         public string BookSerialNumber { get; set; }
- 
+        public List<BookReserve> BookReserves { get; set; }
 
     }
 }

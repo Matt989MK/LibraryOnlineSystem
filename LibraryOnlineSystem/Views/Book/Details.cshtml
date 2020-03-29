@@ -1,4 +1,5 @@
-﻿@model LibraryOnlineSystem.Book
+﻿@using LibraryOnlineSystem.Models
+@model LibraryOnlineSystem.Models.Book
 
 @{
     ViewBag.Title = "Details";
@@ -72,7 +73,7 @@
         }
             </dd>
     <dd>
-        @Html.ActionLink("Reserve", "RequestBook", new { bookId = Model.BookId, userId = Session["UserId"] }, null)
+        @Html.ActionLink("Reserve", "ReservedBook", new { bookId = Model.BookId, userId = Session["UserId"] }, null)
 
         @if (Model.Quantity > 0 && Model.Link == null)
         {

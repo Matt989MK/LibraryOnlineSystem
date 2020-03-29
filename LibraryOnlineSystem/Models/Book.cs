@@ -4,7 +4,7 @@ using System.Text;
 using System.Web.UI.WebControls;
 using LibraryOnlineSystem.Models;
 using LibraryOnlineSystem.Queries;
-namespace LibraryOnlineSystem
+namespace LibraryOnlineSystem.Models
 {
     public class Book
     {
@@ -36,7 +36,7 @@ namespace LibraryOnlineSystem
         public int Rating { get; set; }
         public List<BookCode> BookCode { get; set; }
         public string BookImage { get; set; }
-        //public List<BookReserve> BookQueue { get; set; }
+        
        public string Link{get;set;}
 
         //public List<User>

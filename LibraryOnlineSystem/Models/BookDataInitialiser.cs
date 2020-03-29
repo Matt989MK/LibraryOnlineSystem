@@ -34,17 +34,11 @@ namespace LibraryOnlineSystem
                 BookImage = "~/Images/BookImageTest.png",
                 Link = "http://www.china.doingbusinessguide.co.uk/media/880543/Doing_Business_in_China_Guide_PDF.pdf",
                 
+                
             };
             context.Books.Add(book2);
 
-            //BookReserve bookReserve = new BookReserve()
-            //{
-            //    ReservationId = 1,
-            //    BookCodeId = 1,
-            //    UserId = 1,
-            //    ReservationRequestTime = DateTime.Now
-            //};
-            //context.BookReserves.Add(bookReserve);
+           
             Book book3 = new Book()
             {
                 DateOfPublication = DateTime.Now,
@@ -112,7 +106,7 @@ namespace LibraryOnlineSystem
             }
             context.Users.Add((user2));
          
-            //----------------- RequestBook
+            //----------------- ReservedBook
             RequestBook requestBook = new RequestBook();
             {
                 requestBook.RequestBookId = 1;
@@ -133,7 +127,14 @@ namespace LibraryOnlineSystem
                 
             }
             context.Payments.Add(payment);
-
+            BookReserve bookReserve = new BookReserve()
+            {
+                BookReserveId = 1,
+                BookCodeId = 1,
+                UserId = 1,
+                ReservationRequestTime = DateTime.Now
+            };
+            context.BookReserves.Add(bookReserve);
             //=============Reviews
             BookReview bookReview = new BookReview();
             {
