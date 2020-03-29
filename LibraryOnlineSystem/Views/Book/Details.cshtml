@@ -58,6 +58,9 @@
             @Html.DisplayFor(model => model.Quantity)
         </dd>
         <dd>
+         <img src=@Url.Content(Model.BookImage) alt="Sample Photo" width="200px" height="300px"/>
+        </dd>
+        <dd>
             @foreach (BookReview bookReview in Model.bookReviews)
             {
                 <dt>
@@ -68,19 +71,25 @@
             </dd>
         }
             </dd>
-            <dd>
-                @Html.ActionLink("Reserve", "RequestBook", new { bookId = Model.BookId, userId = Session["UserId"] }, null)
-               
-                @if (Model.Quantity > 0)
-                {
-                    @Html.ActionLink("Borrow Book", "BorrowBook", new { bookId = Model.BookId, userId = Session["UserId"] }, null)
-                }
-                else
-                {
-                    @Html.Display("Currently book is not in stock, it is earliest due... ");
-                }
+    <dd>
+        @Html.ActionLink("Reserve", "RequestBook", new { bookId = Model.BookId, userId = Session["UserId"] }, null)
 
-            </dd>
+        @if (Model.Quantity > 0 && Model.Link == null)
+        {
+            @Html.ActionLink("Borrow Book", "BorrowBook", new { bookId = Model.BookId, userId = Session["UserId"] }, null)
+        }
+        @if (Model.Link != null)
+        {
+            @*@Html.ActionLink("Online Source", Model.Link.ToString())*@
+            <a href="@Model.Link">Online Source</a>
+
+        }
+        else
+        {
+            @Html.Display("Currently book is not in stock, it is earliest due... ");
+        }
+
+    </dd>
         </dl>
         <dt>Comment</dt>
     <dl>

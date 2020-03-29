@@ -162,6 +162,7 @@
     <Compile Include="Stock.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Images\BookImageTest.png" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />

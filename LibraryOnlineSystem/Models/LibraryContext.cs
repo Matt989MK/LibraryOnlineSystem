@@ -20,7 +20,7 @@ namespace LibraryOnlineSystem.Models
         public DbSet<Payment> Payments { get; set; }
         public DbSet<BookReview> BookReviews { get; set; }
         public DbSet<BookCode> BookCodes { get; set; }
-
+       // public DbSet<BookReserve> BookReserves { get; set; }
 
         public LibraryContext()
             :base ("name=LibraryDBConnectionString")

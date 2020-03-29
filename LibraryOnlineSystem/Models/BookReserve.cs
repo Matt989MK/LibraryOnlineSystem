@@ -11,7 +11,9 @@ namespace LibraryOnlineSystem.Models
         public int BookCodeId { get; set; }
         public int UserId { get; set; }
         public DateTime ReservationRequestTime { get; set; }
-        public DateTime EarliestDue { get; set; }
+      
 
     }
 }
+
+//new DateTime(Math.Min(Date1.Ticks, Date2.Ticks))

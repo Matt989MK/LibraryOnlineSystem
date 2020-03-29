@@ -264,12 +264,13 @@ namespace LibraryOnlineSystem.Controllers
 
 
                 Booking booking = new Booking();
-
+               
                 booking.Book = book;
                 booking.User = user;
                 booking.DateCreated = DateTime.Now;
                 booking.DateDue = DateTime.Now.AddDays(7);
-
+                db.Bookings.Add(booking);
+                db.SaveChanges();
                 return View(booking);
             }
 

@@ -30,9 +30,43 @@ namespace LibraryOnlineSystem
                 Overview = "Fantasy book",
                 Publisher = "Tolkien",
                 BookId = 4,
-                Quantity = 5
+                Quantity = 5,
+                BookImage = "~/Images/BookImageTest.png",
+                Link = "http://www.china.doingbusinessguide.co.uk/media/880543/Doing_Business_in_China_Guide_PDF.pdf",
+                
             };
             context.Books.Add(book2);
+
+            //BookReserve bookReserve = new BookReserve()
+            //{
+            //    ReservationId = 1,
+            //    BookCodeId = 1,
+            //    UserId = 1,
+            //    ReservationRequestTime = DateTime.Now
+            //};
+            //context.BookReserves.Add(bookReserve);
+            Book book3 = new Book()
+            {
+                DateOfPublication = DateTime.Now,
+                Genre = Genre.Horror,
+                Name = "James Bond",
+                Overview = "Spy book",
+                Publisher = "007",
+                BookId = 5,
+                Quantity = 1
+            };
+            context.Books.Add(book3);
+            Book book4 = new Book()
+            {
+                DateOfPublication = DateTime.Now,
+                Genre = Genre.Horror,
+                Name = "Doom",
+                Overview = "Slayer book",
+                Publisher = "Bethesda",
+                BookId = 6,
+                Quantity = 2
+            };
+            context.Books.Add(book4);
             BookCode bookCode = new BookCode()
             {
                 BookCodeId = 1,
