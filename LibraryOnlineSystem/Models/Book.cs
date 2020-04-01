@@ -28,7 +28,7 @@ namespace LibraryOnlineSystem.Models
         public string Publisher
     { get; set; }
 
-        public int Quantity { get; set; }
+        
 
         public List<BookReview> bookReviews { get; set; }
         public virtual List<Author> Authors { get; set; }
@@ -38,6 +38,7 @@ namespace LibraryOnlineSystem.Models
         public string BookImage { get; set; }
         
        public string Link{get;set;}
+       //public DateTime EarliestDue { get; set; }
 
         //public List<User>
         public void GetBookList()

@@ -85,11 +85,11 @@
                         @foreach (var item in Model.Bookings)
                         {
                             <dt>
-                                @Html.DisplayNameFor(model => item.bookId)
+                                @Html.DisplayNameFor(model => item.Book.BookId)
                             </dt>
 
                             <dd>
-                                @Html.DisplayFor(model => item.bookId)
+                                @Html.DisplayFor(model => item.Book.BookId)
                             </dd>
                             <dt>
                                 @Html.DisplayNameFor(model => item.DateCreated)
@@ -110,7 +110,7 @@
                 }
                 
             </p>
-            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkAuthorId=301865">Learn more &raquo;</a></p>
+          
         </div>
        
        

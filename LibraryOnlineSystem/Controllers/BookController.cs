@@ -58,16 +58,14 @@ namespace LibraryOnlineSystem.Controllers
         }
 
 
-        public ActionResult ReservedBook(int bookId, int userId)
+        public ActionResult ReservedBook(int bookCodeId, int userId)
         {
-            Book book= new Book();
-            User user=new User();
-            book = db.Books.Where(a => a.BookId == bookId).Single();
-            user = db.Users.Where(a => a.UserId == userId).Single();
-            BookReserve bookReserve= new BookReserve();
-            bookReserve.User = user;
-            bookReserve.Book = book;
-            bookReserve.ReservationRequestTime=DateTime.Today;
+           BookReserve bookReserve= new BookReserve();
+           bookReserve.BookCodeId = bookCodeId;
+           bookReserve.ReservationRequestTime = DateTime.Today;
+           bookReserve.UserId = userId;
+           
+
             return View(bookReserve);
         }
 
@@ -144,7 +142,8 @@ namespace LibraryOnlineSystem.Controllers
             List<BookReview> listOfBookReviews = db.BookReviews.Where(a => a.BookId == id).ToList();
             Book book = listOfBook.Where(a => a.BookId == id).Single();
             book.bookReviews = listOfBookReviews;
-
+            List<BookCode> bookCodesList = db.BookCodes.Where(a => a.BookId == id && a.IsInLibrary==true).ToList();
+            book.BookCode = bookCodesList;
 
 
             return View(book);
@@ -156,6 +155,8 @@ namespace LibraryOnlineSystem.Controllers
         {
             int id = Convert.ToInt32(Request.Params["BookID"]);
             Book book = db.Books.Find(id);//
+            List<BookCode> bookCodesList = db.BookCodes.Where(a => a.BookId==id).ToList();
+            book.BookCode = bookCodesList;
             Comment comment = new Comment();
             comment.Content = Request.Params["NewComment"];
             comment.AuthorID = User.Identity.Name;
@@ -266,8 +267,7 @@ namespace LibraryOnlineSystem.Controllers
             book = db.Books.Where(a => a.BookId == bookId).Single();
             User user = new User();
             user = db.Users.Where(a => a.UserId == userId).Single();
-            if (book.Quantity > 0)
-            {
+            
 
 
                 Booking booking = new Booking();
@@ -275,11 +275,11 @@ namespace LibraryOnlineSystem.Controllers
                 booking.Book = book;
                 booking.User = user;
                 booking.DateCreated = DateTime.Now;
-                booking.DateDue = DateTime.Now.AddDays(7);
+                booking.DateReturned = DateTime.Now.AddDays(7);
                 db.Bookings.Add(booking);
                 db.SaveChanges();
                 return View(booking);
-            }
+            
 
             return View("book is not in stock");
         }

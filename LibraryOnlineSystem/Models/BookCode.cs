@@ -11,6 +11,7 @@ namespace LibraryOnlineSystem.Models
         public int BookId { get; set; }
         public string BookSerialNumber { get; set; }
         public List<BookReserve> BookReserves { get; set; }
+        public bool IsInLibrary { get; set; }
 
     }
 }

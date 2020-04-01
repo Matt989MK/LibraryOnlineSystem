@@ -18,9 +18,10 @@ namespace LibraryOnlineSystem
                 Name = "Harry Potter",
                 Overview = "good book",
                 Publisher = "JKR",
-                BookId = 3,
-                Quantity=4
-            };
+                BookId = 1,
+              
+                BookImage = "~/Images/BookImageTest.png",
+             };
              context.Books.Add(book);
             Book book2 = new Book()
              {
@@ -30,7 +31,7 @@ namespace LibraryOnlineSystem
                 Overview = "Fantasy book",
                 Publisher = "Tolkien",
                 BookId = 4,
-                Quantity = 5,
+                
                 BookImage = "~/Images/BookImageTest.png",
                 Link = "http://www.china.doingbusinessguide.co.uk/media/880543/Doing_Business_in_China_Guide_PDF.pdf",
                 
@@ -47,7 +48,8 @@ namespace LibraryOnlineSystem
                 Overview = "Spy book",
                 Publisher = "007",
                 BookId = 5,
-                Quantity = 1
+              
+                BookImage = "~/Images/BookImageTest.png",
             };
             context.Books.Add(book3);
             Book book4 = new Book()
@@ -57,30 +59,42 @@ namespace LibraryOnlineSystem
                 Name = "Doom",
                 Overview = "Slayer book",
                 Publisher = "Bethesda",
+                BookImage = "~/Images/BookImageTest.png",
                 BookId = 6,
-                Quantity = 2
+                
             };
             context.Books.Add(book4);
+           
             BookCode bookCode = new BookCode()
             {
                 BookCodeId = 1,
-                BookId = 2,
-                BookSerialNumber = "33233"
+                BookId = 1,
+                BookSerialNumber = "33233",
+                IsInLibrary =true
             };
             context.BookCodes.Add(bookCode);
             BookCode bookCode1 = new BookCode()
             {
                 BookCodeId = 2,
-                BookId = 2,
-                BookSerialNumber = "33234"
+                BookId = 1,
+                BookSerialNumber = "33234",
+                IsInLibrary = true
             };
             context.BookCodes.Add(bookCode1);
+            BookCode bookCode2 = new BookCode()
+            {
+                BookCodeId = 3,
+                BookId = 1,
+                BookSerialNumber = "33235",
+                IsInLibrary = false
+            };
+            context.BookCodes.Add(bookCode2);
             //=------------------ User
 
             User user=new User();
             {
                 user.Name = "Matt";
-                user.Surname="S";
+                user.Surname="Sean";
                 user.DateOfBirth = DateTime.Now;
                 user.Email = "abc123@gmail.com";
                 user.HouseNo = 35;
@@ -93,8 +107,8 @@ namespace LibraryOnlineSystem
             context.Users.Add((user));
             User user2 = new User();
             {
-                user2.Name = "Matt2";
-                user2.Surname = "S";
+                user2.Name = "Ethan";
+                user2.Surname = "Jason";
                 user2.DateOfBirth = DateTime.Now;
                 user2.Email = "admin@gmail.com";
                 user2.HouseNo = 35;
@@ -112,7 +126,7 @@ namespace LibraryOnlineSystem
                 requestBook.RequestBookId = 1;
                 requestBook.BookId = 1;
                 requestBook.UserId = 1;
-                requestBook.Note = "heh";
+                requestBook.Note = "Book Request 1";
 
             }
             context.RequestBooks.Add(requestBook);
@@ -132,7 +146,8 @@ namespace LibraryOnlineSystem
                 BookReserveId = 1,
                 BookCodeId = 1,
                 UserId = 1,
-                ReservationRequestTime = DateTime.Now
+                ReservationRequestTime = DateTime.Now,
+                
             };
             context.BookReserves.Add(bookReserve);
             //=============Reviews
@@ -168,10 +183,9 @@ namespace LibraryOnlineSystem
                 booking.BookingId = 1;
                 booking.Book =book2;
                 booking.DateCreated = new DateTime(2019, 12, 05);
-                booking.DateDue = new DateTime(2019, 12, 12);
+                booking.DateReturned = new DateTime(2019, 12, 12);
                 booking.User = user;
-                booking.IsOverdue = true;
-            }
+                }
             context.Bookings.Add(booking);
 
             //--------------------------Payment

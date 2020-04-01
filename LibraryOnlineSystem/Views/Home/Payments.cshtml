@@ -57,8 +57,11 @@
         }
         </td>
     <td>
+        @if (item.Status == "Unpaid")
+        {
+            @Html.ActionLink("Pay now", "Payment", new { id = item.PaymentId }) //add Payment
 
-        @Html.ActionLink("Details", "Details", new { id = item.PaymentId }) 
+        }
 
     </td>
 

@@ -76,6 +76,8 @@ namespace LibraryOnlineSystem.Controllers
             bookReview.DatePosted=DateTime.Now;
             return Redirect("/Home/Books");
         }
+
+      
         //------------------------ Loan History
        
 
@@ -151,7 +153,7 @@ namespace LibraryOnlineSystem.Controllers
              List<Booking> bookingList = new List<Booking>();
             List<Payment> paymentList = new List<Payment>();
             
-            bookingList = db.Bookings.Where(a =>a.DateDue < DateTime.Now).ToList();
+            bookingList = db.Bookings.Where(a =>a.DateReturned < DateTime.Now).ToList();
             foreach (var booking in bookingList)
             {
                 Payment payment = new Payment();
@@ -174,7 +176,7 @@ namespace LibraryOnlineSystem.Controllers
 
             List<Booking> bookingList = new List<Booking>();
             List<Payment> paymentList=new List<Payment>();
-            bookingList = db.Bookings.Where(a => a.User.UserId == userId && a.DateDue < DateTime.Now).ToList();
+            bookingList = db.Bookings.Where(a => a.User.UserId == userId && a.DateReturned < DateTime.Now).ToList();
 
             foreach (var booking in bookingList)
             {

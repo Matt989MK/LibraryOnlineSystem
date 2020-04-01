@@ -18,11 +18,9 @@ namespace LibraryOnlineSystem.Models
         public DateTime DateCreated
         { get; set; }
 
-        public DateTime DateDue
+        public DateTime DateReturned
         { get; set; }
 
-        public bool IsOverdue
-        { get; set; }
 
 
 
