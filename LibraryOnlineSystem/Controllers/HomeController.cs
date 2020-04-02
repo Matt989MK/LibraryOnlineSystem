@@ -107,7 +107,7 @@ namespace LibraryOnlineSystem.Controllers
             foreach (Booking booking in bookingList)
             {
                 booking.User = db.Users.Where(a => a.UserId == userId).Single();
-                booking.Book = db.Books.Where(a => a.BookId == booking.BookCodeId).Single();
+               // booking.Book = db.Books.Where(a => a.BookId == booking.BookCodeId).Single();
             }
             user.Bookings = bookingList;
             return View(bookingList);
@@ -181,7 +181,7 @@ namespace LibraryOnlineSystem.Controllers
             foreach (var booking in bookingList)
             {
                 //booking.User = db.Users.Where(a => a.UserId == userId).Single();
-                booking.Book = db.Books.Where(a => a.BookId == booking.BookCodeId).Single();
+               // booking.Book = db.Books.Where(a => a.BookId == booking.BookCodeId).Single();
                 Payment payment = new Payment();
                 payment.UserId = userId;
                 payment.Amount = 2;

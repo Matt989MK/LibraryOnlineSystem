@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -142,7 +143,7 @@ namespace LibraryOnlineSystem.Controllers
             List<BookReview> listOfBookReviews = db.BookReviews.Where(a => a.BookId == id).ToList();
             Book book = listOfBook.Where(a => a.BookId == id).Single();
             book.bookReviews = listOfBookReviews;
-            List<BookCode> bookCodesList = db.BookCodes.Where(a => a.BookId == id && a.IsInLibrary==true).ToList();
+            List<BookCode> bookCodesList = db.BookCodes.Where(a => a.BookId == id).ToList();
             book.BookCode = bookCodesList;
 
 
@@ -271,17 +272,22 @@ namespace LibraryOnlineSystem.Controllers
 
 
                 Booking booking = new Booking();
-               
+               BookCode bookCode=new BookCode();
+               bookCode = db.BookCodes.Where(a => a.BookId ==bookId && a.IsInLibrary==true).First();
                 booking.Book = book;
+                booking.BookId = bookId;
                 booking.User = user;
                 booking.DateCreated = DateTime.Now;
-                booking.DateReturned = DateTime.Now.AddDays(7);
+                booking.DateReturned = null;
+                booking.BookCodeId = bookCode.BookCodeId;
+                bookCode.IsInLibrary = false;
                 db.Bookings.Add(booking);
-                db.SaveChanges();
+                db.BookCodes.AddOrUpdate(bookCode);
+            db.SaveChanges();
                 return View(booking);
             
 
-            return View("book is not in stock");
+            
         }
 
 

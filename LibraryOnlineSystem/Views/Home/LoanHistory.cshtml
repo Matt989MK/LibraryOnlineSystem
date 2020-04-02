@@ -11,19 +11,16 @@
 <table class="table">
     <tr>
        
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.Book.Name)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.DateCreated)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DateDue)
+            @Html.DisplayNameFor(model => model.DateReturned)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsOverdue)
-        </th>
-        <th></th>
+      
     </tr>
 
 @foreach (var item in Model) {
@@ -36,14 +33,12 @@
             @Html.DisplayFor(modelItem => item.DateCreated)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DateDue)
+            @Html.DisplayFor(modelItem => item.DateReturned)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsOverdue)
-        </td>
+        
         <td>
          
-            @Html.ActionLink("Details", "Details", new { id=item.BookingId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.BookingId }) 
 
         </td>
     </tr>

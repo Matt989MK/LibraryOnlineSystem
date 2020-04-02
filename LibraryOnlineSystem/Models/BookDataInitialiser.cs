@@ -30,7 +30,7 @@ namespace LibraryOnlineSystem
                 Name = "Lord of The Rings",
                 Overview = "Fantasy book",
                 Publisher = "Tolkien",
-                BookId = 4,
+                BookId = 2,
                 
                 BookImage = "~/Images/BookImageTest.png",
                 Link = "http://www.china.doingbusinessguide.co.uk/media/880543/Doing_Business_in_China_Guide_PDF.pdf",
@@ -47,7 +47,7 @@ namespace LibraryOnlineSystem
                 Name = "James Bond",
                 Overview = "Spy book",
                 Publisher = "007",
-                BookId = 5,
+                BookId = 3,
               
                 BookImage = "~/Images/BookImageTest.png",
             };
@@ -89,6 +89,39 @@ namespace LibraryOnlineSystem
                 IsInLibrary = false
             };
             context.BookCodes.Add(bookCode2);
+            BookCode bookCode3 = new BookCode()
+            {
+                BookCodeId = 4,
+                BookId = 2,
+                BookSerialNumber = "33236",
+                IsInLibrary = true
+            };
+            context.BookCodes.Add(bookCode3);
+            BookCode bookCode4 = new BookCode()
+            {
+                BookCodeId = 5,
+                BookId = 2,
+                BookSerialNumber = "33237",
+                IsInLibrary = false
+            };
+            context.BookCodes.Add(bookCode4);
+
+            BookCode bookCode5 = new BookCode()
+            {
+                BookCodeId = 4,
+                BookId = 3,
+                BookSerialNumber = "33238",
+                IsInLibrary = false
+            };
+            context.BookCodes.Add(bookCode5);
+            BookCode bookCode6 = new BookCode()
+            {
+                BookCodeId = 5,
+                BookId = 3,
+                BookSerialNumber = "33239",
+                IsInLibrary = false
+            };
+            context.BookCodes.Add(bookCode6);
             //=------------------ User
 
             User user=new User();
@@ -180,11 +213,10 @@ namespace LibraryOnlineSystem
             {
                 booking.BookCodeId = 1;
                 booking.userId = 1;
-                booking.BookingId = 1;
-                booking.Book =book2;
+                booking.BookId = 1;
                 booking.DateCreated = new DateTime(2019, 12, 05);
                 booking.DateReturned = new DateTime(2019, 12, 12);
-                booking.User = user;
+                
                 }
             context.Bookings.Add(booking);
 

@@ -75,24 +75,33 @@
             </dd>
         <dd>
            
-           @* <button onclick="location.href='@Url.Action("Index", "Users")';return false;">Cancel</button>*@
-            @Html.ActionLink("Reserve", "ReservedBook", new {bookCodeId=Model.BookCode.FirstOrDefault(a=>a.IsInLibrary==true).BookCodeId, userId = Session["UserId"]}, null)
-
-            @if ( Model.Link == null)
+            @if (Model.BookCode.Count != 0)
             {
-                @Html.ActionLink("Borrow Book", "BorrowBook", new {bookId = Model.BookId, userId = Session["UserId"]}, null)
-            }
-            @if (Model.Link != null)
-            {
-            @*@Html.ActionLink("Online Source", Model.Link.ToString())*@
-                <a href="@Model.Link">Online Source</a>
+                @Html.ActionLink("Reserve", "ReservedBook", new {bookCodeId=Model.BookCode.FirstOrDefault().BookCodeId, userId = Session["UserId"]}, null)
+           
 
+                if (Model.BookCode.FirstOrDefault(a=>a.IsInLibrary==true) !=null && Model.Link == null)
+                {
+                    @Html.ActionLink("Borrow Book", "BorrowBook", new {bookId = Model.BookId, userId = Session["UserId"]}, null)
+                }
+                if (Model.Link != null)
+                {
+          
+                    <a href="@Model.Link">Online Source</a>
+
+                }
+                else
+                {
+                    @Html.Display("Currently book is not in stock, it is earliest due... ")
+                    ;
+                }
             }
             else
             {
-                @Html.Display("Currently book is not in stock, it is earliest due... ")
-                ;
+                <h2>Book is unavailable</h2>
             }
+
+             
 
         </dd>
         </dl>

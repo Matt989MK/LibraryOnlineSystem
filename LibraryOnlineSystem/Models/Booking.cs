@@ -9,16 +9,16 @@ namespace LibraryOnlineSystem.Models
         public int BookingId { get; set; }
         public int BookCodeId { get; set; }
         public int userId { get; set; }
+      
+        public int BookId { get; set; }
+        public Book Book { get; set; }
         public User User
-        { get; set; }
-
-        public Book Book
         { get; set; }
 
         public DateTime DateCreated
         { get; set; }
 
-        public DateTime DateReturned
+        public DateTime? DateReturned
         { get; set; }
 
 
