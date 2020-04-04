@@ -69,17 +69,17 @@ else
         <th>
             @Html.DisplayNameFor(model => model.Publisher)
         </th>
-        
+
         <th>
             @Html.DisplayNameFor(model => model.Rating)
         </th>
-    </tr>
+   
 
     @foreach (var item in Model)
     {
         <tr>
             <td>
-                @Html.ActionLink(item.Name, "Details", new { id = item.BookId })
+                @Html.ActionLink(item.Name, "DetailsBook", new { bookId = item.BookId })
             </td>
 
             <td>
@@ -94,11 +94,17 @@ else
             <td>
                 @Html.DisplayFor(modelItem => item.Publisher)
             </td>
-           
+
             <td>
                 @Html.DisplayFor(modelItem => item.Rating)
             </td>
+            <td>
+                @Html.ActionLink("Edit", "EditBook", new { bookId = item.BookId }, null) |
+                @Html.ActionLink("Delete", "DeleteBook", new { id = item.BookId }, null)
+            </td>
         </tr>
+        
     }
 
+    </tr>
 </table>

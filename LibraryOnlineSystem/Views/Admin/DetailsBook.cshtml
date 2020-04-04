@@ -1,0 +1,217 @@
+﻿@using LibraryOnlineSystem.Models
+@model LibraryOnlineSystem.Models.Book
+
+@{
+    ViewBag.Title = "DetailsBook";
+    Layout = "~/Views/Shared/_Admin_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Book</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Genre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Genre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateOfPublication)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateOfPublication.Date.Year)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Overview)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Overview)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Publisher)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Publisher)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BookCode.Count)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BookCode.Count)
+        </dd>
+
+        <dd>
+            <img src=@Url.Content(Model.BookImage) alt="Sample Photo" width="200px" height="300px" />
+        </dd>
+        <dd>
+            @foreach (BookReview bookReview in Model.bookReviews)
+            {
+            <dt>
+                @Html.DisplayNameFor(model => bookReview.Content);
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => bookReview.Content);
+            </dd>
+        }
+            </dd>
+            <dd>
+                
+                   @if (Model.Link != null)
+                    {
+
+                        <a href="@Model.Link">Online Source</a>
+
+                    }
+                    else
+                    {
+                        @Html.Display("Currently book is not in stock, it is earliest due... ")
+                        ;
+                    }
+                
+            </dd>
+        </dl>
+        <dt>Comment</dt>
+        <dl>
+            <dd>
+                @foreach (var item in Model.Comment)
+                {
+
+
+                    if (item.BookID == Model.BookId)
+                    {
+
+                        <nbsp style="color:red"> @Html.DisplayFor(model => item.UserRating) </nbsp>
+                        @Html.DisplayFor(Model => item.Content)
+
+                        <nbsp style="font-size:8px"> -post by ID @Html.DisplayFor(Model => item.AuthorID)</nbsp>
+                        if (ViewBag.UserId != "")
+                        {
+                            // if (ViewBag.isban == false)
+                            // {
+
+                            @Html.ActionLink("Reply", "CommentReply", new { id = item.BookID, commentID = item.CommentID }, null)
+                            // }
+
+
+                            if (ViewBag.UserId == "admin@gmail.com")
+                            {
+                                <nbsp> | </nbsp>
+                                @Html.ActionLink("DeleteComment", "DeleteComment", new { id = item.CommentID, bookID = item.BookID })
+                                <nbsp> | </nbsp>
+
+                                @Html.ActionLink("Ban this user or change content", "BanUser", new { id = item.CommentID })
+
+                            }
+
+                        }
+
+
+                        <br />
+
+                    }
+                    if (item.CommentReply != null)
+                    {
+                        foreach (var reply in item.CommentReply)
+                        {
+
+                            <nbsp> -----  </nbsp>
+
+                            @Html.DisplayFor(model => reply.Content);
+
+                            <nbsp style="font-size:8px"> -post by ID @Html.DisplayFor(Model => reply.AuthorID)</nbsp>
+
+
+                            <br />
+                        }
+                        <br />
+
+                    }
+
+
+
+                }
+
+
+
+
+            </dd>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+
+            <dt>
+
+                New Comment
+            </dt>
+            <dd>
+                @if (ViewBag.UserId != "")
+                {
+                    using (Html.BeginForm())
+                    {
+
+                        bool isUserBanned = false;
+                        foreach (var item in Model.Comment)
+                        {
+                            if (item.isBlocked)
+                            {
+                                //if (item.AuthorID == User.Identity.Name)
+                                //{
+                                //    isUserBanned = true;
+                                //    //return;
+                                //TODO
+                                //}
+                            }
+                        }
+                        if (isUserBanned == true || ViewBag.isban == true)
+                        {
+                            <h2>you are banned</h2>
+                        }
+                        else
+                        {
+                            @Html.TextBoxFor(model => model.BookId, new { style = "display: none;" });
+                            @Html.TextArea("NewComment", "");
+                            <nbsp> Rating </nbsp>
+                            @Html.TextArea("NewUserRating", "0.0", 1, 2, 0);
+
+                            <input type="submit" value="send" />
+                        }
+                    }
+                }
+                else
+                {
+                    <h2>Please log in first</h2>
+                }
+
+
+
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+
+        @Html.ActionLink("Back to List", "BookDatabase") |
+
+
+    </p>

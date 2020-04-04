@@ -11,9 +11,9 @@
 <table class="table">
     <tr>
        
-        @*<th>
-            @Html.DisplayNameFor(model => model.Book.Name)
-        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.BookId)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.DateCreated)
         </th>
@@ -27,13 +27,13 @@
     <tr>
         
         <td>
-            @Html.DisplayFor(modelItem => item.Book.Name)
+            @Html.DisplayFor(modelItem => item.BookId)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DateCreated)
+            @Html.ValueFor(modelItem => item.DateCreated, "{0:dd/MM/yyyy}")
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DateReturned)
+            @Html.ValueFor(modelItem => item.DateReturned, "{0:dd/MM/yyyy}")
         </td>
         
         <td>

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -32,33 +33,8 @@ namespace LibraryOnlineSystem.Controllers
             return View();
         }
         //---------------Book
-        [HttpGet]
-        public ActionResult AddBook()
-        {
-
-            return View();
-        }
-        [HttpPost]
-        public ActionResult AddBook(Book book)
-        {
-            db.Books.Add(book);
-            db.SaveChanges();
-            return Redirect("/Home/BookDatabase");
-        }
-        [HttpGet]
-        public ActionResult EditBook(int bookId)
-        {
-            Book book = db.Books.Where(a => a.BookId == bookId).Single();
-
-            return View(book);
-        }
-        [HttpPost]
-        public ActionResult EditBook(Book book)
-        {
-         db.Books.AddOrUpdate(book);
-         db.SaveChanges();
-            return Redirect("/Home/BookDatabase");
-        }
+       
+       
         [HttpGet]
         public ActionResult ReviewBook( int bookId,int userId)
         {
@@ -120,21 +96,7 @@ namespace LibraryOnlineSystem.Controllers
             user.Bookings = bookingList;
             return View(user);
         }
-        [HttpGet]
-        public ActionResult EditUser(int userId)
-        {
-            User user = db.Users.Where(a => a.UserId == userId).Single();
-
-            return View(user);
-        }
-        [HttpPost]
-        public ActionResult EditUser(int userId,User user)
-        {
-          
-            db.Users.AddOrUpdate(user);
-            db.SaveChanges();
-            return Redirect("Account/?userId="+userId);
-        }
+       
         [HttpGet]
         public ActionResult Login()
         {
@@ -142,33 +104,8 @@ namespace LibraryOnlineSystem.Controllers
             return View();
         }
 
-        public ActionResult UsersAdmin()
-        {
-            List<User> userList = db.Users.ToList();
-            return View(userList);
-        }
-        public ActionResult PaymentsAdmin()
-        {
-
-             List<Booking> bookingList = new List<Booking>();
-            List<Payment> paymentList = new List<Payment>();
-            
-            bookingList = db.Bookings.Where(a =>a.DateReturned < DateTime.Now).ToList();
-            foreach (var booking in bookingList)
-            {
-                Payment payment = new Payment();
-                payment.UserId = booking.User.UserId;
-                payment.Amount = 2;
-                payment.DatePaid = new DateTime(0001, 1, 1);
-                payment.Status = "Unpaid";
-                payment.Booking = booking;
-
-                paymentList.Add(payment);
-
-            }
-
-            return View(paymentList);
-        }
+      
+        
 
 
         public ActionResult Payments(int userId)
@@ -180,8 +117,8 @@ namespace LibraryOnlineSystem.Controllers
 
             foreach (var booking in bookingList)
             {
-                //booking.User = db.Users.Where(a => a.UserId == userId).Single();
-               // booking.Book = db.Books.Where(a => a.BookId == booking.BookCodeId).Single();
+                booking.User = db.Users.Where(a => a.UserId == userId).Single();
+                booking.Book = db.Books.Where(a => a.BookId == booking.BookCodeId).Single();
                 Payment payment = new Payment();
                 payment.UserId = userId;
                 payment.Amount = 2;
@@ -195,31 +132,7 @@ namespace LibraryOnlineSystem.Controllers
 
             return View(paymentList);
         }
-        //------------------ADMIN
-        public ActionResult BookDatabase()
-        {
-            List<Book> listOfBooks=new List<Book>();
-            listOfBooks = db.Books.ToList();
-
-            return View(listOfBooks);
-        }
-
-        public ActionResult OrderBooks()
-        {
-
-            return View();
-        }
-
-        public ActionResult UserReport()
-        {
-            return View();
-        }
-        public ActionResult Stocks()
-        {
-            List<Book> listOfBooks = new List<Book>();
-            listOfBooks = db.Books.ToList();
-            return View(listOfBooks);
-        }
+        
         [HttpPost]
         public ActionResult Login(User user)
         {
@@ -265,5 +178,7 @@ namespace LibraryOnlineSystem.Controllers
             }
             return Redirect("/Home/Index");
         }
+       
     }
+    
 }

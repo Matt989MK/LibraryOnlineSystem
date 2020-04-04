@@ -1,11 +1,11 @@
 ﻿@model LibraryOnlineSystem.Models.User
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "DeleteUser";
     Layout = "~/Views/Shared/_Admin_Layout.cshtml";
 }
 
-<h2>Delete</h2>
+<h2>DeleteUser</h2>
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
@@ -69,6 +69,14 @@
         </dd>
 
         <dt>
+            @Html.DisplayNameFor(model => model.IsBanned)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsBanned)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.Password)
         </dt>
 
@@ -83,7 +91,7 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            @Html.ActionLink("Back to List", "UsersAdmin")
         </div>
     }
 </div>

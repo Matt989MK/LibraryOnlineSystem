@@ -172,6 +172,7 @@ namespace LibraryOnlineSystem
                 payment.PaymentId = 1;
                 payment.Status = "Paid";
                 
+
             }
             context.Payments.Add(payment);
             BookReserve bookReserve = new BookReserve()

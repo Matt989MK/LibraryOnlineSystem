@@ -121,23 +121,16 @@
                     <nbsp style="font-size:8px"> -post by ID @Html.DisplayFor(Model => item.AuthorID)</nbsp>
                     if (ViewBag.UserId != "")
                     {
-                       // if (ViewBag.isban == false)
-                       // {
+                        //if (ViewBag.IsBanned == false)
+                        //{
 
                             @Html.ActionLink("Reply", "CommentReply", new { id = item.BookID, commentID = item.CommentID }, null)
-                       // }
+                     //   }
 
-
-                        if (ViewBag.UserId == "admin@gmail.com")
-                        {
                             <nbsp> | </nbsp>
                             @Html.ActionLink("DeleteComment", "DeleteComment", new { id = item.CommentID, bookID = item.BookID })
                             <nbsp> | </nbsp>
-
-                            @Html.ActionLink("Ban this user or change content", "BanUser", new { id = item.CommentID })
-
-                        }
-
+                                     
                     }
 
 

@@ -1,11 +1,11 @@
 ﻿@model LibraryOnlineSystem.Models.User
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "DetailsUser";
     Layout = "~/Views/Shared/_Admin_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>DetailsUser</h2>
 
 <div>
     <h4>User</h4>
@@ -74,18 +74,39 @@
         <dd>
             @Html.DisplayFor(model => model.Password)
         </dd>
-        
         <dd>
-            
-            @foreach (var bookLoan in Model.ListOfBookLoans)
+            <h2>Loan History</h2><br/>
+            @foreach (var bookLoan in Model.Bookings)
             {
-                @Html.DisplayFor(model =>bookLoan.BookId) // finish rest
+            <dt>
+                @Html.DisplayNameFor(model => bookLoan.BookId)
+            </dt>
 
-            }
-        </dd>
-    </dl>
+
+            <dd>
+                @Html.DisplayFor(model => bookLoan.BookId)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => bookLoan.DateCreated)
+            </dt>
+
+            <dd>
+                @Html.ValueFor(model => bookLoan.DateCreated, "{0:dd/MM/yyyy}")
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => bookLoan.DateReturned)
+            </dt>
+
+                <dd>
+                    @Html.ValueFor(model => bookLoan.DateReturned, "{0:dd/MM/yyyy}")
+                </dd>
+        }
+            </dd>
+        </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.UserId }) |
-    @Html.ActionLink("Back to List", "Index")
+    
+    @Html.ActionLink("Back to List", "UsersAdmin")
 </p>

@@ -22,7 +22,7 @@
         </th>
 
         <th>
-            @Html.DisplayNameFor(model => model.Booking.DateDue)
+            @Html.DisplayNameFor(model => model.Booking.DateReturned)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.DatePaid)
@@ -44,7 +44,7 @@
     </td>
 
     <td>
-        @Html.DisplayFor(modelItem => item.Booking.DateDue)
+        @Html.ValueFor(modelItem => item.Booking.DateReturned, "{0:dd/MM/yyyy}")
     </td>
     <td>
         @if (item.Status == "Unpaid")
@@ -60,7 +60,7 @@
         @if (item.Status == "Unpaid")
         {
             @Html.ActionLink("Pay now", "Payment", new { id = item.PaymentId }) //add Payment
-
+           
         }
 
     </td>
