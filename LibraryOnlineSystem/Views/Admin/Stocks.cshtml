@@ -1,4 +1,4 @@
-﻿@model IEnumerable<LibraryOnlineSystem.Book>
+﻿@model IEnumerable<LibraryOnlineSystem.Models.Book>
 
 @{
     ViewBag.Title = "Stocks";
@@ -15,7 +15,7 @@
         </th>
      
         <th>
-            @Html.DisplayNameFor(model => model.Quantity)
+            @Html.DisplayNameFor(model => model.BookCode.Count)
         </th>
         <th></th>
     </tr>
@@ -27,13 +27,12 @@
         </td>
        
         <td>
-            @Html.DisplayFor(modelItem => item.Quantity)
+            @Html.DisplayFor(modelItem => item.BookCode.Count)
         </td>
         <td>
-            @*@Html.ActionLink("Details", "Details", new { id = item.BookId }) |
-            @Html.ActionLink("Order More", "OrderBook", new { bookId = item.BookId },null) |*@
-            Details |
-            Order Books|
+            @Html.ActionLink("List of Copies", "DisplayCopies", new { id = item.BookId }) |
+            @Html.ActionLink("Order More", "OrderBook", new { bookId = item.BookId },null) 
+            @Html.ActionLink("New book code", "CreateCopy", new { id = item.BookId })
         </td>
     </tr>
 }

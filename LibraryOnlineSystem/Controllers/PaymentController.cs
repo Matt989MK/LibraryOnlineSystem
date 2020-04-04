@@ -18,6 +18,9 @@ namespace LibraryOnlineSystem.Controllers
         // GET: Payment/Details/5
         public ActionResult Details(int id)
         {
+            //List<Payment> listOfPayment= new List<Payment>();
+            //listOfPayment = db.Payments.ToList();
+            
             return View();
         }
 

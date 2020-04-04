@@ -1,4 +1,4 @@
-﻿@model IEnumerable<LibraryOnlineSystem.Booking>
+﻿@model IEnumerable<LibraryOnlineSystem.Models.Booking>
 
 @{
     ViewBag.Title = "LoanHistory";
@@ -7,14 +7,10 @@
 
 <h2>LoanHistory</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.UserId)
-        </th>
+       
         <th>
             @Html.DisplayNameFor(model => model.BookId)
         </th>
@@ -22,34 +18,27 @@
             @Html.DisplayNameFor(model => model.DateCreated)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DateDue)
+            @Html.DisplayNameFor(model => model.DateReturned)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsOverdue)
-        </th>
-        <th></th>
+      
     </tr>
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserId)
-        </td>
+        
         <td>
             @Html.DisplayFor(modelItem => item.BookId)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DateCreated)
+            @Html.ValueFor(modelItem => item.DateCreated, "{0:dd/MM/yyyy}")
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DateDue)
+            @Html.ValueFor(modelItem => item.DateReturned, "{0:dd/MM/yyyy}")
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsOverdue)
-        </td>
+        
         <td>
          
-            @Html.ActionLink("Details", "Details", new { id=item.BookingId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.BookingId }) 
 
         </td>
     </tr>

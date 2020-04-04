@@ -1,6 +1,10 @@
 ﻿using System;
-
-namespace LibraryOnlineSystem
+using System.Collections.Generic;
+using System.Text;
+using System.Web.UI.WebControls;
+using LibraryOnlineSystem.Models;
+using LibraryOnlineSystem.Queries;
+namespace LibraryOnlineSystem.Models
 {
     public class BookReview
     {

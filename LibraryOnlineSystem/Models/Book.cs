@@ -4,7 +4,7 @@ using System.Text;
 using System.Web.UI.WebControls;
 using LibraryOnlineSystem.Models;
 using LibraryOnlineSystem.Queries;
-namespace LibraryOnlineSystem
+namespace LibraryOnlineSystem.Models
 {
     public class Book
     {
@@ -16,8 +16,7 @@ namespace LibraryOnlineSystem
         public Genre Genre
         { get; set; }
 
-        //public List<Author> AuthorList
-        //{ get; set; }
+        
 
         public DateTime DateOfPublication
         { get; set; }
@@ -29,10 +28,20 @@ namespace LibraryOnlineSystem
         public string Publisher
     { get; set; }
 
-        public int Quantity { get; set; }
+        
 
         public List<BookReview> bookReviews { get; set; }
-    public void GetBookList()
+        public virtual List<Author> Authors { get; set; }
+        public virtual List<Comment> Comment { get; set; }//added this
+        public int Rating { get; set; }
+        public List<BookCode> BookCode { get; set; }
+        public string BookImage { get; set; }
+        
+       public string Link{get;set;}
+       //public DateTime EarliestDue { get; set; }
+
+        //public List<User>
+        public void GetBookList()
         {
             throw new System.NotImplementedException();
         }

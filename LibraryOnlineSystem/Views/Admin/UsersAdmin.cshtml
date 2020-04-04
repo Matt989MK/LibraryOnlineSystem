@@ -1,4 +1,4 @@
-﻿@model IEnumerable<LibraryOnlineSystem.User>
+﻿@model IEnumerable<LibraryOnlineSystem.Models.User>
 
 @{
     ViewBag.Title = "UsersAdmin";
@@ -8,7 +8,7 @@
 <h2>UsersAdmin</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Add new User", "AddUser")
 </p>
 <table class="table">
     <tr>
@@ -48,7 +48,7 @@
             @Html.DisplayFor(modelItem => item.Surname)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DateOfBirth)
+            @Html.ValueFor(modelItem => item.DateOfBirth, "{0:dd/MM/yyyy}")
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Email)
@@ -66,9 +66,9 @@
             @Html.DisplayFor(modelItem => item.Password)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.UserId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.UserId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.UserId })
+            @Html.ActionLink("Edit", "EditUser", new { id=item.UserId }) |
+            @Html.ActionLink("Details", "DetailsUser", new { userId=item.UserId }) |
+            @Html.ActionLink("Delete", "DeleteUser", new { id=item.UserId }, null)
         </td>
     </tr>
 }

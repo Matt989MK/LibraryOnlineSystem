@@ -1,4 +1,4 @@
-﻿@model IEnumerable<LibraryOnlineSystem.Payment>
+﻿@model IEnumerable<LibraryOnlineSystem.Models.Payment>
 
 @{
     ViewBag.Title = "Payments";
@@ -11,53 +11,60 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.UserId)
+            @Html.DisplayNameFor(model => model.Booking.Book.Name)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DatePaid)
-        </th>
+
         <th>
             @Html.DisplayNameFor(model => model.Amount)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Status)
         </th>
+
         <th>
-            @Html.DisplayNameFor(model => model.Booking.BookId)
+            @Html.DisplayNameFor(model => model.Booking.DateReturned)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Booking.DateDue)
+            @Html.DisplayNameFor(model => model.DatePaid)
         </th>
-       
     </tr>
     
 @foreach (var item in Model) {
 <tr>
 
     <td>
-        @Html.DisplayFor(modelItem => item.UserId)
+        @Html.DisplayFor(modelItem => item.Booking.Book.Name)
     </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.DatePaid)
-    </td>
+
     <td>
         @Html.DisplayFor(modelItem => item.Amount)
     </td>
     <td>
         @Html.DisplayFor(modelItem => item.Status)
     </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Booking.BookId)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Booking.DateDue)
-    </td>
-    <td>
 
-        @Html.ActionLink("Details", "Details", new { id = item.PaymentId }) |
+    <td>
+        @Html.ValueFor(modelItem => item.Booking.DateReturned, "{0:dd/MM/yyyy}")
+    </td>
+    <td>
+        @if (item.Status == "Unpaid")
+        {
+            @*@Html.DisplayFor(modelItem => item.nu)*@
+        }
+        else
+        {
+            @Html.DisplayFor(modelItem => item.DatePaid)
+        }
+        </td>
+    <td>
+        @if (item.Status == "Unpaid")
+        {
+            @Html.ActionLink("Pay now", "Payment", new { id = item.PaymentId }) //add Payment
+           
+        }
 
     </td>
-   
+
 </tr>
 }
 

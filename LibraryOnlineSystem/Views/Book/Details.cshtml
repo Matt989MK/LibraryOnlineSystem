@@ -1,4 +1,5 @@
-﻿@model LibraryOnlineSystem.Book
+﻿@using LibraryOnlineSystem.Models
+@model LibraryOnlineSystem.Models.Book
 
 @{
     ViewBag.Title = "Details";
@@ -18,13 +19,7 @@
         <dd>
             @Html.DisplayFor(model => model.Name)
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.BookId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BookId)
-        </dd>
+        
         <dt>
             @Html.DisplayNameFor(model => model.Genre)
         </dt>
@@ -38,7 +33,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.DateOfPublication)
+            @Html.DisplayFor(model => model.DateOfPublication.Date.Year)
         </dd>
 
         <dt>
@@ -57,28 +52,172 @@
             @Html.DisplayFor(model => model.Publisher)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Quantity)
+            @Html.DisplayNameFor(model => model.BookCode.Count)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Quantity)
+            @Html.DisplayFor(model => model.BookCode.Count)
+        </dd>
+       
+        <dd>
+         <img src=@Url.Content(Model.BookImage) alt="Sample Photo" width="200px" height="300px"/>
         </dd>
         <dd>
             @foreach (BookReview bookReview in Model.bookReviews)
             {
-                <dd>
-                    @Html.DisplayFor(model=>bookReview.Content);
-                </dd>
-            }
-        </dd>
-    <dd>
-        @Html.ActionLink("Reserve", "RequestBook", new { bookId = Model.BookId, userId = Session["UserId"] }, null)
-        @Html.ActionLink("Review", "BookReview", new { bookId = Model.BookId, userId = Session["UserId"] }, null)
-        @Html.ActionLink("Borrow Book", "BorrowBook", new { bookId = Model.BookId, userId = Session["UserId"] }, null)
+                <dt>
+                    @Html.DisplayNameFor(model => bookReview.Content);
+                </dt>
+            <dd>
+                @Html.DisplayFor(model => bookReview.Content);
+            </dd>
+        }
+            </dd>
+        <dd>
+           
+            @if (Model.BookCode.Count != 0)
+            {
+                @Html.ActionLink("Reserve", "ReservedBook", new {bookCodeId=Model.BookCode.FirstOrDefault().BookCodeId, userId = Session["UserId"]}, null)
+           
 
-    </dd>
-    </dl>
-</div>
+                if (Model.BookCode.FirstOrDefault(a=>a.IsInLibrary==true) !=null && Model.Link == null)
+                {
+                    @Html.ActionLink("Borrow Book", "BorrowBook", new {bookId = Model.BookId, userId = Session["UserId"]}, null)
+                }
+                if (Model.Link != null)
+                {
+          
+                    <a href="@Model.Link">Online Source</a>
+
+                }
+                else
+                {
+                    @Html.Display("Currently book is not in stock, it is earliest due... ")
+                    ;
+                }
+            }
+            else
+            {
+                <h2>Book is unavailable</h2>
+            }
+
+             
+
+        </dd>
+        </dl>
+        <dt>Comment</dt>
+    <dl>
+        <dd>
+            @foreach (var item in Model.Comment)
+            {
+
+
+                if (item.BookID == Model.BookId)
+                {
+
+                    <nbsp style="color:red"> @Html.DisplayFor(model => item.UserRating) </nbsp>
+                    @Html.DisplayFor(Model => item.Content)
+
+                    <nbsp style="font-size:8px"> -post by ID @Html.DisplayFor(Model => item.AuthorID)</nbsp>
+                    if (ViewBag.UserId != "")
+                    {
+                        //if (ViewBag.IsBanned == false)
+                        //{
+
+                            @Html.ActionLink("Reply", "CommentReply", new { id = item.BookID, commentID = item.CommentID }, null)
+                     //   }
+
+                            <nbsp> | </nbsp>
+                            @Html.ActionLink("DeleteComment", "DeleteComment", new { id = item.CommentID, bookID = item.BookID })
+                            <nbsp> | </nbsp>
+                                     
+                    }
+
+
+                    <br />
+
+                }
+                if (item.CommentReply != null)
+                {
+                    foreach (var reply in item.CommentReply)
+                    {
+
+                        <nbsp> -----  </nbsp>
+
+                        @Html.DisplayFor(model => reply.Content);
+
+                        <nbsp style="font-size:8px"> -post by ID @Html.DisplayFor(Model => reply.AuthorID)</nbsp>
+
+
+                        <br />
+                    }
+                    <br />
+
+                }
+
+
+
+            }
+
+
+
+
+        </dd>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+
+        <dt>
+
+            New Comment
+        </dt>
+        <dd>
+            @if (ViewBag.UserId != "")
+            {
+                using (Html.BeginForm())
+                {
+
+                    bool isUserBanned = false;
+                    foreach (var item in Model.Comment)
+                    {
+                        if (item.isBlocked)
+                        {
+                            //if (item.AuthorID == User.Identity.Name)
+                            //{
+                            //    isUserBanned = true;
+                            //    //return;
+                            //TODO
+                            //}
+                        }
+                    }
+                    if (isUserBanned == true || ViewBag.isban == true)
+                    {
+                        <h2>you are banned</h2>
+                    }
+                    else
+                    {
+                        @Html.TextBoxFor(model => model.BookId, new { style = "display: none;" });
+                        @Html.TextArea("NewComment", "");
+                        <nbsp> Rating </nbsp>
+                        @Html.TextArea("NewUserRating", "0.0", 1, 2, 0);
+
+                        <input type="submit" value="send" />
+                    }
+                }
+            }
+            else
+            {
+                <h2>Please log in first</h2>
+            }
+
+
+
+        </dd>
+
+        </dl>
+    </div>
 <p>
   
     @Html.ActionLink("Back to List", "Index") |

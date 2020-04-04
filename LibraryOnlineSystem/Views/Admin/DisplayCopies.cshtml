@@ -1,0 +1,44 @@
+﻿@model IEnumerable<LibraryOnlineSystem.Models.BookCode>
+
+@{
+    ViewBag.Title = "DisplayCopies";
+    Layout = "~/Views/Shared/_Admin_Layout.cshtml";
+}
+
+<h2>DisplayCopies</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BookId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BookSerialNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsInLibrary)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.BookId)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.BookSerialNumber)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.IsInLibrary)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.BookCodeId }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.BookCodeId })
+    </td>
+   
+</tr>
+}
+
+</table>

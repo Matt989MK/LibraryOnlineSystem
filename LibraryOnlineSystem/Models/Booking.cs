@@ -2,26 +2,25 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace LibraryOnlineSystem
+namespace LibraryOnlineSystem.Models
 {
     public class Booking
     {
         public int BookingId { get; set; }
-
-        public int UserId
-        { get; set; }
-
-        public int BookId
+        public int BookCodeId { get; set; }
+        public int userId { get; set; }
+      
+        public int BookId { get; set; }
+        public Book Book { get; set; }
+        public User User
         { get; set; }
 
         public DateTime DateCreated
         { get; set; }
 
-        public DateTime DateDue
+        public DateTime? DateReturned
         { get; set; }
 
-        public int IsOverdue
-        { get; set; }
 
 
 

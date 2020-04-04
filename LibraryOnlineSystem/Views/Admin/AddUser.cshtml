@@ -1,4 +1,4 @@
-﻿@model LibraryOnlineSystem.User
+﻿@model LibraryOnlineSystem.Models.User
 
 @{
     ViewBag.Title = "AddUser";
@@ -6,7 +6,6 @@
 }
 
 <h2>AddUser</h2>
-
 
 @using (Html.BeginForm()) 
 {
@@ -89,9 +88,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "UsersAdmin")
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

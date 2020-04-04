@@ -1,0 +1,127 @@
+﻿@model LibraryOnlineSystem.Models.Book
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_User_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<body>
+    <h2>Details</h2>
+    <div>
+        <script>
+        function RedirectToPeopleDetails() {
+            window.location = "";
+        }
+        </script>
+        <h4>Movie</h4>
+        <hr />
+        <dl class="dl-horizontal">
+
+
+            <dt>
+                Category
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Genre)
+            </dd>
+
+            <dt>
+                Movie
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BookId)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Overview)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Overview)
+            </dd>
+
+
+
+            @*<dt>
+                @Html.DisplayNameFor(model => model.Rating)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Rating)
+            </dd>*@
+
+            <dt>
+                @foreach (var item in Model.Authors)
+                {
+                <dd>
+
+                    @Html.ActionLink(item.Name + " " + item.Surname, "Details", "Book", new { id = item.AuthorId }, null)
+
+                </dd>
+            }
+                </dt>
+                <br />
+                <br />
+                <br />
+                <br />
+
+                <dt>Comment</dt>
+
+                @foreach (var item in Model.Comment)
+                {
+                    if (item.BookID == Model.BookId)
+                    {
+                        <dd>
+
+                            @Html.DisplayFor(Model => item.Content)
+                            <nbsp style="font-size:8px"> -post by ID @Html.DisplayFor(Model => item.AuthorID)</nbsp>
+                            @if (item.CommentID == Int32.Parse(Request.Params["CommentID"]))
+                            {
+                                using (Html.BeginForm())
+                                {
+
+
+                                    @Html.TextBoxFor(model => model.BookId, new { style = "display: none;" })
+                                    @Html.TextArea("NewReply", "")
+                                    <input type="submit" value="reply" onclick="RedirectToPeopleDetails()" />
+                                }
+
+                            }
+
+                            @Html.ActionLink("Reply", "CommentReply",  new { id = item.AuthorID, commentID = item.CommentID }, null)
+                        </dd>
+
+                    }
+
+                    <dd>
+                        @foreach (var reply in item.CommentReply)
+                        {
+
+                            <nbsp> -----  </nbsp>
+                            @Html.DisplayFor(model => reply.Content);
+                            <br />
+
+                        }
+                        <br />
+
+                    </dd>
+
+
+
+                }
+
+
+
+            </dl>
+
+        </div>
+        <p>
+            @Html.ActionLink("Edit", "Edit", new { id = Model.BookId }) |
+            @Html.ActionLink("Back to List", "Index")
+        </p>
+    </body>
+</html>

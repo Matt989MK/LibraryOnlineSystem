@@ -16,7 +16,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Main Menu", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Main Menu", "Index", "Admin", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
 
@@ -25,8 +25,8 @@
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Books
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Edit", "Edit", "Home")</li>
-                            <li>@Html.ActionLink("Book Database", "BookDatabase", "Home")</li>
+                            <li>@Html.ActionLink("Edit", "Edit", "Admin")</li>
+                            <li>@Html.ActionLink("Book Database", "BookDatabase", "Admin")</li>
                             </ul>
                     </li>
                     
@@ -34,8 +34,8 @@
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Staff
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("My Account", "Account", "Home",new {userId=Session["UserId"] },null)</li>
-                            <li>@Html.ActionLink("Staff", "StaffDatabase", "Home")</li>
+                            <li>@Html.ActionLink("My Account", "Account", "Admin",new {userId=Session["UserId"] },null)</li>
+                            <li>@Html.ActionLink("Staff", "StaffDatabase", "Admin")</li>
                          </ul>
                     </li>
                     
@@ -43,8 +43,8 @@
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Users
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Users", "UsersAdmin", "Home")</li>
-                            <li>@Html.ActionLink("Report", "Report", "Home")</li>
+                            <li>@Html.ActionLink("Users", "UsersAdmin", "Admin")</li>
+                            <li>@Html.ActionLink("Report", "Report", "Admin")</li>
                           </ul>
                     </li>
                    
@@ -52,8 +52,8 @@
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Payments
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Payments", "PaymentsAdmin", "Home")</li>
-                            <li>@Html.ActionLink("Archive", "Archive", "Home")</li>
+                            <li>@Html.ActionLink("Payments", "PaymentsAdmin", "Admin")</li>
+                            <li>@Html.ActionLink("Archive", "Archive", "Admin")</li>
                         </ul>
                     </li>
                     
@@ -61,8 +61,8 @@
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Stocks
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Stocks", "Stocks", "Home",new {userId=Session["UserId"] },null)</li>
-                            <li>@Html.ActionLink("Report", "Report", "Home")</li>
+                            <li>@Html.ActionLink("Stocks", "Stocks", "Admin",new {userId=Session["UserId"] },null)</li>
+                            <li>@Html.ActionLink("Report", "Report", "Admin")</li>
                         </ul>
                     </li>
                     <li>

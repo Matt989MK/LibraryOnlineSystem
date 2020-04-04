@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Win32;
 
-namespace LibraryOnlineSystem
+namespace LibraryOnlineSystem.Models
 {
     public class User
     {
@@ -45,6 +45,7 @@ namespace LibraryOnlineSystem
             get; set;
         }
 
+        public bool? IsBanned { get; set; }
         public virtual List<Payment> ListOfPayment { get; set; }
 
        public virtual List<RequestBook> ListOfRequestBooks { get; set; }

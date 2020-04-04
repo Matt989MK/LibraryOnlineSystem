@@ -1,4 +1,4 @@
-﻿@model IEnumerable<LibraryOnlineSystem.Payment>
+﻿@model IEnumerable<LibraryOnlineSystem.Models.Payment>
 
 @{
     ViewBag.Title = "PaymentsAdmin";
@@ -31,7 +31,7 @@
             @Html.DisplayFor(modelItem => item.UserId)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DatePaid)
+            @Html.ValueFor(modelItem => item.DatePaid, "{0:dd/MM/yyyy}")
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Amount)

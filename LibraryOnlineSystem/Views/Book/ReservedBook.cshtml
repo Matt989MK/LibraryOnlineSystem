@@ -1,0 +1,49 @@
+﻿
+@model LibraryOnlineSystem.Models.BookReserve 
+@{
+    ViewBag.Title = "ReservedBook";
+    Layout = "~/Views/Shared/_User_Layout.cshtml";
+}
+
+<h2>ReservedBook</h2>
+@*@{
+    DateTime dateTime = new DateTime();
+
+    dateTime = Model.BookReserves.OrderByDescending(a => a.ReservationRequestTime).FirstOrDefault().ReservationRequestTime;
+    int bookReserveId = (int)Session["bookReserveId"];
+}*@
+<p>
+    <H2>Book Successfully reserved, it will be available on @Model.ReservationRequestTime.AddDays(7).ToString("d")</H2>
+    
+      
+    
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BookCodeId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReservationRequestTime)
+        </th>
+        <th></th>
+    </tr>
+
+     <tr>
+            <td>
+                @Html.DisplayFor(model => model.BookCodeId)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.UserId)
+            </td>
+            <td>
+                @Html.ValueFor(model => model.ReservationRequestTime, "{0:dd/MM/yyyy}")
+            </td>
+
+        </tr>
+    
+
+</table>

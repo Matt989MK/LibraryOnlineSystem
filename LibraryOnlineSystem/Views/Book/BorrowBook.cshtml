@@ -1,4 +1,4 @@
-﻿@model LibraryOnlineSystem.Booking
+﻿@model LibraryOnlineSystem.Models.Booking
 
 @{
     ViewBag.Title = "BorrowBook";
@@ -9,22 +9,29 @@
 
 <div>
     <h4>Booking</h4>
+    <h2>Book successfully borrowed, please return by @DateTime.Today.AddDays(7)</h2>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.UserId)
+            @Html.DisplayNameFor(model => model.User.UserId)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.UserId)
+            @Html.DisplayFor(model => model.User.UserId)
         </dd>
-
         <dt>
-            @Html.DisplayNameFor(model => model.BookId)
+            @Html.DisplayNameFor(model => model.Book.Name)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.BookId)
+            @Html.DisplayFor(model => model.Book.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Book.BookId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Book.BookId)
         </dd>
 
         <dt>
@@ -35,18 +42,11 @@
             @Html.DisplayFor(model => model.DateCreated)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DateDue)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DateDue)
-        </dd>
+      
 
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.BookingId }) |
-    @Html.ActionLink("Back to List", "Index")
+  
 </p>
