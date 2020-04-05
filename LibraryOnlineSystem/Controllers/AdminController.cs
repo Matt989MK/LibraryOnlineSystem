@@ -107,6 +107,7 @@ namespace LibraryOnlineSystem.Controllers
         [HttpGet]
         public ActionResult CreateCopy(int id)
         {
+            ViewBag.BookId = id;
             return View();
         }
         [HttpPost]
@@ -114,7 +115,7 @@ namespace LibraryOnlineSystem.Controllers
         {
             db.BookCodes.Add(bookCode);
             db.SaveChanges();
-            return Redirect("/Admin/DisplayCopies");
+            return Redirect("/Admin/DisplayCopies"+bookCode.BookId);
         }
         public ActionResult DisplayCopies(int id)
         {
@@ -328,7 +329,64 @@ namespace LibraryOnlineSystem.Controllers
             return View();
         }
         //--------
+        public ActionResult ReportBook()
+        {
+            List<int> bookings=db.Bookings.Select(a=>a.BookId).Distinct().ToList();
+            List<BookCode> bookCodes = db.BookCodes.ToList();
+            int maxBookCount = 0;
+            int maxBookId = 0;
+            int maxGenreCount = 0;
+            int bookCodeCount = db.Bookings.GroupBy(a=>a.BookId).Select(a=>a.Count()).Max();// most popular book
 
+            List<Book> books=db.Books.ToList();
+            List<string> genre= new List<string>();
+
+            foreach (var book in books)
+            {
+                genre.Add(db.Books.Where(a => a.BookId == book.BookId).FirstOrDefault().Genre.ToString());
+
+            }
+
+            foreach (int bookId in bookings)
+            {
+                
+
+                int countOfBook = db.Bookings.Where(a => a.BookId == bookId).Count();
+                if (countOfBook == bookCodeCount)
+                {
+                    maxBookId = db.Bookings.Where(a => a.BookId == bookId).FirstOrDefault().BookId;
+                }
+            }
+
+            var genreGroup = genre.GroupBy(x => x);
+            var maxCount = genreGroup.Max(g => g.Count());
+            var mostCommons = genreGroup.Where(x => x.Count() == maxCount).Select(x => x.Key).Single();
+            ViewBag.MostCommonCategory = mostCommons;
+            ViewBag.MostPopularBookName = books.Where(a=>a.BookId==maxCount).FirstOrDefault().Name;
+            ViewBag.MaxBooking = bookCodeCount;
+            ViewBag.BookCount = bookCodes.Count;
+            return View(bookCodes);
+        }
+        public ActionResult ReportUser()
+        {
+            List<User> users = db.Users.ToList();
+            return View();
+        }
+        public ActionResult ReportBooking()
+        {
+           List<Booking> bookings = db.Bookings.ToList();
+            return View();
+        }
+        public ActionResult ReportPayment()
+        {
+            List<Payment> payments = db.Payments.ToList();
+            return View();
+        }
+        public ActionResult ReportStock()
+        {
+            List<Stock> stocks = db.Stocks.ToList();
+            return View();
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -338,6 +396,6 @@ namespace LibraryOnlineSystem.Controllers
             base.Dispose(disposing);
         }
 
-
+       
     }
 }

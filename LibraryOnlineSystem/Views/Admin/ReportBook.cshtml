@@ -1,0 +1,46 @@
+﻿@using System.Web.UI.WebControls
+@using LibraryOnlineSystem.Models
+@model IEnumerable<LibraryOnlineSystem.Models.BookCode>
+
+@{
+    ViewBag.Title = "ReportBook";
+    Layout = "~/Views/Shared/_Admin_Layout.cshtml";
+}
+
+<h1>ReportBook</h1>
+<br/>
+
+
+<tr>
+
+    <h4><b>Total amount of Books in the library:</b> </h4>
+    @ViewBag.BookCount
+    <br />
+    <h4><b>The most popular Category: </b></h4>
+    @ViewBag.MostCommonCategory
+    <br />
+    <h4><b>The most popular Book : </b></h4>
+    @ViewBag.MostPopularBookName
+    <br />
+    <h4><b>The most popular Book was borrowed:</b> </h4>
+    @ViewBag.maxBooking times
+    <br />
+    @*<th>Books currently in the stock:@ViewBag.BookCount</th><br />*@
+
+
+
+
+</tr>
+
+@*@foreach (var item in Model) {
+    <tr>
+        <td>
+            
+        </td>
+       
+       
+        
+    </tr>
+}*@
+
+
