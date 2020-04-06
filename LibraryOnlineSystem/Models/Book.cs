@@ -10,26 +10,15 @@ namespace LibraryOnlineSystem.Models
     {
         public int BookId { get; set; }
 
-        public string Name
-        { get; set; }
+        public string Name{ get; set; }
 
-        public Genre Genre
-        { get; set; }
-
+        public Genre Genre{ get; set; }
         
+        public DateTime DateOfPublication{ get; set; }
 
-        public DateTime DateOfPublication
-        { get; set; }
-
-        public string Overview
-        { get; set; }
+        public string Overview{ get; set; }
     
-
-        public string Publisher
-    { get; set; }
-
-        
-
+        public string Publisher{ get; set; }
         public List<BookReview> bookReviews { get; set; }
         public virtual List<Author> Authors { get; set; }
         public virtual List<Comment> Comment { get; set; }//added this
