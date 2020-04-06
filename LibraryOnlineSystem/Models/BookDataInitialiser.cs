@@ -225,8 +225,8 @@ namespace LibraryOnlineSystem
                 booking1.BookCodeId = 1;
                 booking1.userId = 1;
                 booking1.BookId = 2;
-                booking1.DateCreated = new DateTime(2019, 12, 05);
-                booking1.DateReturned = new DateTime(2019, 12, 12);
+                booking1.DateCreated = new DateTime(2021, 12, 05);
+                booking1.DateReturned = new DateTime(2021, 12, 12);
 
             }
             context.Bookings.Add(booking1);
@@ -235,8 +235,8 @@ namespace LibraryOnlineSystem
                 booking2.BookCodeId = 1;
                 booking2.userId = 2;
                 booking2.BookId = 2;
-                booking2.DateCreated = new DateTime(2019, 12, 05);
-                booking2.DateReturned = new DateTime(2019, 12, 12);
+                booking2.DateCreated = new DateTime(2021, 12, 05);
+                booking2.DateReturned = new DateTime(2021, 12, 12);
 
             }
             context.Bookings.Add(booking2);
@@ -245,8 +245,8 @@ namespace LibraryOnlineSystem
                 booking3.BookCodeId = 1;
                 booking3.userId = 2;
                 booking3.BookId = 2;
-                booking3.DateCreated = new DateTime(2019, 12, 05);
-                booking3.DateReturned = new DateTime(2019, 12, 12);
+                booking3.DateCreated = new DateTime(2021, 12, 05);
+                booking3.DateReturned = new DateTime(2021, 12, 12);
 
             }
             context.Bookings.Add(booking3);
