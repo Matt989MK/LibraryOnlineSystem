@@ -330,15 +330,21 @@ namespace LibraryOnlineSystem.Controllers
             return View();
         }
         //--------
+        
         public ActionResult ReportBook()
         {
-            List<int> bookings=db.Bookings.Select(a=>a.BookId).Distinct().ToList();
+            DateTime dateBeginning= Request["beginningDate"].AsDateTime();
+            DateTime dateEnding= Request["endingDate"].AsDateTime();
+            
+            if (dateEnding == DateTime.MinValue) { dateEnding = DateTime.Today; }
+
+            // List<int> bookings=db.Bookings.Select(a=>a.BookId).Distinct().ToList();
             List<BookCode> bookCodes = db.BookCodes.ToList();
             int maxBookId=0;
-            int bookCodeCount = db.Bookings.GroupBy(a=>a.BookId).Select(a=>a.Count()).Max();// most popular book
+            int bookCodeCount = db.Bookings.Where(a => a.DateCreated >dateBeginning  && a.DateCreated < dateEnding).GroupBy(a=>a.BookId).Select(a=>a.Count()).Max();// most popular book
 
            
-            List<int> newBookings=db.Bookings.Where(a=>a.DateCreated>DateTime.MinValue && a.DateCreated<DateTime.Now).Select(a=>a.BookId).Distinct().ToList();
+            List<int> newBookings=db.Bookings.Where(a=>a.DateCreated> dateBeginning && a.DateCreated< dateEnding).Select(a=>a.BookId).Distinct().ToList();
             List<Book> books=db.Books.ToList();
           List<string> genre= new List<string>();
             foreach (var book in books)

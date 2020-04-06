@@ -8,9 +8,17 @@
 }
 
 <h1>Report for Books</h1>
-<br/>
+<br />
+@using (Html.BeginForm())
+{
+    <label for="beginningDate">From: </label>
+    <input type="date" id="beginningDate" name="beginningDate">
+   
 
-
+    <label for="endingDate"> To:</label>
+    <input type="date" id="endingDate" name="endingDate">
+    <input type="submit">
+}
 <tr>
 
     <h4><b>Total amount of Books in the library:</b> </h4>
@@ -26,7 +34,7 @@
     @ViewBag.maxBooking times
     <br />
     @*<th>Books currently in the stock:@ViewBag.BookCount</th><br />*@
-    
+
 
 
 
