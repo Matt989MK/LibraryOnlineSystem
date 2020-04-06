@@ -48,7 +48,7 @@ namespace LibraryOnlineSystem.Models
         public bool? IsBanned { get; set; }
         public virtual List<Payment> ListOfPayment { get; set; }
 
-       public virtual List<RequestBook> ListOfRequestBooks { get; set; }
+      
 
         public virtual List<Booking> Bookings { get; set; }
 

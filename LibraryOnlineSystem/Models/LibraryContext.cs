@@ -16,7 +16,6 @@ namespace LibraryOnlineSystem.Models
         public DbSet<Comment> Comment { get; set; }
         public DbSet<CommentReply> CommentReply { get; set; }
 
-        public DbSet<RequestBook> RequestBooks { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<BookReview> BookReviews { get; set; }
         public DbSet<BookCode> BookCodes { get; set; }

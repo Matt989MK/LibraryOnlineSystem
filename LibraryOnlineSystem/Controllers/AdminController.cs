@@ -376,7 +376,16 @@ namespace LibraryOnlineSystem.Controllers
         }
         public ActionResult ReportUser()
         {
+            DateTime dateBeginning = Request["beginningDate"].AsDateTime();
+            DateTime dateEnding = Request["endingDate"].AsDateTime();
+            if (dateEnding == DateTime.MinValue) { dateEnding = DateTime.Today; }
             List<User> users = db.Users.ToList();
+            List<Comment> comments = db.Comment.ToList();
+            ViewBag.UserCount = users.Count();
+            ViewBag.CommentCount = comments.Count();
+            //Add to User when they joined?
+
+
             return View();
         }
         public ActionResult ReportBooking()
@@ -387,6 +396,27 @@ namespace LibraryOnlineSystem.Controllers
         public ActionResult ReportPayment()
         {
             List<Payment> payments = db.Payments.ToList();
+            int lateCounter = 0;
+            int totalPayments = 0;
+            int missedPayments = 0;
+            int outstandingPayments=0;
+            List<Booking> booking = db.Bookings.ToList();
+            foreach (var payment in payments)
+            {
+
+                if (payment.DatePaid > payment.Booking.DateReturned)
+                {
+                    lateCounter++;
+                }
+                if (payment.Status == "Paid") { totalPayments += payment.Amount; }
+                else if (payment.Status == "Unpaid"){missedPayments++;outstandingPayments += payment.Amount;
+                }
+            }
+
+            ViewBag.totalPayment = totalPayments;
+            ViewBag.lateCounter = lateCounter;
+            ViewBag.missedPayments = missedPayments;
+            ViewBag.outstandingPayments = outstandingPayments;
             return View();
         }
         public ActionResult ReportStock()

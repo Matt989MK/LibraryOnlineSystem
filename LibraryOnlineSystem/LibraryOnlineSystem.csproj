@@ -154,7 +154,6 @@
     <Compile Include="Models\LibraryRegulations.cs" />
     <Compile Include="Models\Payment.cs" />
     <Compile Include="Models\ProgramSettings.cs" />
-    <Compile Include="Models\RequestBook.cs" />
     <Compile Include="Models\Staff.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -210,7 +209,6 @@
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Book\Details.cshtml" />
     <Content Include="Views\Admin\AddedUser.cshtml" />
-    <Content Include="Views\Admin\Stock.cshtml" />
     <Content Include="Views\Home\ReviewBook.cshtml" />
     <Content Include="Views\Book\BorrowBook.cshtml" />
     <Content Include="Views\Home\Account.cshtml" />
@@ -235,6 +233,8 @@
     <Content Include="Views\Admin\DisplayCopies.cshtml" />
     <Content Include="Views\Admin\CreateCopy.cshtml" />
     <Content Include="Views\Admin\ReportBook.cshtml" />
+    <Content Include="Views\Admin\ReportUser.cshtml" />
+    <Content Include="Views\Admin\ReportPayment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

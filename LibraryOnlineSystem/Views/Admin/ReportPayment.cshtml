@@ -1,0 +1,16 @@
+﻿@model IEnumerable<LibraryOnlineSystem.Models.Payment>
+
+@{
+    ViewBag.Title = "ReportPayment";
+    Layout = "~/Views/Shared/_Admin_Layout.cshtml";
+}
+
+<h2>Report on Payments</h2>
+<h2><b>Total Payments</b></h2>
+@ViewBag.totalPayment;
+<h2><b>Total late payments</b></h2>
+@ViewBag.lateCounter;
+<h2><b>Total missed payments</b></h2>
+@ViewBag.missedPayments;
+<h2><b>Total outstanding payments</b></h2>
+@ViewBag.outstandingPayments;

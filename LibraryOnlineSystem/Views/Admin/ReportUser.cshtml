@@ -1,0 +1,25 @@
+﻿@model IEnumerable<LibraryOnlineSystem.Models.User>
+
+@{
+    ViewBag.Title = "ReportUser";
+    Layout = "~/Views/Shared/_Admin_Layout.cshtml";
+}
+
+<h1>Report for Users</h1>
+<br />
+@using (Html.BeginForm())
+{
+    <label for="beginningDate">From: </label>
+    <input type="date" id="beginningDate" name="beginningDate">
+
+
+    <label for="endingDate"> To:</label>
+    <input type="date" id="endingDate" name="endingDate">
+    <input type="submit">
+}
+<h4><b>Total amount of Users in the system:</b> </h4>
+@ViewBag.UserCount
+<br />
+<h4><b>Total amount of Comments by users:</b> </h4>
+<br />
+@ViewBag.CommentCount

@@ -153,16 +153,8 @@ namespace LibraryOnlineSystem
             }
             context.Users.Add((user2));
          
-            //----------------- ReservedBook
-            RequestBook requestBook = new RequestBook();
-            {
-                requestBook.RequestBookId = 1;
-                requestBook.BookId = 1;
-                requestBook.UserId = 1;
-                requestBook.Note = "Book Request 1";
-
-            }
-            context.RequestBooks.Add(requestBook);
+          
+            
             ////============ Payment
             Payment payment = new Payment();
             {
@@ -171,7 +163,7 @@ namespace LibraryOnlineSystem
                 payment.DatePaid = DateTime.Now;
                 payment.PaymentId = 1;
                 payment.Status = "Paid";
-                
+                payment.Booking.BookingId = 1;
 
             }
             context.Payments.Add(payment);
