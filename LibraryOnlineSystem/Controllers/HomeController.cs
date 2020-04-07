@@ -80,11 +80,16 @@ namespace LibraryOnlineSystem.Controllers
         {
             User user = db.Users.Where(a => a.UserId == userId).Single();
             List<Booking> bookingList = db.Bookings.Where(a => a.User.UserId == userId).ToList();
+            List<Payment> paymentList=new List<Payment>();
             foreach (Booking booking in bookingList)
             {
+                paymentList = db.Payments.Where(a => a.Booking.BookingId == booking.BookingId).ToList();
+                Book book= db.Books.Where(a => a.BookId == booking.BookId).Single();
                 booking.User = db.Users.Where(a => a.UserId == userId).Single();
-               // booking.Book = db.Books.Where(a => a.BookId == booking.BookCodeId).Single();
+                booking.Book = book;
             }
+
+            user.ListOfPayment = paymentList;
             user.Bookings = bookingList;
             return View(bookingList);
         }

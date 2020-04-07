@@ -1,4 +1,5 @@
-﻿@model IEnumerable<LibraryOnlineSystem.Models.Payment>
+﻿@using System.Web.UI.WebControls
+@model IEnumerable<LibraryOnlineSystem.Models.Payment>
 
 @{
     ViewBag.Title = "ReportPayment";
@@ -6,11 +7,12 @@
 }
 
 <h2>Report on Payments</h2>
-<h2><b>Total Payments</b></h2>
-@ViewBag.totalPayment;
-<h2><b>Total late payments</b></h2>
-@ViewBag.lateCounter;
+<h2><b>Sum of all  paid fees</b></h2>
+@ViewBag.totalPayment£
+
 <h2><b>Total missed payments</b></h2>
-@ViewBag.missedPayments;
+@ViewBag.missedPayments
 <h2><b>Total outstanding payments</b></h2>
-@ViewBag.outstandingPayments;
+@ViewBag.outstandingPayments£
+<h2><b>All payments</b></h2>
+@ViewBag.allPayments

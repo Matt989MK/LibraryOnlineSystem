@@ -10,7 +10,7 @@ namespace LibraryOnlineSystem.Models
 
         public int UserId { get; set; }
 
-        public DateTime DatePaid { get; set; }
+        public DateTime? DatePaid { get; set; }
 
         public int Amount { get; set; }
 

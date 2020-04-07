@@ -31,13 +31,13 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li>@Html.ActionLink("Fees", "Payments", "Home",new {userId = Session["UserId"]},null)</li>
-                            <li>@Html.ActionLink("About", "Index", "Home")</li>
+                           
 
                         </ul>
                     </li>
 
 
-                        <li>@Html.ActionLink("Details", "Index", "Book")</li>
+                    <li>@Html.ActionLink("About", "Index", "Home")</li>
                   
 
                           <li>@Html.ActionLink("Loan History", "LoanHistory", "Home",new {userId = Session["Userid"]},null)</li>

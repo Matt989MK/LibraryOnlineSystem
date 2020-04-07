@@ -56,22 +56,23 @@ namespace LibraryOnlineSystem.Controllers
         public ActionResult PaymentsAdmin()
         {
 
-            List<Booking> bookingList = new List<Booking>();
+          //  List<Booking> bookingList = new List<Booking>();
             List<Payment> paymentList = new List<Payment>();
 
-            bookingList = db.Bookings.Where(a => a.DateReturned < DateTime.Now).ToList();
-            foreach (var booking in bookingList)
-            {
-                Payment payment = new Payment();
-                payment.UserId = booking.userId;
-                payment.Amount = 2;
-                payment.DatePaid = new DateTime(0001, 1, 1);
-                payment.Status = "Unpaid";
-                payment.Booking = booking;
+          //  bookingList = db.Bookings.Where(a => a.DateReturned < DateTime.Now).ToList();
+            paymentList = db.Payments.ToList();
+            //foreach (var booking in bookingList)
+            //{
+            //    Payment payment = new Payment();
+            //    payment.UserId = booking.userId;
+            //    payment.Amount = 2;
+            //    payment.DatePaid = new DateTime(0001, 1, 1);
+            //    payment.Status = "Unpaid";
+            //    payment.Booking = booking;
 
-                paymentList.Add(payment);
+            //    paymentList.Add(payment);
 
-            }
+            //}
 
             return View(paymentList);
         }//------------------ADMIN
@@ -400,23 +401,21 @@ namespace LibraryOnlineSystem.Controllers
             int totalPayments = 0;
             int missedPayments = 0;
             int outstandingPayments=0;
+            int allPayments = 0;
             List<Booking> booking = db.Bookings.ToList();
             foreach (var payment in payments)
             {
 
-                if (payment.DatePaid > payment.Booking.DateReturned)
-                {
-                    lateCounter++;
-                }
+                allPayments++;
                 if (payment.Status == "Paid") { totalPayments += payment.Amount; }
-                else if (payment.Status == "Unpaid"){missedPayments++;outstandingPayments += payment.Amount;
-                }
+                else if (payment.Status == "Unpaid"){missedPayments++;outstandingPayments += payment.Amount; lateCounter++;}
             }
 
             ViewBag.totalPayment = totalPayments;
             ViewBag.lateCounter = lateCounter;
             ViewBag.missedPayments = missedPayments;
             ViewBag.outstandingPayments = outstandingPayments;
+            ViewBag.allPayments = allPayments;
             return View();
         }
         public ActionResult ReportStock()

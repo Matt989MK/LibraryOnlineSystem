@@ -163,10 +163,32 @@ namespace LibraryOnlineSystem
                 payment.DatePaid = DateTime.Now;
                 payment.PaymentId = 1;
                 payment.Status = "Paid";
-                payment.Booking.BookingId = 1;
+          
 
             }
             context.Payments.Add(payment);
+            Payment payment1 = new Payment();
+            {
+                payment1.UserId = 1;
+                payment1.Amount = 10;
+                payment1.DatePaid = null;
+                payment1.PaymentId = 1;
+                payment1.Status = "Unpaid";
+
+
+            }
+            context.Payments.Add(payment1);
+            Payment payment2 = new Payment();
+            {
+                payment2.UserId = 1;
+                payment2.Amount = 5;
+                payment2.DatePaid = null;
+                payment2.PaymentId = 1;
+                payment2.Status = "Unpaid";
+                
+
+            }
+            context.Payments.Add(payment2);
             BookReserve bookReserve = new BookReserve()
             {
                 BookReserveId = 1,
