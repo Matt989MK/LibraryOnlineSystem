@@ -22,7 +22,7 @@ namespace LibraryOnlineSystem.Models
         public List<BookReview> bookReviews { get; set; }
         public virtual List<Author> Authors { get; set; }
         public virtual List<Comment> Comment { get; set; }//added this
-        public int Rating { get; set; }
+        public float Rating { get; set; }
         public List<BookCode> BookCode { get; set; }
         public string BookImage { get; set; }
         

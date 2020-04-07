@@ -31,8 +31,7 @@
         </td>
         <td>
             @Html.ActionLink("List of Copies", "DisplayCopies", new { id = item.BookId }) |
-            @Html.ActionLink("Order More", "OrderBook", new { bookId = item.BookId },null) 
-            @Html.ActionLink("New book code", "CreateCopy", new { id = item.BookId })
+          @Html.ActionLink("New book code", "CreateCopy", new { id = item.BookId })
         </td>
     </tr>
 }

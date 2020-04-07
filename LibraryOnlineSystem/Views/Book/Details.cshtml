@@ -52,11 +52,11 @@
             @Html.DisplayFor(model => model.Publisher)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.BookCode.Count)
+            Books in Stock
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.BookCode.Count)
+            @ViewBag.bookInStock
         </dd>
        
         <dd>
@@ -115,22 +115,25 @@
                 if (item.BookID == Model.BookId)
                 {
 
+                    Model.Rating += item.UserRating;
+
                     <nbsp style="color:red"> @Html.DisplayFor(model => item.UserRating) </nbsp>
                     @Html.DisplayFor(Model => item.Content)
 
                     <nbsp style="font-size:8px"> -post by ID @Html.DisplayFor(Model => item.AuthorID)</nbsp>
+
                     if (ViewBag.UserId != "")
                     {
                         //if (ViewBag.IsBanned == false)
                         //{
 
-                            @Html.ActionLink("Reply", "CommentReply", new { id = item.BookID, commentID = item.CommentID }, null)
-                     //   }
+                        @Html.ActionLink("Reply", "CommentReply", new { id = item.BookID, commentID = item.CommentID }, null)
+                        //   }
 
-                            <nbsp> | </nbsp>
-                            @Html.ActionLink("DeleteComment", "DeleteComment", new { id = item.CommentID, bookID = item.BookID })
-                            <nbsp> | </nbsp>
-                                     
+                        <nbsp> | </nbsp>
+                        @Html.ActionLink("DeleteComment", "DeleteComment", new { id = item.CommentID, bookID = item.BookID })
+                        <nbsp> | </nbsp>
+
                     }
 
 
@@ -146,7 +149,7 @@
 
                         @Html.DisplayFor(model => reply.Content);
 
-                        <nbsp style="font-size:8px"> -post by ID @Html.DisplayFor(Model => reply.AuthorID)</nbsp>
+                        <nbsp style="font-size:8px"> -posted by ID @Html.DisplayFor(Model => reply.AuthorID)</nbsp>
 
 
                         <br />
@@ -155,11 +158,11 @@
 
                 }
 
-
+               
 
             }
-
-
+            
+           
 
 
         </dd>

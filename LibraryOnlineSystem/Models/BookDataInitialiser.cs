@@ -19,7 +19,7 @@ namespace LibraryOnlineSystem
                 Overview = "good book",
                 Publisher = "JKR",
                 BookId = 1,
-              
+                
                 BookImage = "~/Images/BookImageTest.png",
              };
              context.Books.Add(book);
@@ -267,21 +267,48 @@ namespace LibraryOnlineSystem
             //--------------------------Payment
 
             //------------------------------------------------------ COMMENTS
-
-
+            Comment com2 = new Comment();
+            com2.CommentID = 4;
+            com2.AuthorID = "1";
+            com2.Content = " Great book! ";
+            com2.PersonID = 1;
+            com2.BookID = 1;
+            com2.PostID = 1;
+            com2.isBlocked = false;
+            com2.UserRating = 6f;
+            context.Comment.Add(com2);
+            Comment com3 = new Comment();
+            com3.CommentID = 3;
+            com3.AuthorID = "1";
+            com3.Content = " Great book! ";
+            com3.PersonID = 1;
+            com3.BookID = 2;
+            com3.PostID = 1;
+            com3.isBlocked = false;
+            com3.UserRating = 6f;
+            context.Comment.Add(com3);
 
             Comment com4 = new Comment();
             com4.CommentID = 4;
             com4.AuthorID = "1";
             com4.Content = " Great book! ";
             com4.PersonID = 1;
-            com4.BookID = 1;
+            com4.BookID =3;
             com4.PostID = 1;
-            com4.isBlocked = true;
-            com4.UserRating = 5.7f;
+            com4.isBlocked = false;
+            com4.UserRating = 6f;
             context.Comment.Add(com4);
 
-
+            Comment com5 = new Comment();
+            com5.CommentID = 5;
+            com5.AuthorID = "1";
+            com5.Content = " Great book! ";
+            com5.PersonID = 1;
+            com5.BookID = 4;
+            com5.PostID = 1;
+            com5.isBlocked = false;
+            com5.UserRating = 5f;
+            context.Comment.Add(com5);
             //------------------------------------------------------ 
 
             //-------------------------------------------------------------CommentReply
@@ -289,8 +316,8 @@ namespace LibraryOnlineSystem
 
             //CommentReply comReply3 = new CommentReply() { CommentID = 2, CommentReplyID = 4, AuthorID = "1", PersonID = 1, BookID = 1, PostID = 1, Content = "this is a reply" };
             //context.CommentReply.Add(comReply3);
-            CommentReply comReply4 = new CommentReply() { CommentID = 4, CommentReplyID = 5, AuthorID = "1", PersonID = 1, BookID = 1, PostID = 1, Content = "reply1-2" };
-            context.CommentReply.Add(comReply4);
+            //CommentReply comReply4 = new CommentReply() { CommentID = 4, CommentReplyID = 5, AuthorID = "1", PersonID = 1, BookID = 1, PostID = 1, Content = "reply1-2" };
+            //context.CommentReply.Add(comReply4);
             //CommentReply comReply5 = new CommentReply() { CommentID = 2, CommentReplyID = 6, AuthorID = "1", PersonID = 1, BookID = 1, PostID = 1, Content = "this is a reply1-3" };
             //context.CommentReply.Add(comReply5);
 

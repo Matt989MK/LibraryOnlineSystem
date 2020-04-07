@@ -43,13 +43,22 @@ namespace LibraryOnlineSystem.Controllers
             }
 
 
+           
+            
+            foreach (Book book in lstBooks)
+            {
+
+                    book.Rating = db.Comment.Where(a => a.BookID == book.BookId).Select(a => a.UserRating).Average();
+
+
+            }
             if (Genre != null && Genre != "Any")
             {
                 lstBooks = lstBooks.Where(i => i.Genre.ToString() == Genre).ToList();
-                //if (Rating == "Worst") { lstBooks = lstBooks.OrderBy(i => i.Rating).ToList(); }
-                //else if (Rating == "Best") { lstBooks = lstBooks.OrderByDescending(i => i.Rating).ToList(); }
-            }
 
+            }
+            if (Rating == "Worst") { lstBooks = lstBooks.OrderBy(i => i.Rating).ToList(); }
+            else if (Rating == "Best") { lstBooks = lstBooks.OrderByDescending(i => i.Rating).ToList(); }
             //else
             //{ lstBooks = db.Books.Where(i => i.Genre.ToString() == Genre).ToList(); }
             //if (Rating == "Worst") { lstBooks = lstBooks.OrderBy(i => i.Rating).ToList(); }
@@ -61,11 +70,11 @@ namespace LibraryOnlineSystem.Controllers
 
         public ActionResult ReservedBook(int bookCodeId, int userId)
         {
-           BookReserve bookReserve= new BookReserve();
-           bookReserve.BookCodeId = bookCodeId;
-           bookReserve.ReservationRequestTime = DateTime.Today;
-           bookReserve.UserId = userId;
-           
+            BookReserve bookReserve = new BookReserve();
+            bookReserve.BookCodeId = bookCodeId;
+            bookReserve.ReservationRequestTime = DateTime.Today;
+            bookReserve.UserId = userId;
+
 
             return View(bookReserve);
         }
@@ -145,8 +154,16 @@ namespace LibraryOnlineSystem.Controllers
             book.bookReviews = listOfBookReviews;
             List<BookCode> bookCodesList = db.BookCodes.Where(a => a.BookId == id).ToList();
             book.BookCode = bookCodesList;
+            int bookInStock = bookCodesList.Count;
+            foreach (var bookCode in bookCodesList)
+            {
+                if (bookCode.IsInLibrary == false)
+                {
+                    bookInStock--;
+                }
+            }
 
-
+            ViewBag.bookInStock = bookInStock;
             return View(book);
         }
 
@@ -156,7 +173,7 @@ namespace LibraryOnlineSystem.Controllers
         {
             int id = Convert.ToInt32(Request.Params["BookID"]);
             Book book = db.Books.Find(id);//
-            List<BookCode> bookCodesList = db.BookCodes.Where(a => a.BookId==id).ToList();
+            List<BookCode> bookCodesList = db.BookCodes.Where(a => a.BookId == id).ToList();
             book.BookCode = bookCodesList;
             Comment comment = new Comment();
             comment.Content = Request.Params["NewComment"];
@@ -164,18 +181,16 @@ namespace LibraryOnlineSystem.Controllers
             comment.PostID = 1;
             comment.BookID = id;
             comment.PersonID = 1;
+            
             float.TryParse(Request.Params["NewUserRating"], out float results);
             comment.UserRating = results;
-            if (comment.UserRating <= 10 && comment.UserRating >= 0.0)
-            {
-                db.Comment.Add(comment);
-                db.SaveChanges();
+           
 
-            }
 
             List<Comment> lstComment = db.Comment.Where(c => c.BookID == id).ToList();
             foreach (Comment item in lstComment)
             {
+           
                 CommentReply commentReply = new CommentReply();
                 List<CommentReply> lstCommentReply = new List<CommentReply>();
                 if (db.CommentReply.Where(c => c.CommentID == item.CommentID).ToList() != null)//
@@ -183,10 +198,21 @@ namespace LibraryOnlineSystem.Controllers
                     lstCommentReply = db.CommentReply.Where(c => c.CommentID == item.CommentID).ToList();
                 }
             }
+
+           
+            
+            if (comment.UserRating <= 10 && comment.UserRating >= 0.0)
+            {
+                db.Comment.Add(comment);
+
+                db.SaveChanges();
+
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
 
             List<Book> listOfBook = new List<Book>();
             listOfBook = db.Books.ToList();
@@ -196,11 +222,11 @@ namespace LibraryOnlineSystem.Controllers
             return View(book);
 
         }
-  
 
-      
 
-  
+
+
+
 
         public ActionResult BorrowBook(int userId, int bookId)
         {
@@ -208,26 +234,26 @@ namespace LibraryOnlineSystem.Controllers
             book = db.Books.Where(a => a.BookId == bookId).Single();
             User user = new User();
             user = db.Users.Where(a => a.UserId == userId).Single();
-            
 
 
-                Booking booking = new Booking();
-               BookCode bookCode=new BookCode();
-               bookCode = db.BookCodes.Where(a => a.BookId ==bookId && a.IsInLibrary==true).First();
-                booking.Book = book;
-                booking.BookId = bookId;
-                booking.User = user;
-                booking.DateCreated = DateTime.Now;
-                booking.DateReturned = null;
-                booking.BookCodeId = bookCode.BookCodeId;
-                bookCode.IsInLibrary = false;
-                db.Bookings.Add(booking);
-                db.BookCodes.AddOrUpdate(bookCode);
+
+            Booking booking = new Booking();
+            BookCode bookCode = new BookCode();
+            bookCode = db.BookCodes.Where(a => a.BookId == bookId && a.IsInLibrary == true).First();
+            booking.Book = book;
+            booking.BookId = bookId;
+            booking.User = user;
+            booking.DateCreated = DateTime.Now;
+            booking.DateReturned = null;
+            booking.BookCodeId = bookCode.BookCodeId;
+            bookCode.IsInLibrary = false;
+            db.Bookings.Add(booking);
+            db.BookCodes.AddOrUpdate(bookCode);
             db.SaveChanges();
-                return View(booking);
-            
+            return View(booking);
 
-            
+
+
         }
 
 
