@@ -6,7 +6,7 @@ using System.Data.Entity;
 using LibraryOnlineSystem.Models;
 namespace LibraryOnlineSystem
 {
-    public class BookDataInitialiser: DropCreateDatabaseAlways<LibraryContext>
+    public class BookDataInitialiser: DropCreateDatabaseAlways<LibraryContext>//CreateDatabaseIfNotExists<LibraryContext>
     {
         protected override void Seed(LibraryContext context)
         {
@@ -18,8 +18,9 @@ namespace LibraryOnlineSystem
                 Name = "Harry Potter",
                 Overview = "good book",
                 Publisher = "JKR",
-                BookId = 1,
                 
+                BookId = 1,
+                Rating =5,
                 BookImage = "~/Images/BookImageTest.png",
              };
              context.Books.Add(book);
@@ -31,7 +32,7 @@ namespace LibraryOnlineSystem
                 Overview = "Fantasy book",
                 Publisher = "Tolkien",
                 BookId = 2,
-                
+                Rating = 5,
                 BookImage = "~/Images/BookImageTest.png",
                 Link = "http://www.china.doingbusinessguide.co.uk/media/880543/Doing_Business_in_China_Guide_PDF.pdf",
                 
@@ -48,7 +49,7 @@ namespace LibraryOnlineSystem
                 Overview = "Spy book",
                 Publisher = "007",
                 BookId = 3,
-              
+                Rating = 5,
                 BookImage = "~/Images/BookImageTest.png",
             };
             context.Books.Add(book3);
@@ -61,7 +62,7 @@ namespace LibraryOnlineSystem
                 Publisher = "Bethesda",
                 BookImage = "~/Images/BookImageTest.png",
                 BookId = 6,
-                
+                Rating = 5,
             };
             context.Books.Add(book4);
            
@@ -152,9 +153,22 @@ namespace LibraryOnlineSystem
                 
             }
             context.Users.Add((user2));
-         
-          
-            
+
+            User user3 = new User();
+            {
+                user3.Name = "John";
+                user3.Surname = "Smith";
+                user3.DateOfBirth = DateTime.Now;
+                user3.Email = "abc1234@gmail.com";
+                user3.HouseNo = 22;
+                user3.Password = "123";
+                user3.UserRole = "User";
+                user3.ZipCode = 1254;
+                user3.UserId = 3;
+
+            }
+            context.Users.Add((user3));
+
             ////============ Payment
             Payment payment = new Payment();
             {
@@ -268,45 +282,45 @@ namespace LibraryOnlineSystem
 
             //------------------------------------------------------ COMMENTS
             Comment com2 = new Comment();
-            com2.CommentID = 4;
-            com2.AuthorID = "1";
+            com2.CommentId = 4;
+            com2.AuthorId = "1";
             com2.Content = " Great book! ";
-            com2.PersonID = 1;
-            com2.BookID = 1;
-            com2.PostID = 1;
-            com2.isBlocked = false;
+            com2.PersonId = 3;
+            com2.BookId = 1;
+            com2.PostId = 1;
+            com2.IsBlocked = false;
             com2.UserRating = 6f;
             context.Comment.Add(com2);
             Comment com3 = new Comment();
-            com3.CommentID = 3;
-            com3.AuthorID = "1";
+            com3.CommentId = 1;
+            com3.AuthorId = "1";
             com3.Content = " Great book! ";
-            com3.PersonID = 1;
-            com3.BookID = 2;
-            com3.PostID = 1;
-            com3.isBlocked = false;
+            com3.PersonId = 1;
+            com3.BookId = 2;
+            com3.PostId = 1;
+            com3.IsBlocked = false;
             com3.UserRating = 6f;
             context.Comment.Add(com3);
 
             Comment com4 = new Comment();
-            com4.CommentID = 4;
-            com4.AuthorID = "1";
+            com4.CommentId = 4;
+            com4.AuthorId = "1";
             com4.Content = " Great book! ";
-            com4.PersonID = 1;
-            com4.BookID =3;
-            com4.PostID = 1;
-            com4.isBlocked = false;
+            com4.PersonId = 1;
+            com4.BookId =3;
+            com4.PostId = 1;
+            com4.IsBlocked = false;
             com4.UserRating = 6f;
             context.Comment.Add(com4);
 
             Comment com5 = new Comment();
-            com5.CommentID = 5;
-            com5.AuthorID = "1";
+            com5.CommentId = 5;
+            com5.AuthorId = "3";
             com5.Content = " Great book! ";
-            com5.PersonID = 1;
-            com5.BookID = 4;
-            com5.PostID = 1;
-            com5.isBlocked = false;
+            com5.PersonId = 3;
+            com5.BookId = 4;
+            com5.PostId = 1;
+            com5.IsBlocked = false;
             com5.UserRating = 5f;
             context.Comment.Add(com5);
             //------------------------------------------------------ 
@@ -314,11 +328,11 @@ namespace LibraryOnlineSystem
             //-------------------------------------------------------------CommentReply
 
 
-            //CommentReply comReply3 = new CommentReply() { CommentID = 2, CommentReplyID = 4, AuthorID = "1", PersonID = 1, BookID = 1, PostID = 1, Content = "this is a reply" };
+            //CommentReply comReply3 = new CommentReply() { CommentId = 2, CommentReplyID = 4, AuthorId = "1", PersonId = 1, BookId = 1, PostId = 1, Content = "this is a reply" };
             //context.CommentReply.Add(comReply3);
-            //CommentReply comReply4 = new CommentReply() { CommentID = 4, CommentReplyID = 5, AuthorID = "1", PersonID = 1, BookID = 1, PostID = 1, Content = "reply1-2" };
+            //CommentReply comReply4 = new CommentReply() { CommentId = 4, CommentReplyID = 5, AuthorId = "1", PersonId = 1, BookId = 1, PostId = 1, Content = "reply1-2" };
             //context.CommentReply.Add(comReply4);
-            //CommentReply comReply5 = new CommentReply() { CommentID = 2, CommentReplyID = 6, AuthorID = "1", PersonID = 1, BookID = 1, PostID = 1, Content = "this is a reply1-3" };
+            //CommentReply comReply5 = new CommentReply() { CommentId = 2, CommentReplyID = 6, AuthorId = "1", PersonId = 1, BookId = 1, PostId = 1, Content = "this is a reply1-3" };
             //context.CommentReply.Add(comReply5);
 
             //base.Seed(context);

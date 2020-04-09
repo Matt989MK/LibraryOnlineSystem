@@ -73,13 +73,13 @@
 
                 @foreach (var item in Model.Comment)
                 {
-                    if (item.BookID == Model.BookId)
+                    if (item.BookId == Model.BookId)
                     {
                         <dd>
 
                             @Html.DisplayFor(Model => item.Content)
-                            <nbsp style="font-size:8px"> -post by ID @Html.DisplayFor(Model => item.AuthorID)</nbsp>
-                            @if (item.CommentID == Int32.Parse(Request.Params["CommentID"]))
+                            <nbsp style="font-size:8px"> -post by ID @Html.DisplayFor(Model => item.AuthorId)</nbsp>
+                            @if (item.CommentId == Int32.Parse(Request.Params["CommentId"]))
                             {
                                 using (Html.BeginForm())
                                 {
@@ -92,7 +92,7 @@
 
                             }
 
-                            @Html.ActionLink("Reply", "CommentReply",  new { id = item.AuthorID, commentID = item.CommentID }, null)
+                            @Html.ActionLink("Reply", "CommentReply",  new { id = item.AuthorId, commentID = item.CommentId }, null)
                         </dd>
 
                     }

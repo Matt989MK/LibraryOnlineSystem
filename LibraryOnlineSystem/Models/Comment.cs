@@ -11,14 +11,14 @@ namespace LibraryOnlineSystem.Models
     public class Comment
     {
         [Key]
-        public virtual int CommentID { get; set; }
-        public virtual string AuthorID { get; set; }
-        public virtual int PersonID { get; set; }
-        public virtual int BookID { get; set; }
-        public virtual int PostID { get; set; }
+        public virtual int CommentId { get; set; }
+        public virtual string AuthorId { get; set; }
+        public virtual int PersonId { get; set; }
+        public virtual int BookId { get; set; }
+        public virtual int PostId { get; set; }
         public virtual string Content { get; set; }
         public virtual float UserRating { get; set; }
         public virtual List<CommentReply> CommentReply { get; set; }
-        public virtual bool isBlocked { get; set; }
+        public virtual bool IsBlocked { get; set; }
     }
 }

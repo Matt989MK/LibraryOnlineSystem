@@ -127,11 +127,28 @@ namespace LibraryOnlineSystem.Controllers
             return View(bookCodes);
         }
         [HttpPost]
-        public ActionResult AddBook(Book book)
+        public ActionResult AddBook(Book book,HttpPostedFileBase image)
         {
-            db.Books.Add(book);
-            db.SaveChanges();
-            return Redirect("/Admin/BookDatabase");
+            if (ModelState.IsValid)
+            {
+                if (image != null)
+                {
+                    book.ImageMimeType = image.ContentType;
+                    book.ImageData = new byte[image.ContentLength];
+                    image.InputStream.Read(book.ImageData, 0, image.ContentLength);
+                }
+                db.Books.Add(book);
+                db.SaveChanges();
+                TempData["message"] = string.Format("Saved {0}", book.Name);
+                return Redirect("/Admin/BookDatabase");
+            }
+            else
+            {
+                
+                return View(book);
+            }
+            
+           
         }
 
         [HttpGet]

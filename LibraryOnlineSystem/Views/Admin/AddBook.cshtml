@@ -78,6 +78,17 @@
                 @Html.ValidationMessageFor(model => model.Link, "", new { @class = "text-danger" })
             </div>
         </div>
+        
+        <div class="editor-label">Image</div>
+        <div class="editor-field">
+            @if (Model.ImageData == null) {
+                @:None
+            } else {
+                <img width="150" height="150" 
+                     src="@Url.Action("GetImage", "Book", new { Model.BookId })" />
+            }
+            <div>Add new photo: <input type="file" name="Image" /></div>
+        </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

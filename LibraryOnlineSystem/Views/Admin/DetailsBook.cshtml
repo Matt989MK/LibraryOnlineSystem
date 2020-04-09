@@ -96,29 +96,29 @@
                 {
 
 
-                    if (item.BookID == Model.BookId)
+                    if (item.BookId == Model.BookId)
                     {
 
                         <nbsp style="color:red"> @Html.DisplayFor(model => item.UserRating) </nbsp>
                         @Html.DisplayFor(Model => item.Content)
 
-                        <nbsp style="font-size:8px"> -post by ID @Html.DisplayFor(Model => item.AuthorID)</nbsp>
+                        <nbsp style="font-size:8px"> -post by ID @Html.DisplayFor(Model => item.AuthorId)</nbsp>
                         if (ViewBag.UserId != "")
                         {
                             // if (ViewBag.isban == false)
                             // {
 
-                            @Html.ActionLink("Reply", "CommentReply", new { id = item.BookID, commentID = item.CommentID }, null)
+                            @Html.ActionLink("Reply", "CommentReply", new { id = item.BookId, commentID = item.CommentId }, null)
                             // }
 
 
                             if (ViewBag.UserId == "admin@gmail.com")
                             {
                                 <nbsp> | </nbsp>
-                                @Html.ActionLink("DeleteComment", "DeleteComment", new { id = item.CommentID, bookID = item.BookID })
+                                @Html.ActionLink("DeleteComment", "DeleteComment", new { id = item.CommentId, bookID = item.BookId })
                                 <nbsp> | </nbsp>
 
-                                @Html.ActionLink("Ban this user or change content", "BanUser", new { id = item.CommentID })
+                                @Html.ActionLink("Ban this user or change content", "BanUser", new { id = item.CommentId })
 
                             }
 
@@ -173,9 +173,9 @@
                         bool isUserBanned = false;
                         foreach (var item in Model.Comment)
                         {
-                            if (item.isBlocked)
+                            if (item.IsBlocked)
                             {
-                                //if (item.AuthorID == User.Identity.Name)
+                                //if (item.AuthorId == User.Identity.Name)
                                 //{
                                 //    isUserBanned = true;
                                 //    //return;

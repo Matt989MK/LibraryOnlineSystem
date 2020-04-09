@@ -47,8 +47,16 @@ namespace LibraryOnlineSystem.Controllers
             
             foreach (Book book in lstBooks)
             {
-
-                    book.Rating = db.Comment.Where(a => a.BookID == book.BookId).Select(a => a.UserRating).Average();
+                try
+                {
+                    book.Rating = db.Comment.Where(a => a.BookId == book.BookId).Select(a => a.UserRating).Average();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    book.Rating = db.Books.Where(a => a.BookId == book.BookId).Select(a => a.Rating).Single();
+                }
+                
 
 
             }
@@ -78,7 +86,41 @@ namespace LibraryOnlineSystem.Controllers
 
             return View(bookReserve);
         }
+        
+        public ActionResult DeleteComment(int? commentId)
+        {
+            if (commentId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Comment comment = db.Comment.Where(a => a.CommentId == commentId).Single();
+            if (comment == null)
+            {
+                return HttpNotFound();
+            }
+            return   View(comment);
+        }
+        public FileContentResult GetImage(int bookId)
+        {
+            Book book = db.Books.FirstOrDefault(a => a.BookId == bookId);
+            if (book != null)
+            {
+                return File(book.ImageData, book.ImageMimeType);
+            }
+            else
+            {
+                return null;
+            }
+        }
+        [HttpPost]
+        public ActionResult DeleteComment(int commentId)
+        {
+            Comment comment = db.Comment.Where(a => a.CommentId == commentId).Single();
 
+            db.Comment.Remove(comment);
+            db.SaveChanges();
+            return Redirect("/Book/Index");
+        }
 
         [HttpGet]
         public ActionResult CommentReply(int id)
@@ -98,8 +140,8 @@ namespace LibraryOnlineSystem.Controllers
         [HttpPost]
         public ActionResult CommentReply()
         {
-            int id = Convert.ToInt32(Request.Params["BookID"]);
-            int commentID = Convert.ToInt32(Request.Params["CommentID"]);
+            int id = Convert.ToInt32(Request.Params["BookId"]);
+            int commentID = Convert.ToInt32(Request.Params["CommentId"]);
             Book book = db.Books.Find(id);//
             CommentReply commentReply = new CommentReply();
             commentReply.Content = Request.Params["NewReply"];
@@ -115,14 +157,14 @@ namespace LibraryOnlineSystem.Controllers
 
 
 
-            List<Comment> lstComment = db.Comment.Where(c => c.BookID == id).ToList();
+            List<Comment> lstComment = db.Comment.Where(c => c.BookId == id).ToList();
             foreach (Comment item in lstComment)
             {
 
                 List<CommentReply> lstCommentReply = new List<CommentReply>();
-                if (db.CommentReply.Where(c => c.CommentID == item.CommentID).ToList() != null)//
+                if (db.CommentReply.Where(c => c.CommentID == item.CommentId).ToList() != null)//
                 {
-                    lstCommentReply = db.CommentReply.Where(c => c.CommentID == item.CommentID).ToList();
+                    lstCommentReply = db.CommentReply.Where(c => c.CommentID == item.CommentId).ToList();
                 }
             }
             if (id == null)
@@ -155,6 +197,7 @@ namespace LibraryOnlineSystem.Controllers
             List<BookCode> bookCodesList = db.BookCodes.Where(a => a.BookId == id).ToList();
             book.BookCode = bookCodesList;
             int bookInStock = bookCodesList.Count;
+           
             foreach (var bookCode in bookCodesList)
             {
                 if (bookCode.IsInLibrary == false)
@@ -163,6 +206,7 @@ namespace LibraryOnlineSystem.Controllers
                 }
             }
 
+            
             ViewBag.bookInStock = bookInStock;
             return View(book);
         }
@@ -171,31 +215,31 @@ namespace LibraryOnlineSystem.Controllers
         [HttpPost]
         public ActionResult Details()
         {
-            int id = Convert.ToInt32(Request.Params["BookID"]);
+            int id = Convert.ToInt32(Request.Params["BookId"]);
             Book book = db.Books.Find(id);//
             List<BookCode> bookCodesList = db.BookCodes.Where(a => a.BookId == id).ToList();
             book.BookCode = bookCodesList;
             Comment comment = new Comment();
             comment.Content = Request.Params["NewComment"];
-            comment.AuthorID = User.Identity.Name;
-            comment.PostID = 1;
-            comment.BookID = id;
-            comment.PersonID = 1;
+            comment.AuthorId = User.Identity.Name;
+            comment.PostId = 1;
+            comment.BookId = id;
+            comment.PersonId = 1;
             
             float.TryParse(Request.Params["NewUserRating"], out float results);
             comment.UserRating = results;
            
 
 
-            List<Comment> lstComment = db.Comment.Where(c => c.BookID == id).ToList();
+            List<Comment> lstComment = db.Comment.Where(c => c.BookId == id).ToList();
             foreach (Comment item in lstComment)
             {
            
                 CommentReply commentReply = new CommentReply();
                 List<CommentReply> lstCommentReply = new List<CommentReply>();
-                if (db.CommentReply.Where(c => c.CommentID == item.CommentID).ToList() != null)//
+                if (db.CommentReply.Where(c => c.CommentID == item.CommentId).ToList() != null)//
                 {
-                    lstCommentReply = db.CommentReply.Where(c => c.CommentID == item.CommentID).ToList();
+                    lstCommentReply = db.CommentReply.Where(c => c.CommentID == item.CommentId).ToList();
                 }
             }
 
@@ -218,7 +262,7 @@ namespace LibraryOnlineSystem.Controllers
             listOfBook = db.Books.ToList();
             List<BookReview> listOfBookReviews = db.BookReviews.Where(a => a.BookId == id).ToList();
             book.bookReviews = listOfBookReviews;
-
+           
             return View(book);
 
         }
