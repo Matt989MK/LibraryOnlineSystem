@@ -100,18 +100,7 @@ namespace LibraryOnlineSystem.Controllers
             }
             return   View(comment);
         }
-        public FileContentResult GetImage(int bookId)
-        {
-            Book book = db.Books.FirstOrDefault(a => a.BookId == bookId);
-            if (book != null)
-            {
-                return File(book.ImageData, book.ImageMimeType);
-            }
-            else
-            {
-                return null;
-            }
-        }
+       
         [HttpPost]
         public ActionResult DeleteComment(int commentId)
         {

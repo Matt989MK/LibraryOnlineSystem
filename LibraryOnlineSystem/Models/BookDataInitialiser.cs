@@ -21,7 +21,7 @@ namespace LibraryOnlineSystem
                 
                 BookId = 1,
                 Rating =5,
-                BookImage = "~/Images/BookImageTest.png",
+                //BookImage = "~/Images/BookImageTest.png",
              };
              context.Books.Add(book);
             Book book2 = new Book()
@@ -33,7 +33,7 @@ namespace LibraryOnlineSystem
                 Publisher = "Tolkien",
                 BookId = 2,
                 Rating = 5,
-                BookImage = "~/Images/BookImageTest.png",
+                //BookImage = "~/Images/BookImageTest.png",
                 Link = "http://www.china.doingbusinessguide.co.uk/media/880543/Doing_Business_in_China_Guide_PDF.pdf",
                 
                 
@@ -50,7 +50,7 @@ namespace LibraryOnlineSystem
                 Publisher = "007",
                 BookId = 3,
                 Rating = 5,
-                BookImage = "~/Images/BookImageTest.png",
+                //BookImage = "~/Images/BookImageTest.png",
             };
             context.Books.Add(book3);
             Book book4 = new Book()
@@ -60,7 +60,7 @@ namespace LibraryOnlineSystem
                 Name = "Doom",
                 Overview = "Slayer book",
                 Publisher = "Bethesda",
-                BookImage = "~/Images/BookImageTest.png",
+               // BookImage = "~/Images/BookImageTest.png",
                 BookId = 6,
                 Rating = 5,
             };

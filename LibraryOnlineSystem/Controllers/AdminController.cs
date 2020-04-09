@@ -53,6 +53,20 @@ namespace LibraryOnlineSystem.Controllers
         {
             return View();
         }
+
+       
+        public FileContentResult GetImage(int bookId)
+        {
+            Book book = db.Books.FirstOrDefault(a => a.BookId == bookId);
+            if (book != null)
+            {
+                return File(book.ImageData, book.ImageMimeType);
+            }
+            else
+            {
+                return null;
+            }
+        }
         public ActionResult PaymentsAdmin()
         {
 
@@ -117,7 +131,7 @@ namespace LibraryOnlineSystem.Controllers
         {
             db.BookCodes.Add(bookCode);
             db.SaveChanges();
-            return Redirect("/Admin/DisplayCopies"+bookCode.BookId);
+            return Redirect("/Admin/DisplayCopies/"+bookCode.BookId);
         }
         public ActionResult DisplayCopies(int id)
         {
@@ -125,6 +139,12 @@ namespace LibraryOnlineSystem.Controllers
             bookCodes = db.BookCodes.Where(a => a.BookId == id).ToList();
 
             return View(bookCodes);
+        }
+        [HttpGet]
+        public ActionResult AddBook()
+        {
+
+            return View("AddBook", new Book());
         }
         [HttpPost]
         public ActionResult AddBook(Book book,HttpPostedFileBase image)
@@ -166,25 +186,37 @@ namespace LibraryOnlineSystem.Controllers
             return View(book);
            
         }
-        [HttpGet]
-        public ActionResult EditBook(int bookId)
-        {
-            Book book = db.Books.Where(a => a.BookId == bookId).Single();
-
-            return View(book);
-        }
+      
         [HttpPost]
-        public ActionResult EditBook(Book book)
-        {
-            db.Books.AddOrUpdate(book);
-            db.SaveChanges();
-            return Redirect("/Admin/BookDatabase");
-        }
-        [HttpGet]
-        public ActionResult AddBook()
+        public ActionResult EditBook(Book book, HttpPostedFileBase image)
         {
 
-            return View();
+            if (ModelState.IsValid)
+            {
+                if (image != null)
+                {
+                    book.ImageMimeType = image.ContentType;
+                    book.ImageData = new byte[image.ContentLength];
+                    image.InputStream.Read(book.ImageData, 0, image.ContentLength);
+                }
+                db.Books.AddOrUpdate(book);
+                db.SaveChanges();
+                TempData["message"] = string.Format("Saved {0}", book.Name);
+                return Redirect("/Admin/BookDatabase");
+            }
+            else
+            {
+
+                return View(book);
+            }
+            
+          
+        }
+        [HttpGet]
+        public ViewResult EditBook(int bookId)
+        {
+            Book book = db.Books.FirstOrDefault(a => a.BookId == bookId);
+            return View(book);
         }
 
         [HttpGet]

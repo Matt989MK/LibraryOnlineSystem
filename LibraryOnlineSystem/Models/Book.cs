@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using LibraryOnlineSystem.Models;
 using LibraryOnlineSystem.Queries;
@@ -9,6 +10,7 @@ namespace LibraryOnlineSystem.Models
 {
     public class Book
     {
+        [HiddenInput(DisplayValue = false)]
         public int BookId { get; set; }
         [Required(ErrorMessage = "Please put name of a book.")]
         public string Name{ get; set; }
@@ -26,8 +28,9 @@ namespace LibraryOnlineSystem.Models
         [Required(ErrorMessage = "Please Input a rating")]
         public float Rating { get; set; }
         public List<BookCode> BookCode { get; set; }
-        public string BookImage { get; set; }
+        //public string BookImage { get; set; }
         public byte[] ImageData { get; set; }
+        [HiddenInput(DisplayValue = false)]
         public string ImageMimeType { get; set; }
        public string Link{get;set;}
     
