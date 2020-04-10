@@ -118,7 +118,7 @@ namespace LibraryOnlineSystem.Controllers
             listOfBook = db.Books.ToList();
             List<BookReview> listOfBookReviews = db.BookReviews.Where(a => a.BookId == id).ToList();
             Book book = listOfBook.Where(a => a.BookId == id).Single();
-            book.bookReviews = listOfBookReviews;
+            book.BookReviews = listOfBookReviews;
 
 
 
@@ -164,7 +164,7 @@ namespace LibraryOnlineSystem.Controllers
             List<Book> listOfBook = new List<Book>();
             listOfBook = db.Books.ToList();
             List<BookReview> listOfBookReviews = db.BookReviews.Where(a => a.BookId == id).ToList();
-            book.bookReviews = listOfBookReviews;
+            book.BookReviews = listOfBookReviews;
 
             return RedirectToAction("Details/" + id);
 
@@ -182,7 +182,7 @@ namespace LibraryOnlineSystem.Controllers
             listOfBook = db.Books.ToList();
             List<BookReview> listOfBookReviews = db.BookReviews.Where(a => a.BookId == id).ToList();
             Book book = listOfBook.Where(a => a.BookId == id).Single();
-            book.bookReviews = listOfBookReviews;
+            book.BookReviews = listOfBookReviews;
             List<BookCode> bookCodesList = db.BookCodes.Where(a => a.BookId == id).ToList();
             book.BookCode = bookCodesList;
             int bookInStock = bookCodesList.Count;
@@ -250,7 +250,7 @@ namespace LibraryOnlineSystem.Controllers
             List<Book> listOfBook = new List<Book>();
             listOfBook = db.Books.ToList();
             List<BookReview> listOfBookReviews = db.BookReviews.Where(a => a.BookId == id).ToList();
-            book.bookReviews = listOfBookReviews;
+            book.BookReviews = listOfBookReviews;
            
             return View(book);
 

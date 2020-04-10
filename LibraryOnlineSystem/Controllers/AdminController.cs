@@ -178,7 +178,7 @@ namespace LibraryOnlineSystem.Controllers
             listOfBook = db.Books.ToList();
             List<BookReview> listOfBookReviews = db.BookReviews.Where(a => a.BookId == bookId).ToList();
             Book book = listOfBook.Where(a => a.BookId == bookId).Single();
-            book.bookReviews = listOfBookReviews;
+            book.BookReviews = listOfBookReviews;
             List<BookCode> bookCodesList = db.BookCodes.Where(a => a.BookId == bookId).ToList();
             book.BookCode = bookCodesList;
 

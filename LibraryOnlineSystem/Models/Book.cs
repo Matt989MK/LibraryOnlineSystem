@@ -22,7 +22,7 @@ namespace LibraryOnlineSystem.Models
         public string Overview{ get; set; }
         [Required(ErrorMessage = "Please Input a publisher")]
         public string Publisher{ get; set; }
-        public List<BookReview> bookReviews { get; set; }
+        public List<BookReview> BookReviews { get; set; }
         public virtual List<Author> Authors { get; set; }
         public virtual List<Comment> Comment { get; set; }//added this
         [Required(ErrorMessage = "Please Input a rating")]
@@ -32,6 +32,7 @@ namespace LibraryOnlineSystem.Models
         public byte[] ImageData { get; set; }
         [HiddenInput(DisplayValue = false)]
         public string ImageMimeType { get; set; }
+        
        public string Link{get;set;}
     
     }

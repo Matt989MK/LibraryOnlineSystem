@@ -18,19 +18,6 @@ namespace LibraryOnlineSystem.Models
 
         public Booking Booking { get; set; }
 
-        public void AddPayment()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void ArchivePayment()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void UpdatePayment()
-        {
-            throw new System.NotImplementedException();
-        }
+     
     }
 }

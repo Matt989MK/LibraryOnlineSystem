@@ -64,7 +64,7 @@
          <img src=@Url.Content(Model.BookImage) alt="Sample Photo" width="200px" height="300px"/>
         </dd>
         <dd>
-            @foreach (BookReview bookReview in Model.bookReviews)
+            @foreach (BookReview bookReview in Model.BookReviews)
             {
                 <dt>
                     @Html.DisplayNameFor(model => bookReview.Content);
