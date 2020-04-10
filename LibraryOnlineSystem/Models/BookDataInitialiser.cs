@@ -270,11 +270,11 @@ namespace LibraryOnlineSystem
             context.Bookings.Add(booking2);
             Booking booking3 = new Booking();
             {
-                booking3.BookCodeId = 1;
+                booking3.BookCodeId = 3;
                 booking3.userId = 2;
-                booking3.BookId = 2;
-                booking3.DateCreated = new DateTime(2021, 12, 05);
-                booking3.DateReturned = new DateTime(2021, 12, 12);
+                booking3.BookId = 1;
+                booking3.DateCreated = new DateTime(2019, 12, 05);
+                booking3.DateReturned = null;
 
             }
             context.Bookings.Add(booking3);

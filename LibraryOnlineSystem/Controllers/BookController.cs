@@ -200,7 +200,10 @@ namespace LibraryOnlineSystem.Controllers
             return View(book);
         }
 
-
+        public ActionResult Regulations()
+        {
+            return View();
+        }
         [HttpPost]
         public ActionResult Details()
         {

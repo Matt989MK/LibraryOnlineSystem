@@ -11,77 +11,77 @@
 <div>
     <h4>Book</h4>
     <hr />
-    <dl class="dl-horizontal">
+<dl class="dl-horizontal">
         
      
-        <dt>
-                @Html.DisplayNameFor(model => model.Name)
-            </dt>
+    <dt>
+        @Html.DisplayNameFor(model => model.Name)
+    </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Name)
-            </dd>
+    <dd>
+        @Html.DisplayFor(model => model.Name)
+    </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Genre)
-            </dt>
+    <dt>
+        @Html.DisplayNameFor(model => model.Genre)
+    </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Genre)
-            </dd>
+    <dd>
+        @Html.DisplayFor(model => model.Genre)
+    </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.DateOfPublication)
-            </dt>
+    <dt>
+        @Html.DisplayNameFor(model => model.DateOfPublication)
+    </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.DateOfPublication.Date.Year)
-            </dd>
+    <dd>
+        @Html.DisplayFor(model => model.DateOfPublication.Date.Year)
+    </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Overview)
-            </dt>
+    <dt>
+        @Html.DisplayNameFor(model => model.Overview)
+    </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Overview)
-            </dd>
+    <dd>
+        @Html.DisplayFor(model => model.Overview)
+    </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Publisher)
-            </dt>
+    <dt>
+        @Html.DisplayNameFor(model => model.Publisher)
+    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Publisher)
-        </dd>
-        <dd>
-            <div class="editor-field">
-                @if (Model.ImageData == null)
-                {
-                    @:No Image
-                }
-                else
-                {
-                    <img width="150" height="150"
-                         src="@Url.Action("GetImage", "Admin", new { Model.BookId })" />
-                }
+    <dd>
+        @Html.DisplayFor(model => model.Publisher)
+    </dd>
+    <dd>
+        <div class="editor-field">
+            @if (Model.ImageData == null)
+            {
+                @:No Image
+            }
+            else
+            {
+                <img width="150" height="150"
+                     src="@Url.Action("GetImage", "Admin", new { Model.BookId })" />
+            }
 
-            </div>
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.BookCode.Count)
-        </dt>
+        </div>
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.BookCode.Count)
+    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.BookCode.Count)
-        </dd>
+    <dd>
+        @Html.DisplayFor(model => model.BookCode.Count)
+    </dd>
 
-        @*<dd>
+    @*<dd>
             <img src=@Url.Content(Model.BookImage) alt="Sample Photo" width="200px" height="300px" />
         </dd>*@
         
-        <dd>
-            @foreach (BookReview bookReview in Model.BookReviews)
-            {
+    <dd>
+        @foreach (BookReview bookReview in Model.BookReviews)
+        {
             <dt>
                 @Html.DisplayNameFor(model => bookReview.Content);
             </dt>
@@ -89,23 +89,24 @@
                 @Html.DisplayFor(model => bookReview.Content);
             </dd>
         }
-            </dd>
-            <dd>
+    </dd>
+    <dd>
 
-                @if (Model.Link != null)
-                {
+        @if (Model.Link != null)
+        {
 
-                    <a href="@Model.Link">Online Source</a>
+            <a href="@Model.Link">Online Source</a>
 
-                }
-                else
-                {
-                    @Html.Display("Currently book is not in stock, it is earliest due... ")
-                    ;
-                }
+        }
+        else
+        {
+            @Html.Display("Currently book is not in stock, it is earliest due... ")
+            ;
+        }
 
-            </dd>
-        </dl>
+    </dd>
+</dl>
+
         <dt>Comment</dt>
         <dl>
             <dd>

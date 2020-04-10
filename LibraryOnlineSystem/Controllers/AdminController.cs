@@ -170,7 +170,53 @@ namespace LibraryOnlineSystem.Controllers
             
            
         }
+        [HttpGet]
+        public ActionResult ReturnBook()
+        {
+           
+            
+            return View();
+        }
 
+        [HttpPost]
+        public ActionResult ReturnBook(string bookSerialNumber)
+        {
+            List<BookCode> bookCode = db.BookCodes.ToList();
+            List<Booking> bookings = db.Bookings.ToList();
+            BookCode bookCode1 = bookCode.Where(a => a.BookSerialNumber == bookSerialNumber).Single();
+          
+            int bookingId = Int32.Parse(db.Bookings.Where(a => a.BookCodeId == bookCode1.BookCodeId).Single().BookingId.ToString());
+            Booking booking = db.Bookings.Where(a => a.BookingId == bookingId).Single();
+
+            User user = db.Users.Where(a => a.UserId == booking.userId).Single();
+            foreach (var book in bookCode)
+            {
+                if (book.BookSerialNumber == bookSerialNumber)
+                {
+                    booking.DateReturned = DateTime.Today;
+                    book.IsInLibrary = true;
+                    if ((DateTime.Today - booking.DateCreated).TotalDays>LibraryRegulations.BorrowTime)
+                    {
+                        //create a fee for user for being late
+                        Payment payment = new Payment()
+                        {
+                            UserId = user.UserId,
+                            Amount = LibraryRegulations.Fine,
+                            Booking = booking,
+                            Status = "Unpaid",
+                            DatePaid = null
+                        };
+                        db.Payments.Add(payment);
+                      
+                    }
+                }
+                db.BookCodes.AddOrUpdate(book);
+            }
+
+            
+            db.SaveChanges();
+            return Redirect("/Admin/BookDatabase");
+        }
         [HttpGet]
         public ActionResult DetailsBook(int bookId)
         {

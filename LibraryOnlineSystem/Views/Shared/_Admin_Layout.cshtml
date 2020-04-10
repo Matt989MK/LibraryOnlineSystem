@@ -22,46 +22,56 @@
 
                 <ul class="nav navbar-nav">
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Books
-                            <span class="caret"></span></a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Books
+                            <span class="caret"></span>
+                        </a>
                         <ul class="dropdown-menu">
                             <li>@Html.ActionLink("Book Report", "ReportBook", "Admin")</li>
                             <li>@Html.ActionLink("Book Database", "BookDatabase", "Admin")</li>
-                            </ul>
+                        </ul>
                     </li>
-                    
+
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Staff
-                            <span class="caret"></span></a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Staff
+                            <span class="caret"></span>
+                        </a>
                         <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("My Account", "Account", "Admin",new {userId=Session["UserId"] },null)</li>
-                           </ul>
+                            <li>@Html.ActionLink("My Account", "Account", "Admin", new { userId = Session["UserId"] }, null)</li>
+                        </ul>
                     </li>
-                    
+
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Users
-                            <span class="caret"></span></a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Users
+                            <span class="caret"></span>
+                        </a>
                         <ul class="dropdown-menu">
                             <li>@Html.ActionLink("Users", "UsersAdmin", "Admin")</li>
                             <li>@Html.ActionLink("Users Report", "ReportUser", "Admin")</li>
-                          </ul>
+                        </ul>
                     </li>
-                   
+
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Payments
-                            <span class="caret"></span></a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Payments
+                            <span class="caret"></span>
+                        </a>
                         <ul class="dropdown-menu">
                             <li>@Html.ActionLink("Payments", "PaymentsAdmin", "Admin")</li>
-                          @*  <li>@Html.ActionLink("Archive", "Archive", "Admin")</li>*@
+                            @*  <li>@Html.ActionLink("Archive", "Archive", "Admin")</li>*@
                             <li>@Html.ActionLink("Payments Report", "ReportPayment", "Admin")</li>
                         </ul>
                     </li>
-                    
+
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Stocks
-                            <span class="caret"></span></a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Stocks
+                            <span class="caret"></span>
+                        </a>
                         <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Stocks", "Stocks", "Admin",new {userId=Session["UserId"] },null)</li>
+                            <li>@Html.ActionLink("Stocks", "Stocks", "Admin", new { userId = Session["UserId"] }, null)</li>
                             <li>@Html.ActionLink("Stocks Report", "ReportStock", "Admin")</li>
                         </ul>
                     </li>
@@ -69,9 +79,10 @@
                         @Session["UserName"]
                     </li>
 
-                 
+                    <li>@Html.ActionLink("Return Book", "ReturnBook", "Admin")</li>
+                    <li>@Html.ActionLink("Regulations", "Regulations", "Admin")</li>
 
-                 
+
 
 
                 </ul>

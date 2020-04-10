@@ -8,7 +8,7 @@ namespace LibraryOnlineSystem.Models
     public static class LibraryRegulations
     {
         public const int BorrowTime= 7;
-        public const decimal Fine =10;
+        public const int Fine =10;
 
     }
 }
