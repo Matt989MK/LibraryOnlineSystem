@@ -61,7 +61,18 @@
         </dd>
        
         <dd>
-         <img src=@Url.Content(Model.BookImage) alt="Sample Photo" width="200px" height="300px"/>
+            <div class="editor-field">
+                @if (Model.ImageData == null)
+                {
+                    @:No Image
+                }
+                else
+                {
+                    <img width="150" height="150"
+                         src="@Url.Action("GetImage", "Admin", new { Model.BookId })" />
+                }
+
+            </div>
         </dd>
         <dd>
             @foreach (BookReview bookReview in Model.BookReviews)

@@ -28,7 +28,7 @@ namespace LibraryOnlineSystem.Models
         [Required(ErrorMessage = "Please Input a rating")]
         public float Rating { get; set; }
         public List<BookCode> BookCode { get; set; }
-        //public string BookImage { get; set; }
+        public string BookImage { get; set; }
         public byte[] ImageData { get; set; }
         [HiddenInput(DisplayValue = false)]
         public string ImageMimeType { get; set; }
