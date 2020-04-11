@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Web;
+using System.Web.UI.WebControls;
 
 namespace LibraryOnlineSystem.Models
 {
@@ -26,5 +28,17 @@ namespace LibraryOnlineSystem.Models
             :base ("name=LibraryDBConnectionString")
         {
         }
+        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        //{
+
+        //    modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+
+        //    modelBuilder.Entity<Payment>()
+        //        .HasRequired(f => f.UserId)
+        //        .WithRequiredDependent()
+        //        .WillCascadeOnDelete(false);
+
+        //}
     }
+
 }

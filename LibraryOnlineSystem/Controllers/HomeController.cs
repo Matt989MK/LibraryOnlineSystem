@@ -83,7 +83,7 @@ namespace LibraryOnlineSystem.Controllers
             List<Payment> paymentList=new List<Payment>();
             foreach (Booking booking in bookingList)
             {
-                paymentList = db.Payments.Where(a => a.Booking.BookingId == booking.BookingId).ToList();
+                paymentList = db.Payments.Where(a => a.BookingId == booking.BookingId).ToList();
                 Book book= db.Books.Where(a => a.BookId == booking.BookId).Single();
                 booking.User = db.Users.Where(a => a.UserId == userId).Single();
                 booking.Book = book;
@@ -114,41 +114,62 @@ namespace LibraryOnlineSystem.Controllers
         [HttpGet]
         public ActionResult PayFine(int userId)
         {
-            Payment payment = db.Payments.Where(a => a.UserId == userId).Single();
+            Payment payment = db.Payments.Where(a => a.UserId == userId).FirstOrDefault();
+            Booking booking = db.Bookings.Where(a => a.BookingId == payment.BookingId).Single();
+            Book book = db.Books.Where(a => a.BookId == booking.BookId).Single();
             
+
             return View(payment);
         }
 
         [HttpPost]
         public ActionResult PayFine(int userId,int paymentId)
         {
-            Payment payment = db.Payments.Where(a => a.UserId == userId).Single();
+            Payment payment = db.Payments.Where(a => a.PaymentId == paymentId).FirstOrDefault();
             payment.DatePaid = DateTime.Now;
             payment.Status = "Paid";
-            return Redirect("Home/Index");
+            db.Payments.AddOrUpdate(payment);
+            db.SaveChanges();
+            return Redirect("Index");
         }
         public ActionResult Payments(int userId)
         {
 
-            List<Booking> bookingList = new List<Booking>();
-            List<Payment> paymentList=new List<Payment>();
-            bookingList = db.Bookings.Where(a => a.User.UserId == userId && a.DateReturned < DateTime.Now).ToList();
+            List<Booking> bookingList = db.Bookings.Where(a => a.User.UserId == userId && a.DateReturned < DateTime.Now).ToList();
+            List<Payment> paymentList=db.Payments.Where(a=>a.UserId==userId).ToList();
+            List<Booking> bookingListDisplay = db.Bookings.Where(a => a.User.UserId == userId).ToList();
 
-            foreach (var booking in bookingList)
+            List<string> bookNames = new List<string>();
+            List<DateTime?> datesReturned = new List<DateTime?>();
+            foreach (var booking in bookingListDisplay)
             {
-                booking.User = db.Users.Where(a => a.UserId == userId).Single();
-                booking.Book = db.Books.Where(a => a.BookId == booking.BookCodeId).Single();
-                Payment payment = new Payment();
-                payment.UserId = userId;
-                payment.Amount = 2;
-                payment.DatePaid = new DateTime(0001, 1, 1);
-                payment.Status = "Unpaid";
-                payment.Booking = booking;
-            
-                paymentList.Add(payment);
+                Book book = db.Books.Where(a => a.BookId == booking.BookId).Single();
+
+                //booking.User = db.Users.Where(a => a.UserId == userId).Single();
+                //booking.Book = db.Books.Where(a => a.BookId == booking.BookCodeId).Single();
+                //Payment payment = new Payment();
+                //payment.UserId = userId;
+                //payment.Amount = 2;
+                //payment.DatePaid = null;
+                //payment.Status = "Unpaid";
+                //payment.PaymentId = 4;
+                //payment.BookingId = booking.BookingId;
+                bookNames.Add(book.Name);
+                //if (booking.DateReturned == null)
+                //{
+                    booking.DateReturned = DateTime.MinValue;
+                //}
+                //else
+                //{
+                    datesReturned.Add(booking.DateReturned);
+                //}
+                
+               // paymentList.Add(payment);
 
             }
 
+            ViewBag.BookNames = bookNames;
+            ViewBag.datesReturned = datesReturned;
             return View(paymentList);
         }
         

@@ -11,7 +11,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Booking.Book.Name)
+           Book Name
         </th>
 
         <th>
@@ -22,18 +22,22 @@
         </th>
 
         <th>
-            @Html.DisplayNameFor(model => model.Booking.DateReturned)
+            Date Returned
         </th>
         <th>
             @Html.DisplayNameFor(model => model.DatePaid)
         </th>
     </tr>
-    
+    @{
+        int x = 0;
+    }
 @foreach (var item in Model) {
 <tr>
 
     <td>
-        @Html.DisplayFor(modelItem => item.Booking.Book.Name)
+        
+            @ViewBag.bookNames[x]
+            
     </td>
 
     <td>
@@ -44,7 +48,13 @@
     </td>
 
     <td>
-        @Html.ValueFor(modelItem => item.Booking.DateReturned, "{0:dd/MM/yyyy}")
+        @{
+           // @Html.ViewBag.datesReturned[x];
+            @(((DateTime)ViewBag.datesReturned[x]).ToString("dd-MM-yyyy"))
+            x++;
+        }
+
+        @*@Html.ValueFor(modelItem => item.Booking.DateReturned, "{0:dd/MM/yyyy}")*@
     </td>
     <td>
         @if (item.Status == "Unpaid")
@@ -53,7 +63,7 @@
         }
         else
         {
-            @Html.DisplayFor(modelItem => item.DatePaid)
+            @Html.ValueFor(modelItem => item.DatePaid,"{0:dd/MM/yyyy}")
         }
         </td>
     <td>

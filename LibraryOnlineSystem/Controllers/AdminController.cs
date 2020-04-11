@@ -207,7 +207,7 @@ namespace LibraryOnlineSystem.Controllers
             int bookingId = Int32.Parse(db.Bookings.Where(a => a.BookCodeId == bookCode1.BookCodeId).Single().BookingId.ToString());
             Booking booking = db.Bookings.Where(a => a.BookingId == bookingId).Single();
 
-            User user = db.Users.Where(a => a.UserId == booking.userId).Single();
+            User user = db.Users.Where(a => a.UserId == booking.UserId).Single();
             foreach (var book in bookCode)
             {
                 if (book.BookSerialNumber == bookSerialNumber)
@@ -221,7 +221,7 @@ namespace LibraryOnlineSystem.Controllers
                         {
                             UserId = user.UserId,
                             Amount = libraryRegulations.Fine,
-                            Booking = booking,
+                            BookingId = booking.BookingId,
                             Status = "Unpaid",
                             DatePaid = null
                         };
