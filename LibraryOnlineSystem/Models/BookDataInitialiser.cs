@@ -10,6 +10,11 @@ namespace LibraryOnlineSystem
     {
         protected override void Seed(LibraryContext context)
         {
+            LibraryRegulations libraryRegulations = new LibraryRegulations()
+            {
+                Fine =3,
+                BorrowTime = 7
+            };
             //------------------------------------- PEOPLE
              Book book=new Book()
             {
@@ -170,39 +175,7 @@ namespace LibraryOnlineSystem
             context.Users.Add((user3));
 
             ////============ Payment
-            Payment payment = new Payment();
-            {
-                payment.UserId = 1;
-                payment.Amount = 20;
-                payment.DatePaid = DateTime.Now;
-                payment.PaymentId = 1;
-                payment.Status = "Paid";
-          
-
-            }
-            context.Payments.Add(payment);
-            Payment payment1 = new Payment();
-            {
-                payment1.UserId = 1;
-                payment1.Amount = 10;
-                payment1.DatePaid = null;
-                payment1.PaymentId = 1;
-                payment1.Status = "Unpaid";
-
-
-            }
-            context.Payments.Add(payment1);
-            Payment payment2 = new Payment();
-            {
-                payment2.UserId = 1;
-                payment2.Amount = 5;
-                payment2.DatePaid = null;
-                payment2.PaymentId = 1;
-                payment2.Status = "Unpaid";
-                
-
-            }
-            context.Payments.Add(payment2);
+           
             BookReserve bookReserve = new BookReserve()
             {
                 BookReserveId = 1,
@@ -265,7 +238,7 @@ namespace LibraryOnlineSystem
                 booking2.BookId = 2;
                 booking2.DateCreated = new DateTime(2021, 12, 05);
                 booking2.DateReturned = new DateTime(2021, 12, 12);
-
+                
             }
             context.Bookings.Add(booking2);
             Booking booking3 = new Booking();
@@ -279,7 +252,41 @@ namespace LibraryOnlineSystem
             }
             context.Bookings.Add(booking3);
             //--------------------------Payment
+            Payment payment = new Payment();
+            {
+              //  Booking bookingPayment1 = context.Bookings.Where(a => a.BookingId == 1).Single();
+                payment.UserId = 1;
+                payment.Amount = 20;
+                payment.DatePaid = DateTime.Now;
+                payment.PaymentId = 1;
+                payment.Status = "Paid";
+               // payment.Booking = bookingPayment1;
 
+            }
+            context.Payments.Add(payment);
+            Payment payment1 = new Payment();
+            {
+                //Booking bookingPayment2 = context.Bookings.Where(a => a.BookingId == 2).Single();
+                payment1.UserId = 1;
+                payment1.Amount = 10;
+                payment1.DatePaid = null;
+                payment1.PaymentId = 1;
+                payment1.Status = "Unpaid";
+              //  payment.Booking = bookingPayment2;
+
+            }
+            context.Payments.Add(payment1);
+            Payment payment2 = new Payment();
+            {
+                payment2.UserId = 1;
+                payment2.Amount = 5;
+                payment2.DatePaid = null;
+                payment2.PaymentId = 1;
+                payment2.Status = "Unpaid";
+
+
+            }
+            context.Payments.Add(payment2);
             //------------------------------------------------------ COMMENTS
             Comment com2 = new Comment();
             com2.CommentId = 4;

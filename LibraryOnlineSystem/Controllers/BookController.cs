@@ -199,11 +199,7 @@ namespace LibraryOnlineSystem.Controllers
             ViewBag.bookInStock = bookCurrentlyStocked;
             return View(book);
         }
-
-        public ActionResult Regulations()
-        {
-            return View();
-        }
+      
         [HttpPost]
         public ActionResult Details()
         {

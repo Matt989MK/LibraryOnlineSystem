@@ -109,10 +109,24 @@ namespace LibraryOnlineSystem.Controllers
             return View();
         }
 
-      
-        
 
 
+        [HttpGet]
+        public ActionResult PayFine(int userId)
+        {
+            Payment payment = db.Payments.Where(a => a.UserId == userId).Single();
+            
+            return View(payment);
+        }
+
+        [HttpPost]
+        public ActionResult PayFine(int userId,int paymentId)
+        {
+            Payment payment = db.Payments.Where(a => a.UserId == userId).Single();
+            payment.DatePaid = DateTime.Now;
+            payment.Status = "Paid";
+            return Redirect("Home/Index");
+        }
         public ActionResult Payments(int userId)
         {
 

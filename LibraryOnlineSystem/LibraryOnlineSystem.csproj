@@ -237,6 +237,8 @@
     <Content Include="Views\Admin\ReportPayment.cshtml" />
     <Content Include="Views\Book\DeleteComment.cshtml" />
     <Content Include="Views\Admin\ReturnBook.cshtml" />
+    <Content Include="Views\Home\PayFine.cshtml" />
+    <Content Include="Views\Admin\Regulations.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

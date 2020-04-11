@@ -171,6 +171,24 @@ namespace LibraryOnlineSystem.Controllers
            
         }
         [HttpGet]
+        public ActionResult Regulations()
+        {
+            LibraryRegulations libraryRegulations = new LibraryRegulations();
+
+            return View(libraryRegulations);
+        }
+        [HttpPost]
+        public ActionResult Regulations(int fine, int borrowTime)
+        {
+            LibraryRegulations libraryRegulations = new LibraryRegulations();
+            libraryRegulations.BorrowTime = borrowTime;
+            libraryRegulations.Fine = fine;
+            db.LibraryRegulations.AddOrUpdate(libraryRegulations);
+            db.SaveChanges();
+            return View();
+        }
+
+        [HttpGet]
         public ActionResult ReturnBook()
         {
            
@@ -181,6 +199,7 @@ namespace LibraryOnlineSystem.Controllers
         [HttpPost]
         public ActionResult ReturnBook(string bookSerialNumber)
         {
+            LibraryRegulations libraryRegulations= new LibraryRegulations();
             List<BookCode> bookCode = db.BookCodes.ToList();
             List<Booking> bookings = db.Bookings.ToList();
             BookCode bookCode1 = bookCode.Where(a => a.BookSerialNumber == bookSerialNumber).Single();
@@ -195,13 +214,13 @@ namespace LibraryOnlineSystem.Controllers
                 {
                     booking.DateReturned = DateTime.Today;
                     book.IsInLibrary = true;
-                    if ((DateTime.Today - booking.DateCreated).TotalDays>LibraryRegulations.BorrowTime)
+                    if ((DateTime.Today - booking.DateCreated).TotalDays>libraryRegulations.BorrowTime)
                     {
                         //create a fee for user for being late
                         Payment payment = new Payment()
                         {
                             UserId = user.UserId,
-                            Amount = LibraryRegulations.Fine,
+                            Amount = libraryRegulations.Fine,
                             Booking = booking,
                             Status = "Unpaid",
                             DatePaid = null
