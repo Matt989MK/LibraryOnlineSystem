@@ -38,11 +38,7 @@ namespace LibraryOnlineSystem.Controllers
             return View(user);
         }
 
-        public ActionResult Stock()
-        {
-            List<Book> bookList = db.Books.ToList();
-            return View(bookList);
-        }
+       
 
         public ActionResult StockDetails()
         {
@@ -120,7 +116,7 @@ namespace LibraryOnlineSystem.Controllers
             List<BookCode> bookCodesList = db.BookCodes.ToList();
             foreach (var book in listOfBooks)
             {
-                book.BookCode = bookCodesList.Where(a => a.BookId == bookCodesList[book.BookId].BookId).ToList();
+                book.BookCode = bookCodesList.Where(a => a.BookId == bookCodesList[book.BookId].BookId&&a.IsInLibrary==true).ToList();
             }
             return View(listOfBooks);
         }
@@ -249,9 +245,22 @@ namespace LibraryOnlineSystem.Controllers
             List<BookReview> listOfBookReviews = db.BookReviews.Where(a => a.BookId == bookId).ToList();
             Book book = listOfBook.Where(a => a.BookId == bookId).Single();
             book.BookReviews = listOfBookReviews;
-            List<BookCode> bookCodesList = db.BookCodes.Where(a => a.BookId == bookId).ToList();
+            
+            List<BookCode> bookCodesList = db.BookCodes.Where(a => a.BookId == bookId && a.IsInLibrary == true).ToList();
             book.BookCode = bookCodesList;
+            int bookCurrentlyStocked = bookCodesList.Count;
 
+            foreach (var bookCode in bookCodesList)
+            {
+                if (bookCode.IsInLibrary == false)
+                {
+                    bookCurrentlyStocked--;
+                }
+            }
+
+
+            ViewBag.bookInStock = bookCurrentlyStocked;
+          
 
             return View(book);
            
