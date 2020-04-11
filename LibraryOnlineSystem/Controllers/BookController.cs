@@ -173,17 +173,17 @@ namespace LibraryOnlineSystem.Controllers
 
         // GET: Book/Details/5
         [HttpGet]
-        public ActionResult Details(int bookId)
+        public ActionResult Details(int booksId)
         {
             //DAOBook daoBook=new DAOBook();
             //Book book = daoBook.getSelectedBook(id);
 
             List<Book> listOfBook = new List<Book>();
             listOfBook = db.Books.ToList();
-            List<BookReview> listOfBookReviews = db.BookReviews.Where(a => a.BookId == bookId).ToList();
-            Book book = listOfBook.Where(a => a.BookId == bookId).Single();
+            List<BookReview> listOfBookReviews = db.BookReviews.Where(a => a.BookId == booksId).ToList();
+            Book book = listOfBook.Where(a => a.BookId == booksId).Single();
             book.BookReviews = listOfBookReviews;
-            List<BookCode> bookCodesList = db.BookCodes.Where(a => a.BookId == bookId).ToList();
+            List<BookCode> bookCodesList = db.BookCodes.Where(a => a.BookId == booksId).ToList();
             book.BookCode = bookCodesList;
             int bookCurrentlyStocked = bookCodesList.Count;
            
@@ -203,6 +203,7 @@ namespace LibraryOnlineSystem.Controllers
         [HttpPost]
         public ActionResult Details()
         {
+
             int id = Convert.ToInt32(Request.Params["BookId"]);
             Book book = db.Books.Find(id);//
             List<BookCode> bookCodesList = db.BookCodes.Where(a => a.BookId == id).ToList();

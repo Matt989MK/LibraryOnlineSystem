@@ -216,7 +216,8 @@
                     }
                     else
                     {
-                        @Html.TextBoxFor(model => model.BookId, new { style = "display: none;" });
+                        
+                        @Html.TextBoxFor(model => model.BookId, new { style = "display: none;"});//, new { style = "display: none;" }
                         @Html.TextArea("NewComment", "");
                         <nbsp> Rating </nbsp>
                         @Html.TextArea("NewUserRating", "0.0", 1, 2, 0);

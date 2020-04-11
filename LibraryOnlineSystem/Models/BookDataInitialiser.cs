@@ -300,6 +300,7 @@ namespace LibraryOnlineSystem
             com2.IsBlocked = false;
             com2.UserRating = 6f;
             context.Comment.Add(com2);
+
             Comment com3 = new Comment();
             com3.CommentId = 1;
             com3.AuthorId = "1";

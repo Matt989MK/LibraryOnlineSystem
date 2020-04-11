@@ -10,12 +10,8 @@
 <body>
     <h2>Details</h2>
     <div>
-        <script>
-        function RedirectToPeopleDetails() {
-            window.location = "";
-        }
-        </script>
-        <h4>Movie</h4>
+      
+       
         <hr />
         <dl class="dl-horizontal">
 
@@ -28,9 +24,7 @@
                 @Html.DisplayFor(model => model.Genre)
             </dd>
 
-            <dt>
-                Movie
-            </dt>
+        
 
             <dd>
                 @Html.DisplayFor(model => model.BookId)
@@ -46,24 +40,15 @@
 
 
 
-            @*<dt>
+            <dt>
                 @Html.DisplayNameFor(model => model.Rating)
             </dt>
 
             <dd>
                 @Html.DisplayFor(model => model.Rating)
-            </dd>*@
+            </dd>
 
-            <dt>
-                @foreach (var item in Model.Authors)
-                {
-                <dd>
-
-                    @Html.ActionLink(item.Name + " " + item.Surname, "Details", "Book", new { id = item.AuthorId }, null)
-
-                </dd>
-            }
-                </dt>
+           
                 <br />
                 <br />
                 <br />
@@ -87,13 +72,12 @@
 
                                     @Html.TextBoxFor(model => model.BookId, new { style = "display: none;" })
                                     @Html.TextArea("NewReply", "")
-                                    <input type="submit" value="reply" onclick="RedirectToPeopleDetails()" />
+                                    <input type="submit" value="reply" onclick="@("window.location.href='" + @Url.Action("Details", "Book",new { booksId = item.BookId }) + "'");"/>
                                 }
 
                             }
 
-                            @Html.ActionLink("Reply", "CommentReply",  new { id = item.AuthorId, commentID = item.CommentId }, null)
-                        </dd>
+                     </dd>
 
                     }
 
@@ -120,7 +104,7 @@
 
         </div>
         <p>
-            @Html.ActionLink("Edit", "Edit", new { id = Model.BookId }) |
+          
             @Html.ActionLink("Back to List", "Index")
         </p>
     </body>
