@@ -22,7 +22,9 @@
         </th>
       
     </tr>
-
+    @{
+        int x = 0;
+    }
 @foreach (var item in Model) {
     <tr>
         
@@ -36,9 +38,6 @@
             @Html.ValueFor(modelItem => item.DateReturned, "{0:dd/MM/yyyy}")
         </td>
       
-        <td>
-            @Html.ValueFor(modelItem=>item.User.ListOfPayment[item.UserId].Status)
-        </td>
     </tr>
 }
 

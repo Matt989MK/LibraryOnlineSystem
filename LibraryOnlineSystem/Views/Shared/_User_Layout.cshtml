@@ -42,8 +42,10 @@
 
                           <li>@Html.ActionLink("Loan History", "LoanHistory", "Home",new {userId = Session["Userid"]},null)</li>
                           <li>@Html.ActionLink("Account", "Account", "Home",new {userId = Session["Userid"]},null)</li>
-                          <li>@Session["UserName"]</li>
-                    </ul>
+                    <li>@Session["UserName"]</li>
+                    
+                    <li>@Html.ActionLink("Log out","LogOut","Home")</li>
+                </ul>
             </ul>
             </div>
         

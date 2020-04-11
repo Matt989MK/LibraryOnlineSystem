@@ -129,8 +129,7 @@ namespace LibraryOnlineSystem.Controllers
             payment.DatePaid = DateTime.Now;
             payment.Status = "Paid";
             db.Payments.AddOrUpdate(payment);
-            db.SaveChanges();
-            return Redirect("Index");
+            db.SaveChanges(); return Redirect("Index");
         }
         public ActionResult Payments(int userId)
         {
@@ -172,7 +171,12 @@ namespace LibraryOnlineSystem.Controllers
             ViewBag.datesReturned = datesReturned;
             return View(paymentList);
         }
-        
+        [HttpGet]
+        public ActionResult LogOut()
+        {
+            Session.RemoveAll();
+            return Redirect("/Home/Login");
+        }
         [HttpPost]
         public ActionResult Login(User user)
         {

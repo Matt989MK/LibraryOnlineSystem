@@ -24,7 +24,12 @@ namespace LibraryOnlineSystem.Controllers
         {
             return View(db.Users.ToList());
         }
-
+        [HttpGet]
+        public ActionResult LogOut()
+        {
+            Session.RemoveAll();
+            return Redirect("/Home/Login");
+        }
         [HttpGet]
         public ActionResult DetailsUser(int userId)
         {
@@ -204,7 +209,7 @@ namespace LibraryOnlineSystem.Controllers
             List<Booking> bookings = db.Bookings.ToList();
             BookCode bookCode1 = bookCode.Where(a => a.BookSerialNumber == bookSerialNumber).Single();
           
-            int bookingId = Int32.Parse(db.Bookings.Where(a => a.BookCodeId == bookCode1.BookCodeId).Single().BookingId.ToString());
+            int bookingId = Int32.Parse(db.Bookings.Where(a => a.BookCodeId == bookCode1.BookCodeId && a.DateReturned==null).Single().BookingId.ToString());
             Booking booking = db.Bookings.Where(a => a.BookingId == bookingId).Single();
 
             User user = db.Users.Where(a => a.UserId == booking.UserId).Single();
