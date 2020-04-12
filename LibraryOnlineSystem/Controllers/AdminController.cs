@@ -68,11 +68,24 @@ namespace LibraryOnlineSystem.Controllers
                 return null;
             }
         }
+
+        [HttpGet]
+        public ActionResult News()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult News(int newsId, News news)
+        {
+            return View(news);
+        }
         public ActionResult PaymentsAdmin()
         {
 
           //  List<Booking> bookingList = new List<Booking>();
-            List<Payment> paymentList = new List<Payment>();
+            List<PaymentLibrary> paymentList = new List<PaymentLibrary>();
 
           //  bookingList = db.Bookings.Where(a => a.DateReturned < DateTime.Now).ToList();
             paymentList = db.Payments.ToList();
@@ -181,9 +194,22 @@ namespace LibraryOnlineSystem.Controllers
         [HttpPost]
         public ActionResult Regulations(int fine, int borrowTime)
         {
+            News news = new News();
             LibraryRegulations libraryRegulations = new LibraryRegulations();
+            if (libraryRegulations.BorrowTime != borrowTime)
+            {
+                news.NewsContent = "You can borrow your book up to: " + borrowTime.ToString() + " days now." + Environment.NewLine;
+
+            }
+
+            if (libraryRegulations.Fine != fine)
+            {
+                news.NewsContent += "Fine for not returning a book on time is now : £" + fine.ToString();
+
+            }
             libraryRegulations.BorrowTime = borrowTime;
             libraryRegulations.Fine = fine;
+
             db.LibraryRegulations.AddOrUpdate(libraryRegulations);
             db.SaveChanges();
             return View();
@@ -218,7 +244,7 @@ namespace LibraryOnlineSystem.Controllers
                     if ((DateTime.Today - booking.DateCreated).TotalDays>libraryRegulations.BorrowTime)
                     {
                         //create a fee for user for being late
-                        Payment payment = new Payment()
+                        PaymentLibrary payment = new PaymentLibrary()
                         {
                             UserId = user.UserId,
                             Amount = libraryRegulations.Fine,
@@ -524,7 +550,7 @@ namespace LibraryOnlineSystem.Controllers
         }
         public ActionResult ReportPayment()
         {
-            List<Payment> payments = db.Payments.ToList();
+            List<PaymentLibrary> payments = db.Payments.ToList();
             int lateCounter = 0;
             int totalPayments = 0;
             int missedPayments = 0;
@@ -546,6 +572,12 @@ namespace LibraryOnlineSystem.Controllers
             ViewBag.allPayments = allPayments;
             return View();
         }
+
+
+
+
+
+
         public ActionResult ReportStock()
         {
             List<Stock> stocks = db.Stocks.ToList();

@@ -78,7 +78,7 @@ namespace LibraryOnlineSystemTest
             //create an instance of the class we want to create
             Payment payment = new Payment();
             //create some test data to assign to the property
-            Booking testData = new Booking
+            LibraryOnlineSystem.Models.Booking testData = new LibraryOnlineSystem.Models.Booking
             {
                 BookCodeId = 1,
                 BookingId = 1,

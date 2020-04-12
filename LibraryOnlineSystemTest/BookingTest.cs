@@ -11,7 +11,7 @@ namespace LibraryOnlineSystemTest
         {
 
             //create an instance of the class we want to create
-            Booking booking=new Booking();
+            LibraryOnlineSystem.Models.Booking booking=new LibraryOnlineSystem.Models.Booking();
             //create some test data to assign to the property
             Int32 TestData = 1;
             //assign the data to the property
@@ -24,7 +24,7 @@ namespace LibraryOnlineSystemTest
         {
 
             //create an instance of the class we want to create
-            Booking booking = new Booking();
+            LibraryOnlineSystem.Models.Booking booking = new LibraryOnlineSystem.Models.Booking();
             //create some test data to assign to the property
             Int32 TestData = 1;
             //assign the data to the property
@@ -37,7 +37,7 @@ namespace LibraryOnlineSystemTest
         {
 
             //create an instance of the class we want to create
-            Booking booking = new Booking();
+            LibraryOnlineSystem.Models.Booking booking = new LibraryOnlineSystem.Models.Booking();
             //create some test data to assign to the property
             Int32 TestData = 1;
             //assign the data to the property
@@ -50,7 +50,7 @@ namespace LibraryOnlineSystemTest
         {
 
             //create an instance of the class we want to create
-            Booking booking = new Booking();
+            LibraryOnlineSystem.Models.Booking booking = new LibraryOnlineSystem.Models.Booking();
             //create some test data to assign to the property
             DateTime TestData = DateTime.Today;
             //assign the data to the property
@@ -63,7 +63,7 @@ namespace LibraryOnlineSystemTest
         {
 
             //create an instance of the class we want to create
-            Booking booking = new Booking();
+            LibraryOnlineSystem.Models.Booking booking = new LibraryOnlineSystem.Models.Booking();
             //create some test data to assign to the property
             DateTime TestData = DateTime.Today;
             //assign the data to the property
@@ -76,20 +76,20 @@ namespace LibraryOnlineSystemTest
         {
 
             //create an instance of the class we want to create
-            Booking booking = new Booking();
+            LibraryOnlineSystem.Models.Booking booking = new LibraryOnlineSystem.Models.Booking();
             //create some test data to assign to the property
             Int32 TestData = 1;
             //assign the data to the property
-            booking.userId = TestData;
+            booking.UserId = TestData;
             //test to see that the two values are the same
-            Assert.AreEqual(booking.userId, TestData);
+            Assert.AreEqual(booking.UserId, TestData);
         }
         [TestMethod]
         public void UserPropertyOk()
         {
 
             //create an instance of the class we want to create
-            Booking booking = new Booking();
+            LibraryOnlineSystem.Models.Booking booking = new LibraryOnlineSystem.Models.Booking();
             User TestData = new User()
             {
                 UserId = 1,

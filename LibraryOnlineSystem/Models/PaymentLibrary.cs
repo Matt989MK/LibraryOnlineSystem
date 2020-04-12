@@ -4,9 +4,9 @@ using System.Text;
 
 namespace LibraryOnlineSystem.Models
 {
-    public class Payment
+    public class PaymentLibrary
     {
-        public int PaymentId { get; set; }
+        public int PaymentLibraryId { get; set; }
 
         public int UserId { get; set; }
 

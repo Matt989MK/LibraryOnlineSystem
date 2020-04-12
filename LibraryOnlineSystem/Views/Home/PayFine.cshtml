@@ -1,4 +1,4 @@
-﻿@model LibraryOnlineSystem.Models.Payment
+﻿@model LibraryOnlineSystem.Models.PaymentLibrary
 
 @{
     ViewBag.Title = "PayFine";
@@ -15,7 +15,7 @@
     <h4>Payment</h4>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.PaymentId)
+    @Html.HiddenFor(model => model.PaymentLibraryId)
     @Html.HiddenFor(model => model.UserId)
     @Html.HiddenFor(model => model.DatePaid)
     @Html.HiddenFor(model => model.Status)
