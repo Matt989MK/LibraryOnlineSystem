@@ -4,9 +4,9 @@ using System.Text;
 
 namespace LibraryOnlineSystem.Models
 {
-    public class Payment
+    public class PaymentLibrary
     {
-        public int PaymentId { get; set; }
+        public int PaymentLibraryId { get; set; }
 
         public int UserId { get; set; }
 
@@ -17,6 +17,7 @@ namespace LibraryOnlineSystem.Models
         public string Status { get; set; }
 
         public int BookingId { get; set; }
+        public string? guId { get; set; }
 
         //public Booking Booking { get; set; }
     }

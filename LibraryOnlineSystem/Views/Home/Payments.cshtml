@@ -1,4 +1,4 @@
-﻿@model IEnumerable<LibraryOnlineSystem.Models.Payment>
+﻿@model IEnumerable<LibraryOnlineSystem.Models.PaymentLibrary>
 
 @{
     ViewBag.Title = "Payments";
@@ -69,8 +69,11 @@
     <td>
         @if (item.Status == "Unpaid")
         {
-            @Html.ActionLink("Pay now", "PayFine", new { userId = item.UserId }) //add Payment
-           
+            @Html.ActionLink("Pay now", "PaymentWithPaypal", new { paymentId = item.PaymentLibraryId }) //add Payment
+           //CHANGE TO PAYPAL
+
+            
+            //TODO
         }
 
     </td>

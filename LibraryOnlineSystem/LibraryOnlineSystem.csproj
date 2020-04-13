@@ -35,6 +35,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -44,6 +45,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -53,6 +55,9 @@
       <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PayPal, Version=1.9.1.0, Culture=neutral, PublicKeyToken=5b4afc1ccaef40fb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PayPal.1.9.1\lib\net451\PayPal.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -152,15 +157,18 @@
     <Compile Include="Models\LibraryContext.cs" />
     <Compile Include="Models\BookDataInitialiser.cs" />
     <Compile Include="Models\LibraryRegulations.cs" />
-    <Compile Include="Models\Payment.cs" />
+    <Compile Include="Models\News.cs" />
+    <Compile Include="Models\PaymentLibrary.cs" />
     <Compile Include="Models\ProgramSettings.cs" />
     <Compile Include="Models\Staff.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Paypal\PaypalConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\QueriesBook.cs" />
     <Compile Include="Stock.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\FooterBottom.css" />
     <Content Include="Images\BookImageTest.png" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -239,6 +247,11 @@
     <Content Include="Views\Admin\ReturnBook.cshtml" />
     <Content Include="Views\Home\PayFine.cshtml" />
     <Content Include="Views\Admin\Regulations.cshtml" />
+    <Content Include="Views\Paypal\Index.cshtml" />
+    <Content Include="Views\Shared\Header.cshtml" />
+    <Content Include="Views\Shared\Footer.cshtml" />
+    <Content Include="Views\Home\FailureView.cshtml" />
+    <Content Include="Views\Home\SuccessView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

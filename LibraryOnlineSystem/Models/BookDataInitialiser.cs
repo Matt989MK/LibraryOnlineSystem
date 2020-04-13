@@ -252,26 +252,26 @@ namespace LibraryOnlineSystem
             }
             context.Bookings.Add(booking3);
             //--------------------------Payment
-            Payment payment = new Payment();
+            PaymentLibrary payment = new PaymentLibrary();
             {
               //  Booking bookingPayment1 = context.Bookings.Where(a => a.BookingId == 1).Single();
                 payment.UserId = 1;
                 payment.Amount = 20;
                 payment.DatePaid = null;
-                payment.PaymentId = 1;
+                payment.PaymentLibraryId = 1;
                 payment.Status = "Unpaid";
                 payment.BookingId = 2;
                 // payment.Booking = bookingPayment1;
 
             }
             context.Payments.Add(payment);
-            Payment payment1 = new Payment();
+            PaymentLibrary payment1 = new PaymentLibrary();
             {
                 //Booking bookingPayment2 = context.Bookings.Where(a => a.BookingId == 2).Single();
                 payment1.UserId = 1;
                 payment1.Amount = 10;
                 payment1.DatePaid = DateTime.Now;
-                payment1.PaymentId = 2;
+                payment1.PaymentLibraryId = 2;
                 payment1.Status = "Paid";
                 payment.BookingId = 1;
                 //  payment.Booking = bookingPayment2;
@@ -283,7 +283,7 @@ namespace LibraryOnlineSystem
             //    payment2.UserId = 1;
             //    payment2.Amount = 5;
             //    payment2.DatePaid = null;
-            //    payment2.PaymentId = 3;
+            //    payment2.PaymentLibraryId = 3;
             //    payment2.Status = "Unpaid";
             //    payment.BookingId = 3;
 
