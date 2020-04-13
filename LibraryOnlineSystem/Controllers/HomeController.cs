@@ -9,13 +9,15 @@ using System.Web;
 using System.Web.Mvc;
 using LibraryOnlineSystem.Paypal;
 using PayPal.Api;
+using System.Runtime.Remoting.Contexts;
 
 namespace LibraryOnlineSystem.Controllers
 {
     public class HomeController : Controller
     {
         private LibraryContext db = new LibraryContext();
-
+        Random rnd = new Random();
+        private int? paymentTestId;
         public void CheckLogin()
         {
 
@@ -131,7 +133,8 @@ namespace LibraryOnlineSystem.Controllers
             payment.DatePaid = DateTime.Now;
             payment.Status = "Paid";
             db.Payments.AddOrUpdate(payment);
-            db.SaveChanges(); return Redirect("Index");
+            db.SaveChanges(); 
+            return Redirect("Index");
         }
         public ActionResult Payments(int userId)
         {
@@ -146,15 +149,7 @@ namespace LibraryOnlineSystem.Controllers
             {
                 Book book = db.Books.Where(a => a.BookId == booking.BookId).Single();
 
-                //booking.User = db.Users.Where(a => a.UserId == userId).Single();
-                //booking.Book = db.Books.Where(a => a.BookId == booking.BookCodeId).Single();
-                //Payment payment = new Payment();
-                //payment.UserId = userId;
-                //payment.Amount = 2;
-                //payment.DatePaid = null;
-                //payment.Status = "Unpaid";
-                //payment.PaymentLibraryId = 4;
-                //payment.BookingId = booking.BookingId;
+              
                 bookNames.Add(book.Name);
                 //if (booking.DateReturned == null)
                 //{
@@ -173,10 +168,10 @@ namespace LibraryOnlineSystem.Controllers
             ViewBag.datesReturned = datesReturned;
             return View(paymentList);
         }
-
-
-        public ActionResult PaymentWithPaypal(string Cancel = null)
+       
+        public ActionResult PaymentWithPaypal(int? paymentId,string Cancel = null)
         {
+           
             //getting the apiContext  
             APIContext apiContext = PaypalConfiguration.GetAPIContext();
             try
@@ -194,6 +189,15 @@ namespace LibraryOnlineSystem.Controllers
                     //here we are generating guid for storing the paymentID received in session  
                     //which will be used in the payment execution  
                     var guid = Convert.ToString((new Random()).Next(100000));
+                    ViewBag.guid = guid;
+                    if (paymentId != null)
+                    {
+                        PaymentLibrary paymentLibrary = db.Payments.Where(a => a.PaymentLibraryId == paymentId).Single();
+                        paymentLibrary.guId = guid;
+                        db.Payments.AddOrUpdate(paymentLibrary);
+                        db.SaveChanges();
+                    }
+                   
                     //CreatePayment function gives us the payment approval url  
                     //on which payer is redirected for paypal account payment  
                     var createdPayment = this.CreatePayment(apiContext, baseURI + "guid=" + guid);
@@ -217,6 +221,7 @@ namespace LibraryOnlineSystem.Controllers
                 {
                     // This function exectues after receving all parameters for the payment  
                     var guid = Request.Params["guid"];
+                    ViewBag.guid = guid;
                     var executedPayment = ExecutePayment(apiContext, payerId, Session[guid] as string);
                     //If executed payment failed then we will show payment failure message to user  
                     if (executedPayment.state.ToLower() != "approved")
@@ -225,13 +230,31 @@ namespace LibraryOnlineSystem.Controllers
                     }
                 }
             }
+            catch (PayPal.PaymentsException ex)
+            {
+                Console.Write(ex.Response);
+            }
             catch (Exception ex)
             {
                 return View("FailureView");
             }
-            //on successful payment, show success page to user.  
+            //on successful payment, show success page to user. 
+            string guid1=ViewBag.guid;
+            PaymentLibrary paymentLibrary1 = db.Payments.Where(a => a.guId == guid1).Single();
+                paymentLibrary1.DatePaid = DateTime.Now;
+                paymentLibrary1.Status = "Paid";
+                db.Payments.AddOrUpdate(paymentLibrary1);
+                db.SaveChanges();
+            
+           
             return View("SuccessView");
         }
+        [HttpGet]
+        public ActionResult SuccessView()
+        {
+            return View();
+        }
+       
         private PayPal.Api.Payment payment;
         private Payment ExecutePayment(APIContext apiContext, string payerId, string paymentId)
         {
@@ -257,7 +280,7 @@ namespace LibraryOnlineSystem.Controllers
             itemList.items.Add(new Item()
             {
 
-                name = "Item Name comes here",
+                name = "Library fee",
                 currency = "GBP",
                 price = libraryRegulations.Fine.ToString(),
                 quantity = "1",
@@ -291,8 +314,10 @@ namespace LibraryOnlineSystem.Controllers
             // Adding description about the transaction  
             transactionList.Add(new Transaction()
             {
+                
                 description = "Transaction description",
-                invoice_number = "your generated invoice number", //Generate an Invoice No  
+                invoice_number = rnd.Next(1, 1000).ToString()
+                , //Generate an Invoice No  
                 amount = amount,
                 item_list = itemList
             });

@@ -17,6 +17,7 @@ namespace LibraryOnlineSystem.Models
         public string Status { get; set; }
 
         public int BookingId { get; set; }
+        public string? guId { get; set; }
 
         //public Booking Booking { get; set; }
     }
