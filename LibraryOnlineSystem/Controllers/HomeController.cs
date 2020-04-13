@@ -226,6 +226,7 @@ namespace LibraryOnlineSystem.Controllers
                     //If executed payment failed then we will show payment failure message to user  
                     if (executedPayment.state.ToLower() != "approved")
                     {
+                        ViewBag.error = "you don't have enough funds";
                         return View("FailureView");
                     }
                 }
@@ -236,6 +237,8 @@ namespace LibraryOnlineSystem.Controllers
             }
             catch (Exception ex)
             {
+                ViewBag.error = ex.ToString();
+
                 return View("FailureView");
             }
             //on successful payment, show success page to user. 
