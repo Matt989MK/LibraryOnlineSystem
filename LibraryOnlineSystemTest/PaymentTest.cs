@@ -11,20 +11,20 @@ namespace LibraryOnlineSystemTest
         {
 
             //create an instance of the class we want to create
-           Payment payment = new Payment();
+           PaymentLibrary payment = new PaymentLibrary();
             //create some test data to assign to the property
             Int32 TestData = 1;
             //assign the data to the property
-            payment.PaymentId = TestData;
+            payment.PaymentLibraryId = TestData;
             //test to see that the two values are the same
-            Assert.AreEqual(payment.PaymentId, TestData);
+            Assert.AreEqual(payment.PaymentLibraryId, TestData);
         }
         [TestMethod]
         public void UserIdPropertyOk()
         {
 
             //create an instance of the class we want to create
-            Payment payment = new Payment();
+            PaymentLibrary payment = new PaymentLibrary();
             //create some test data to assign to the property
             Int32 TestData = 1;
             //assign the data to the property
@@ -37,7 +37,7 @@ namespace LibraryOnlineSystemTest
         {
 
             //create an instance of the class we want to create
-            Payment payment = new Payment();
+            PaymentLibrary payment = new PaymentLibrary();
             //create some test data to assign to the property
             Int32 TestData = 10;
             //assign the data to the property
@@ -50,7 +50,7 @@ namespace LibraryOnlineSystemTest
         {
 
             //create an instance of the class we want to create
-            Payment payment = new Payment();
+            PaymentLibrary payment = new PaymentLibrary();
             //create some test data to assign to the property
             DateTime TestData = DateTime.Now;
             //assign the data to the property
@@ -63,7 +63,7 @@ namespace LibraryOnlineSystemTest
         {
 
             //create an instance of the class we want to create
-            Payment payment = new Payment();
+            PaymentLibrary payment = new PaymentLibrary();
             //create some test data to assign to the property
             string TestData = "Paid";
             //assign the data to the property
@@ -74,20 +74,26 @@ namespace LibraryOnlineSystemTest
         [TestMethod]
         public void BookingPropertyOk()
         {
-            
+
             //create an instance of the class we want to create
-            Payment payment = new Payment();
+            PaymentLibrary payment = new PaymentLibrary();
             //create some test data to assign to the property
-            LibraryOnlineSystem.Models.Booking testData = new LibraryOnlineSystem.Models.Booking
-            {
-                BookCodeId = 1,
-                BookingId = 1,
-                BookId = 1
-            };
+           Booking testData = new Booking();
+           testData.BookingId = 1;
             //assign the data to the property
-            payment.Booking = testData;
+            payment.BookingId = testData.BookingId;
             //test to see that the two values are the same
-            Assert.AreEqual(payment.Booking, testData);
+            Assert.AreEqual(payment.BookingId, testData);
+        }
+
+        [TestMethod]
+        public void GuIdPropertyOk()
+        {
+            PaymentLibrary payment = new PaymentLibrary();
+            payment.guId = "1";
+            string testData = "1";
+            Assert.AreEqual(payment.guId, testData);
+
         }
     }
 }

@@ -82,7 +82,8 @@ namespace LibraryOnlineSystem.Controllers
             bookReserve.BookCodeId = bookCodeId;
             bookReserve.ReservationRequestTime = DateTime.Today;
             bookReserve.UserId = userId;
-
+            db.BookReserves.Add(bookReserve);
+            db.SaveChanges();
 
             return View(bookReserve);
         }

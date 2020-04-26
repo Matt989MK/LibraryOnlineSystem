@@ -1,11 +1,20 @@
 ﻿@using System.Web.UI.WebControls
-@model IEnumerable<LibraryOnlineSystem.Models.Payment>
+@model IEnumerable<LibraryOnlineSystem.Models.PaymentLibrary>
 
 @{
     ViewBag.Title = "ReportPayment";
     Layout = "~/Views/Shared/_Admin_Layout.cshtml";
 }
+@using (Html.BeginForm())
+{
+    <label for="beginningDate">From: </label>
+    <input type="date" id="beginningDate" name="beginningDate">
 
+
+    <label for="endingDate"> To:</label>
+    <input type="date" id="endingDate" name="endingDate">
+    <input type="submit">
+}
 <h2>Report on Payments</h2>
 <h2><b>Sum of all  paid fees</b></h2>
 @ViewBag.totalPayment£

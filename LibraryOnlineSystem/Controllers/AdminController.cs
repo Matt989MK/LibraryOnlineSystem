@@ -493,7 +493,7 @@ namespace LibraryOnlineSystem.Controllers
             
             if (dateEnding == DateTime.MinValue) { dateEnding = DateTime.Today; }
 
-            // List<int> bookings=db.Bookings.Select(a=>a.BookId).Distinct().ToList();
+           
             List<BookCode> bookCodes = db.BookCodes.ToList();
             int maxBookId=0;
             int bookCodeCount = db.Bookings.Where(a => a.DateCreated >dateBeginning  && a.DateCreated < dateEnding).GroupBy(a=>a.BookId).Select(a=>a.Count()).Max();// most popular book
@@ -550,21 +550,36 @@ namespace LibraryOnlineSystem.Controllers
         }
         public ActionResult ReportPayment()
         {
-            List<PaymentLibrary> payments = db.Payments.ToList();
+
+            DateTime dateBeginning = Request["beginningDate"].AsDateTime();
+            DateTime dateEnding = Request["endingDate"].AsDateTime();
+
+            if (dateEnding == DateTime.MinValue) { dateEnding = DateTime.Today; }
+
+           // db.Bookings.Where(a => a.DateCreated > dateBeginning && a.DateCreated < dateEnding).Select(a => a.BookId).Distinct().ToList();
+            List<PaymentLibrary> payments = db.Payments.Where(a=>a.DatePaid>dateBeginning && a.DatePaid<dateEnding).ToList();
+            List<PaymentLibrary> totalPaymentsList = db.Payments.ToList();
             int lateCounter = 0;
             int totalPayments = 0;
             int missedPayments = 0;
             int outstandingPayments=0;
             int allPayments = 0;
             List<Booking> booking = db.Bookings.ToList();
+            foreach (var payment in totalPaymentsList)
+            {
+
+                allPayments++;
+                 if (payment.Status == "Unpaid"){missedPayments++;outstandingPayments += payment.Amount; lateCounter++;}
+            }
+
+            allPayments = 0;
             foreach (var payment in payments)
             {
 
                 allPayments++;
                 if (payment.Status == "Paid") { totalPayments += payment.Amount; }
-                else if (payment.Status == "Unpaid"){missedPayments++;outstandingPayments += payment.Amount; lateCounter++;}
+                
             }
-
             ViewBag.totalPayment = totalPayments;
             ViewBag.lateCounter = lateCounter;
             ViewBag.missedPayments = missedPayments;
