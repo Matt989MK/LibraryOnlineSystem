@@ -286,7 +286,7 @@ namespace LibraryOnlineSystem.Controllers
 
 
             ViewBag.bookInStock = bookCurrentlyStocked;
-          
+        
 
             return View(book);
            
@@ -598,6 +598,21 @@ namespace LibraryOnlineSystem.Controllers
             List<Stock> stocks = db.Stocks.ToList();
             return View();
         }
+
+
+        public ActionResult ListOfReservations()
+        {
+            BookCode bookCode=new BookCode();
+            List<BookReserve> listOfBookReserves = db.BookReserves.ToList();
+            foreach (var bookReserve in listOfBookReserves)
+            {
+                bookCode= db.BookCodes.Where(a => a.BookCodeId == bookReserve.BookCodeId).Single();
+                ViewBag.BookSerialNumber = bookCode.BookSerialNumber;
+                ViewBag.IsInLibrary =bookCode.IsInLibrary;
+            }
+            return View(listOfBookReserves);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

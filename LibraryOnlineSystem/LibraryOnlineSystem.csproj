@@ -252,6 +252,7 @@
     <Content Include="Views\Shared\Footer.cshtml" />
     <Content Include="Views\Home\FailureView.cshtml" />
     <Content Include="Views\Home\SuccessView.cshtml" />
+    <Content Include="Views\Admin\ListOfReservations.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

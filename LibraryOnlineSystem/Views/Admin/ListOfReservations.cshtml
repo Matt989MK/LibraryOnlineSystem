@@ -1,0 +1,50 @@
+﻿@model IEnumerable<LibraryOnlineSystem.Models.BookReserve>
+
+@{
+    ViewBag.Title = "ListOfReservations";
+    Layout = "~/Views/Shared/_Admin_Layout.cshtml";
+}
+
+<h2>ListOfReservations</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BookReserveId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BookCodeId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReservationRequestTime)
+        </th>
+        <th>
+            Book Serial Number
+        </th>
+        <th>
+            Available
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.BookReserveId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BookCodeId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReservationRequestTime)
+        </td>
+        <td>
+            @ViewBag.BookSerialNumber
+        </td>
+        <td>
+            @ViewBag.IsInLibrary
+        </td>
+    </tr>
+}
+
+</table>

@@ -196,7 +196,8 @@ namespace LibraryOnlineSystem.Controllers
                 }
             }
 
-            
+            ViewBag.Test = db.BookCodes.Where(a => a.BookId == booksId).First();
+
             ViewBag.bookInStock = bookCurrentlyStocked;
             return View(book);
         }
@@ -273,6 +274,7 @@ namespace LibraryOnlineSystem.Controllers
 
             Booking booking = new Booking();
             BookCode bookCode = new BookCode();
+           
             bookCode = db.BookCodes.Where(a => a.BookId == bookId && a.IsInLibrary == true).First();
             booking.Book = book;
             booking.BookId = bookId;

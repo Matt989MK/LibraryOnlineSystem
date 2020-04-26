@@ -89,14 +89,14 @@
            
             @if (Model.BookCode.Count != 0)
             {
-                @Html.ActionLink("Reserve", "ReservedBook", new {bookCodeId=Model.BookCode.FirstOrDefault().BookCodeId, userId = Session["UserId"]}, null)
+
            
 
                 if (Model.BookCode.FirstOrDefault(a=>a.IsInLibrary==true) !=null && Model.Link == null)
                 {
                     @Html.ActionLink("Borrow Book", "BorrowBook", new {bookId = Model.BookId, userId = Session["UserId"]}, null)
                 }
-                if (Model.Link != null)
+                else if (Model.Link != null)
                 {
           
                     <a href="@Model.Link">Online Source</a>
@@ -106,10 +106,13 @@
                 {
                     @Html.Display("Currently book is not in stock, it is earliest due... ")
                     ;
+                    @Html.ActionLink("Reserve", "ReservedBook", new {bookCodeId=Model.BookCode.FirstOrDefault().BookCodeId, userId = Session["UserId"]}, null)
+
                 }
             }
             else
             {
+
                 <h2>Book is unavailable</h2>
             }
 
