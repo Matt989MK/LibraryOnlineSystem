@@ -11,7 +11,7 @@
     FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.EditorForModel()
-
+    @Html.ActionLink("Add Authors","AddAuthorsToBook","Book",new {bookId=Model.BookId,authorId=0},null)
     <div class="editor-label">Image</div>
     <div class="editor-field">
         @if (Model.ImageData == null)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 using LibraryOnlineSystem.Models;
 
@@ -7,45 +8,17 @@ namespace LibraryOnlineSystem
 {
     public class Author
     {
-        public int AuthorId
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        [Key]
+        public int Id { get; set; }
+    
 
-        public string Name
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public string Name { get; set; }
 
-        public int Surname
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public string Surname { get; set; }
 
-        public List<Book> BookList
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public List<Book> BookList { get; set; }
 
-        public string Description
-        {
-            get => default;
-            set
-            {
-            }
-        }
+      
 
         public void AddAuthor()
         {

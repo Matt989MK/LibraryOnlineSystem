@@ -12,7 +12,7 @@ namespace LibraryOnlineSystem.Models
     {
         public DbSet<Author> Authors { get; set; }
         public DbSet<Book> Books { get; set; }
-        public DbSet<BookAuthor> BooksToAuthors { get; set; }
+      
         public DbSet<User> Users { get; set; }
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<Comment> Comment { get; set; }
@@ -24,6 +24,8 @@ namespace LibraryOnlineSystem.Models
         public DbSet<BookReserve> BookReserves { get; set; }
         public DbSet<Stock> Stocks { get; set; }
         public DbSet<LibraryRegulations> LibraryRegulations { get; set; }
+        public DbSet<BookAuthors> BookAuthors { get; set; }
+
         public LibraryContext()
             :base ("name=LibraryDBConnectionString")
         {

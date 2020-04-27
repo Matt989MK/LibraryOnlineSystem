@@ -16,7 +16,31 @@ namespace LibraryOnlineSystem
                 BorrowTime = 7
             };
             //------------------------------------- PEOPLE
-             Book book=new Book()
+
+            Author author = new Author()
+            {
+                Id = 1,
+                Name = "AuthorName1",
+                Surname = "AuthorSurname1",
+            };
+            context.Authors.Add(author);
+
+            Author author1 = new Author()
+            {
+                Id = 2,
+                Name = "AuthorName2",
+                Surname = "AuthorSurname2",
+            };
+            context.Authors.Add(author1);
+
+
+
+
+
+
+
+
+            Book book=new Book()
             {
                 DateOfPublication = DateTime.Now,
                 Genre = Genre.Action,

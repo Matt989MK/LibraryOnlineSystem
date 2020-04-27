@@ -187,7 +187,14 @@ namespace LibraryOnlineSystem.Controllers
             List<BookCode> bookCodesList = db.BookCodes.Where(a => a.BookId == booksId&&a.IsInLibrary==true).ToList();
             book.BookCode = bookCodesList;
             int bookCurrentlyStocked = bookCodesList.Count;
-           
+            List<BookAuthors> bookAuthors = db.BookAuthors.Where(a=>a.BookId==booksId).ToList();
+            List<Author> authorList = new List<Author>();
+            foreach (var bookAuthor in bookAuthors)
+            {
+                Author author= db.Authors.Where(a => a.Id == bookAuthor.AuthorId).Single();
+                authorList.Add(author);
+            }
+            book.Authors = authorList;
             foreach (var bookCode in bookCodesList)
             {
                 if (bookCode.IsInLibrary == false)
@@ -298,6 +305,55 @@ namespace LibraryOnlineSystem.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult AddAuthorsToBook(int bookId, int authorId)
+        {
+            if (bookId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            List<Author> authorList= db.Authors.ToList();
+            if (authorId != 0)
+            {
+                Book book = db.Books.Find(bookId);
+                ViewBag.BookId = book.BookId;
+                int bookID = book.BookId;
+                BookAuthors bookAuthor = new BookAuthors();
+                bookAuthor.BookId = bookID;
+                bookAuthor.AuthorId = authorId;
+                db.BookAuthors.Add(bookAuthor);
+                db.SaveChanges();
+                book.Authors = authorList;
+            }
+           
+
+
+            return View(authorList);
+        }
+
+        [HttpPost]
+        public ActionResult AddAuthorsToBook(List<Author> authors)
+        {
+            int bookId = Convert.ToInt32(Request.Params["BookId"]);
+            Book book = db.Books.Find(bookId);
+            List<Author> authorList = db.Authors.ToList();
+          //  authorList.Where(a=>a.)
+
+
+           // authors.Add();
+
+            List<BookAuthors> bookAuthors = db.BookAuthors.Where(a => a.BookId == bookId).ToList();
+            book.Authors = authorList;
+            List<string> test=new List<string>();
+            foreach (var item in test)
+            {
+                test.Add(item);
+            }
+           
+
+
+            return View(book);
+        }
         public void CheckLogin()
         {
 

@@ -72,7 +72,9 @@
 
                                     @Html.TextBoxFor(model => model.BookId, new { style = "display: none;" })
                                     @Html.TextArea("NewReply", "")
-                                    <input type="submit" value="reply" onclick="@("window.location.href='" + @Url.Action("Details", "Book",new { booksId = item.BookId }) + "'");"/>
+                                    <input type="submit" value="reply" onclick="@("window.location.href='" + Url.Action("Details", "Book",new { booksId = item.BookId },null) + "'");"/>
+
+
                                 }
 
                             }

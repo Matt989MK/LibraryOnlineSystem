@@ -44,7 +44,16 @@
         <dd>
             @Html.DisplayFor(model => model.Overview)
         </dd>
-
+        <dt>
+            @Html.DisplayNameFor(model => model.Authors)
+        </dt>
+        <dd>
+            @foreach (var author in Model.Authors)
+            {
+            <nbsp> @author.Name</nbsp>
+                @author.Surname;<br/>
+            }
+        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Publisher)
         </dt>
