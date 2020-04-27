@@ -275,7 +275,14 @@ namespace LibraryOnlineSystem.Controllers
             List<BookCode> bookCodesList = db.BookCodes.Where(a => a.BookId == bookId && a.IsInLibrary == true).ToList();
             book.BookCode = bookCodesList;
             int bookCurrentlyStocked = bookCodesList.Count;
-
+            List<BookAuthors> bookAuthors = db.BookAuthors.Where(a => a.BookId == bookId).ToList();
+            List<Author> authorList = new List<Author>();
+            foreach (var bookAuthor in bookAuthors)
+            {
+                Author author = db.Authors.Where(a => a.Id == bookAuthor.AuthorId).Single();
+                authorList.Add(author);
+            }
+            book.Authors = authorList;
             foreach (var bookCode in bookCodesList)
             {
                 if (bookCode.IsInLibrary == false)

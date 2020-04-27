@@ -45,7 +45,16 @@
     <dd>
         @Html.DisplayFor(model => model.Overview)
     </dd>
-
+    <dt>
+        @Html.DisplayNameFor(model => model.Authors)
+    </dt>
+    <dd>
+        @foreach (var author in Model.Authors)
+        {
+            <nbsp> @author.Name</nbsp>
+            @author.Surname;<br/>
+        }
+    </dd>
     <dt>
         @Html.DisplayNameFor(model => model.Publisher)
     </dt>
@@ -126,7 +135,7 @@
                             // if (ViewBag.isban == false)
                             // {
 
-                            @Html.ActionLink("Reply", "CommentReply", new { id = item.BookId, commentID = item.CommentId }, null)
+                           // @Html.ActionLink("Reply", "CommentReply", new { id = item.BookId, commentID = item.CommentId }, null)
                             // }
 
 
@@ -180,7 +189,7 @@
 
             <dt>
 
-                New Comment
+              @*  New Comment*@
             </dt>
             <dd>
                 @if (ViewBag.UserId != "")
@@ -207,12 +216,14 @@
                         }
                         else
                         {
-                            @Html.TextBoxFor(model => model.BookId, new { style = "display: none;" });
+                            @*@Html.TextBoxFor(model => model.BookId, new { style = "display: none;" });
                             @Html.TextArea("NewComment", "");
                             <nbsp> Rating </nbsp>
                             @Html.TextArea("NewUserRating", "0.0", 1, 2, 0);
 
-                            <input type="submit" value="send" />
+                            <input type="submit" value="send" />*@
+
+                            //Should admin comment?
                         }
                     }
                 }
