@@ -325,35 +325,32 @@ namespace LibraryOnlineSystem.Controllers
                 db.SaveChanges();
                 book.Authors = authorList;
             }
-           
-
-
+          
             return View(authorList);
         }
 
-        [HttpPost]
-        public ActionResult AddAuthorsToBook(List<Author> authors)
+        public ActionResult RemoveAuthorsFromBook(int bookId, int authorId)
         {
-            int bookId = Convert.ToInt32(Request.Params["BookId"]);
-            Book book = db.Books.Find(bookId);
-            List<Author> authorList = db.Authors.ToList();
-          //  authorList.Where(a=>a.)
-
-
-           // authors.Add();
-
-            List<BookAuthors> bookAuthors = db.BookAuthors.Where(a => a.BookId == bookId).ToList();
-            book.Authors = authorList;
-            List<string> test=new List<string>();
-            foreach (var item in test)
+            if (bookId == null)
             {
-                test.Add(item);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-           
+            List<Author> authorList = db.Authors.ToList();
+            if (authorId != 0)
+            {
+                Book book = db.Books.Find(bookId);
+                ViewBag.BookId = book.BookId;
+                int bookID = book.BookId;
+                BookAuthors bookAuthor = db.BookAuthors.Where(a => a.BookId == bookID && a.AuthorId == authorId).Single();
+               
+                db.BookAuthors.Remove(bookAuthor);
+                db.SaveChanges();
+                book.Authors = authorList;
+            }
 
-
-            return View(book);
+            return View("AddAuthorsToBook",authorList);
         }
+       
         public void CheckLogin()
         {
 

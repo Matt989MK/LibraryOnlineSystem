@@ -31,7 +31,8 @@
        
         <td>
            
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            @Html.ActionLink("Remove Author","RemoveAuthorsFromBook","Book",new {bookId=Request.Params["bookId"],authorId = item.Id },null)
+
           @Html.ActionLink("Add Authors", "AddAuthorsToBook", "Book", new { bookId =Request.Params["bookId"], authorId = item.Id }, null)
         </td>
     </tr>
