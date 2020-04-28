@@ -448,6 +448,7 @@ namespace LibraryOnlineSystem.Controllers
         [HttpPost]
         public ActionResult AddUser(User user)
         {
+
             user=new User();
             user.Name =Request["Name"] ;
             user.Surname = Request["SurName"];
@@ -455,11 +456,15 @@ namespace LibraryOnlineSystem.Controllers
             user.Password = Request["Password"];
             user.HouseNo = int.Parse(Request["HouseNo"]);
             user.DateOfBirth = Request["DateOfBirth"].AsDateTime();
-            user.ZipCode = int.Parse(Request["ZipCode"]);
+            user.ZipCode = Request["ZipCode"];
             user.UserRole = Request["UserRole"];
-            db.Users.Add(user);
-            db.SaveChanges();
-           // return RedirectToAction("Index","User");
+            if (ModelState.IsValid)
+            {
+                db.Users.Add(user);
+                db.SaveChanges();
+            }
+
+            // return RedirectToAction("Index","User");
            return View("AddedUser");
         }
 

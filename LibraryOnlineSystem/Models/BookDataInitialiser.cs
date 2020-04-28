@@ -163,7 +163,7 @@ namespace LibraryOnlineSystem
                 user.HouseNo = 35;
                 user.Password = "123";
                 user.UserRole = "User";
-                user.ZipCode = 9999;
+                user.ZipCode = "Le27dp";
                 user.UserId = 1;
                
             }
@@ -177,7 +177,7 @@ namespace LibraryOnlineSystem
                 user2.HouseNo = 35;
                 user2.Password = "123";
                 user2.UserRole = "Admin";
-                user2.ZipCode = 9999;
+                user2.ZipCode = "Le2 7dp";
                 user2.UserId = 2;
                 
             }
@@ -192,7 +192,7 @@ namespace LibraryOnlineSystem
                 user3.HouseNo = 22;
                 user3.Password = "123";
                 user3.UserRole = "User";
-                user3.ZipCode = 1254;
+                user3.ZipCode = "Le2 7dp";
                 user3.UserId = 3;
 
             }

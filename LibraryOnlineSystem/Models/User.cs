@@ -21,13 +21,15 @@ namespace LibraryOnlineSystem.Models
         public DateTime DateOfBirth{get; set;}
 
         [Required(ErrorMessage = "Please Input user email")]
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Please Input user House number")]
         public int HouseNo{get; set;}
 
         [Required(ErrorMessage = "Please Input your zip code")]
-        public int ZipCode{get; set;}
+        [RegularExpression(@"^([A-Za-z][A-Ha-hJ-Yj-y]?[0-9][A-Za-z0-9]? ?[0-9][A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$", ErrorMessage = "This is not right")]
+        public string ZipCode{get; set;}
 
         [Required(ErrorMessage = "Please Input user's role")]
 

@@ -4,14 +4,38 @@
     ViewBag.Title = "EditBook";
     Layout = "~/Views/Shared/_Admin_Layout.cshtml";
 }
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/globalize.js"></script>
+    <script src="~/Scripts/globalize.culture.fr-FR.js"></script>
+    <script>
+        $.validator.methods.number = function (value, element) {
+            return this.optional(element) ||
+                !isNaN(Globalize.parseFloat(value));
+        }
+        $(document).ready(function () {
+            Globalize.culture('fr-FR');
+        });
+    </script>
+    <script>
+        jQuery.extend(jQuery.validator.methods, {
+            range: function (value, element, param) {
+                //Use the Globalization plugin to parse the value
+                var val = $.global.parseFloat(value);
+                return this.optional(element) || (
+                    val >= param[0] && val <= param[1]);
+            }
+        });
 
+    </script>
+}
 <h2>EditBook</h2>
 
 @using (Html.BeginForm("EditBook", "Admin",
     FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.EditorForModel()
-    @Html.ActionLink("Add Author","AddAuthorsToBook","Book",new {bookId=Model.BookId,authorId=0},null)
+    @Html.ActionLink("Add Author", "AddAuthorsToBook", "Book", new { bookId = Model.BookId, authorId = 0 }, null)
 
     <div class="editor-label">Image</div>
     <div class="editor-field">
