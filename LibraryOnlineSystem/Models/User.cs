@@ -11,13 +11,15 @@ namespace LibraryOnlineSystem.Models
        
         public int UserId{get; set;}
 
-        [Required(ErrorMessage = "Please Input user name")]
+        [Required(ErrorMessage = "Please Input user name"), MaxLengthAttribute(30)]
         public string Name{get; set;}
 
-        [Required(ErrorMessage = "Please Input user surname")]
+        [Required(ErrorMessage = "Please Input user surname"), MaxLengthAttribute(30)]
         public string Surname{get; set;}
 
         [Required(ErrorMessage = "Please Input Date of Birth")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime DateOfBirth{get; set;}
 
         [Required(ErrorMessage = "Please Input user email")]
@@ -25,6 +27,7 @@ namespace LibraryOnlineSystem.Models
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Please Input user House number")]
+        [Range(0, 1000, ErrorMessage = "Enter number between 0 to 1000")]
         public int HouseNo{get; set;}
 
         [Required(ErrorMessage = "Please Input your zip code")]
@@ -32,7 +35,6 @@ namespace LibraryOnlineSystem.Models
         public string ZipCode{get; set;}
 
         [Required(ErrorMessage = "Please Input user's role")]
-
         public string UserRole{get; set;}
 
         public bool? IsBanned { get; set; }

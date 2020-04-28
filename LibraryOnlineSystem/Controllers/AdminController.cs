@@ -382,6 +382,12 @@ namespace LibraryOnlineSystem.Controllers
         // GET: Admin/Edit/5
         public ActionResult EditUser(int? id)
         {
+
+            List<string> listOfUnit = new List<string>();
+            listOfUnit.Add("Admin");
+            listOfUnit.Add("User");
+
+            ViewBag.DictionaryPackages = listOfUnit; 
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -442,14 +448,19 @@ namespace LibraryOnlineSystem.Controllers
         [HttpGet]
         public ActionResult AddUser()
         {
+            List<string> listOfUnit = new List<string>();
+            listOfUnit.Add("Admin");
+            listOfUnit.Add("User");
+
+            ViewBag.DictionaryPackages = listOfUnit;
             return View();
         }
 
         [HttpPost]
         public ActionResult AddUser(User user)
         {
-
-            user=new User();
+           
+            user =new User();
             user.Name =Request["Name"] ;
             user.Surname = Request["SurName"];
             user.Email = Request["Email"];
