@@ -1,41 +1,16 @@
 ﻿@model LibraryOnlineSystem.Models.Book
 
 @{
-    ViewBag.Title = "AddBook";
+    ViewBag.Title = "test";
     Layout = "~/Views/Shared/_Admin_Layout.cshtml";
 }
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    <script src="~/Scripts/globalize.js"></script>
-    <script src="~/Scripts/globalize.culture.fr-FR.js"></script>
-    <script>
-        $.validator.methods.number = function (value, element) {
-            return this.optional(element) ||
-                !isNaN(Globalize.parseFloat(value));
-        }
-        $(document).ready(function () {
-            Globalize.culture('fr-FR');
-        });
-    </script>
-    <script>
-        jQuery.extend(jQuery.validator.methods, {
-            range: function (value, element, param) {
-                //Use the Globalization plugin to parse the value
-                var val = $.global.parseFloat(value);
-                return this.optional(element) || (
-                    val >= param[0] && val <= param[1]);
-            }
-        });
 
-    </script>
-}
-<h2>AddBook</h2>
+<h2>test</h2>
 
-@using (Html.BeginForm("AddBook", "Admin",
-    FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm()) 
 {
-
-    // @Html.EditorForModel()
+    @Html.AntiForgeryToken()
+    
     <div class="form-horizontal">
         <h4>Book</h4>
         <hr />
@@ -50,8 +25,8 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.Genre, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div >
-                @Html.DropDownListFor(model => model.Genre, new SelectList(ViewBag.DictionaryPackages), new { htmlAttributes = new { @class = "form-control" } })
+            <div class="col-md-10">
+                @Html.EnumDropDownListFor(model => model.Genre, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Genre, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -88,9 +63,21 @@
             </div>
         </div>
 
-       
+        <div class="form-group">
+            @Html.LabelFor(model => model.ImageData, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ImageData, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ImageData, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
-      
+        <div class="form-group">
+            @Html.LabelFor(model => model.ImageMimeType, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ImageMimeType, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ImageMimeType, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Link, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -106,27 +93,6 @@
             </div>
         </div>
     </div>
-}
-<div class="editor-label">Image</div>
-<div class="editor-field">
-    @if (Model.ImageData == null)
-    {
-        @:No Image
-    }
-    else
-    {
-        <img width="150" height="150"
-             src="@Url.Action("GetImage", "Book", new { Model.BookId })" />
-    }
-    <div>Upload new image: <input type="file" name="Image" /></div>
-</div>
-
-@*<div class="form-group">
-    <div class="col-md-offset-2 col-md-10">
-        <input type="submit" value="Create" class="btn btn-default" />
-    </div>
-</div>*@
-
 }
 
 <div>

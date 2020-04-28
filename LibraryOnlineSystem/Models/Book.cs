@@ -12,15 +12,17 @@ namespace LibraryOnlineSystem.Models
     {
         [HiddenInput(DisplayValue = false)]
         public int BookId { get; set; }
-        [Required(ErrorMessage = "Please put name of a book.")]
+        [Required(ErrorMessage = "Please put name of a book."), MaxLengthAttribute(40)]
         public string Name{ get; set; }
-        [Required(ErrorMessage = "Please choose Genre of the book.")]
+      //  [Required(ErrorMessage = "Please choose Genre of the book.")]
         public Genre Genre{ get; set; }
         [Required(ErrorMessage = "Please Input a date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime DateOfPublication{ get; set; }
         [Required(ErrorMessage = "Please Input an overview")]
         public string Overview{ get; set; }
-        [Required(ErrorMessage = "Please Input a publisher")]
+        [Required(ErrorMessage = "Please Input a publisher"), MaxLengthAttribute(40)]
         public string Publisher{ get; set; }
         public List<BookReview> BookReviews { get; set; }
         public virtual List<Author> Authors { get; set; }

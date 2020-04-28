@@ -157,14 +157,36 @@ namespace LibraryOnlineSystem.Controllers
         [HttpGet]
         public ActionResult AddBook()
         {
+            
+            List<string> listOfUnit = new List<string>();
+            foreach (Genre genre in (Genre[]) Enum.GetValues(typeof(Genre)))
+            {
+                listOfUnit.Add(genre.ToString());
+            }
+            ViewBag.DictionaryPackages = listOfUnit;
 
-            return View("AddBook", new Book());
+            return View("AddBook", new Book());//"AddBook", new Book()
         }
         [HttpPost]
         public ActionResult AddBook(Book book,HttpPostedFileBase image)
         {
+            List<string> listOfUnit = new List<string>();
+            foreach (Genre genre in (Genre[])Enum.GetValues(typeof(Genre)))
+            {
+                listOfUnit.Add(genre.ToString());
+            }
+            ViewBag.DictionaryPackages = listOfUnit;
+
+            book = new Book();
+            book.Name = Request["Name"];
+            book.Genre = (Genre)Enum.Parse(typeof(Genre), Request["Genre"]);
+            book.DateOfPublication = Request["DateOfPublication"].AsDateTime();
+            book.Overview = Request["Overview"];
+            book.Publisher = Request["Publisher"];
             if (ModelState.IsValid)
             {
+           
+               
                 if (image != null)
                 {
                     book.ImageMimeType = image.ContentType;
@@ -179,7 +201,7 @@ namespace LibraryOnlineSystem.Controllers
             else
             {
                 
-                return View(book);
+                return View();//"Error"
             }
             
            
