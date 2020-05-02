@@ -11,6 +11,9 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.UserId)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.BookReserveId)
         </th>
         <th>
@@ -28,23 +31,26 @@
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.BookReserveId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BookCodeId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ReservationRequestTime)
-        </td>
-        <td>
-            @ViewBag.BookSerialNumber
-        </td>
-        <td>
-            @ViewBag.IsInLibrary
-        </td>
-    </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.UserId)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.BookReserveId)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.BookCodeId)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ReservationRequestTime)
+    </td>
+    <td>
+        @ViewBag.BookSerialNumber
+    </td>
+    <td>
+        @ViewBag.IsInLibrary
+    </td>
+</tr>
 }
 
 </table>

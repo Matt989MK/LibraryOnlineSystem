@@ -129,8 +129,10 @@ namespace LibraryOnlineSystem.Controllers
             List<BookCode> bookCodesList = db.BookCodes.ToList();
             foreach (var book in listOfBooks)
             {
+                
                 book.BookCode = bookCodesList.Where(a => a.BookId == bookCodesList[book.BookId].BookId&&a.IsInLibrary==true).ToList();
             }
+          
             return View(listOfBooks);
         }
 
@@ -177,22 +179,24 @@ namespace LibraryOnlineSystem.Controllers
             }
             ViewBag.DictionaryPackages = listOfUnit;
 
-            book = new Book();
-            book.Name = Request["Name"];
-            book.Genre = (Genre)Enum.Parse(typeof(Genre), Request["Genre"]);
-            book.DateOfPublication = Request["DateOfPublication"].AsDateTime();
-            book.Overview = Request["Overview"];
-            book.Publisher = Request["Publisher"];
-            if (ModelState.IsValid)
-            {
+            //book = new Book();
+            //book.Name = Request["Name"];
+            //book.Genre = (Genre)Enum.Parse(typeof(Genre), Request["Genre"]);
+            //book.DateOfPublication = Request["DateOfPublication"].AsDateTime();
+            //book.Overview = Request["Overview"];
+            //book.Publisher = Request["Publisher"];
+           
            
                
-                if (image != null)
+             
+                if (ModelState.IsValid)
                 {
-                    book.ImageMimeType = image.ContentType;
-                    book.ImageData = new byte[image.ContentLength];
-                    image.InputStream.Read(book.ImageData, 0, image.ContentLength);
-                }
+                    if (image != null)
+                    {
+                        book.ImageMimeType = image.ContentType;
+                        book.ImageData = new byte[image.ContentLength];
+                        image.InputStream.Read(book.ImageData, 0, image.ContentLength);
+                    }
                 db.Books.Add(book);
                 db.SaveChanges();
                 TempData["message"] = string.Format("Saved {0}", book.Name);
@@ -379,10 +383,17 @@ namespace LibraryOnlineSystem.Controllers
         [HttpPost]
         public ActionResult EditUser(int userId, User user)
         {
+            if (ModelState.IsValid)
+            {
+                db.Users.AddOrUpdate(user);
+                db.SaveChanges();
+                return Redirect("/Admin/UsersAdmin");
 
-            db.Users.AddOrUpdate(user);
-            db.SaveChanges();
-            return View(user);
+            }
+            else
+            {
+                return View();
+            }
         }
         // POST: Admin/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 

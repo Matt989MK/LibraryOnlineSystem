@@ -109,16 +109,20 @@
 }
 <div class="editor-label">Image</div>
 <div class="editor-field">
-    @if (Model.ImageData == null)
+    @if (Model != null)
     {
-        @:No Image
+        if (Model.ImageData == null)
+        {
+            @:No Image
+        }
+        else
+        {
+            <img width="150" height="150"
+                 src="@Url.Action("GetImage", "Book", new {Model.BookId})"/>
+        }
+        <div>Upload new image: <input type="file" name="Image"/></div>
     }
-    else
-    {
-        <img width="150" height="150"
-             src="@Url.Action("GetImage", "Book", new { Model.BookId })" />
-    }
-    <div>Upload new image: <input type="file" name="Image" /></div>
+   
 </div>
 
 @*<div class="form-group">
@@ -127,7 +131,6 @@
     </div>
 </div>*@
 
-}
 
 <div>
     @Html.ActionLink("Back to List", "Index")

@@ -10,6 +10,8 @@ using System.Web.Mvc;
 using LibraryOnlineSystem.Paypal;
 using PayPal.Api;
 using System.Runtime.Remoting.Contexts;
+using System.Net.Mail;
+using WebMatrix.WebData;
 
 namespace LibraryOnlineSystem.Controllers
 {
@@ -390,6 +392,58 @@ namespace LibraryOnlineSystem.Controllers
             return Redirect("/Home/Index");
         }
 
+        [HttpGet]
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ForgotPassword(User user)
+        {
+            string email = Request["Email"];
+            if (db.Users.Where(a => a.Email == email).Count() > 0)
+            {
+
+                try
+                {
+                    var token = WebSecurity.GeneratePasswordResetToken(email);
+                    var resetLink = "<a href='" + Url.Action("ResetPassword", "Account", new { un = email, rt = token }, "http") + "'>Reset Password</a>";//
+
+                    MailMessage mail = new MailMessage();
+                    SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+                    mail.From = new MailAddress("hahefhguas1234@gmail.com");
+                    mail.To.Add(email);
+                    mail.Subject = "Password Reset Token";
+                    mail.Body = "<b>Please find the Password Reset Token</b><br/>" + resetLink;
+
+                    SmtpServer.Port = 587;
+                    SmtpServer.Credentials = new System.Net.NetworkCredential("hahefhguas1234@gmail.com", "ZAQ13wsx");
+                    SmtpServer.EnableSsl = true;
+                    
+                    SmtpServer.Send(mail);
+                    return View("EmailSent");
+                }
+                catch (Exception ex)
+                {
+                    return View("Error");
+                }
+                return View("EmailSent");    //send email
+            }
+            else
+            {
+
+                return View("UserDoesntExist");
+            }
+
+            
+        }
+        [HttpGet]
+        public ActionResult ResetPassword()
+        {
+            return View();
+        }
+
+      
+    }
     }
 
-}

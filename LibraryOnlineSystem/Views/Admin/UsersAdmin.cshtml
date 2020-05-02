@@ -6,14 +6,22 @@
 }
 
 <h2>UsersAdmin</h2>
-
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.csss" />
+<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });</script>
 <p>
     @Html.ActionLink("Add new User", "AddUser")
 </p>
-<table class="table">
+<table class="table" id="example">
+    <thead>
     <tr>
-        @Html.DisplayNameFor(model => model.UserId)
-        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserId)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
@@ -21,61 +29,66 @@
             @Html.DisplayNameFor(model => model.Surname)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DateOfBirth)
+           Date of Birth
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Email)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.HouseNo)
+            House Number
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ZipCode)
+           Zip Code
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UserRole)
+          Role
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Password)
         </th>
         <th></th>
     </tr>
+    </thead>
+    <tbody>
 
-@foreach (var item in Model) {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.UserId)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Name)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Surname)
-    </td>
-    <td>
-        @Html.ValueFor(modelItem => item.DateOfBirth, "{0:dd/MM/yyyy}")
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Email)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.HouseNo)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.ZipCode)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.UserRole)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Password)
-    </td>
-    <td>
-        @Html.ActionLink("Edit", "EditUser", new { id = item.UserId }) |
-        @Html.ActionLink("Details", "DetailsUser", new { userId = item.UserId }) |
-        @Html.ActionLink("Delete", "DeleteUser", new { id = item.UserId }, null)
-    </td>
-</tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Surname)
+                </td>
+                <td>
+                    @Html.ValueFor(modelItem => item.DateOfBirth, "{0:dd/MM/yyyy}")
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HouseNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ZipCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserRole)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Password)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditUser", new { id = item.UserId }) |
+                    @Html.ActionLink("Details", "DetailsUser", new { userId = item.UserId }) |
+                    @Html.ActionLink("Delete", "DeleteUser", new { id = item.UserId }, null)
+                </td>
+            </tr>
+        }
+    </tbody>
+
 
 </table>

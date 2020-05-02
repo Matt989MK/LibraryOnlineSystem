@@ -9,7 +9,12 @@
 
 
 <table class="table">
+    <thead>
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PaymentLibraryId)
+
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.UserId)
         </th>
@@ -24,23 +29,28 @@
         </th>
         <th></th>
     </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaymentLibraryId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserId)
+            </td>
+            <td>
+                @Html.ValueFor(modelItem => item.DatePaid, "{0:dd/MM/yyyy}")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserId)
-        </td>
-        <td>
-            @Html.ValueFor(modelItem => item.DatePaid, "{0:dd/MM/yyyy}")
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Amount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Status)
-        </td>
-       
-    </tr>
-}
-
+        </tr>
+    }
+    </tbody>
 </table>

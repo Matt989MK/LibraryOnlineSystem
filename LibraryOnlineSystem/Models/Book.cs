@@ -10,7 +10,7 @@ namespace LibraryOnlineSystem.Models
 {
     public class Book
     {
-        [HiddenInput(DisplayValue = false)]
+        //[HiddenInput(DisplayValue = false)]
         public int BookId { get; set; }
         [Required(ErrorMessage = "Please put name of a book."), MaxLengthAttribute(40)]
         public string Name{ get; set; }
@@ -31,6 +31,7 @@ namespace LibraryOnlineSystem.Models
         public float Rating { get; set; }
         public List<BookCode> BookCode { get; set; }
       //  public string BookImage { get; set; }
+    //  [Required(ErrorMessage = "Please upload an image")]
         public byte[] ImageData { get; set; }
         [HiddenInput(DisplayValue = false)]
         public string ImageMimeType { get; set; }

@@ -4,8 +4,8 @@
     ViewBag.Title = "EditUser";
     Layout = "~/Views/Shared/_Admin_Layout.cshtml";
 }
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+@*@section Scripts {*@
+    @*@Scripts.Render("~/bundles/jqueryval")*@
     <script src="~/Scripts/globalize.js"></script>
     <script src="~/Scripts/globalize.culture.fr-FR.js"></script>
     <script>
@@ -28,7 +28,7 @@
         });
 
     </script>
-}
+@* } *@
 <h2>EditUser</h2>
 
 
@@ -118,6 +118,7 @@
     @Html.ActionLink("Back to List", "UsersAdmin")
 </div>
 
-@section Scripts {
+@*@section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-}
+}*@ 
+@*This ^ blocks edit options*@ 

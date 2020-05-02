@@ -9,20 +9,32 @@
 
 @Html.ActionLink("New book", "AddBook")
 <table class="table">
+
     <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.BookId)
+        </th>
+
         <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
 
         <th>
-            @Html.DisplayNameFor(model => model.BookCode.Count)
+            In Stock
         </th>
-        <th></th>
+        <th>
+            In Total
+        </th>
     </tr>
 
     @foreach (var item in Model)
     {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookId)
+
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
@@ -31,8 +43,11 @@
                 @Html.DisplayFor(modelItem => item.BookCode.Count)
             </td>
             <td>
-                @Html.ActionLink("List of Copies", "DisplayCopies", new { id = item.BookId }) |
-                @Html.ActionLink("New book code", "CreateCopy", new { id = item.BookId })
+                @ViewBag.TotalCountBook
+            </td>
+            <td>
+                @Html.ActionLink("List of Copies", "DisplayCopies", new {id = item.BookId}) |
+                @Html.ActionLink("New book code", "CreateCopy", new {id = item.BookId})
             </td>
         </tr>
     }
