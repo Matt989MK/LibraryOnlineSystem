@@ -406,9 +406,18 @@ namespace LibraryOnlineSystem.Controllers
 
                 try
                 {
-                    var token = WebSecurity.GeneratePasswordResetToken(email);
-                    var resetLink = "<a href='" + Url.Action("ResetPassword", "Account", new { un = email, rt = token }, "http") + "'>Reset Password</a>";//
-
+                    Random random=new Random();
+                  //generate token
+                  string tokenString = random.Next(1, 1000).ToString();
+                   // var token = WebSecurity.GeneratePasswordResetToken(email);
+                    //save token and user to db
+                    Token token=new Token();
+                    token.TokenId = tokenString;
+                    token.Email = email;
+                    db.Tokens.Add(token);
+                    db.SaveChanges();
+                   // var resetLink = "<a href='" + Url.Action("ResetPassword", "Home", new { token=tokenString }, "http") + "'>Reset Password</a>";
+                   var resetLink = "https://localhost:44362/Home/ResetPassword?token=" + tokenString;
                     MailMessage mail = new MailMessage();
                     SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
                     mail.From = new MailAddress("hahefhguas1234@gmail.com");
@@ -438,11 +447,42 @@ namespace LibraryOnlineSystem.Controllers
             
         }
         [HttpGet]
-        public ActionResult ResetPassword()
+        public ActionResult ResetPassword(string token)
         {
-            return View();
+            if (db.Tokens.Where(a => a.TokenId == token).Count() > 0)
+            {
+                Token _token = db.Tokens.Where(a => a.TokenId == token).Single();
+                User user = db.Users.Where(a => a.Email == _token.Email).Single();
+                db.Tokens.Remove(_token);
+                db.SaveChanges();
+                return View(user);
+            }
+            else
+            {
+                return View("Error");
+            }
+           
+
+          
         }
 
+        [HttpPost]
+        public ActionResult ResetPassword(User user)
+        {
+            user.Password = Request["Password"];
+
+            if (ModelState.IsValid)
+            {
+                db.Users.AddOrUpdate(user);
+                db.SaveChanges();
+                return View("SuccessfullyChangedPassword");
+            }
+            else
+            {
+                return View("Error");
+            }
+
+        }
       
     }
     }

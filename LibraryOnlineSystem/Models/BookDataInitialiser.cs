@@ -188,7 +188,7 @@ namespace LibraryOnlineSystem
                 user3.Name = "John";
                 user3.Surname = "Smith";
                 user3.DateOfBirth = DateTime.Now;
-                user3.Email = "uetpjuvtlfzbvllpkz@awdrt.org";
+                user3.Email = "jkqasnespktmsgrlky@awdrt.org";
                 user3.HouseNo = 22;
                 user3.Password = "123";
                 user3.UserRole = "User";

@@ -167,6 +167,7 @@
     <Compile Include="Models\PaymentLibrary.cs" />
     <Compile Include="Models\ProgramSettings.cs" />
     <Compile Include="Models\Staff.cs" />
+    <Compile Include="Models\Token.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Paypal\PaypalConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -502,6 +503,7 @@
     <Content Include="Views\Home\ResetPassword.cshtml" />
     <Content Include="Views\Home\UserDoesntExist.cshtml" />
     <Content Include="Views\Home\EmailSent.cshtml" />
+    <Content Include="Views\Home\SuccessfullyChangedPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
