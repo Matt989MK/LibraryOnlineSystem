@@ -363,42 +363,35 @@ namespace LibraryOnlineSystem.Controllers
                 string hash = SecurePasswordHasher.Hash(password);
                 bool result = SecurePasswordHasher.Verify(password, user1.Password);
 
-                
-                if (context.Users.Where(a => a.Email == email).Count() > 0 && result==true)
+                if (context.Users.Where(a => a.Email == email).Count() > 0 && result == true)
                 {
+                    user = context.Users.Find(1);
+
                     user1 = context.Users.Where(a => a.Email == email).Single();
-
+                    if (user1.UserRole == "Admin")
+                    {
+                        Session["isAdmin"] = "1";
+                        Session["UserId"] = user1.UserId.ToString();
+                        Session["UserName"] = "Admin " + user.Name;
+                    }
+                    else
+                    {
+                        Session["isAdmin"] = "0";
+                        Session["UserName"] = "User " + user.Name;
+                        Session["UserId"] = user1.UserId.ToString();
+                    }
+                    return Redirect("/Home/Index");
                 }
                 else
-                {
-                    //textbox display "user does not exist"
-                }
-
-
-                int x = context.Users.Where(a => a.Email == email).Count();//&& a.Password==Request["Password"]
-                if (user1.UserRole == "Admin")
-                {
-                    Session["isAdmin"] = "1";
-                    Session["UserId"] = user1.UserId.ToString();
-                    Session["UserName"] = "Admin " + user.Name;
-                }
-                else
-                {
-                    Session["isAdmin"] = "0";
-                    Session["UserName"] = "User " + user.Name;
-                    Session["UserId"] = user1.UserId.ToString();
-                }
-                // user = context.Users.Where(a => a.UserId).Where((a => a.Email == email));
-                user = context.Users.Find(1);
-                // context.SaveChanges();
-                if (x == 0)
                 {
                     Response.Redirect("/home/login", true);
                     Response.End();
                 }
 
+                return View("Error");
             }
-            return Redirect("/Home/Index");
+
+           
         }
 
         [HttpGet]

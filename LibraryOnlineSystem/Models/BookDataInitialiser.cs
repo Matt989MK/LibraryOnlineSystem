@@ -177,7 +177,7 @@ namespace LibraryOnlineSystem
                 user2.DateOfBirth = DateTime.Now;
                 user2.Email = "admin@gmail.com";
                 user2.HouseNo = 35;
-                user2.Password = "123";
+                user2.Password = hash;
                 user2.UserRole = "Admin";
                 user2.ZipCode = "Le2 7dp";
                 user2.UserId = 2;
@@ -192,7 +192,7 @@ namespace LibraryOnlineSystem
                 user3.DateOfBirth = DateTime.Now;
                 user3.Email = "jkqasnespktmsgrlky@awdrt.org";
                 user3.HouseNo = 22;
-                user3.Password = "123";
+                user3.Password = hash;
                 user3.UserRole = "User";
                 user3.ZipCode = "Le2 7dp";
                 user3.UserId = 3;
