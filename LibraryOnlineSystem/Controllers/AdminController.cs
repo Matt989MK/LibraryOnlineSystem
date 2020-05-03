@@ -492,12 +492,13 @@ namespace LibraryOnlineSystem.Controllers
         [HttpPost]
         public ActionResult AddUser(User user)
         {
-           
-            user =new User();
+            var hash = SecurePasswordHasher.Hash(Request["Password"]);
+
+            user = new User();
             user.Name =Request["Name"] ;
             user.Surname = Request["SurName"];
             user.Email = Request["Email"];
-            user.Password = Request["Password"];
+            user.Password = hash;
             user.HouseNo = int.Parse(Request["HouseNo"]);
             user.DateOfBirth = Request["DateOfBirth"].AsDateTime();
             user.ZipCode = Request["ZipCode"];

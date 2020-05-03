@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.Entity;
+using System.Security.Policy;
 using LibraryOnlineSystem.Models;
 namespace LibraryOnlineSystem
 {
@@ -153,15 +154,16 @@ namespace LibraryOnlineSystem
             };
             context.BookCodes.Add(bookCode6);
             //=------------------ User
+            var hash = SecurePasswordHasher.Hash("123");
 
-            User user=new User();
+            User user =new User();
             {
                 user.Name = "Matt";
                 user.Surname="Sean";
                 user.DateOfBirth = DateTime.Now;
                 user.Email = "abc123@gmail.com";
                 user.HouseNo = 35;
-                user.Password = "123";
+                user.Password = hash;
                 user.UserRole = "User";
                 user.ZipCode = "Le27dp";
                 user.UserId = 1;

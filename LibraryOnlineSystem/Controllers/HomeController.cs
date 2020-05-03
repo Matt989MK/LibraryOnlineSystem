@@ -11,6 +11,8 @@ using LibraryOnlineSystem.Paypal;
 using PayPal.Api;
 using System.Runtime.Remoting.Contexts;
 using System.Net.Mail;
+using System.Security.Policy;
+using Microsoft.Ajax.Utilities;
 using WebMatrix.WebData;
 
 namespace LibraryOnlineSystem.Controllers
@@ -351,11 +353,18 @@ namespace LibraryOnlineSystem.Controllers
         {
             using (var context = new LibraryContext())
             {
+                User user1 = new User();
+
                 //int x = context.Users.Count();
                 string email = Request["Email"];
+                user1 = context.Users.Where(a => a.Email == email).Single();
                 string password = Request["Password"];
-                User user1 = new User();
-                if (context.Users.Where(a => a.Email == email).Count() > 0)
+                
+                string hash = SecurePasswordHasher.Hash(password);
+                bool result = SecurePasswordHasher.Verify(password, user1.Password);
+
+                
+                if (context.Users.Where(a => a.Email == email).Count() > 0 && result==true)
                 {
                     user1 = context.Users.Where(a => a.Email == email).Single();
 
@@ -469,8 +478,9 @@ namespace LibraryOnlineSystem.Controllers
         [HttpPost]
         public ActionResult ResetPassword(User user)
         {
-            user.Password = Request["Password"];
+            var hash = SecurePasswordHasher.Hash(Request["Password"]);
 
+            user.Password = hash;
             if (ModelState.IsValid)
             {
                 db.Users.AddOrUpdate(user);

@@ -166,6 +166,7 @@
     <Compile Include="Models\News.cs" />
     <Compile Include="Models\PaymentLibrary.cs" />
     <Compile Include="Models\ProgramSettings.cs" />
+    <Compile Include="Models\SecurePasswordHasher.cs" />
     <Compile Include="Models\Staff.cs" />
     <Compile Include="Models\Token.cs" />
     <Compile Include="Models\User.cs" />
