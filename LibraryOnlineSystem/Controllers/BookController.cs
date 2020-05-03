@@ -167,7 +167,7 @@ namespace LibraryOnlineSystem.Controllers
             List<BookReview> listOfBookReviews = db.BookReviews.Where(a => a.BookId == id).ToList();
             book.BookReviews = listOfBookReviews;
 
-            return RedirectToAction("Details/" + id);
+            return RedirectToAction("Details", new{booksId=id});
 
 
         }
