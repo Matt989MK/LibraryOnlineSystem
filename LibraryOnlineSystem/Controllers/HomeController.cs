@@ -353,7 +353,7 @@ namespace LibraryOnlineSystem.Controllers
             var hash = SecurePasswordHasher.Hash(Request["Password"]);
 
             user.Email = Request["Email"];
-            user.HouseNo = int.Parse(Request["HouseNo"]);
+            user.HouseNo = Request["HouseNo"];
             user.DateOfBirth = Request["DateOfBirth"].AsDateTime();
             user.ZipCode = Request["ZipCode"];
             user.Name = Request["Name"];
@@ -364,8 +364,13 @@ namespace LibraryOnlineSystem.Controllers
             {
                 db.Users.Add(user);
                 db.SaveChanges();
+                return RedirectToAction("Index");
             }
-            return View();
+            else
+            {
+                return View("Error");
+            }
+           
         }
 
 

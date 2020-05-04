@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using System.Web.Security;
 using Microsoft.Win32;
 
 namespace LibraryOnlineSystem.Models
@@ -28,7 +29,7 @@ namespace LibraryOnlineSystem.Models
 
         [Required(ErrorMessage = "Please Input user House number")]
         [Range(0, 1000, ErrorMessage = "Enter number between 0 to 1000")]
-        public int HouseNo{get; set;}
+        public string HouseNo{get; set;}
 
         [Required(ErrorMessage = "Please Input your zip code")]
         [RegularExpression(@"^([A-Za-z][A-Ha-hJ-Yj-y]?[0-9][A-Za-z0-9]? ?[0-9][A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$", ErrorMessage = "This is not right")]
@@ -46,7 +47,15 @@ namespace LibraryOnlineSystem.Models
 
         public  virtual List<BookReview> ListOfReviews { get; set; }
 
-        [Required(ErrorMessage = "Please Input user password")]
+        [Required]
+        [MembershipPassword(
+            MinRequiredNonAlphanumericCharacters = 1,
+            MinNonAlphanumericCharactersError = "Your password needs to contain at least one symbol (!, @, #, etc).",
+            ErrorMessage = "Your password must be 6 characters long and contain at least one symbol (!, @, #, etc).",
+            MinRequiredPasswordLength = 6
+        )]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
         public string Password { get; set; }
 
         public void AuthoriseUser()

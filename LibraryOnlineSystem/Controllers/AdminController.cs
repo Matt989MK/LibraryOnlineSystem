@@ -502,7 +502,7 @@ namespace LibraryOnlineSystem.Controllers
             user.Surname = Request["SurName"];
             user.Email = Request["Email"];
             user.Password = hash;
-            user.HouseNo = int.Parse(Request["HouseNo"]);
+            user.HouseNo = Request["HouseNo"];
             user.DateOfBirth = Request["DateOfBirth"].AsDateTime();
             user.ZipCode = Request["ZipCode"];
             user.UserRole = Request["UserRole"];

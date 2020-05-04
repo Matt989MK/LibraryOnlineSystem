@@ -154,7 +154,7 @@ namespace LibraryOnlineSystem
             };
             context.BookCodes.Add(bookCode6);
             //=------------------ User
-            var hash = SecurePasswordHasher.Hash("123");
+            var hash = SecurePasswordHasher.Hash("abcdef!");
 
             User user =new User();
             {
@@ -162,7 +162,7 @@ namespace LibraryOnlineSystem
                 user.Surname="Sean";
                 user.DateOfBirth = DateTime.Now;
                 user.Email = "abc123@gmail.com";
-                user.HouseNo = 35;
+                user.HouseNo = "35";
                 user.Password = hash;
                 user.UserRole = "User";
                 user.ZipCode = "Le27dp";
@@ -176,7 +176,7 @@ namespace LibraryOnlineSystem
                 user2.Surname = "Jason";
                 user2.DateOfBirth = DateTime.Now;
                 user2.Email = "admin@gmail.com";
-                user2.HouseNo = 35;
+                user2.HouseNo = "35";
                 user2.Password = hash;
                 user2.UserRole = "Admin";
                 user2.ZipCode = "Le2 7dp";
@@ -191,7 +191,7 @@ namespace LibraryOnlineSystem
                 user3.Surname = "Smith";
                 user3.DateOfBirth = DateTime.Now;
                 user3.Email = "jkqasnespktmsgrlky@awdrt.org";
-                user3.HouseNo = 22;
+                user3.HouseNo = "22";
                 user3.Password = hash;
                 user3.UserRole = "User";
                 user3.ZipCode = "Le2 7dp";
