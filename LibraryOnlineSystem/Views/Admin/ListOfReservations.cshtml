@@ -50,6 +50,12 @@
     <td>
         @ViewBag.IsInLibrary
     </td>
+    <td>
+        @if (ViewBag.IsInLibrary == true)
+        {
+            @Html.ActionLink("Finalize", "FinalizeReservation", new{userId=item.UserId, reservationId=item.BookReserveId});
+        }
+    </td>
 </tr>
 }
 

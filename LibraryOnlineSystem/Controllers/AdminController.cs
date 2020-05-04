@@ -35,9 +35,19 @@ namespace LibraryOnlineSystem.Controllers
         {
             User user=new User();
             user=db.Users.Where(a => a.UserId == userId).Single();
+            List<BookReserve> bookReserves = db.BookReserves.Where(a => a.UserId == userId).ToList();
+            user.ListOfReserves = bookReserves;
+            
             return View(user);
         }
 
+        public string GetSerialNumber(int id)
+        {
+            List<BookCode> bookCode = db.BookCodes.ToList();
+            var test = bookCode.Where(a => a.BookCodeId == id).Single();
+           // ViewBag.SerialNumber = test.BookSerialNumber;
+            return test.BookSerialNumber;
+        }
        
 
         public ActionResult StockDetails()
@@ -116,12 +126,14 @@ namespace LibraryOnlineSystem.Controllers
             List<Book> listOfBooks = new List<Book>();
             listOfBooks = db.Books.ToList();
             List<BookCode> bookCodesList = db.BookCodes.ToList();
+            ViewBag.TotalCountBook = new List<int>();
             foreach (var book in listOfBooks)
             {
                 
                 book.BookCode = bookCodesList.Where(a => a.BookId == bookCodesList[book.BookId].BookId&&a.IsInLibrary==true).ToList();
+                ViewBag.TotalCountBook.Add(bookCodesList.Where(a => a.BookId == bookCodesList[book.BookId].BookId ).Count());
             }
-          
+      
             return View(listOfBooks);
         }
 
@@ -231,16 +243,18 @@ namespace LibraryOnlineSystem.Controllers
         }
 
         [HttpGet]
-        public ActionResult ReturnBook()
+        public ActionResult ReturnBook(int bookCodeId, string bookSerialNumber)
         {
-           
-            
-            return View();
+           // string sn = RouteData.Values["SerialNumber"] + Request.Url.Query;
+           BookCode bookCode=db.BookCodes.Where(a=>a.BookCodeId==bookCodeId).Single();
+            return View(bookCode);
         }
 
         [HttpPost]
         public ActionResult ReturnBook(string bookSerialNumber)
         {
+        
+        //    bookSerialNumber = RouteData.Values["SerialNumber"] + Request.Url.Query;
             LibraryRegulations libraryRegulations= new LibraryRegulations();
             List<BookCode> bookCode = db.BookCodes.ToList();
             List<Booking> bookings = db.Bookings.ToList();
@@ -644,8 +658,37 @@ namespace LibraryOnlineSystem.Controllers
             List<Stock> stocks = db.Stocks.ToList();
             return View();
         }
+       
 
-
+        [HttpGet]
+        public ActionResult FinalizeReservation(int reservationId)
+        {
+           
+           
+            BookReserve bookReserve = db.BookReserves.Where(a => a.BookReserveId == reservationId).Single();
+            User user = db.Users.Where(a => a.UserId==bookReserve.UserId).Single();
+            BookCode bookCode = new BookCode();
+            bookCode = db.BookCodes.Where(a => a.BookCodeId == bookReserve.BookCodeId && a.IsInLibrary == true).First();
+            bookCode.IsInLibrary = false;
+            Booking booking = new Booking();
+            booking.BookId = bookCode.BookId;
+            booking.User = user;
+            booking.DateCreated = DateTime.Now;
+            booking.DateReturned = null;
+            booking.BookCodeId = bookCode.BookCodeId;
+            booking.Book = db.Books.Where(a => a.BookCode.FirstOrDefault().BookCodeId == bookCode.BookCodeId).Single();
+            
+            user.Bookings.Add(booking);
+            if (ModelState.IsValid)
+            {
+                db.BookReserves.Remove(bookReserve);
+                db.Bookings.AddOrUpdate(booking);
+                db.BookCodes.AddOrUpdate(bookCode);
+                db.SaveChanges();
+                return RedirectToAction("ListOfReservations");
+            }
+            return View("Error");
+        }
         public ActionResult ListOfReservations()
         {
             BookCode bookCode=new BookCode();
