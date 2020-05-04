@@ -43,10 +43,7 @@
         <th>
           Role
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Password)
-        </th>
-        <th></th>
+     
     </tr>
     </thead>
     <tbody>
@@ -78,9 +75,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.UserRole)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Password)
-                </td>
+                
                 <td>
                     @Html.ActionLink("Edit", "EditUser", new { id = item.UserId }) |
                     @Html.ActionLink("Details", "DetailsUser", new { userId = item.UserId }) |

@@ -333,7 +333,9 @@
     <Content Include="Content\DataTables\images\sort_desc.png" />
     <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
     <Content Include="Content\DataTables\swf\flashExport.swf" />
+    <Content Include="Content\fontawesome.css" />
     <Content Include="Content\FooterBottom.css" />
+    <Content Include="Content\style.css" />
     <Content Include="Images\BookImageTest.png" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -505,6 +507,7 @@
     <Content Include="Views\Home\UserDoesntExist.cshtml" />
     <Content Include="Views\Home\EmailSent.cshtml" />
     <Content Include="Views\Home\SuccessfullyChangedPassword.cshtml" />
+    <Content Include="Views\Home\RegisterUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

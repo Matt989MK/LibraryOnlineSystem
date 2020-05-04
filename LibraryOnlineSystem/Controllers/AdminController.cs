@@ -89,18 +89,7 @@ namespace LibraryOnlineSystem.Controllers
 
           //  bookingList = db.Bookings.Where(a => a.DateReturned < DateTime.Now).ToList();
             paymentList = db.Payments.ToList();
-            //foreach (var booking in bookingList)
-            //{
-            //    Payment payment = new Payment();
-            //    payment.UserId = booking.userId;
-            //    payment.Amount = 2;
-            //    payment.DatePaid = new DateTime(0001, 1, 1);
-            //    payment.Status = "Unpaid";
-            //    payment.Booking = booking;
-
-            //    paymentList.Add(payment);
-
-            //}
+         
 
             return View(paymentList);
         }//------------------ADMIN

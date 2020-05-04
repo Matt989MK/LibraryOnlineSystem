@@ -67,11 +67,11 @@
             @Html.DisplayFor(model => model.UserRole)
         </dd>
 
-       
 
-       
+
+
         <dd>
-            <h2>Loan History</h2><br/>
+            <h2>Loan History</h2><br />
             @foreach (var bookLoan in Model.Bookings)
             {
             <dt>
@@ -95,12 +95,57 @@
                 @Html.DisplayNameFor(model => bookLoan.DateReturned)
             </dt>
 
-                <dd>
-                    @Html.ValueFor(model => bookLoan.DateReturned, "{0:dd/MM/yyyy}")
-                </dd>
-        }
+            <dd>
+                @Html.ValueFor(model => bookLoan.DateReturned, "{0:dd/MM/yyyy}")
             </dd>
-        </dl>
+              }
+            </dd>
+            <dd>
+                <h2>Payment History</h2><br />
+                @foreach (var paymentLibrary in Model.ListOfPayment)
+                {
+                <dt>
+                    @Html.DisplayNameFor(model => paymentLibrary.PaymentLibraryId)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => paymentLibrary.PaymentLibraryId)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => paymentLibrary.Amount)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => paymentLibrary.Amount)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => paymentLibrary.Status)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => paymentLibrary.Status)
+                </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => paymentLibrary.DatePaid)
+                    </dt>
+                    <dd>
+                        @if (paymentLibrary.DatePaid == null)
+                        {
+
+                            <h5>not paid yet</h5>
+
+                        }
+                        else
+                        {
+                            @Html.ValueFor(model => paymentLibrary.DatePaid, "{0:dd/MM/yyyy}")
+                        }
+                    </dd>
+
+                
+
+                    <br/>
+            }
+              </dd>
+                
+            </dl>
 </div>
 <p>
     

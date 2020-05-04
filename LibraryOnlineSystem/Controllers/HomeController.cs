@@ -12,6 +12,7 @@ using PayPal.Api;
 using System.Runtime.Remoting.Contexts;
 using System.Net.Mail;
 using System.Security.Policy;
+using System.Web.WebPages;
 using Microsoft.Ajax.Utilities;
 using WebMatrix.WebData;
 
@@ -339,7 +340,33 @@ namespace LibraryOnlineSystem.Controllers
             return this.payment.Create(apiContext);
         }
 
+        [HttpGet]
+        public ActionResult RegisterUser()
+        {
+            return View();
+        }
 
+        [HttpPost]
+        public ActionResult RegisterUser(User user)
+        {
+             user=new User();
+            var hash = SecurePasswordHasher.Hash(Request["Password"]);
+
+            user.Email = Request["Email"];
+            user.HouseNo = int.Parse(Request["HouseNo"]);
+            user.DateOfBirth = Request["DateOfBirth"].AsDateTime();
+            user.ZipCode = Request["ZipCode"];
+            user.Name = Request["Name"];
+            user.Surname = Request["SurName"];
+            user.Password = hash;
+            user.UserRole = "User";
+            if (ModelState.IsValid)
+            {
+                db.Users.Add(user);
+                db.SaveChanges();
+            }
+            return View();
+        }
 
 
         [HttpGet]
