@@ -339,7 +339,17 @@ namespace LibraryOnlineSystem.Controllers
             // Create a payment using a APIContext  
             return this.payment.Create(apiContext);
         }
+        [HttpPost]
+        public JsonResult isUserExists(string email)
+        {
+          
+            db.Configuration.ValidateOnSaveEnabled = false;
 
+            bool isExist = db.Users.Where(a => a.Email.Equals(email.FirstOrDefault()) )!= null;
+                db.Configuration.ValidateOnSaveEnabled = true;
+
+                return Json(!isExist,JsonRequestBehavior.AllowGet);
+        }
         [HttpGet]
         public ActionResult RegisterUser()
         {
@@ -351,7 +361,8 @@ namespace LibraryOnlineSystem.Controllers
         {
              user=new User();
             var hash = SecurePasswordHasher.Hash(Request["Password"]);
-
+            
+            user.ConfirmPassword = hash;
             user.Email = Request["Email"];
             user.HouseNo = Request["HouseNo"];
             user.DateOfBirth = Request["DateOfBirth"].AsDateTime();
@@ -360,15 +371,23 @@ namespace LibraryOnlineSystem.Controllers
             user.Surname = Request["SurName"];
             user.Password = hash;
             user.UserRole = "User";
+            bool test = Equals(user.Password, user.ConfirmPassword);
             if (ModelState.IsValid)
             {
+                db.Configuration.ValidateOnSaveEnabled = false;
+                user.ConfirmPassword = user.Password;
                 db.Users.Add(user);
                 db.SaveChanges();
+                db.Configuration.ValidateOnSaveEnabled = true;
+                Session["isAdmin"] = "0";
+                Session["UserName"] = "User " + user.Name;
+                Session["UserId"] = user.UserId.ToString();
                 return RedirectToAction("Index");
+
             }
             else
             {
-                return View("Error");
+                return View();
             }
            
         }

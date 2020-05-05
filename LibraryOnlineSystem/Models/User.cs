@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data;
 using System.Text;
+using System.Web.Mvc;
 using System.Web.Security;
 using Microsoft.Win32;
-
+using CompareAttribute = System.Web.Mvc.CompareAttribute;
 namespace LibraryOnlineSystem.Models
 {
     public class User
@@ -25,6 +28,7 @@ namespace LibraryOnlineSystem.Models
 
         [Required(ErrorMessage = "Please Input user email")]
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
+        [Remote("isUserExists", "Home", HttpMethod = "POST", ErrorMessage = "Email address already registered.")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Please Input user House number")]
@@ -57,12 +61,15 @@ namespace LibraryOnlineSystem.Models
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
-
+        [NotMapped]
+        [DataType(DataType.Password)]
+        [Compare("Password",ErrorMessage = "Confirm password doesn't match, Type again!")]
+        public  string ConfirmPassword { get; set; }
         public void AuthoriseUser()
         {
             throw new System.NotImplementedException();
         }
-
+        
         public void GetUserById()
         {
             throw new System.NotImplementedException();
