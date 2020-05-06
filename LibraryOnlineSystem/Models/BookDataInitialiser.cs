@@ -167,7 +167,7 @@ namespace LibraryOnlineSystem
                 user.UserRole = "User";
                 user.ZipCode = "Le27dp";
                 user.UserId = 1;
-               
+               // user.ConfirmPassword = hash;
             }
             context.Users.Add((user));
             User user2 = new User();

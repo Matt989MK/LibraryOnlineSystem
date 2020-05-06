@@ -15,6 +15,7 @@ using System.Security.Policy;
 using System.Web.WebPages;
 using Microsoft.Ajax.Utilities;
 using WebMatrix.WebData;
+using System.ComponentModel.DataAnnotations;
 
 namespace LibraryOnlineSystem.Controllers
 {
@@ -343,10 +344,10 @@ namespace LibraryOnlineSystem.Controllers
         public JsonResult isUserExists(string email)
         {
           
-            db.Configuration.ValidateOnSaveEnabled = false;
+           // db.Configuration.ValidateOnSaveEnabled = false;
 
-            bool isExist = db.Users.Where(a => a.Email.Equals(email.FirstOrDefault()) )!= null;
-                db.Configuration.ValidateOnSaveEnabled = true;
+            bool isExist = db.Users.Where(a => a.Email==email).Count()>0;
+          //      db.Configuration.ValidateOnSaveEnabled = true;
 
                 return Json(!isExist,JsonRequestBehavior.AllowGet);
         }
@@ -362,7 +363,7 @@ namespace LibraryOnlineSystem.Controllers
              user=new User();
             var hash = SecurePasswordHasher.Hash(Request["Password"]);
             
-            user.ConfirmPassword = hash;
+           // user.ConfirmPassword = hash;
             user.Email = Request["Email"];
             user.HouseNo = Request["HouseNo"];
             user.DateOfBirth = Request["DateOfBirth"].AsDateTime();
@@ -371,11 +372,11 @@ namespace LibraryOnlineSystem.Controllers
             user.Surname = Request["SurName"];
             user.Password = hash;
             user.UserRole = "User";
-            bool test = Equals(user.Password, user.ConfirmPassword);
+          //  bool test = Equals(user.Password, user.ConfirmPassword);
             if (ModelState.IsValid)
             {
                 db.Configuration.ValidateOnSaveEnabled = false;
-                user.ConfirmPassword = user.Password;
+         //       user.ConfirmPassword = user.Password;
                 db.Users.Add(user);
                 db.SaveChanges();
                 db.Configuration.ValidateOnSaveEnabled = true;
@@ -399,6 +400,9 @@ namespace LibraryOnlineSystem.Controllers
             Session.RemoveAll();
             return Redirect("/Home/Login");
         }
+
+      
+
         [HttpPost]
         public ActionResult Login(User user)
         {
@@ -408,12 +412,15 @@ namespace LibraryOnlineSystem.Controllers
 
                 //int x = context.Users.Count();
                 string email = Request["Email"];
-                user1 = context.Users.Where(a => a.Email == email).Single();
+               
                 string password = Request["Password"];
-                
+               // db.Configuration.ValidateOnSaveEnabled = false;
+                // user1.ConfirmPassword = password;
+                user1 = context.Users.Where(a => a.Email == email).Single();//error because confirm password doesn't match
+                //db.Configuration.ValidateOnSaveEnabled = true;
+
                 string hash = SecurePasswordHasher.Hash(password);
                 bool result = SecurePasswordHasher.Verify(password, user1.Password);
-
                 if (context.Users.Where(a => a.Email == email).Count() > 0 && result == true)
                 {
                     user = context.Users.Find(1);

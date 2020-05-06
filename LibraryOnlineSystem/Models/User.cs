@@ -61,10 +61,10 @@ namespace LibraryOnlineSystem.Models
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
-        [NotMapped]
-        [DataType(DataType.Password)]
-        [Compare("Password",ErrorMessage = "Confirm password doesn't match, Type again!")]
-        public  string ConfirmPassword { get; set; }
+       // [NotMapped]
+       // [DataType(DataType.Password)]
+       // [CompareAttribute("Password",ErrorMessage = "Confirm password doesn't match, Type again!")]
+        //public  string ConfirmPassword { get; set; }
         public void AuthoriseUser()
         {
             throw new System.NotImplementedException();
