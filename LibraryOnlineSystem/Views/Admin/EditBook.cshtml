@@ -4,8 +4,8 @@
     ViewBag.Title = "EditBook";
     Layout = "~/Views/Shared/_Admin_Layout.cshtml";
 }
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+@*@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")*@
     <script src="~/Scripts/globalize.js"></script>
     <script src="~/Scripts/globalize.culture.fr-FR.js"></script>
     <script>
@@ -28,7 +28,7 @@
         });
 
     </script>
-}
+@*}*@
 <h2>EditBook</h2>
 
 @using (Html.BeginForm("EditBook", "Admin",
