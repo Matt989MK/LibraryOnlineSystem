@@ -211,6 +211,17 @@ namespace LibraryOnlineSystem.Controllers
             
            
         }
+        [HttpPost]
+        public JsonResult isUserExists(string email)
+        {
+
+            // db.Configuration.ValidateOnSaveEnabled = false;
+
+            bool isExist = db.Users.Where(a => a.Email == email).Count() > 0;
+            //      db.Configuration.ValidateOnSaveEnabled = true;
+
+            return Json(!isExist, JsonRequestBehavior.AllowGet);
+        }
         [HttpGet]
         public ActionResult Regulations()
         {
@@ -386,6 +397,18 @@ namespace LibraryOnlineSystem.Controllers
         [HttpPost]
         public ActionResult EditUser(int userId, User user)
         {
+           // var hash = SecurePasswordHasher.Hash(Request["Password"]);
+
+            user = new User();
+            user.Name = Request["Name"];
+            user.Surname = Request["SurName"];
+            user.Email = Request["Email"];
+            //user.Password = hash;
+            user.HouseNo = Request["HouseNo"];
+            user.DateOfBirth = Request["DateOfBirth"].AsDateTime();
+            user.ZipCode = Request["ZipCode"];
+            user.UserRole = Request["UserRole"];
+            user.Password = db.Users.Where(a => a.Email == user.Email).Single().Password;
             if (ModelState.IsValid)
             {
                 db.Users.AddOrUpdate(user);

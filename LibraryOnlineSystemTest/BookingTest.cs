@@ -97,7 +97,7 @@ namespace LibraryOnlineSystemTest
                 Name = "testName",
                 Surname = "testSurname",
                 DateOfBirth = DateTime.Today,
-                HouseNo = 35,
+                HouseNo = "35",
 
             };
             //create some test data to assign to the property

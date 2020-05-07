@@ -86,7 +86,7 @@ namespace LibraryOnlineSystemTest
             //create an instance of the class we want to create
             User AUser = new User();
             //create some test data to assign to the property
-            int TestData = 35;
+            string TestData = "35";
             //assign the data to the property
             AUser.HouseNo = TestData;
             //test to see that the two values are the same
