@@ -2,13 +2,13 @@
 
 @{
     ViewBag.Title = "EditUser";
-    Layout = "~/Views/Shared/_Admin_Layout.cshtml";
+    Layout = "~/Views/Shared/_User_Layout.cshtml";
 }
 @*@section Scripts {*@
-    @*@Scripts.Render("~/bundles/jqueryval")*@
-    <script src="~/Scripts/globalize.js"></script>
-    <script src="~/Scripts/globalize.culture.fr-FR.js"></script>
-    <script>
+@*@Scripts.Render("~/bundles/jqueryval")*@
+<script src="~/Scripts/globalize.js"></script>
+<script src="~/Scripts/globalize.culture.fr-FR.js"></script>
+<script>
         $.validator.methods.number = function (value, element) {
             return this.optional(element) ||
                 !isNaN(Globalize.parseFloat(value));
@@ -16,7 +16,7 @@
         $(document).ready(function () {
             Globalize.culture('fr-FR');
         });
-    </script>
+</script>
 <script>
     jQuery.extend(jQuery.validator.methods, {
         range: function (value, element, param) {
@@ -70,7 +70,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.DateOfBirth, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control",id="DateOfBirthId"  }})
+            @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control",id="DateOfBirthId" } })
             @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -98,17 +98,11 @@
             @Html.ValidationMessageFor(model => model.ZipCode, "", new { @class = "text-danger" })
         </div>
     </div>
+    @Html.HiddenFor(model => model.UserRole,
+        new Dictionary<string, object> { { "data-val", false } })
 
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.UserRole, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div>
-            @Html.DropDownListFor(model => model.UserRole, new SelectList(ViewBag.DictionaryPackages), new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.UserRole, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    @Html.HiddenFor(model => model.Password, 
-        new Dictionary<string, object> { { "data-val", false }})
+    @Html.HiddenFor(model => model.Password,
+        new Dictionary<string, object> { { "data-val", false } })
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
@@ -119,10 +113,10 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "UsersAdmin")
+    @Html.ActionLink("Back to List", "Index")
 </div>
 
 @*@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}*@ 
-@*This ^ blocks edit options*@ 
+        @Scripts.Render("~/bundles/jqueryval")
+    }*@
+@*This ^ blocks edit options*@

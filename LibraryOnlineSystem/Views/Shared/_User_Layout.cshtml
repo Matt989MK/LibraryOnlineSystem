@@ -31,21 +31,13 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink(" Book Collection", "Index", "Book")</li>
 
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            Payments
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Fees", "Payments", "Home",new {userId = Session["UserId"]},null)</li>
-                           
-
-                        </ul>
-                    </li>
+                     
+                    <li>@Html.ActionLink("Fees", "Payments", "Home",new {userId = Session["UserId"]},null)</li>
 
 
                    @* <li>@Html.ActionLink("About", "Index", "Home")</li>*@
                   
+                   <li>@Html.ActionLink("Reservations", "ListOfReservations", "Home",new {userId = Session["Userid"]},null)</li>
 
                           <li>@Html.ActionLink("Loan History", "LoanHistory", "Home",new {userId = Session["Userid"]},null)</li>
                           <li>@Html.ActionLink("Account", "Account", "Home",new {userId = Session["Userid"]},null)</li>

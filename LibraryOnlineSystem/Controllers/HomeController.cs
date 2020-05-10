@@ -16,6 +16,7 @@ using System.Web.WebPages;
 using Microsoft.Ajax.Utilities;
 using WebMatrix.WebData;
 using System.ComponentModel.DataAnnotations;
+using System.Net;
 
 namespace LibraryOnlineSystem.Controllers
 {
@@ -148,6 +149,8 @@ namespace LibraryOnlineSystem.Controllers
             List<Booking> bookingList = db.Bookings.Where(a => a.User.UserId == userId && a.DateReturned < DateTime.Now).ToList();
             List<PaymentLibrary> paymentList = db.Payments.Where(a => a.UserId == userId).ToList();
             List<Booking> bookingListDisplay = db.Bookings.Where(a => a.User.UserId == userId).ToList();
+            string paymentAmount = paymentList.FirstOrDefault().Amount.ToString();
+            ViewBag.paymentAmount = paymentAmount;
 
             List<string> bookNames = new List<string>();
             List<DateTime?> datesReturned = new List<DateTime?>();
@@ -159,7 +162,7 @@ namespace LibraryOnlineSystem.Controllers
                 bookNames.Add(book.Name);
                 //if (booking.DateReturned == null)
                 //{
-                booking.DateReturned = DateTime.MinValue;
+                booking.DateReturned = booking.DateReturned;
                 //}
                 //else
                 //{
@@ -313,8 +316,10 @@ namespace LibraryOnlineSystem.Controllers
                 subtotal = "1"
             };
             //Final amount with details  
+            
             var amount = new Amount()
             {
+                
                 currency = "GBP",
                 total = "3", // Total must be equal to sum of tax, shipping and subtotal.  
                 details = details
@@ -451,7 +456,18 @@ namespace LibraryOnlineSystem.Controllers
 
            
         }
-
+        public ActionResult ListOfReservations(int userId)
+        {
+            BookCode bookCode = new BookCode();
+            List<BookReserve> listOfBookReserves = db.BookReserves.Where(a=>a.UserId==userId).ToList();
+            foreach (var bookReserve in listOfBookReserves)
+            {
+                bookCode = db.BookCodes.Where(a => a.BookCodeId == bookReserve.BookCodeId).Single();
+                ViewBag.BookSerialNumber = bookCode.BookSerialNumber;
+                ViewBag.IsInLibrary = bookCode.IsInLibrary;
+            }
+            return View(listOfBookReserves);
+        }
         [HttpGet]
         public ActionResult ForgotPassword()
         {
@@ -483,7 +499,7 @@ namespace LibraryOnlineSystem.Controllers
                     mail.From = new MailAddress("hahefhguas1234@gmail.com");
                     mail.To.Add(email);
                     mail.Subject = "Password Reset Token";
-                    mail.Body = "<b>Please find the Password Reset Token</b><br/>" + resetLink;
+                    mail.Body = "Please find the link to Reset your Password" + resetLink;
 
                     SmtpServer.Port = 587;
                     SmtpServer.Credentials = new System.Net.NetworkCredential("hahefhguas1234@gmail.com", "ZAQ13wsx");
@@ -544,7 +560,54 @@ namespace LibraryOnlineSystem.Controllers
             }
 
         }
-      
+
+        public ActionResult EditUser(int? id)
+        {
+
+            List<string> listOfUnit = new List<string>();
+            listOfUnit.Add("Admin");
+            listOfUnit.Add("User");
+
+            ViewBag.DictionaryPackages = listOfUnit;
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            User user = db.Users.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
+        }
+
+        [HttpPost]
+        public ActionResult EditUser(int userId, User user)
+        {
+            // var hash = SecurePasswordHasher.Hash(Request["Password"]);
+
+            
+            user.Name = Request["Name"];
+            user.Surname = Request["SurName"];
+            user.Email = Request["Email"];
+            //user.Password = hash;
+            user.HouseNo = Request["HouseNo"];
+            user.DateOfBirth = Request["DateOfBirth"].AsDateTime();
+            user.ZipCode = Request["ZipCode"];
+            user.UserRole = "User";
+            user.Password = db.Users.Where(a => a.Email == user.Email).Single().Password;
+            if (ModelState.IsValid)
+            {
+                db.Users.AddOrUpdate(user);
+                db.SaveChanges();
+                return Redirect("/Home/Index");
+
+            }
+            else
+            {
+                return View();
+            }
+        }
     }
     }
 

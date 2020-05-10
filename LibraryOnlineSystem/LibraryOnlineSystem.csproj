@@ -508,6 +508,8 @@
     <Content Include="Views\Home\EmailSent.cshtml" />
     <Content Include="Views\Home\SuccessfullyChangedPassword.cshtml" />
     <Content Include="Views\Home\RegisterUser.cshtml" />
+    <Content Include="Views\Home\ListOfReservations.cshtml" />
+    <Content Include="Views\Home\EditUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

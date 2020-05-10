@@ -42,7 +42,7 @@
         @Html.DisplayFor(modelItem => item.BookCodeId)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.ReservationRequestTime)
+        @Html.ValueFor(modelItem => item.ReservationRequestTime, "{0:dd/MM/yyyy}")
     </td>
     <td>
         @ViewBag.BookSerialNumber

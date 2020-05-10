@@ -394,12 +394,14 @@ namespace LibraryOnlineSystem.Controllers
             db.SaveChanges();
             return Redirect("/Admin/BookDatabase");
         }
+
+       
         [HttpPost]
         public ActionResult EditUser(int userId, User user)
         {
            // var hash = SecurePasswordHasher.Hash(Request["Password"]);
 
-            user = new User();
+            
             user.Name = Request["Name"];
             user.Surname = Request["SurName"];
             user.Email = Request["Email"];
