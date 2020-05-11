@@ -34,8 +34,9 @@
         @Html.DisplayFor(modelItem => item.IsInLibrary)
     </td>
     <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.BookCodeId }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.BookCodeId })
+        @Html.ActionLink("Return", "Edit", new {bookCodeId=item.BookCodeId, SerialNumber=ViewBag.BookSerialNumber});
+
+        @Html.ActionLink("Delete", "Delete", new { bookCodeId=item.BookCodeId,SerialNumber=item.BookSerialNumber })
     </td>
    
 </tr>

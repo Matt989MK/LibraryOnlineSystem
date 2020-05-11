@@ -417,25 +417,26 @@ namespace LibraryOnlineSystem.Controllers
 
                 //int x = context.Users.Count();
                 string email = Request["Email"];
-               
+
                 string password = Request["Password"];
                 // db.Configuration.ValidateOnSaveEnabled = false;
                 // user1.ConfirmPassword = password;
-                if (context.Users.Where(a => a.Email == email).Count()>0)
-                {
-                    user1 = context.Users.Where(a => a.Email == email).Single();//error because confirm password doesn't match
+                if (email == "" || password == "")
+                { return View("Error"); }
 
+                if (context.Users.Where(a => a.Email == email).Count() > 0)
+                {
+                    user1 = context.Users.Where(a => a.Email == email).Single();
                 }
                 else
                 {
-                    View();
+                    return View("Error");
                 }
+               ;//error because confirm password doesn't match
                 //db.Configuration.ValidateOnSaveEnabled = true;
-                if (password == null)
-                {
-                    return Redirect("/Home/Login");
-                }
+
                 string hash = SecurePasswordHasher.Hash(password);
+
                 bool result = SecurePasswordHasher.Verify(password, user1.Password);
                 if (context.Users.Where(a => a.Email == email).Count() > 0 && result == true)
                 {
@@ -465,7 +466,7 @@ namespace LibraryOnlineSystem.Controllers
                 return View("Error");
             }
 
-           
+
         }
         public ActionResult ListOfReservations(int userId)
         {
