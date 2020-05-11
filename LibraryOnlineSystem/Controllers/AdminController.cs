@@ -585,6 +585,7 @@ namespace LibraryOnlineSystem.Controllers
 
            
             List<int> newBookings=db.Bookings.Where(a=>a.DateCreated> dateBeginning && a.DateCreated< dateEnding).Select(a=>a.BookId).Distinct().ToList();
+            ViewBag.BookBorrowCount = newBookings.Count;
             List<Book> books=db.Books.ToList();
           List<string> genre= new List<string>();
             foreach (var book in books)
@@ -727,6 +728,19 @@ namespace LibraryOnlineSystem.Controllers
             return View(listOfBookReserves);
         }
 
+        public ActionResult ListOfLoans()
+        {
+            BookCode bookCode=new BookCode();
+            List<Booking> listOfBookings = db.Bookings.ToList();
+            foreach (var booking in listOfBookings)
+            {
+                bookCode = db.BookCodes.Where(a => a.BookCodeId == booking.BookCodeId).Single();
+                ViewBag.BookSerialNumber = bookCode.BookSerialNumber;
+                ViewBag.IsInLibrary = bookCode.IsInLibrary;
+            }
+
+            return View(listOfBookings);
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

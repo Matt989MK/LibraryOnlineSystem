@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Web;
-
+using System.Web.DynamicData;
+using System.Web.Mvc;
+using System.Web.WebPages;
 namespace LibraryOnlineSystem.Models
 {
     public static class SecurePasswordHasher
@@ -65,6 +67,7 @@ namespace LibraryOnlineSystem.Models
         /// <returns>Is supported?</returns>
         public static bool IsHashSupported(string hashString)
         {
+            
             return hashString.Contains("HASH|V1$");
         }
 

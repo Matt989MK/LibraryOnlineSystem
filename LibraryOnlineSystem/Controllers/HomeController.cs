@@ -419,11 +419,22 @@ namespace LibraryOnlineSystem.Controllers
                 string email = Request["Email"];
                
                 string password = Request["Password"];
-               // db.Configuration.ValidateOnSaveEnabled = false;
+                // db.Configuration.ValidateOnSaveEnabled = false;
                 // user1.ConfirmPassword = password;
-                user1 = context.Users.Where(a => a.Email == email).Single();//error because confirm password doesn't match
-                //db.Configuration.ValidateOnSaveEnabled = true;
+                if (context.Users.Where(a => a.Email == email).Count()>0)
+                {
+                    user1 = context.Users.Where(a => a.Email == email).Single();//error because confirm password doesn't match
 
+                }
+                else
+                {
+                    View();
+                }
+                //db.Configuration.ValidateOnSaveEnabled = true;
+                if (password == null)
+                {
+                    return Redirect("/Home/Login");
+                }
                 string hash = SecurePasswordHasher.Hash(password);
                 bool result = SecurePasswordHasher.Verify(password, user1.Password);
                 if (context.Users.Where(a => a.Email == email).Count() > 0 && result == true)

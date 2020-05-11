@@ -1,11 +1,9 @@
-﻿@model IEnumerable<LibraryOnlineSystem.Models.BookReserve>
+﻿@model IEnumerable<LibraryOnlineSystem.Models.Booking>
 
 @{
-    ViewBag.Title = "ListOfReservations";
+    ViewBag.Title = "ListOfLoans";
     Layout = "~/Views/Shared/_Admin_Layout.cshtml";
 }
-
-<h2>ListOfReservations</h2>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.csss" />
 <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
@@ -13,6 +11,8 @@
     $(document).ready(function () {
         $('#example').DataTable();
     });</script>
+<h2>ListOfLoans</h2>
+
 
 <table class="table" id="example">
     <thead>
@@ -21,13 +21,13 @@
                 @Html.DisplayNameFor(model => model.UserId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BookReserveId)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.BookCodeId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ReservationRequestTime)
+                @Html.DisplayNameFor(model => model.DateCreated)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateReturned)
             </th>
             <th>
                 Book Serial Number
@@ -42,17 +42,18 @@
         @foreach (var item in Model)
         {
             <tr>
+
                 <td>
                     @Html.DisplayFor(modelItem => item.UserId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BookReserveId)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.BookCodeId)
                 </td>
                 <td>
-                    @Html.ValueFor(modelItem => item.ReservationRequestTime, "{0:dd/MM/yyyy}")
+                    @Html.ValueFor(modelItem => item.DateCreated, "{0:dd/MM/yyyy}")
+                </td>
+                <td>
+                    @Html.ValueFor(modelItem => item.DateReturned, "{0:dd/MM/yyyy}")
                 </td>
                 <td>
                     @ViewBag.BookSerialNumber
@@ -61,12 +62,12 @@
                     @ViewBag.IsInLibrary
                 </td>
                 <td>
-                    @if (ViewBag.IsInLibrary == true)
+                    @if (item.DateReturned==null)
                     {
-                        @Html.ActionLink("Finalize", "FinalizeReservation", new { userId = item.UserId, reservationId = item.BookReserveId });
+                        @Html.ActionLink("Return", "ReturnBook", new {bookCodeId=item.BookCodeId, SerialNumber=ViewBag.BookSerialNumber});
                     }
                 </td>
             </tr>
         }
-    </tbody>
+        </tbody>
 </table>
