@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.Entity;
+using System.Security.Policy;
 using LibraryOnlineSystem.Models;
 namespace LibraryOnlineSystem
 {
@@ -20,8 +21,8 @@ namespace LibraryOnlineSystem
             Author author = new Author()
             {
                 Id = 1,
-                Name = "AuthorName1",
-                Surname = "AuthorSurname1",
+                Name = "Joanne",
+                Surname = "Rowling",
             };
             context.Authors.Add(author);
 
@@ -153,29 +154,30 @@ namespace LibraryOnlineSystem
             };
             context.BookCodes.Add(bookCode6);
             //=------------------ User
+            var hash = SecurePasswordHasher.Hash("abcdef!");
 
-            User user=new User();
+            User user =new User();
             {
                 user.Name = "Matt";
                 user.Surname="Sean";
-                user.DateOfBirth = DateTime.Now;
+                user.DateOfBirth = new DateTime(2020, 10, 10);
                 user.Email = "abc123@gmail.com";
-                user.HouseNo = 35;
-                user.Password = "123";
+                user.HouseNo = "35";
+                user.Password = hash;
                 user.UserRole = "User";
                 user.ZipCode = "Le27dp";
                 user.UserId = 1;
-               
+               // user.ConfirmPassword = hash;
             }
             context.Users.Add((user));
             User user2 = new User();
             {
                 user2.Name = "Ethan";
                 user2.Surname = "Jason";
-                user2.DateOfBirth = DateTime.Now;
+                user2.DateOfBirth = new DateTime(2000,10,10);
                 user2.Email = "admin@gmail.com";
-                user2.HouseNo = 35;
-                user2.Password = "123";
+                user2.HouseNo = "35";
+                user2.Password = hash;
                 user2.UserRole = "Admin";
                 user2.ZipCode = "Le2 7dp";
                 user2.UserId = 2;
@@ -187,10 +189,10 @@ namespace LibraryOnlineSystem
             {
                 user3.Name = "John";
                 user3.Surname = "Smith";
-                user3.DateOfBirth = DateTime.Now;
-                user3.Email = "abc1234@gmail.com";
-                user3.HouseNo = 22;
-                user3.Password = "123";
+                user3.DateOfBirth = new DateTime(2020, 10, 10);
+                user3.Email = "mofficial1234@gmail.com";
+                user3.HouseNo = "22";
+                user3.Password = hash;
                 user3.UserRole = "User";
                 user3.ZipCode = "Le2 7dp";
                 user3.UserId = 3;
@@ -214,10 +216,7 @@ namespace LibraryOnlineSystem
             {
                 bookReview.BookId = 1;
                 bookReview.BookReviewId = 1;
-                bookReview.Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." +
-                                     " Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure " +
-                                     "dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident," +
-                                     " sunt in culpa qui officia deserunt mollit anim id est laborum.";
+                bookReview.Content = "Harry Potter is the most miserable, lonely boy you can imagine. He’s shunned by his relatives, the Dursley’s, that have raised him since he was an infant. He’s forced to live in the cupboard under the stairs, forced to wear his cousin Dudley’s hand-me-down clothes, and forced to go to his neighbour’s house when the rest of the family is doing something fun. Yes, he’s just about as miserable as you can get.";
                 bookReview.UserId = 1;
                 bookReview.DatePosted = DateTime.Now;
 
@@ -251,7 +250,7 @@ namespace LibraryOnlineSystem
                 booking1.UserId = 1;
                 booking1.BookId = 2;
                 booking1.DateCreated = new DateTime(2021, 12, 05);
-                booking1.DateReturned = new DateTime(2021, 12, 12);
+                booking1.DateReturned = new DateTime(2020, 01, 02);
 
             }
             context.Bookings.Add(booking1);
@@ -261,7 +260,7 @@ namespace LibraryOnlineSystem
                 booking2.UserId = 2;
                 booking2.BookId = 2;
                 booking2.DateCreated = new DateTime(2021, 12, 05);
-                booking2.DateReturned = new DateTime(2021, 12, 12);
+                booking2.DateReturned = null;
                 
             }
             context.Bookings.Add(booking2);
@@ -271,16 +270,18 @@ namespace LibraryOnlineSystem
                 booking3.UserId = 2;
                 booking3.BookId = 1;
                 booking3.DateCreated = new DateTime(2019, 12, 05);
-                booking3.DateReturned = null;
+                booking3.DateReturned = new DateTime(2020, 04, 01);
 
             }
             context.Bookings.Add(booking3);
             //--------------------------Payment
+           // LibraryRegulations libraryRegulations = new LibraryRegulations();
+
             PaymentLibrary payment = new PaymentLibrary();
             {
               //  Booking bookingPayment1 = context.Bookings.Where(a => a.BookingId == 1).Single();
                 payment.UserId = 1;
-                payment.Amount = 20;
+                payment.Amount = libraryRegulations.Fine;
                 payment.DatePaid = null;
                 payment.PaymentLibraryId = 1;
                 payment.Status = "Unpaid";
@@ -293,7 +294,7 @@ namespace LibraryOnlineSystem
             {
                 //Booking bookingPayment2 = context.Bookings.Where(a => a.BookingId == 2).Single();
                 payment1.UserId = 1;
-                payment1.Amount = 10;
+                payment1.Amount = libraryRegulations.Fine;
                 payment1.DatePaid = DateTime.Now;
                 payment1.PaymentLibraryId = 2;
                 payment1.Status = "Paid";

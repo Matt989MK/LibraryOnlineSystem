@@ -1,110 +1,237 @@
-﻿@model LibraryOnlineSystem.Models.User
+﻿@using LibraryOnlineSystem.Controllers
+@using LibraryOnlineSystem.Models
+@model LibraryOnlineSystem.Models.User
 
 @{
     ViewBag.Title = "DetailsUser";
     Layout = "~/Views/Shared/_Admin_Layout.cshtml";
 }
 
-<h2>DetailsUser</h2>
+
 
 <div>
-    <h4>User</h4>
+    
     <hr />
-    <dl class="dl-horizontal">
+<dl class="dl-horizontal">
+<dd>
+<h2> User Details</h2>
+<dt>
+    @Html.DisplayNameFor(model => model.Name)
+</dt>
+
+<dd>
+    @Html.DisplayFor(model => model.Name)
+</dd>
+
+<dt>
+    @Html.DisplayNameFor(model => model.Surname)
+</dt>
+
+<dd>
+    @Html.DisplayFor(model => model.Surname)
+</dd>
+
+<dt>
+    @Html.DisplayNameFor(model => model.DateOfBirth)
+</dt>
+
+<dd>
+    @Html.DisplayFor(model => model.DateOfBirth)
+</dd>
+
+<dt>
+    @Html.DisplayNameFor(model => model.Email)
+</dt>
+
+<dd>
+    @Html.DisplayFor(model => model.Email)
+</dd>
+
+<dt>
+    @Html.DisplayNameFor(model => model.HouseNo)
+</dt>
+
+<dd>
+    @Html.DisplayFor(model => model.HouseNo)
+</dd>
+
+<dt>
+    @Html.DisplayNameFor(model => model.ZipCode)
+</dt>
+
+<dd>
+    @Html.DisplayFor(model => model.ZipCode)
+</dd>
+
+<dt>
+    @Html.DisplayNameFor(model => model.UserRole)
+</dt>
+
+<dd>
+    @Html.DisplayFor(model => model.UserRole)
+</dd>
+
+
+
+
+<dd>
+    <h2>Loan History</h2><br/>
+    @foreach (var bookLoan in Model.Bookings)
+    {
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => bookLoan.BookId)
         </dt>
 
+
         <dd>
-            @Html.DisplayFor(model => model.Name)
+            @Html.DisplayFor(model => bookLoan.BookId)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Surname)
+            @Html.DisplayNameFor(model => bookLoan.DateCreated)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Surname)
+            @Html.ValueFor(model => bookLoan.DateCreated, "{0:dd/MM/yyyy}")
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.DateOfBirth)
+            @Html.DisplayNameFor(model => bookLoan.DateReturned)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.DateOfBirth)
+            @Html.ValueFor(model => bookLoan.DateReturned, "{0:dd/MM/yyyy}")
         </dd>
+    }
+</dd>
 
+<dd>
+    <h2>Payment History</h2><br/>
+    @foreach (var paymentLibrary in Model.ListOfPayment)
+    {
         <dt>
-            @Html.DisplayNameFor(model => model.Email)
+            @Html.DisplayNameFor(model => paymentLibrary.PaymentLibraryId)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Email)
+            @Html.DisplayFor(model => paymentLibrary.PaymentLibraryId)
         </dd>
-
         <dt>
-            @Html.DisplayNameFor(model => model.HouseNo)
+            @Html.DisplayNameFor(model => paymentLibrary.Amount)
         </dt>
-
         <dd>
-            @Html.DisplayFor(model => model.HouseNo)
+            @Html.DisplayFor(model => paymentLibrary.Amount)
         </dd>
-
         <dt>
-            @Html.DisplayNameFor(model => model.ZipCode)
+            @Html.DisplayNameFor(model => paymentLibrary.Status)
         </dt>
-
         <dd>
-            @Html.DisplayFor(model => model.ZipCode)
+            @Html.DisplayFor(model => paymentLibrary.Status)
         </dd>
-
         <dt>
-            @Html.DisplayNameFor(model => model.UserRole)
+            @Html.DisplayNameFor(model => paymentLibrary.DatePaid)
         </dt>
-
         <dd>
-            @Html.DisplayFor(model => model.UserRole)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Password)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Password)
-        </dd>
-        <dd>
-            <h2>Loan History</h2><br/>
-            @foreach (var bookLoan in Model.Bookings)
+            @if (paymentLibrary.DatePaid == null)
             {
-            <dt>
-                @Html.DisplayNameFor(model => bookLoan.BookId)
-            </dt>
+
+                <h5>not paid yet</h5>
+
+            }
+            else
+            {
+                @Html.ValueFor(model => paymentLibrary.DatePaid, "{0:dd/MM/yyyy}")
+            }
+        </dd>
 
 
-            <dd>
-                @Html.DisplayFor(model => bookLoan.BookId)
-            </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => bookLoan.DateCreated)
-            </dt>
+        <br/>
 
-            <dd>
-                @Html.ValueFor(model => bookLoan.DateCreated, "{0:dd/MM/yyyy}")
-            </dd>
+    }
+</dd>
+<dd>
+    <h2>Reservations</h2><br/>
+    @foreach (var reservation in Model.ListOfReserves)
+    {
+        <dt>
+            @Html.DisplayNameFor(model => reservation.BookReserveId)
+        </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => bookLoan.DateReturned)
-            </dt>
+        <dd>
+            @Html.DisplayFor(model => reservation.BookReserveId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => reservation.UserId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => reservation.UserId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => reservation.BookCodeId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => reservation.BookCodeId)
+        </dd>
+        <dt>
+            Reservation Date
+        </dt>
+        <dd>
+            @Html.ValueFor(model => reservation.ReservationRequestTime, "{0:dd/MM/yyyy}")
 
-                <dd>
-                    @Html.ValueFor(model => bookLoan.DateReturned, "{0:dd/MM/yyyy}")
-                </dd>
+        </dd>
+
+
+
+        <br/>
+
+    }
+</dd>
+<dd>
+    <h2>Loans</h2><br/>
+    @foreach (var booking in Model.Bookings)
+    {
+        <dt>
+            @Html.DisplayNameFor(model => booking.BookingId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => booking.BookingId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => booking.BookCodeId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => booking.BookCodeId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => booking.DateCreated)
+        </dt>
+        <dd>
+            @Html.ValueFor(model => booking.DateCreated, "{0:dd/MM/yyyy}")
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => booking.DateReturned)
+        </dt>
+
+        <dd>
+            @Html.ValueFor(model => booking.DateReturned, "{0:dd/MM/yyyy}")
+
+        </dd>
+        if (booking.DateReturned == null)
+        {
+           // ((AdminController)this.ViewContext.Controller).GetSerialNumber(booking.BookCodeId);
+            
+            @Html.ActionLink("Return Book", "ReturnBook",new{booking.BookCodeId,SerialNumber=((AdminController)this.ViewContext.Controller).GetSerialNumber(booking.BookCodeId)});//, new{booking.BookCodeId.}
+            
         }
-            </dd>
-        </dl>
+
+
+        <br/>
+
+    }
+</dd>
+</dl>
 </div>
 <p>
     

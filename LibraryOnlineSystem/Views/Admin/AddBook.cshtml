@@ -4,8 +4,8 @@
     ViewBag.Title = "AddBook";
     Layout = "~/Views/Shared/_Admin_Layout.cshtml";
 }
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+@*@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")*@
     <script src="~/Scripts/globalize.js"></script>
     <script src="~/Scripts/globalize.culture.fr-FR.js"></script>
     <script>
@@ -28,7 +28,7 @@
         });
 
     </script>
-}
+@* } *@
 <h2>AddBook</h2>
 
 @using (Html.BeginForm("AddBook", "Admin",
@@ -106,20 +106,25 @@
             </div>
         </div>
     </div>
+    <div class="editor-label">Image</div>
+    <div class="editor-field">
+        @if (Model != null)
+        {
+            if (Model.ImageData == null)
+            {
+                @:No Image
+            }
+            else
+            {
+                <img width="150" height="150"
+                     src="@Url.Action("GetImage", "Book", new {Model.BookId})"/>
+            }
+            <div>Upload new image: <input type="file" name="Image"/></div>
+        }
+   
+    </div>
 }
-<div class="editor-label">Image</div>
-<div class="editor-field">
-    @if (Model.ImageData == null)
-    {
-        @:No Image
-    }
-    else
-    {
-        <img width="150" height="150"
-             src="@Url.Action("GetImage", "Book", new { Model.BookId })" />
-    }
-    <div>Upload new image: <input type="file" name="Image" /></div>
-</div>
+
 
 @*<div class="form-group">
     <div class="col-md-offset-2 col-md-10">
@@ -127,7 +132,6 @@
     </div>
 </div>*@
 
-}
 
 <div>
     @Html.ActionLink("Back to List", "Index")

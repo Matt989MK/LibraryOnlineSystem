@@ -4,8 +4,8 @@
     ViewBag.Title = "EditUser";
     Layout = "~/Views/Shared/_Admin_Layout.cshtml";
 }
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+@*@section Scripts {*@
+    @*@Scripts.Render("~/bundles/jqueryval")*@
     <script src="~/Scripts/globalize.js"></script>
     <script src="~/Scripts/globalize.culture.fr-FR.js"></script>
     <script>
@@ -17,18 +17,27 @@
             Globalize.culture('fr-FR');
         });
     </script>
-    <script>
-        jQuery.extend(jQuery.validator.methods, {
-            range: function (value, element, param) {
-                //Use the Globalization plugin to parse the value
-                var val = $.global.parseFloat(value);
-                return this.optional(element) || (
-                    val >= param[0] && val <= param[1]);
-            }
-        });
+<script>
+    jQuery.extend(jQuery.validator.methods, {
+        range: function (value, element, param) {
+            //Use the Globalization plugin to parse the value
+            var val = $.global.parseFloat(value);
+            return this.optional(element) || (
+                val >= param[0] && val <= param[1]);
+        }
+    });
 
-    </script>
-}
+</script>
+<script>
+    $(document).ready(function () {
+        var now = new Date();
+        var day = (@Model.DateOfBirth.Day.ToString().Length != 2) ? "0" + @Model.DateOfBirth.Day : @Model.DateOfBirth.Day;
+        var month = (@Model.DateOfBirth.Month.ToString().Length != 2) ? "0" + @Model.DateOfBirth.Month : @Model.DateOfBirth.Month;
+        var today = @Model.DateOfBirth.Year + "-" + (month) + "-" + (day);
+        $('#DateOfBirthId').val(today);
+    });
+</script>
+@* } *@
 <h2>EditUser</h2>
 
 
@@ -61,7 +70,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.DateOfBirth, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control",id="DateOfBirthId"  }})
             @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -98,13 +107,8 @@
             @Html.ValidationMessageFor(model => model.UserRole, "", new { @class = "text-danger" })
         </div>
     </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-        </div>
-    </div>
+    @Html.HiddenFor(model => model.Password, 
+        new Dictionary<string, object> { { "data-val", false }})
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
@@ -118,6 +122,7 @@
     @Html.ActionLink("Back to List", "UsersAdmin")
 </div>
 
-@section Scripts {
+@*@section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-}
+}*@ 
+@*This ^ blocks edit options*@ 

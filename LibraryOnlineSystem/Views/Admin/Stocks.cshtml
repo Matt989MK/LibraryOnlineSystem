@@ -4,37 +4,67 @@
     ViewBag.Title = "Stocks";
     Layout = "~/Views/Shared/_Admin_Layout.cshtml";
 }
-
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.csss" />
+<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });</script>
 <h2>Stocks</h2>
 
 @Html.ActionLink("New book", "AddBook")
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-
-        <th>
-            @Html.DisplayNameFor(model => model.BookCode.Count)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+<table class="table" id="example">
+    <thead>
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.BookCode.Count)
-            </td>
-            <td>
-                @Html.ActionLink("List of Copies", "DisplayCopies", new { id = item.BookId }) |
-                @Html.ActionLink("New book code", "CreateCopy", new { id = item.BookId })
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.BookId)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+
+            <th>
+                In Stock
+            </th>
+            <th>
+                In Total
+            </th>
+            <th></th>
         </tr>
-    }
+        @{
+            int x = 0;
+        }
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
 
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookId)
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookCode.Count)
+                </td>
+                <td>
+                    @ViewBag.TotalCountBook[x]
+                </td>
+                <td>
+                    @Html.ActionLink("List of Copies", "DisplayCopies", new { id = item.BookId }) |
+                    @Html.ActionLink("New book code", "CreateCopy", new { id = item.BookId })
+                </td>
+                @{
+                    x++;
+                }
+            </tr>
+        }
+    </tbody>
 </table>

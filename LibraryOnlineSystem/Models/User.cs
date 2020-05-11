@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data;
 using System.Text;
+using System.Web.Mvc;
+using System.Web.Security;
 using Microsoft.Win32;
-
+using CompareAttribute = System.Web.Mvc.CompareAttribute;
 namespace LibraryOnlineSystem.Models
 {
     public class User
@@ -24,11 +28,12 @@ namespace LibraryOnlineSystem.Models
 
         [Required(ErrorMessage = "Please Input user email")]
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
+        [Remote("isUserExists", "Home", HttpMethod = "POST", ErrorMessage = "Email address already registered.")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Please Input user House number")]
         [Range(0, 1000, ErrorMessage = "Enter number between 0 to 1000")]
-        public int HouseNo{get; set;}
+        public string HouseNo{get; set;}
 
         [Required(ErrorMessage = "Please Input your zip code")]
         [RegularExpression(@"^([A-Za-z][A-Ha-hJ-Yj-y]?[0-9][A-Za-z0-9]? ?[0-9][A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$", ErrorMessage = "This is not right")]
@@ -40,20 +45,31 @@ namespace LibraryOnlineSystem.Models
         public bool? IsBanned { get; set; }
         public virtual List<PaymentLibrary> ListOfPayment { get; set; }
 
-      
+      public virtual List<BookReserve> ListOfReserves { get; set; }
 
         public virtual List<Booking> Bookings { get; set; }
 
         public  virtual List<BookReview> ListOfReviews { get; set; }
 
-        [Required(ErrorMessage = "Please Input user password")]
+        [Required]
+        [MembershipPassword(
+            MinRequiredNonAlphanumericCharacters = 1,
+            MinNonAlphanumericCharactersError = "Your password needs to contain at least one symbol (!, @, #, etc).",
+            ErrorMessage = "Your password must be 6 characters long and contain at least one symbol (!, @, #, etc).",
+            MinRequiredPasswordLength = 6
+        )]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
         public string Password { get; set; }
-
+       // [NotMapped]
+       // [DataType(DataType.Password)]
+       // [CompareAttribute("Password",ErrorMessage = "Confirm password doesn't match, Type again!")]
+        //public  string ConfirmPassword { get; set; }
         public void AuthoriseUser()
         {
             throw new System.NotImplementedException();
         }
-
+        
         public void GetUserById()
         {
             throw new System.NotImplementedException();

@@ -10,6 +10,13 @@ using System.Web.Mvc;
 using LibraryOnlineSystem.Paypal;
 using PayPal.Api;
 using System.Runtime.Remoting.Contexts;
+using System.Net.Mail;
+using System.Security.Policy;
+using System.Web.WebPages;
+using Microsoft.Ajax.Utilities;
+using WebMatrix.WebData;
+using System.ComponentModel.DataAnnotations;
+using System.Net;
 
 namespace LibraryOnlineSystem.Controllers
 {
@@ -142,6 +149,8 @@ namespace LibraryOnlineSystem.Controllers
             List<Booking> bookingList = db.Bookings.Where(a => a.User.UserId == userId && a.DateReturned < DateTime.Now).ToList();
             List<PaymentLibrary> paymentList = db.Payments.Where(a => a.UserId == userId).ToList();
             List<Booking> bookingListDisplay = db.Bookings.Where(a => a.User.UserId == userId).ToList();
+            string paymentAmount = paymentList.FirstOrDefault().Amount.ToString();
+            ViewBag.paymentAmount = paymentAmount;
 
             List<string> bookNames = new List<string>();
             List<DateTime?> datesReturned = new List<DateTime?>();
@@ -153,7 +162,7 @@ namespace LibraryOnlineSystem.Controllers
                 bookNames.Add(book.Name);
                 //if (booking.DateReturned == null)
                 //{
-                booking.DateReturned = DateTime.MinValue;
+                booking.DateReturned = booking.DateReturned;
                 //}
                 //else
                 //{
@@ -307,8 +316,10 @@ namespace LibraryOnlineSystem.Controllers
                 subtotal = "1"
             };
             //Final amount with details  
+            
             var amount = new Amount()
             {
+                
                 currency = "GBP",
                 total = "3", // Total must be equal to sum of tax, shipping and subtotal.  
                 details = details
@@ -334,8 +345,58 @@ namespace LibraryOnlineSystem.Controllers
             // Create a payment using a APIContext  
             return this.payment.Create(apiContext);
         }
+        [HttpPost]
+        public JsonResult isUserExists(string email)
+        {
+          
+           // db.Configuration.ValidateOnSaveEnabled = false;
 
+            bool isExist = db.Users.Where(a => a.Email==email).Count()>0;
+          //      db.Configuration.ValidateOnSaveEnabled = true;
 
+                return Json(!isExist,JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public ActionResult RegisterUser()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult RegisterUser(User user)
+        {
+             user=new User();
+            var hash = SecurePasswordHasher.Hash(Request["Password"]);
+            
+           // user.ConfirmPassword = hash;
+            user.Email = Request["Email"];
+            user.HouseNo = Request["HouseNo"];
+            user.DateOfBirth = Request["DateOfBirth"].AsDateTime();
+            user.ZipCode = Request["ZipCode"];
+            user.Name = Request["Name"];
+            user.Surname = Request["SurName"];
+            user.Password = hash;
+            user.UserRole = "User";
+          //  bool test = Equals(user.Password, user.ConfirmPassword);
+            if (ModelState.IsValid)
+            {
+                db.Configuration.ValidateOnSaveEnabled = false;
+         //       user.ConfirmPassword = user.Password;
+                db.Users.Add(user);
+                db.SaveChanges();
+                db.Configuration.ValidateOnSaveEnabled = true;
+                Session["isAdmin"] = "0";
+                Session["UserName"] = "User " + user.Name;
+                Session["UserId"] = user.UserId.ToString();
+                return RedirectToAction("Index");
+
+            }
+            else
+            {
+                return View();
+            }
+           
+        }
 
 
         [HttpGet]
@@ -344,52 +405,221 @@ namespace LibraryOnlineSystem.Controllers
             Session.RemoveAll();
             return Redirect("/Home/Login");
         }
+
+      
+
         [HttpPost]
         public ActionResult Login(User user)
         {
             using (var context = new LibraryContext())
             {
+                User user1 = new User();
+
                 //int x = context.Users.Count();
                 string email = Request["Email"];
+
                 string password = Request["Password"];
-                User user1 = new User();
+                // db.Configuration.ValidateOnSaveEnabled = false;
+                // user1.ConfirmPassword = password;
+                if (email == "" || password == "")
+                { return View("Error"); }
+
                 if (context.Users.Where(a => a.Email == email).Count() > 0)
                 {
                     user1 = context.Users.Where(a => a.Email == email).Single();
-
                 }
                 else
                 {
-                    //textbox display "user does not exist"
+                    return View("Error");
                 }
+               ;//error because confirm password doesn't match
+                //db.Configuration.ValidateOnSaveEnabled = true;
 
+                string hash = SecurePasswordHasher.Hash(password);
 
-                int x = context.Users.Where(a => a.Email == email).Count();//&& a.Password==Request["Password"]
-                if (user1.UserRole == "Admin")
+                bool result = SecurePasswordHasher.Verify(password, user1.Password);
+                if (context.Users.Where(a => a.Email == email).Count() > 0 && result == true)
                 {
-                    Session["isAdmin"] = "1";
-                    Session["UserId"] = user1.UserId.ToString();
-                    Session["UserName"] = "Admin " + user.Name;
+                    user = context.Users.Find(1);
+
+                    user1 = context.Users.Where(a => a.Email == email).Single();
+                    if (user1.UserRole == "Admin")
+                    {
+                        Session["isAdmin"] = "1";
+                        Session["UserId"] = user1.UserId.ToString();
+                        Session["UserName"] = "Admin " + user.Name;
+                    }
+                    else
+                    {
+                        Session["isAdmin"] = "0";
+                        Session["UserName"] = "User " + user.Name;
+                        Session["UserId"] = user1.UserId.ToString();
+                    }
+                    return Redirect("/Home/Index");
                 }
                 else
-                {
-                    Session["isAdmin"] = "0";
-                    Session["UserName"] = "User " + user.Name;
-                    Session["UserId"] = user1.UserId.ToString();
-                }
-                // user = context.Users.Where(a => a.UserId).Where((a => a.Email == email));
-                user = context.Users.Find(1);
-                // context.SaveChanges();
-                if (x == 0)
                 {
                     Response.Redirect("/home/login", true);
                     Response.End();
                 }
 
+                return View("Error");
             }
-            return Redirect("/Home/Index");
+
+
+        }
+        public ActionResult ListOfReservations(int userId)
+        {
+            BookCode bookCode = new BookCode();
+            List<BookReserve> listOfBookReserves = db.BookReserves.Where(a=>a.UserId==userId).ToList();
+            foreach (var bookReserve in listOfBookReserves)
+            {
+                bookCode = db.BookCodes.Where(a => a.BookCodeId == bookReserve.BookCodeId).Single();
+                ViewBag.BookSerialNumber = bookCode.BookSerialNumber;
+                ViewBag.IsInLibrary = bookCode.IsInLibrary;
+            }
+            return View(listOfBookReserves);
+        }
+        [HttpGet]
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ForgotPassword(User user)
+        {
+            string email = Request["Email"];
+            if (db.Users.Where(a => a.Email == email).Count() > 0)
+            {
+
+                try
+                {
+                    Random random=new Random();
+                  //generate token
+                  string tokenString = random.Next(1, 1000).ToString();
+                   // var token = WebSecurity.GeneratePasswordResetToken(email);
+                    //save token and user to db
+                    Token token=new Token();
+                    token.TokenId = tokenString;
+                    token.Email = email;
+                    db.Tokens.Add(token);
+                    db.SaveChanges();
+                   // var resetLink = "<a href='" + Url.Action("ResetPassword", "Home", new { token=tokenString }, "http") + "'>Reset Password</a>";
+                   var resetLink = "https://localhost:44362/Home/ResetPassword?token=" + tokenString;
+                    MailMessage mail = new MailMessage();
+                    SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+                    mail.From = new MailAddress("hahefhguas1234@gmail.com");
+                    mail.To.Add(email);
+                    mail.Subject = "Password Reset Token";
+                    mail.Body = "Please find the link to Reset your Password" + resetLink;
+
+                    SmtpServer.Port = 587;
+                    SmtpServer.Credentials = new System.Net.NetworkCredential("hahefhguas1234@gmail.com", "ZAQ13wsx");
+                    SmtpServer.EnableSsl = true;
+                    
+                    SmtpServer.Send(mail);
+                    return View("EmailSent");
+                }
+                catch (Exception ex)
+                {
+                    return View("Error");
+                }
+                return View("EmailSent");    //send email
+            }
+            else
+            {
+
+                return View("UserDoesntExist");
+            }
+
+            
+        }
+        [HttpGet]
+        public ActionResult ResetPassword(string token)
+        {
+            if (db.Tokens.Where(a => a.TokenId == token).Count() > 0)
+            {
+                Token _token = db.Tokens.Where(a => a.TokenId == token).Single();
+                User user = db.Users.Where(a => a.Email == _token.Email).Single();
+                db.Tokens.Remove(_token);
+                db.SaveChanges();
+                return View(user);
+            }
+            else
+            {
+                return View("Error");
+            }
+           
+
+          
         }
 
+        [HttpPost]
+        public ActionResult ResetPassword(User user)
+        {
+            var hash = SecurePasswordHasher.Hash(Request["Password"]);
+
+            user.Password = hash;
+            if (ModelState.IsValid)
+            {
+                db.Users.AddOrUpdate(user);
+                db.SaveChanges();
+                return View("SuccessfullyChangedPassword");
+            }
+            else
+            {
+                return View("Error");
+            }
+
+        }
+
+        public ActionResult EditUser(int? id)
+        {
+
+            List<string> listOfUnit = new List<string>();
+            listOfUnit.Add("Admin");
+            listOfUnit.Add("User");
+
+            ViewBag.DictionaryPackages = listOfUnit;
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            User user = db.Users.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
+        }
+
+        [HttpPost]
+        public ActionResult EditUser(int userId, User user)
+        {
+            // var hash = SecurePasswordHasher.Hash(Request["Password"]);
+
+            
+            user.Name = Request["Name"];
+            user.Surname = Request["SurName"];
+            user.Email = Request["Email"];
+            //user.Password = hash;
+            user.HouseNo = Request["HouseNo"];
+            user.DateOfBirth = Request["DateOfBirth"].AsDateTime();
+            user.ZipCode = Request["ZipCode"];
+            user.UserRole = "User";
+            user.Password = db.Users.Where(a => a.Email == user.Email).Single().Password;
+            if (ModelState.IsValid)
+            {
+                db.Users.AddOrUpdate(user);
+                db.SaveChanges();
+                return Redirect("/Home/Index");
+
+            }
+            else
+            {
+                return View();
+            }
+        }
+    }
     }
 
-}

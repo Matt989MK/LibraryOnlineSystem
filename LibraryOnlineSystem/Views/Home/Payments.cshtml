@@ -48,9 +48,14 @@
     </td>
 
     <td>
-        @{
-           // @Html.ViewBag.datesReturned[x];
-            @(((DateTime)ViewBag.datesReturned[x]).ToString("dd-MM-yyyy"))
+        @if (ViewBag.datesReturned[x] == null)
+        {
+
+        }else
+        {
+
+
+            @(((DateTime) ViewBag.datesReturned[x]).ToString("dd-MM-yyyy"))
             x++;
         }
 

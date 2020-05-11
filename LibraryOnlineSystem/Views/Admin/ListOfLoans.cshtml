@@ -1,0 +1,73 @@
+﻿@model IEnumerable<LibraryOnlineSystem.Models.Booking>
+
+@{
+    ViewBag.Title = "ListOfLoans";
+    Layout = "~/Views/Shared/_Admin_Layout.cshtml";
+}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.csss" />
+<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });</script>
+<h2>ListOfLoans</h2>
+
+
+<table class="table" id="example">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookCodeId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateCreated)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateReturned)
+            </th>
+            <th>
+                Book Serial Number
+            </th>
+            <th>
+                Available
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookCodeId)
+                </td>
+                <td>
+                    @Html.ValueFor(modelItem => item.DateCreated, "{0:dd/MM/yyyy}")
+                </td>
+                <td>
+                    @Html.ValueFor(modelItem => item.DateReturned, "{0:dd/MM/yyyy}")
+                </td>
+                <td>
+                    @ViewBag.BookSerialNumber
+                </td>
+                <td>
+                    @ViewBag.IsInLibrary
+                </td>
+                <td>
+                    @if (item.DateReturned==null)
+                    {
+                        @Html.ActionLink("Return", "ReturnBook", new {bookCodeId=item.BookCodeId, SerialNumber=ViewBag.BookSerialNumber});
+                    }
+                </td>
+            </tr>
+        }
+        </tbody>
+</table>

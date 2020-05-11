@@ -59,21 +59,9 @@
             @Html.DisplayFor(model => model.ZipCode)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.UserRole)
-        </dt>
+      
 
-        <dd>
-            @Html.DisplayFor(model => model.UserRole)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Password)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Password)
-        </dd>
+       
         <div class="row">
         <div class="col-md-4">
             <p>
@@ -113,10 +101,10 @@
           
         </div>
        
-       
+       </div>
         </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "EditUser", "Home",new { userId = Model.UserId },null) |
+    @Html.ActionLink("Edit", "EditUser", "Home",new { id = Model.UserId },null) |
     @Html.ActionLink("Back to List", "Index")
 </p>

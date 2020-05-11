@@ -16,43 +16,11 @@
         <dl class="dl-horizontal">
 
 
-            <dt>
-                Category
-            </dt>
+         
 
-            <dd>
-                @Html.DisplayFor(model => model.Genre)
-            </dd>
-
-        
-
-            <dd>
-                @Html.DisplayFor(model => model.BookId)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Overview)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Overview)
-            </dd>
-
-
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Rating)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Rating)
-            </dd>
 
            
-                <br />
-                <br />
-                <br />
-                <br />
+              
 
                 <dt>Comment</dt>
 
@@ -72,7 +40,7 @@
 
                                     @Html.TextBoxFor(model => model.BookId, new { style = "display: none;" })
                                     @Html.TextArea("NewReply", "")
-                                    <input type="submit" value="reply" onclick="@("window.location.href='" + Url.Action("Details", "Book",new {booksId=item.BookId }));"/>
+                                    <input type="submit" value="reply" )/>
                                     @Html.ActionLink("test", "Details", new { booksId = item.BookId })
 
                                 }
@@ -83,7 +51,7 @@
 
                     }
 
-                    <dd>
+                    @*<dd>
                         @foreach (var reply in item.CommentReply)
                         {
 
@@ -94,7 +62,7 @@
                         }
                         <br />
 
-                    </dd>
+                    </dd>*@
 
 
 

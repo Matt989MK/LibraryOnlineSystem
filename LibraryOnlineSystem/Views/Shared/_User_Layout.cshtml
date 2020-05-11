@@ -4,8 +4,15 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My Prototype</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizer")
+    @*@Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizer")*@
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/Content/bootstrap.css" />
+    <link rel="stylesheet" href="~/Content/Site.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
+
 </head>
 <body>
 <div class="navbar navbar-inverse navbar-fixed-top">
@@ -24,21 +31,13 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink(" Book Collection", "Index", "Book")</li>
 
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            Payments
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Fees", "Payments", "Home",new {userId = Session["UserId"]},null)</li>
-                           
-
-                        </ul>
-                    </li>
+                     
+                    <li>@Html.ActionLink("Fees", "Payments", "Home",new {userId = Session["UserId"]},null)</li>
 
 
                    @* <li>@Html.ActionLink("About", "Index", "Home")</li>*@
                   
+                   <li>@Html.ActionLink("Reservations", "ListOfReservations", "Home",new {userId = Session["Userid"]},null)</li>
 
                           <li>@Html.ActionLink("Loan History", "LoanHistory", "Home",new {userId = Session["Userid"]},null)</li>
                           <li>@Html.ActionLink("Account", "Account", "Home",new {userId = Session["Userid"]},null)</li>
@@ -61,8 +60,8 @@
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    @*@Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")*@
     @RenderSection("scripts", required: false)
 </body>
 </html>
