@@ -17,18 +17,27 @@
             Globalize.culture('fr-FR');
         });
     </script>
-    <script>
-        jQuery.extend(jQuery.validator.methods, {
-            range: function (value, element, param) {
-                //Use the Globalization plugin to parse the value
-                var val = $.global.parseFloat(value);
-                return this.optional(element) || (
-                    val >= param[0] && val <= param[1]);
-            }
-        });
+<script>
+    jQuery.extend(jQuery.validator.methods, {
+        range: function (value, element, param) {
+            //Use the Globalization plugin to parse the value
+            var val = $.global.parseFloat(value);
+            return this.optional(element) || (
+                val >= param[0] && val <= param[1]);
+        }
+    });
 
+</script>
+<script>
+    $(document).ready(function () {
+        var now = new Date();
+        var day = (@Model.DateOfPublication.Day.ToString().Length != 2) ? "0" + @Model.DateOfPublication.Day : @Model.DateOfPublication.Day;
+        var month = (@Model.DateOfPublication.Month.ToString().Length != 2) ? "0" + @Model.DateOfPublication.Month : @Model.DateOfPublication.Month;
+        var today = @Model.DateOfPublication.Year + "-" + (month) + "-" + (day);
+        $('#DateOfPublication').val(today);
+    });
     </script>
-@*}*@
+    @*}*@
 <h2>EditBook</h2>
 
 @using (Html.BeginForm("EditBook", "Admin",

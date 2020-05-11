@@ -203,7 +203,7 @@ namespace LibraryOnlineSystem.Controllers
                 }
             }
 
-            ViewBag.Test = db.BookCodes.Where(a => a.BookId == booksId).First();
+            //ViewBag.Test = db.BookCodes.Where(a => a.BookId == booksId).First();
 
             ViewBag.bookInStock = bookCurrentlyStocked;
             return View(book);
@@ -305,6 +305,22 @@ namespace LibraryOnlineSystem.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult CreateAuthor()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateAuthor(Author author)
+        {
+            
+            author.Name = Request["Name"];
+            author.Surname = Request["Surname"];
+            db.Authors.Add(author);
+            db.SaveChanges();
+            return View();
+        }
         [HttpGet]
         public ActionResult AddAuthorsToBook(int bookId, int authorId)
         {

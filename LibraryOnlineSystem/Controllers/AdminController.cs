@@ -270,38 +270,45 @@ namespace LibraryOnlineSystem.Controllers
             List<BookCode> bookCode = db.BookCodes.ToList();
             List<Booking> bookings = db.Bookings.ToList();
             BookCode bookCode1 = bookCode.Where(a => a.BookSerialNumber == bookSerialNumber).Single();
-          
-            int bookingId = Int32.Parse(db.Bookings.Where(a => a.BookCodeId == bookCode1.BookCodeId && a.DateReturned==null).Single().BookingId.ToString());
-            Booking booking = db.Bookings.Where(a => a.BookingId == bookingId).Single();
-
-            User user = db.Users.Where(a => a.UserId == booking.UserId).Single();
-            foreach (var book in bookCode)
+            if (db.Bookings.Where(a => a.BookCodeId == bookCode1.BookCodeId && a.DateReturned == null).Count() > 0)
             {
-                if (book.BookSerialNumber == bookSerialNumber)
-                {
-                    booking.DateReturned = DateTime.Today;
-                    book.IsInLibrary = true;
-                    if ((DateTime.Today - booking.DateCreated).TotalDays>libraryRegulations.BorrowTime)
-                    {
-                        //create a fee for user for being late
-                        PaymentLibrary payment = new PaymentLibrary()
-                        {
-                            UserId = user.UserId,
-                            Amount = libraryRegulations.Fine,
-                            BookingId = booking.BookingId,
-                            Status = "Unpaid",
-                            DatePaid = null
-                        };
-                        db.Payments.Add(payment);
-                      
-                    }
-                }
-                db.BookCodes.AddOrUpdate(book);
-            }
+                int bookingId = Int32.Parse(db.Bookings.Where(a => a.BookCodeId == bookCode1.BookCodeId && a.DateReturned == null).Single().BookingId.ToString());
+                Booking booking = db.Bookings.Where(a => a.BookingId == bookingId).Single();
 
-            
-            db.SaveChanges();
-            return Redirect("/Admin/BookDatabase");
+                User user = db.Users.Where(a => a.UserId == booking.UserId).Single();
+                foreach (var book in bookCode)
+                {
+                    if (book.BookSerialNumber == bookSerialNumber)
+                    {
+                        booking.DateReturned = DateTime.Today;
+                        book.IsInLibrary = true;
+                        if ((DateTime.Today - booking.DateCreated).TotalDays > libraryRegulations.BorrowTime)
+                        {
+                            //create a fee for user for being late
+                            PaymentLibrary payment = new PaymentLibrary()
+                            {
+                                UserId = user.UserId,
+                                Amount = libraryRegulations.Fine,
+                                BookingId = booking.BookingId,
+                                Status = "Unpaid",
+                                DatePaid = null
+                            };
+                            db.Payments.Add(payment);
+
+                        }
+                    }
+                    db.BookCodes.AddOrUpdate(book);
+                }
+
+
+                db.SaveChanges();
+                return Redirect("/Admin/BookDatabase");
+            }
+            else
+            {
+                return View("Error");
+            }
+          
         }
         [HttpGet]
         public ActionResult DetailsBook(int bookId)

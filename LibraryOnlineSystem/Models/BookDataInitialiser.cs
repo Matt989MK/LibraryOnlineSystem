@@ -260,7 +260,7 @@ namespace LibraryOnlineSystem
                 booking2.UserId = 2;
                 booking2.BookId = 2;
                 booking2.DateCreated = new DateTime(2021, 12, 05);
-                booking2.DateReturned = new DateTime(2020, 03, 02);
+                booking2.DateReturned = null;
                 
             }
             context.Bookings.Add(booking2);
