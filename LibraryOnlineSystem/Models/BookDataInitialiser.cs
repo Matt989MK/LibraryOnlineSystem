@@ -29,14 +29,26 @@ namespace LibraryOnlineSystem
             Author author1 = new Author()
             {
                 Id = 2,
-                Name = "AuthorName2",
-                Surname = "AuthorSurname2",
+                Name = "Kremi",
+                Surname = "Super",
             };
             context.Authors.Add(author1);
 
+            Author author2 = new Author()
+            {
+                Id = 3,
+                Name = "Guten",
+                Surname = "Yers",
+            };
+            context.Authors.Add(author2);
 
-
-
+            Author author3 = new Author()
+            {
+                Id = 4,
+                Name = "Awel",
+                Surname = "Rona",
+            };
+            context.Authors.Add(author3);
 
 
 

@@ -11,7 +11,13 @@ else
         Layout = "~/Views/Shared/_User_Layout.cshtml";
     }
 }
-
+<script src="~/Content/3dParty/jquery-1.11.0.min.js"></script>
+<script type="text/javascript">
+    $("#btnAddName").click(function ()
+    {
+        window.location.href = "BookDatabase";
+    })
+</script>
 
 <h2>Index</h2>
 
@@ -51,7 +57,7 @@ else
 
             </th>
         </tr>
-        <input type="submit" />
+        <input type="submit" value="Search" id="btnAddName" />
     </form>
     <tr>
         <th>

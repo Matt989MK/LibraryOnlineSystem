@@ -354,21 +354,22 @@ namespace LibraryOnlineSystem.Controllers
                     if (!db.BookAuthors.Select(a=>a.AuthorId).Contains(bookAuthor.AuthorId))
                     {
                         db.BookAuthors.Add(bookAuthor);
+                        
                     }
                  
                   //  db.BookAuthors.Distinct();
                     db.SaveChanges();
                 }
-                else
-                if (book.Authors.Where(a => a.Id == bookAuthor.AuthorId).Count() == 0)
-                {
-                    Author author = db.Authors.Where(a => a.Id == bookAuthor.AuthorId).Single();
-                    book.Authors.Add(author);
-                    db.BookAuthors.Add(bookAuthor);
+                //else
+                //if (book.Authors.Where(a => a.Id == bookAuthor.AuthorId).Count() == 0)
+                //{
+                //    Author author = db.Authors.Where(a => a.Id == bookAuthor.AuthorId).Single();
+                //    book.Authors.Add(author);
+                //    db.BookAuthors.Add(bookAuthor);
                   
-                    db.SaveChanges();
+                //    db.SaveChanges();
 
-                }
+                //}
                 db.BookAuthors.Distinct();
                 db.SaveChanges();
             }

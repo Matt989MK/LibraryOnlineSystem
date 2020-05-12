@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Admin_Layout.cshtml";
 }
 
-<h2>AddAuthorsToBook</h2>
+<h2>Add Authors To Book</h2>
 
 
 <table class="table">
@@ -31,11 +31,14 @@
        
         <td>
            
-            @Html.ActionLink("Remove Author","RemoveAuthorsFromBook","Book",new {bookId=Request.Params["bookId"],authorId = item.Id },null)
+            @Html.ActionLink("Remove Author","RemoveAuthorsFromBook","Book",new {bookId=Request.Params["bookId"],authorId = item.Id },null) |
 
           @Html.ActionLink("Add Authors", "AddAuthorsToBook", "Book", new { bookId =Request.Params["bookId"], authorId = item.Id }, null)
         </td>
     </tr>
-}<input type="button" name="button" class="AddAuthorsToBookButton" value="submit" />
-
+}
+    @foreach (var item in Model)
+    {
+       //ViewBag.bookAuthors
+    }
 </table>

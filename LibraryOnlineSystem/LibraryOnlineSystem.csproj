@@ -512,6 +512,7 @@
     <Content Include="Views\Home\EditUser.cshtml" />
     <Content Include="Views\Admin\ListOfLoans.cshtml" />
     <Content Include="Views\Book\CreateAuthor.cshtml" />
+    <Content Include="Views\Shared\_Login_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
