@@ -349,9 +349,10 @@ namespace LibraryOnlineSystem.Controllers
                     Author author = db.Authors.Where(a => a.Id == bookAuthor.AuthorId).Single();
                     int authorIdTest = db.Authors.Where(a => a.Id == bookAuthor.AuthorId).Single().Id;
                         // book.Authors.Add(author);
-                   
+                        var testi = db.BookAuthors.Where(a => a.BookId == bookID).ToList();
+                        var testi2 = testi.Select(a => a.AuthorId).Contains(bookAuthor.AuthorId);
                    // db.Books.AddOrUpdate(book);
-                    if (!db.BookAuthors.Select(a=>a.AuthorId).Contains(bookAuthor.AuthorId))
+                    if (!testi2)//!db.BookAuthors.Select(a=>a.AuthorId).Contains(bookAuthor.AuthorId)
                     {
                         db.BookAuthors.Add(bookAuthor);
                         

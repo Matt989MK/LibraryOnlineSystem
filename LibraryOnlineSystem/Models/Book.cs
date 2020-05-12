@@ -22,6 +22,7 @@ namespace LibraryOnlineSystem.Models
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime DateOfPublication{ get; set; }
         [Required(ErrorMessage = "Please Input an overview")]
+        [MaxLength(200,ErrorMessage = "Overview cannot be longer than 430 characters")]
         public string Overview{ get; set; }
         [Required(ErrorMessage = "Please Input a publisher"), MaxLengthAttribute(40)]
         public string Publisher{ get; set; }
