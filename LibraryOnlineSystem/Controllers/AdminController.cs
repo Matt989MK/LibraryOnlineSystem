@@ -6,6 +6,7 @@ using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Net;
+using System.Security.Cryptography.X509Certificates;
 using System.Web;
 using System.Web.DynamicData;
 using System.Web.Mvc;
@@ -163,11 +164,14 @@ namespace LibraryOnlineSystem.Controllers
             listOfBooks = db.Books.ToList();
             List<BookCode> bookCodesList = db.BookCodes.ToList();
             ViewBag.TotalCountBook = new List<int>();
+            ViewBag.BookCurrentlyInStock = new List<int>();
             foreach (var book in listOfBooks)
             {
                 
-                book.BookCode = bookCodesList.Where(a => a.BookId == bookCodesList[book.BookId].BookId&&a.IsInLibrary==true).ToList();
-                ViewBag.TotalCountBook.Add(bookCodesList.Where(a => a.BookId == bookCodesList[book.BookId].BookId ).Count());
+                
+                book.BookCode = bookCodesList.Where(a => a.BookId == book.BookId&&a.IsInLibrary==true).ToList();
+                ViewBag.TotalCountBook.Add(bookCodesList.Where(a => a.BookId == book.BookId).Count());
+                ViewBag.BookCurrentlyInStock.Add(bookCodesList.Where(a => a.BookId == book.BookId && a.IsInLibrary == true).Count());
             }
       
             return View(listOfBooks);
@@ -418,7 +422,25 @@ namespace LibraryOnlineSystem.Controllers
             Book book = db.Books.FirstOrDefault(a => a.BookId == bookId);
             return View(book);
         }
-
+        public ActionResult DeleteSerialNumber(string SerialNumber)
+        {
+            BookCode bookCode = db.BookCodes.Where(a => a.BookSerialNumber == SerialNumber).Single();
+            if (bookCode.IsInLibrary == true)
+            {
+                if (ModelState.IsValid)
+                {
+                    db.BookCodes.Remove(bookCode);
+                    db.SaveChanges();
+                }
+            }
+            else
+            {
+                return View("Error");
+            }
+           
+            
+            return Redirect("Stocks?userId"+Session["UserId"]);
+        }
         [HttpGet]
         public ActionResult DeleteBook(int? id)
         {

@@ -55,9 +55,10 @@
         else
         {
             <img width="150" height="150"
-                 src="@Url.Action("GetImage", "Book", new { Model.BookId })" />
+                 src="@Url.Action("GetImage", "Admin", new { Model.BookId })" />
+            
         }
-        <div>Upload new image: <input type="file" name="Image" /></div>
+        <div>Upload new image: <input type="file" value=@Model.ImageData name="Image"/></div>
     </div>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">

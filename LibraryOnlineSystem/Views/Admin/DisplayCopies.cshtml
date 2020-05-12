@@ -39,8 +39,13 @@
     </td>
     <td>
         @Html.ActionLink("Return", "ReturnBook", new {bookCodeId=item.BookCodeId, SerialNumber=item.BookSerialNumber })
+        @*@{
+            if (item.IsInLibrary == false)
+            {
+                @Html.ActionLink("Delete", "DeleteSerialNumber", new { SerialNumber=item.BookSerialNumber })
 
-        @Html.ActionLink("Delete", "Delete", new { bookCodeId=item.BookCodeId,SerialNumber=item.BookSerialNumber })
+            }
+        }*@
     </td>
    
 </tr>
