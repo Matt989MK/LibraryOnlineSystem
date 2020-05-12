@@ -182,8 +182,13 @@ namespace LibraryOnlineSystem.Controllers
         [HttpPost]
         public ActionResult CreateCopy(BookCode bookCode)
         {
-            db.BookCodes.Add(bookCode);
-            db.SaveChanges();
+            
+                if (!db.BookCodes.Select(a => a.BookSerialNumber).Contains(bookCode.BookSerialNumber))
+            {
+                db.BookCodes.Add(bookCode);
+                db.SaveChanges();
+            }
+            
             return Redirect("/Admin/DisplayCopies/"+bookCode.BookId);
         }
         public ActionResult DisplayCopies(int id)

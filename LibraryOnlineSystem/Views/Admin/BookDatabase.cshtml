@@ -13,17 +13,23 @@ else
 }
 <script src="~/Content/3dParty/jquery-1.11.0.min.js"></script>
 <script type="text/javascript">
-    $("#btnAddName").click(function ()
-    {
+    $("#btnAddName").click(function () {
         window.location.href = "BookDatabase";
     })
 </script>
-
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.csss" />
+<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });</script>
 <h2>Index</h2>
 
 
-<table class="table">
-    <form action="Book">
+<table class="table" id="example">
+    
+    @*<form action="Book">
         <tr>
             <th>
                 @Html.TextBox("Name")
@@ -58,10 +64,12 @@ else
             </th>
         </tr>
         <input type="submit" value="Search" id="btnAddName" />
-    </form>
+    </form>*@
+    <thead>
+  
     <tr>
         <th>
-          Book Id
+            Book Id
 
         </th>
         <th>
@@ -71,7 +79,7 @@ else
             @Html.DisplayNameFor(model => model.Genre)
         </th>
         <th>
-         Date Of Publication
+            Date Of Publication
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Overview)
@@ -80,11 +88,12 @@ else
             @Html.DisplayNameFor(model => model.Publisher)
         </th>
 
-        <th>
-            @Html.DisplayNameFor(model => model.Rating)
-        </th>
-
-
+    <th>
+        @Html.DisplayNameFor(model => model.Rating)
+    </th>
+    <th></th>
+    </thead>
+    <tbody>
         @foreach (var item in Model)
         {
             <tr>
@@ -92,7 +101,7 @@ else
                     @Html.DisplayFor(modelItem => item.BookId)
                 </td>
                 <td>
-                    @Html.ActionLink(item.Name, "DetailsBook", new {bookId = item.BookId})
+                    @Html.ActionLink(item.Name, "DetailsBook", new { bookId = item.BookId })
                 </td>
 
                 <td>
@@ -112,12 +121,13 @@ else
                     @Html.DisplayFor(modelItem => item.Rating)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "EditBook", new {bookId = item.BookId}, null) |
-                    @Html.ActionLink("Delete", "DeleteBook", new {id = item.BookId}, null)
+                    @Html.ActionLink("Edit", "EditBook", new { bookId = item.BookId }, null) |
+                    @Html.ActionLink("Delete", "DeleteBook", new { id = item.BookId }, null)
                 </td>
             </tr>
 
         }
 
     </tr>
-</table>
+    </tbody>
+    </table>
