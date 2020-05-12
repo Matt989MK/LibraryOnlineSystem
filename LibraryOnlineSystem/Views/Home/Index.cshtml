@@ -1,4 +1,9 @@
 ﻿@model LibraryOnlineSystem.Models.Book
+@if (Session["isAdmin"].ToString()==null)
+{
+    Layout = "~/Views/Shared/_User_Layout.cshtml";
+    ViewBag.Title = "Login";
+}
 @if (Session["isAdmin"].ToString() == "1")
 
 {

@@ -1,5 +1,6 @@
 ﻿@using System.Web.UI.WebControls
 @using LibraryOnlineSystem.Models
+@using Microsoft.Ajax.Utilities
 @model LibraryOnlineSystem.Models.Book
 
 @{
@@ -48,11 +49,16 @@
             @Html.DisplayNameFor(model => model.Authors)
         </dt>
         <dd>
-            @foreach (var author in Model.Authors)
-            {
-            <nbsp> @author.Name</nbsp>
-                @author.Surname;<br/>
-            }
+            @if (Model.Authors!=null)
+    {
+                foreach (var author in Model.Authors)
+                    {
+                 <nbsp> @author.Name</nbsp>
+                      @author.Surname
+                  ;<br/>
+                        }
+    }
+                
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Publisher)
@@ -68,11 +74,12 @@
         <dd>
             @ViewBag.bookInStock
         </dd>
-       
+
+
         <dd>
             <div class="editor-field">
                 @if (Model.ImageData == null)
-                {
+            {
                     @:No Image
                 }
                 else

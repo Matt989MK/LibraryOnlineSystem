@@ -1,5 +1,9 @@
 ﻿@model IEnumerable<LibraryOnlineSystem.Models.Book>
-
+@if (Session["isAdmin"].ToString() == null)
+{
+    Layout = "~/Views/Shared/_User_Layout.cshtml";
+    ViewBag.Title = "Login";
+}
 @if (Session["isAdmin"].ToString() == "1")
 {
     Layout = "~/Views/Shared/_Admin_Layout.cshtml";
@@ -7,7 +11,7 @@
 else
 {
     {
-        ViewBag.Title = "Index";
+        ViewBag.Title = "Login";
         Layout = "~/Views/Shared/_User_Layout.cshtml";
     }
 }
@@ -38,8 +42,8 @@ else
 
             </th>
             @*<th>
-                @Html.DisplayNameFor(model => model.Publisher)
-            </th>*@
+                    @Html.DisplayNameFor(model => model.Publisher)
+                </th>*@
             <th>
 
             </th>
@@ -69,7 +73,7 @@ else
         <th>
             @Html.DisplayNameFor(model => model.Publisher)
         </th>
-        
+
         <th>
             @Html.DisplayNameFor(model => model.Rating)
         </th>
@@ -94,7 +98,7 @@ else
             <td>
                 @Html.DisplayFor(modelItem => item.Publisher)
             </td>
-           
+
             <td>
                 @Html.DisplayFor(modelItem => item.Rating)
             </td>

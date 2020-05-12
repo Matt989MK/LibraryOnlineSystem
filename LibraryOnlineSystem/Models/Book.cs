@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
@@ -25,6 +26,7 @@ namespace LibraryOnlineSystem.Models
         [Required(ErrorMessage = "Please Input a publisher"), MaxLengthAttribute(40)]
         public string Publisher{ get; set; }
         public List<BookReview> BookReviews { get; set; }
+        [NotMapped]
         public virtual List<Author> Authors { get; set; }
         public virtual List<Comment> Comment { get; set; }//added this
         [Required(ErrorMessage = "Please Input a rating")]

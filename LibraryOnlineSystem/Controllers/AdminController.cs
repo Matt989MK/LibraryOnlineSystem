@@ -103,12 +103,48 @@ namespace LibraryOnlineSystem.Controllers
 
             return View(paymentList);
         }//------------------ADMIN
-        public ActionResult BookDatabase()
-        {
-            List<Book> listOfBooks = new List<Book>();
-            listOfBooks = db.Books.ToList();
 
-            return View(listOfBooks);
+        public ActionResult BookDatabase(string Name, string Genre, string Rating)
+        {
+           
+            List<Author> listOfAuthor = new List<Author>();
+            List<Book> lstBooks = new List<Book>();
+            if (Name != null && Genre == "Any")
+            {
+                lstBooks = db.Books.Where(a => a.Name.Contains(Name)).ToList();
+            }
+            else
+            {
+                lstBooks = db.Books.ToList();
+            }
+
+
+
+
+            foreach (Book book in lstBooks)
+            {
+                try
+                {
+                    book.Rating = db.Comment.Where(a => a.BookId == book.BookId).Select(a => a.UserRating).Average();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    book.Rating = db.Books.Where(a => a.BookId == book.BookId).Select(a => a.Rating).Single();
+                }
+
+
+
+            }
+            if (Genre != null && Genre != "Any")
+            {
+                lstBooks = lstBooks.Where(i => i.Genre.ToString() == Genre).ToList();
+
+            }
+            if (Rating == "Worst") { lstBooks = lstBooks.OrderBy(i => i.Rating).ToList(); }
+            else if (Rating == "Best") { lstBooks = lstBooks.OrderByDescending(i => i.Rating).ToList(); }
+
+            return View(lstBooks);
         }
 
         public ActionResult OrderBooks()
@@ -146,8 +182,13 @@ namespace LibraryOnlineSystem.Controllers
         [HttpPost]
         public ActionResult CreateCopy(BookCode bookCode)
         {
-            db.BookCodes.Add(bookCode);
-            db.SaveChanges();
+            
+                if (!db.BookCodes.Select(a => a.BookSerialNumber).Contains(bookCode.BookSerialNumber))
+            {
+                db.BookCodes.Add(bookCode);
+                db.SaveChanges();
+            }
+            
             return Redirect("/Admin/DisplayCopies/"+bookCode.BookId);
         }
         public ActionResult DisplayCopies(int id)

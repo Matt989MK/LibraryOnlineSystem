@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using LibraryOnlineSystem.Models;
+using Microsoft.Ajax.Utilities;
 
 namespace LibraryOnlineSystem.Controllers
 {
@@ -43,8 +44,8 @@ namespace LibraryOnlineSystem.Controllers
             }
 
 
-           
-            
+
+
             foreach (Book book in lstBooks)
             {
                 try
@@ -56,7 +57,7 @@ namespace LibraryOnlineSystem.Controllers
                     Console.WriteLine(e);
                     book.Rating = db.Books.Where(a => a.BookId == book.BookId).Select(a => a.Rating).Single();
                 }
-                
+
 
 
             }
@@ -87,7 +88,7 @@ namespace LibraryOnlineSystem.Controllers
 
             return View(bookReserve);
         }
-        
+
         public ActionResult DeleteComment(int? commentId)
         {
             if (commentId == null)
@@ -99,9 +100,9 @@ namespace LibraryOnlineSystem.Controllers
             {
                 return HttpNotFound();
             }
-            return   View(comment);
+            return View(comment);
         }
-       
+
         [HttpPost]
         public ActionResult DeleteComment(int commentId)
         {
@@ -167,7 +168,7 @@ namespace LibraryOnlineSystem.Controllers
             List<BookReview> listOfBookReviews = db.BookReviews.Where(a => a.BookId == id).ToList();
             book.BookReviews = listOfBookReviews;
 
-            return RedirectToAction("Details", new{booksId=id});
+            return RedirectToAction("Details", new { booksId = id });
 
 
         }
@@ -184,14 +185,14 @@ namespace LibraryOnlineSystem.Controllers
             List<BookReview> listOfBookReviews = db.BookReviews.Where(a => a.BookId == booksId).ToList();
             Book book = listOfBook.Where(a => a.BookId == booksId).Single();
             book.BookReviews = listOfBookReviews;
-            List<BookCode> bookCodesList = db.BookCodes.Where(a => a.BookId == booksId&&a.IsInLibrary==true).ToList();
+            List<BookCode> bookCodesList = db.BookCodes.Where(a => a.BookId == booksId && a.IsInLibrary == true).ToList();
             book.BookCode = bookCodesList;
             int bookCurrentlyStocked = bookCodesList.Count;
-            List<BookAuthors> bookAuthors = db.BookAuthors.Where(a=>a.BookId==booksId).ToList();
+            List<BookAuthors> bookAuthors = db.BookAuthors.Where(a => a.BookId == booksId).ToList();
             List<Author> authorList = new List<Author>();
             foreach (var bookAuthor in bookAuthors)
             {
-                Author author= db.Authors.Where(a => a.Id == bookAuthor.AuthorId).Single();
+                Author author = db.Authors.Where(a => a.Id == bookAuthor.AuthorId).Single();
                 authorList.Add(author);
             }
             book.Authors = authorList;
@@ -208,7 +209,7 @@ namespace LibraryOnlineSystem.Controllers
             ViewBag.bookInStock = bookCurrentlyStocked;
             return View(book);
         }
-      
+
         [HttpPost]
         public ActionResult Details()
         {
@@ -223,16 +224,16 @@ namespace LibraryOnlineSystem.Controllers
             comment.PostId = 1;
             comment.BookId = id;
             comment.PersonId = 1;
-            
+
             float.TryParse(Request.Params["NewUserRating"], out float results);
             comment.UserRating = results;
-           
+
 
 
             List<Comment> lstComment = db.Comment.Where(c => c.BookId == id).ToList();
             foreach (Comment item in lstComment)
             {
-           
+
                 CommentReply commentReply = new CommentReply();
                 List<CommentReply> lstCommentReply = new List<CommentReply>();
                 if (db.CommentReply.Where(c => c.CommentID == item.CommentId).ToList() != null)//
@@ -241,8 +242,8 @@ namespace LibraryOnlineSystem.Controllers
                 }
             }
 
-           
-            
+
+
             if (comment.UserRating <= 10 && comment.UserRating >= 0.0)
             {
                 db.Comment.Add(comment);
@@ -260,7 +261,7 @@ namespace LibraryOnlineSystem.Controllers
             listOfBook = db.Books.ToList();
             List<BookReview> listOfBookReviews = db.BookReviews.Where(a => a.BookId == id).ToList();
             book.BookReviews = listOfBookReviews;
-           
+
             return View(book);
 
         }
@@ -281,7 +282,7 @@ namespace LibraryOnlineSystem.Controllers
 
             Booking booking = new Booking();
             BookCode bookCode = new BookCode();
-           
+
             bookCode = db.BookCodes.Where(a => a.BookId == bookId && a.IsInLibrary == true).First();
             booking.Book = book;
             booking.BookId = bookId;
@@ -314,9 +315,10 @@ namespace LibraryOnlineSystem.Controllers
         [HttpPost]
         public ActionResult CreateAuthor(Author author)
         {
-            
+
             author.Name = Request["Name"];
             author.Surname = Request["Surname"];
+
             db.Authors.Add(author);
             db.SaveChanges();
             return View();
@@ -328,19 +330,50 @@ namespace LibraryOnlineSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            List<Author> authorList= db.Authors.ToList();
+            List<Author> authorList = db.Authors.ToList();
             if (authorId != 0)
             {
                 Book book = db.Books.Find(bookId);
+                List<BookAuthors> bookAuthorses = new List<BookAuthors>();
+                bookAuthorses = db.BookAuthors.Where(a => a.BookId == bookId).ToList();
+                
+
                 ViewBag.BookId = book.BookId;
                 int bookID = book.BookId;
                 BookAuthors bookAuthor = new BookAuthors();
                 bookAuthor.BookId = bookID;
                 bookAuthor.AuthorId = authorId;
-                db.BookAuthors.Add(bookAuthor);
+                // book.Authors.Where(a=>a.Id==bookAuthor.AuthorId).Count()
+                if (book.Authors == null)
+                {
+                    Author author = db.Authors.Where(a => a.Id == bookAuthor.AuthorId).Single();
+                    int authorIdTest = db.Authors.Where(a => a.Id == bookAuthor.AuthorId).Single().Id;
+                        // book.Authors.Add(author);
+                   
+                   // db.Books.AddOrUpdate(book);
+                    if (!db.BookAuthors.Select(a=>a.AuthorId).Contains(bookAuthor.AuthorId))
+                    {
+                        db.BookAuthors.Add(bookAuthor);
+                        
+                    }
+                 
+                  //  db.BookAuthors.Distinct();
+                    db.SaveChanges();
+                }
+                //else
+                //if (book.Authors.Where(a => a.Id == bookAuthor.AuthorId).Count() == 0)
+                //{
+                //    Author author = db.Authors.Where(a => a.Id == bookAuthor.AuthorId).Single();
+                //    book.Authors.Add(author);
+                //    db.BookAuthors.Add(bookAuthor);
+                  
+                //    db.SaveChanges();
+
+                //}
+                db.BookAuthors.Distinct();
                 db.SaveChanges();
-                book.Authors = authorList;
             }
+
           
             return View(authorList);
         }
@@ -358,15 +391,15 @@ namespace LibraryOnlineSystem.Controllers
                 ViewBag.BookId = book.BookId;
                 int bookID = book.BookId;
                 BookAuthors bookAuthor = db.BookAuthors.Where(a => a.BookId == bookID && a.AuthorId == authorId).Single();
-               
+
                 db.BookAuthors.Remove(bookAuthor);
                 db.SaveChanges();
                 book.Authors = authorList;
             }
 
-            return View("AddAuthorsToBook",authorList);
+            return View("AddAuthorsToBook", authorList);
         }
-       
+
         public void CheckLogin()
         {
 
