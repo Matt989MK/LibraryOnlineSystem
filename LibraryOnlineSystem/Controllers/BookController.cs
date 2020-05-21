@@ -185,7 +185,7 @@ namespace LibraryOnlineSystem.Controllers
             List<BookReview> listOfBookReviews = db.BookReviews.Where(a => a.BookId == booksId).ToList();
             Book book = listOfBook.Where(a => a.BookId == booksId).Single();
             book.BookReviews = listOfBookReviews;
-            List<BookCode> bookCodesList = db.BookCodes.Where(a => a.BookId == booksId && a.IsInLibrary == true).ToList();
+            List<BookCode> bookCodesList = db.BookCodes.Where(a => a.BookId == booksId ).ToList();//&& a.IsInLibrary == true
             book.BookCode = bookCodesList;
             int bookCurrentlyStocked = bookCodesList.Count;
             List<BookAuthors> bookAuthors = db.BookAuthors.Where(a => a.BookId == booksId).ToList();

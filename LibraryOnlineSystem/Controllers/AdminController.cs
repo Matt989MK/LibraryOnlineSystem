@@ -648,14 +648,20 @@ namespace LibraryOnlineSystem.Controllers
             
             if (dateEnding == DateTime.MinValue) { dateEnding = DateTime.Today; }
 
-           
+            int bookCodeCount = 0;
             List<BookCode> bookCodes = db.BookCodes.ToList();
             int maxBookId=0;
-            int bookCodeCount = db.Bookings.Where(a => a.DateCreated >dateBeginning  && a.DateCreated < dateEnding).GroupBy(a=>a.BookId).Select(a=>a.Count()).Max();// most popular book
+            if (db.Bookings.Where(a => a.DateCreated >= dateBeginning && a.DateCreated <= dateEnding).GroupBy(a => a.BookId).Select(a => a.Count()).Count() > 0)
+            {
+                 bookCodeCount = db.Bookings.Where(a => a.DateCreated >= dateBeginning && a.DateCreated <= dateEnding).GroupBy(a => a.BookId).Select(a => a.Count()).Max();// most popular book
 
-           
+            }
+
+            List<int> newBookingsTest=db.Bookings.Where(a=>a.DateCreated> dateBeginning && a.DateCreated< dateEnding).Select(a=>a.BookId).ToList();
+            List<int> newBookingsTestAll = db.Bookings.Select(a => a.BookId).ToList();
+
             List<int> newBookings=db.Bookings.Where(a=>a.DateCreated> dateBeginning && a.DateCreated< dateEnding).Select(a=>a.BookId).Distinct().ToList();
-            ViewBag.BookBorrowCount = newBookings.Count;
+            ViewBag.BookBorrowCount = newBookingsTest.Count;
             List<Book> books=db.Books.ToList();
           List<string> genre= new List<string>();
             foreach (var book in books)
@@ -670,7 +676,7 @@ namespace LibraryOnlineSystem.Controllers
                 int countOfBook = db.Bookings.Where(a => a.BookId == bookId).Count();
                 if (countOfBook == bookCodeCount)
                 {
-                    maxBookId = db.Bookings.Where(a => a.BookId == bookId).FirstOrDefault().BookId;
+                    maxBookId = db.Bookings.Where(a => a.BookId == bookId).First().BookId;
                 }
             }
 
@@ -680,7 +686,11 @@ namespace LibraryOnlineSystem.Controllers
             var maxCount = genreGroup.Max(g => g.Count());
             var mostCommons = genreGroup.Where(x => x.Count() == maxCount).Select(x => x.Key).Single();
             ViewBag.MostCommonCategory = mostCommons;
-            ViewBag.MostPopularBookName = books.Where(a=>a.BookId==maxBookId).FirstOrDefault().Name;
+            if (books.Where(a => a.BookId == maxBookId).Count()>0)
+            {
+                ViewBag.MostPopularBookName = books.Where(a => a.BookId == maxBookId).First().Name;
+
+            }
             ViewBag.MaxBooking = bookCodeCount;
             ViewBag.BookCount = bookCodes.Count;
             return View(bookCodes);
@@ -788,13 +798,23 @@ namespace LibraryOnlineSystem.Controllers
         public ActionResult ListOfReservations()
         {
             BookCode bookCode=new BookCode();
+            string bookName;
             List<BookReserve> listOfBookReserves = db.BookReserves.ToList();
+            List<string> listOfSerialNumbers=new List<string>();
+            List<bool> listOfIsInLibrary = new List<bool>();
+            List<String> listOfNames=new List<string>();
             foreach (var bookReserve in listOfBookReserves)
             {
                 bookCode= db.BookCodes.Where(a => a.BookCodeId == bookReserve.BookCodeId).Single();
-                ViewBag.BookSerialNumber = bookCode.BookSerialNumber;
-                ViewBag.IsInLibrary =bookCode.IsInLibrary;
+                bookName = db.Books.Where(a => a.BookId == bookCode.BookId).Single().Name;
+                listOfNames.Add(bookName);
+                listOfSerialNumbers.Add(bookCode.BookSerialNumber);
+                listOfIsInLibrary.Add(bookCode.IsInLibrary);
+                
             }
+            ViewBag.BookSerialNumber = listOfSerialNumbers;
+            ViewBag.ListOfNames = listOfNames;
+            ViewBag.IsInLibrary = listOfIsInLibrary;
             return View(listOfBookReserves);
         }
 
@@ -802,13 +822,21 @@ namespace LibraryOnlineSystem.Controllers
         {
             BookCode bookCode=new BookCode();
             List<Booking> listOfBookings = db.Bookings.ToList();
+            List<string> listOfSerialNumbers = new List<string>();
+            List<bool> listOfIsInLibrary = new List<bool>();
+            List<String> listOfNames = new List<string>();
+            string bookName;
             foreach (var booking in listOfBookings)
             {
                 bookCode = db.BookCodes.Where(a => a.BookCodeId == booking.BookCodeId).Single();
-                ViewBag.BookSerialNumber = bookCode.BookSerialNumber;
-                ViewBag.IsInLibrary = bookCode.IsInLibrary;
+                bookName = db.Books.Where(a => a.BookId == bookCode.BookId).Single().Name;
+                listOfNames.Add(bookName);
+                listOfSerialNumbers.Add(bookCode.BookSerialNumber);
+                listOfIsInLibrary.Add(bookCode.IsInLibrary);
             }
-
+            ViewBag.BookSerialNumber = listOfSerialNumbers;
+            ViewBag.ListOfNames = listOfNames;
+            ViewBag.IsInLibrary = listOfIsInLibrary;
             return View(listOfBookings);
         }
         protected override void Dispose(bool disposing)

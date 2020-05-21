@@ -149,8 +149,12 @@ namespace LibraryOnlineSystem.Controllers
             List<Booking> bookingList = db.Bookings.Where(a => a.User.UserId == userId && a.DateReturned < DateTime.Now).ToList();
             List<PaymentLibrary> paymentList = db.Payments.Where(a => a.UserId == userId).ToList();
             List<Booking> bookingListDisplay = db.Bookings.Where(a => a.User.UserId == userId).ToList();
-            string paymentAmount = paymentList.FirstOrDefault().Amount.ToString();
-            ViewBag.paymentAmount = paymentAmount;
+            if (paymentList.Count !=0)
+            {
+                string paymentAmount = paymentList.FirstOrDefault().Amount.ToString();
+                ViewBag.paymentAmount = paymentAmount;
+            }
+            
 
             List<string> bookNames = new List<string>();
             List<DateTime?> datesReturned = new List<DateTime?>();
@@ -472,11 +476,14 @@ namespace LibraryOnlineSystem.Controllers
         {
             BookCode bookCode = new BookCode();
             List<BookReserve> listOfBookReserves = db.BookReserves.Where(a=>a.UserId==userId).ToList();
+            Book book=new Book();
             foreach (var bookReserve in listOfBookReserves)
             {
                 bookCode = db.BookCodes.Where(a => a.BookCodeId == bookReserve.BookCodeId).Single();
                 ViewBag.BookSerialNumber = bookCode.BookSerialNumber;
                 ViewBag.IsInLibrary = bookCode.IsInLibrary;
+                book = db.Books.Where(a => a.BookId == bookCode.BookId).Single();
+                ViewBag.TitleBook = book.Name;
             }
             return View(listOfBookReserves);
         }
@@ -511,7 +518,7 @@ namespace LibraryOnlineSystem.Controllers
                     mail.From = new MailAddress("hahefhguas1234@gmail.com");
                     mail.To.Add(email);
                     mail.Subject = "Password Reset Token";
-                    mail.Body = "Please find the link to Reset your Password" + resetLink;
+                    mail.Body = "Please find the link to Reset your Password " + resetLink;
 
                     SmtpServer.Port = 587;
                     SmtpServer.Credentials = new System.Net.NetworkCredential("hahefhguas1234@gmail.com", "ZAQ13wsx");

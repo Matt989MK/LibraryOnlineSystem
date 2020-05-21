@@ -16,28 +16,30 @@
 
 <table class="table" id="example">
     <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.UserId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BookCodeId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateCreated)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateReturned)
-            </th>
-            <th>
-                Book Serial Number
-            </th>
-            <th>
-                Available
-            </th>
-            <th></th>
-        </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserId)
+        </th>
+        <th> Book Title</th>
+        <th>
+            @Html.DisplayNameFor(model => model.BookCodeId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateReturned)
+        </th>
+        <th>
+            Book Serial Number
+        </th>
+        <th>
+            Available
+        </th>
+        <th></th>
+    </tr>
     </thead>
+    @{ int x = 0;}
     <tbody>
         @foreach (var item in Model)
         {
@@ -45,6 +47,9 @@
 
                 <td>
                     @Html.DisplayFor(modelItem => item.UserId)
+                </td>
+                <td>
+                    @ViewBag.ListOfNames[x]
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.BookCodeId)
@@ -56,10 +61,10 @@
                     @Html.ValueFor(modelItem => item.DateReturned, "{0:dd/MM/yyyy}")
                 </td>
                 <td>
-                    @ViewBag.BookSerialNumber
+                    @ViewBag.BookSerialNumber[x]
                 </td>
                 <td>
-                    @ViewBag.IsInLibrary
+                    @ViewBag.IsInLibrary[x]
                 </td>
                 <td>
                     @if (item.DateReturned==null)
@@ -68,6 +73,7 @@
                     }
                 </td>
             </tr>
+            x++;
         }
         </tbody>
 </table>
