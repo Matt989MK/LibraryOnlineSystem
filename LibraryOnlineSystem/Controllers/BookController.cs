@@ -180,6 +180,10 @@ namespace LibraryOnlineSystem.Controllers
             //DAOBook daoBook=new DAOBook();
             //Book book = daoBook.getSelectedBook(id);
 
+            List<User> listOfUser=new List<User>();
+            listOfUser = db.Users.ToList();
+            User user = listOfUser.Where(a => a.UserId ==Convert.ToInt32(Session["UserId"])).Single(); // GET USER ID
+
             List<Book> listOfBook = new List<Book>();
             listOfBook = db.Books.ToList();
             List<BookReview> listOfBookReviews = db.BookReviews.Where(a => a.BookId == booksId).ToList();
@@ -204,6 +208,14 @@ namespace LibraryOnlineSystem.Controllers
                 }
             }
 
+            if (user.IsBanned==true)
+            {
+                ViewBag.isBanned = 1;
+            }
+            else
+            {
+                ViewBag.isBanned = 0;
+            }
             //ViewBag.Test = db.BookCodes.Where(a => a.BookId == booksId).First();
 
             ViewBag.bookInStock = bookCurrentlyStocked;

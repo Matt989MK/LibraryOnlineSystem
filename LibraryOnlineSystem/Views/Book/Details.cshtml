@@ -106,11 +106,19 @@
             @if (Model.BookCode.Count != 0)
             {
 
-           
+
 
                 if (Model.BookCode.FirstOrDefault(a=>a.IsInLibrary==true) !=null && Model.Link == null)
                 {
-                    @Html.ActionLink("Borrow Book", "BorrowBook", new {bookId = Model.BookId, userId = Session["UserId"]}, null)
+                    if (ViewBag.isBanned==1)
+                    {
+                        <a>Please pay any outstanding fees to borrow a book again</a>
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Borrow Book", "BorrowBook", new {bookId = Model.BookId, userId = Session["UserId"]}, null)
+
+                    }
                 }
                 else if (Model.Link != null)
                 {

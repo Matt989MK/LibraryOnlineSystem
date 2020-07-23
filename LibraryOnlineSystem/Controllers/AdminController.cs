@@ -11,6 +11,7 @@ using System.Web;
 using System.Web.DynamicData;
 using System.Web.Mvc;
 using System.Web.WebPages;
+using Antlr.Runtime.Misc;
 using LibraryOnlineSystem;
 using LibraryOnlineSystem.Models;
 
@@ -35,10 +36,26 @@ namespace LibraryOnlineSystem.Controllers
         public ActionResult DetailsUser(int userId)
         {
             User user=new User();
-            user=db.Users.Where(a => a.UserId == userId).Single();
+            BookCode bookCode = new BookCode();
+            user =db.Users.Where(a => a.UserId == userId).Single();
             List<BookReserve> bookReserves = db.BookReserves.Where(a => a.UserId == userId).ToList();
+            List<Booking> bookingList = db.Bookings.Where(a => a.UserId == userId).ToList();
+           // List<PaymentLibrary> paymentLibrary = db.Payments.Where(a => a.UserId == userId).ToList();
+
+            string bookName;
+            List<string> bookNameList=new List<string>();
+            foreach (var booking in bookingList)
+            {
+                bookCode = db.BookCodes.Where(a => a.BookCodeId == booking.BookCodeId).Single();
+                bookName = db.Books.Where(a => a.BookId == bookCode.BookId).Single().Name;
+                bookNameList.Add(bookName);
+               
+            }
+
+            ViewBag.BookNames = bookNameList;
             user.ListOfReserves = bookReserves;
-            
+            user.Bookings = bookingList;
+            user.ListOfPayment = db.Payments.Where(a => a.UserId == userId).ToList();
             return View(user);
         }
 
@@ -825,6 +842,9 @@ namespace LibraryOnlineSystem.Controllers
             List<string> listOfSerialNumbers = new List<string>();
             List<bool> listOfIsInLibrary = new List<bool>();
             List<String> listOfNames = new List<string>();
+            List<String> listOfFirstNames = new List<string>();
+            List<String> listOfSurNames = new List<string>();
+
             string bookName;
             foreach (var booking in listOfBookings)
             {
@@ -836,6 +856,8 @@ namespace LibraryOnlineSystem.Controllers
             }
             ViewBag.BookSerialNumber = listOfSerialNumbers;
             ViewBag.ListOfNames = listOfNames;
+            ViewBag.ListOfFirstNames = listOfFirstNames;
+            ViewBag.ListOfSurNames = listOfSurNames;
             ViewBag.IsInLibrary = listOfIsInLibrary;
             return View(listOfBookings);
         }

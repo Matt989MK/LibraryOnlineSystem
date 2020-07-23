@@ -52,7 +52,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ZipCode)
+            Post Code
         </dt>
 
         <dd>
@@ -69,32 +69,41 @@
                 {
                     <h2>Loan History</h2>
 
-                    <dd>
-                        @foreach (var item in Model.Bookings)
-                        {
-                            <dt>
-                                @Html.DisplayNameFor(model => item.Book.BookId)
-                            </dt>
-
-                            <dd>
-                                @Html.DisplayFor(model => item.BookId)
-                            </dd>
-                            <dt>
-                                @Html.DisplayNameFor(model => item.DateCreated)
-                            </dt>
-
-                            <dd>
-                                @Html.ValueFor(model => item.DateCreated, "{0:dd/MM/yyyy}")
-                            </dd>
-                            <dt>
-                                @Html.DisplayNameFor(model => item.DateReturned)
-                            </dt>
-
-                            <dd>
-                                @Html.ValueFor(model => item.DateReturned, "{0:dd/MM/yyyy}")
-                            </dd>
+                    
+                    <table class="table">
+                        <tr>
+       
+                            <th>
+                             Book Id
+                            </th>
+                            <th>
+                                Date created
+                            </th>
+                            <th>
+                               Date returned
+                            </th>
+      
+                        </tr>
+                        @{
+                            int x = 0;
                         }
-                    </dd>
+                        @foreach (var item in Model.Bookings) {
+                            <tr>
+        
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.BookId)
+                                </td>
+                                <td>
+                                    @Html.ValueFor(modelItem => item.DateCreated, "{0:dd/MM/yyyy}")
+                                </td>
+                                <td>
+                                    @Html.ValueFor(modelItem => item.DateReturned, "{0:dd/MM/yyyy}")
+                                </td>
+      
+                            </tr>
+                        }
+
+                    </table>
                 }
                 
             </p>
