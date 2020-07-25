@@ -54,6 +54,7 @@ namespace LibraryOnlineSystem.Controllers
 
             ViewBag.BookNames = bookNameList;
             user.ListOfReserves = bookReserves;
+            user.ListOfReserves = db.BookReserves.Where(a => a.UserId == userId).ToList();
             user.Bookings = bookingList;
             user.ListOfPayment = db.Payments.Where(a => a.UserId == userId).ToList();
             return View(user);
