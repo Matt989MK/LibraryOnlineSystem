@@ -4,42 +4,64 @@
     ViewBag.Title = "AddAuthorsToBook";
     Layout = "~/Views/Shared/_Admin_Layout.cshtml";
 }
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.csss" />
+<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });</script>
+<h2>Step 2</h2>
+<h2>Add authors from the list</h2>
 
-<h2>Add Authors To Book</h2>
-@Html.ActionLink("Create Author","CreateAuthor","Book") |
+@Html.ActionLink("Create Author", "CreateAuthor", "Book") |
 
-
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Surname)
-        </th>
-       
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Surname)
-        </td>
-       
-        <td>
-           
-            @Html.ActionLink("Remove Author","RemoveAuthorsFromBook","Book",new {bookId=Request.Params["bookId"],authorId = item.Id },null) |
-
-          @Html.ActionLink("Add Authors", "AddAuthorsToBook", "Book", new { bookId =Request.Params["bookId"], authorId = item.Id }, null)
-        </td>
-    </tr>
+<br/>
+<b>Currently Added Authors</b><br/>
+@foreach (Author author in ViewBag.ListOfAuthors)
+{
+    @author.Name
+        @author.Surname
+    <br/>
 }
-    @foreach (var item in Model)
-    {
-       //ViewBag.bookAuthors
-    }
+
+<br />
+
+<table class="table" id="example">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Surname)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Surname)
+                </td>
+
+                <td>
+
+                    @Html.ActionLink("Remove Author", "RemoveAuthorsFromBook", "Book", new { bookId = Request.Params["bookId"], authorId = item.Id }, null) |
+
+                    @Html.ActionLink("Add Authors", "AddAuthorsToBook", "Book", new { bookId = Request.Params["bookId"], authorId = item.Id }, null)
+                </td>
+            </tr>
+        }
+    </tbody>
+    @*@foreach (var item in Model)
+        {
+            //ViewBag.bookAuthors
+        }*@
 </table>

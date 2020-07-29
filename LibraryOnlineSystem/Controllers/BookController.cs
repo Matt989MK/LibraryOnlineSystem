@@ -347,7 +347,7 @@ namespace LibraryOnlineSystem.Controllers
             {
                 Book book = db.Books.Find(bookId);
                 List<BookAuthors> bookAuthorses = new List<BookAuthors>();
-                bookAuthorses = db.BookAuthors.Where(a => a.BookId == bookId).ToList();
+              //  bookAuthorses = db.BookAuthors.Where(a => a.BookId == bookId).ToList();
                 
 
                 ViewBag.BookId = book.BookId;
@@ -358,8 +358,8 @@ namespace LibraryOnlineSystem.Controllers
                 // book.Authors.Where(a=>a.Id==bookAuthor.AuthorId).Count()
                 if (book.Authors == null)
                 {
-                    Author author = db.Authors.Where(a => a.Id == bookAuthor.AuthorId).Single();
-                    int authorIdTest = db.Authors.Where(a => a.Id == bookAuthor.AuthorId).Single().Id;
+                  //  Author author = db.Authors.Where(a => a.Id == bookAuthor.AuthorId).Single();
+                    //int authorIdTest = db.Authors.Where(a => a.Id == bookAuthor.AuthorId).Single().Id;
                         // book.Authors.Add(author);
                         var testi = db.BookAuthors.Where(a => a.BookId == bookID).ToList();
                         var testi2 = testi.Select(a => a.AuthorId).Contains(bookAuthor.AuthorId);
@@ -373,20 +373,19 @@ namespace LibraryOnlineSystem.Controllers
                   //  db.BookAuthors.Distinct();
                     db.SaveChanges();
                 }
-                //else
-                //if (book.Authors.Where(a => a.Id == bookAuthor.AuthorId).Count() == 0)
-                //{
-                //    Author author = db.Authors.Where(a => a.Id == bookAuthor.AuthorId).Single();
-                //    book.Authors.Add(author);
-                //    db.BookAuthors.Add(bookAuthor);
-                  
-                //    db.SaveChanges();
-
-                //}
+              
                 db.BookAuthors.Distinct();
                 db.SaveChanges();
             }
 
+            var ListOfBookAuthors = db.BookAuthors.Where(a => a.BookId == bookId).ToList();
+            List<Author> ListOfAuthors=new List<Author>();
+            foreach (var author in ListOfBookAuthors)
+            {
+                ListOfAuthors.Add(author.Author);
+            }
+
+            ViewBag.ListOfAuthors = ListOfAuthors;
           
             return View(authorList);
         }

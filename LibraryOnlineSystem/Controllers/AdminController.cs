@@ -14,6 +14,15 @@ using System.Web.WebPages;
 using Antlr.Runtime.Misc;
 using LibraryOnlineSystem;
 using LibraryOnlineSystem.Models;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
+using System.Dynamic;
+using System.IO;
+using BarcodeLib;
+using Microsoft.Ajax.Utilities;
+using Action = System.Action;
+using OnBarcode.Barcode;
 
 namespace LibraryOnlineSystem.Controllers
 {
@@ -209,10 +218,63 @@ namespace LibraryOnlineSystem.Controllers
             {
                 db.BookCodes.Add(bookCode);
                 db.SaveChanges();
+             
             }
-            
+
+
+
+                PrintLabel(bookCode.BookSerialNumber);
+
             return Redirect("/Admin/DisplayCopies/"+bookCode.BookId);
         }
+
+
+
+        private Bitmap getImage(byte[] imageBinaryData)
+        {
+
+            Bitmap image;
+            var stream = new MemoryStream(imageBinaryData);
+            image = new Bitmap(stream);
+
+            return image;
+        }
+
+
+
+        public ActionResult PrintLabel(string serialNumber)
+        {
+            // Create linear barcode object
+            Linear barcode = new Linear();
+            // Set barcode symbology type to Code-39
+            barcode.Type = BarcodeType.CODE39;
+            // Set barcode data to encode
+            barcode.Data = serialNumber;
+            // Set barcode bar width (X dimension) in pixel
+            barcode.X = 1;
+            // Set barcode bar height (Y dimension) in pixel
+            barcode.Y = 60;
+            // Draw & print generated barcode to png image file
+            barcode.drawBarcode("C:\\Users\\user\\source\\repos\\LibraryOnlineSystem\\LibraryOnlineSystem\\Labels\\" + "label" + serialNumber + ".png");//"~\\Labels\\" + "label" + serialNumber+".jpeg"
+            //"D://csharp-code39.png"
+                                                                                  // barcode.Print();
+            return View();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         public ActionResult DisplayCopies(int id)
         {
             List<BookCode> bookCodes= new List<BookCode>();
@@ -220,10 +282,33 @@ namespace LibraryOnlineSystem.Controllers
 
             return View(bookCodes);
         }
+        // get all the books
+
+        private List<Book> GetBook()
+        {
+            List<Book> books = db.Books.ToList();
+            return books;
+        }
+        // get the authors
+        private List<Author> GetAuthors()
+        {
+            List<Author> authors = db.Authors.ToList();
+            return authors;
+        }
+        //display both on one page
         [HttpGet]
         public ActionResult AddBook()
         {
-            
+         //   dynamic BooksAuthors=new ExpandoObject();
+         List<Author> authors = db.Authors.ToList();
+
+         ViewBag.Authors = authors;
+
+           // BooksAuthors.Book = GetBook();
+           // BooksAuthors.Authors = GetAuthors();
+
+
+
             List<string> listOfUnit = new List<string>();
             foreach (Genre genre in (Genre[]) Enum.GetValues(typeof(Genre)))
             {
@@ -264,7 +349,8 @@ namespace LibraryOnlineSystem.Controllers
                 db.Books.Add(book);
                 db.SaveChanges();
                 TempData["message"] = string.Format("Saved {0}", book.Name);
-                return Redirect("/Admin/BookDatabase");
+                int lastBook = db.Books.Select(a=>a.BookId).Max();
+                return Redirect("/Book/AddAuthorsToBook?bookId=" + lastBook + "&"+ "authorId=0");
             }
             else
             {
