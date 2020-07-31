@@ -17,6 +17,7 @@ namespace LibraryOnlineSystem.Models
         public virtual int BookId { get; set; }
         public virtual int PostId { get; set; }
         public virtual string Content { get; set; }
+
         public virtual float UserRating { get; set; }
         public virtual List<CommentReply> CommentReply { get; set; }
         public virtual bool IsBlocked { get; set; }

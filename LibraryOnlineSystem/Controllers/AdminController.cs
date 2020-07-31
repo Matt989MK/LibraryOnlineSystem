@@ -154,6 +154,7 @@ namespace LibraryOnlineSystem.Controllers
                 try
                 {
                     book.Rating = db.Comment.Where(a => a.BookId == book.BookId).Select(a => a.UserRating).Average();
+                  book.Rating= (float)Math.Round(book.Rating,2);
                 }
                 catch (Exception e)
                 {
@@ -230,15 +231,7 @@ namespace LibraryOnlineSystem.Controllers
 
 
 
-        private Bitmap getImage(byte[] imageBinaryData)
-        {
-
-            Bitmap image;
-            var stream = new MemoryStream(imageBinaryData);
-            image = new Bitmap(stream);
-
-            return image;
-        }
+   
 
 
 
@@ -255,11 +248,13 @@ namespace LibraryOnlineSystem.Controllers
             // Set barcode bar height (Y dimension) in pixel
             barcode.Y = 60;
             // Draw & print generated barcode to png image file
-            barcode.drawBarcode("C:\\Users\\user\\source\\repos\\LibraryOnlineSystem\\LibraryOnlineSystem\\Labels\\" + "label" + serialNumber + ".png");//"~\\Labels\\" + "label" + serialNumber+".jpeg"
+            var path = Path.Combine(Server.MapPath("~/Labels/"), "label" + serialNumber);
+
+            barcode.drawBarcode(path+".jpeg");//"~\\Labels\\" + "label" + serialNumber+".jpeg"
             //"D://csharp-code39.png"
-                                                                                  // barcode.Print();
+            ViewBag.SerialNumber = serialNumber;                                                            // barcode.Print();
             return View();
-        }
+            }
 
 
 
@@ -284,17 +279,7 @@ namespace LibraryOnlineSystem.Controllers
         }
         // get all the books
 
-        private List<Book> GetBook()
-        {
-            List<Book> books = db.Books.ToList();
-            return books;
-        }
-        // get the authors
-        private List<Author> GetAuthors()
-        {
-            List<Author> authors = db.Authors.ToList();
-            return authors;
-        }
+     
         //display both on one page
         [HttpGet]
         public ActionResult AddBook()
