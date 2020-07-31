@@ -62,55 +62,7 @@
       
 
        
-        <div class="row">
-        <div class="col-md-4">
-            <p>
-                @if (Session["isAdmin"].ToString() =="0")
-                {
-                    <h2>Loan History</h2>
-
-                    
-                    <table class="table">
-                        <tr>
-       
-                            <th>
-                             Book Id
-                            </th>
-                            <th>
-                                Date created
-                            </th>
-                            <th>
-                               Date returned
-                            </th>
       
-                        </tr>
-                        @{
-                            int x = 0;
-                        }
-                        @foreach (var item in Model.Bookings) {
-                            <tr>
-        
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.BookId)
-                                </td>
-                                <td>
-                                    @Html.ValueFor(modelItem => item.DateCreated, "{0:dd/MM/yyyy}")
-                                </td>
-                                <td>
-                                    @Html.ValueFor(modelItem => item.DateReturned, "{0:dd/MM/yyyy}")
-                                </td>
-      
-                            </tr>
-                        }
-
-                    </table>
-                }
-                
-            </p>
-          
-        </div>
-       
-       </div>
         </dl>
 </div>
 <p>

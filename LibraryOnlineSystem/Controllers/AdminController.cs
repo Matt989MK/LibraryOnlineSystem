@@ -759,7 +759,6 @@ namespace LibraryOnlineSystem.Controllers
             }
 
 
-
             foreach (int bookId in newBookings)
             {
                 int countOfBook = db.Bookings.Where(a => a.BookId == bookId).Count();
@@ -768,9 +767,7 @@ namespace LibraryOnlineSystem.Controllers
                     maxBookId = db.Bookings.Where(a => a.BookId == bookId).First().BookId;
                 }
             }
-
-
-
+            
             var genreGroup = genre.GroupBy(x => x);
             var maxCount = genreGroup.Max(g => g.Count());
             var mostCommons = genreGroup.Where(x => x.Count() == maxCount).Select(x => x.Key).Single();
@@ -778,8 +775,7 @@ namespace LibraryOnlineSystem.Controllers
             if (books.Where(a => a.BookId == maxBookId).Count()>0)
             {
                 ViewBag.MostPopularBookName = books.Where(a => a.BookId == maxBookId).First().Name;
-
-            }
+                }
             ViewBag.MaxBooking = bookCodeCount;
             ViewBag.BookCount = bookCodes.Count;
             return View(bookCodes);
@@ -789,6 +785,7 @@ namespace LibraryOnlineSystem.Controllers
             DateTime dateBeginning = Request["beginningDate"].AsDateTime();
             DateTime dateEnding = Request["endingDate"].AsDateTime();
             if (dateEnding == DateTime.MinValue) { dateEnding = DateTime.Today; }
+          
             List<User> users = db.Users.ToList();
             List<Comment> comments = db.Comment.ToList();
             ViewBag.UserCount = users.Count();

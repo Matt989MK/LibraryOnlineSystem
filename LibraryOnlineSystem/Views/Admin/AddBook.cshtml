@@ -109,50 +109,6 @@
             </div>
         </div>
 
-        <div>
-
-            <table class="table" id="example">
-
-                <thead>
-                    <tr>
-                        <th>
-                            <b>Name</b>
-                        </th>
-                        <th>
-                            <b> Surname</b>
-                        </th>
-                        <th></th>
-                    </tr>
-                    <br />
-                    @*</thead>
-                        <tbody>
-                            @foreach (Author author in ViewBag.Authors)
-                            {
-                                <tr>
-                                    <td>
-                                        @author.Name
-                                    </td>
-                                    <td>
-                                        @author.Surname
-                                    </td>
-                                    <td>
-                                    @Html.ActionLink("Remove Author", "RemoveAuthorsFromBook", "Book", new { bookId = Request.Params["bookId"], authorId = author.Id }, null)
-
-                                    @Html.ActionLink("Add Authors", "AddAuthorsToBook", "Book", new {bookId = Request.Params["bookId"], authorId = author.Id}, null)
-                                    </td>
-                                </tr>
-
-
-
-
-
-                                <br />
-                                }
-                        </tbody>*@
-                <td>
-                </td>
-            </table>
-        </div>
 
 
         <div class="form-group">

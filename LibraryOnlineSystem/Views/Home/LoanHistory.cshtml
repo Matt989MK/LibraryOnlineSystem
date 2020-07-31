@@ -4,13 +4,18 @@
     ViewBag.Title = "LoanHistory";
     Layout = "~/Views/Shared/_User_Layout.cshtml";
 }
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.csss" />
+<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });</script>
+<h2>Loan History</h2>
 
-<h2>LoanHistory</h2>
-
-
-<table class="table">
+<table class="table" id="example">
+    <thead>
     <tr>
-       
         <th>
             @Html.DisplayNameFor(model => model.Book.Name)
         </th>
@@ -20,25 +25,30 @@
         <th>
             @Html.DisplayNameFor(model => model.DateReturned)
         </th>
-      
+
     </tr>
+    </thead>
     @{
         int x = 0;
     }
-@foreach (var item in Model) {
-    <tr>
-        
-        <td>
-            @Html.DisplayFor(modelItem => item.Book.Name)
-        </td>
-        <td>
-            @Html.ValueFor(modelItem => item.DateCreated, "{0:dd/MM/yyyy}")
-        </td>
-        <td>
-            @Html.ValueFor(modelItem => item.DateReturned, "{0:dd/MM/yyyy}")
-        </td>
-      
-    </tr>
-}
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Book.Name)
+            </td>
+            <td>
+                @Html.ValueFor(modelItem => item.DateCreated, "{0:dd/MM/yyyy}")
+            </td>
+            <td>
+                @Html.ValueFor(modelItem => item.DateReturned, "{0:dd/MM/yyyy}")
+            </td>
+
+        </tr>
+    }
+    </tbody>
+    
 
 </table>

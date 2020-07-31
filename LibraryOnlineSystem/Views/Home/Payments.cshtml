@@ -4,14 +4,21 @@
     ViewBag.Title = "Payments";
     Layout = "~/Views/Shared/_User_Layout.cshtml";
 }
-
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.csss" />
+<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });</script>
 <h2>Payments</h2>
 
 
-<table class="table">
+<table class="table" id="example">
+    <thead>
     <tr>
         <th>
-           Book Name
+            Book Name
         </th>
 
         <th>
@@ -27,63 +34,68 @@
         <th>
             @Html.DisplayNameFor(model => model.DatePaid)
         </th>
+        <th></th>
     </tr>
+    </thead>
     @{
         int x = 0;
     }
-@foreach (var item in Model) {
-<tr>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
 
-    <td>
-        
-            @ViewBag.bookNames[x]
-            
-    </td>
+            <td>
 
-    <td>
-        @Html.DisplayFor(modelItem => item.Amount)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Status)
-    </td>
+                @ViewBag.bookNames[x]
 
-    <td>
-        @if (ViewBag.datesReturned[x] == null)
-        {
+            </td>
 
-        }else
-        {
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+
+            <td>
+                @if (ViewBag.datesReturned[x] == null)
+                {
+
+                }
+                else
+                {
 
 
-            @(((DateTime) ViewBag.datesReturned[x]).ToString("dd-MM-yyyy"))
-            x++;
-        }
+                    @(((DateTime) ViewBag.datesReturned[x]).ToString("dd-MM-yyyy"))
+                    x++;
+                }
 
-        @*@Html.ValueFor(modelItem => item.Booking.DateReturned, "{0:dd/MM/yyyy}")*@
-    </td>
-    <td>
-        @if (item.Status == "Unpaid")
-        {
-            @*@Html.DisplayFor(modelItem => item.nu)*@
-        }
-        else
-        {
-            @Html.ValueFor(modelItem => item.DatePaid,"{0:dd/MM/yyyy}")
-        }
-        </td>
-    <td>
-        @if (item.Status == "Unpaid")
-        {
-            @Html.ActionLink("Pay now", "PaymentWithPaypal", new { paymentId = item.PaymentLibraryId }) //add Payment
-           //CHANGE TO PAYPAL
+                @*@Html.ValueFor(modelItem => item.Booking.DateReturned, "{0:dd/MM/yyyy}")*@
+            </td>
+            <td>
+                @if (item.Status == "Unpaid")
+                {
+                    @*@Html.DisplayFor(modelItem => item.nu)*@
+                }
+                else
+                {
+                    @Html.ValueFor(modelItem => item.DatePaid, "{0:dd/MM/yyyy}")
+                }
+            </td>
+            <td>
+                @if (item.Status == "Unpaid")
+                {
+                    @Html.ActionLink("Pay now", "PaymentWithPaypal", new { paymentId = item.PaymentLibraryId })//add Payment
+                    //CHANGE TO PAYPAL
 
-            
-            //TODO
-        }
 
-    </td>
+                    //TODO
+                }
 
-</tr>
-}
+            </td>
 
+        </tr>
+    }
+    </tbody>
 </table>
