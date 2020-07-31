@@ -47,13 +47,14 @@
         {
             <tr>
                 <td>
-                   User ID
+                    @Html.DisplayFor(modelItem => item.UserId)
+
                 </td>
                 <td>
                     @ViewBag.ListOfNames[x]
                 </td>
                 <td>
-                   Reservation ID
+                    @Html.DisplayFor(modelItem => item.BookReserveId)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.BookCodeId)
