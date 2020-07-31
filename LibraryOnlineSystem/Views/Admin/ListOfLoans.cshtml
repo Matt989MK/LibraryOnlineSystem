@@ -11,14 +11,14 @@
     $(document).ready(function () {
         $('#example').DataTable();
     });</script>
-<h2>ListOfLoans</h2>
+<h2>List Of Loans</h2>
 
 
 <table class="table" id="example">
     <thead>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.UserId)
+            User ID
         </th>
         <th>
             @Html.DisplayNameFor(model => model.User.Name)
@@ -28,10 +28,10 @@
             @Html.DisplayNameFor(model => model.BookCodeId)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DateCreated)
+         Date Loaned
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DateReturned)
+           Date Returned
         </th>
         <th>
             Book Serial Number

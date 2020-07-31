@@ -4,44 +4,53 @@
     ViewBag.Title = "ListOfReservations";
     Layout = "~/Views/Shared/_User_Layout.cshtml";
 }
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.csss" />
+<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });</script>
+<h2>List Of Reservations</h2>
 
-<h2>ListOfReservations</h2>
 
-
-<table class="table">
+<table class="table" id="example">
+    <thead>
     <tr>
         <th> Book Title</th>
         <th>
             @Html.DisplayNameFor(model => model.BookReserveId)
         </th>
-      
+
         <th>
             @Html.DisplayNameFor(model => model.ReservationRequestTime)
         </th>
         <th>
             Book Serial Number
         </th>
-       
+
     </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @ViewBag.TitleBook
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookReserveId)
+                </td>
 
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @ViewBag.TitleBook
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BookReserveId)
-            </td>
-           
-            <td>
-                @Html.ValueFor(modelItem => item.ReservationRequestTime, "{0:dd/MM/yyyy}")
-            </td>
-            <td>
-                @ViewBag.BookSerialNumber
-            </td>
-         
-           
-        </tr>
-    }
+                <td>
+                    @Html.ValueFor(modelItem => item.ReservationRequestTime, "{0:dd/MM/yyyy}")
+                </td>
+                <td>
+                    @ViewBag.BookSerialNumber
+                </td>
 
+
+            </tr>
+        }
+    </tbody>
 </table>

@@ -11,7 +11,7 @@
     $(document).ready(function () {
         $('#example').DataTable();
     });</script>
-<h2>DisplayCopies</h2>
+ <h2>DisplayCopies</h2>
 
 
  <table class="table" id="example">
@@ -19,10 +19,10 @@
  <tr>
        
      <th>
-         @Html.DisplayNameFor(model => model.BookSerialNumber)
+       Serial Number
      </th>
      <th>
-         @Html.DisplayNameFor(model => model.IsInLibrary)
+         Availability
      </th>
      <th></th>
  </tr>
@@ -38,7 +38,13 @@
         @Html.DisplayFor(modelItem => item.IsInLibrary)
     </td>
     <td>
-        @Html.ActionLink("Return", "ReturnBook", new {bookCodeId=item.BookCodeId, SerialNumber=item.BookSerialNumber })
+        @{
+            if (!item.IsInLibrary)
+            {
+                @Html.ActionLink("Return", "ReturnBook", new {bookCodeId = item.BookCodeId, SerialNumber = item.BookSerialNumber})
+
+            }
+        }
         @*@{
             if (item.IsInLibrary == false)
             {

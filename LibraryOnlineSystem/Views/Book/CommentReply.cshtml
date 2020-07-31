@@ -8,7 +8,7 @@
 
 <html>
 <body>
-    <h2>Details</h2>
+ 
     <div>
       
        
@@ -30,8 +30,8 @@
                     {
                         <dd>
 
-                            @Html.DisplayFor(Model => item.Content)
-                            <nbsp style="font-size:8px"> -post by ID @Html.DisplayFor(Model => item.AuthorId)</nbsp>
+                        
+                           @* <nbsp style="font-size:8px"> -post by ID @Html.DisplayFor(Model => item.AuthorId)</nbsp>*@
                             @if (item.CommentId == Int32.Parse(Request.Params["CommentId"]))
                             {
                                 using (Html.BeginForm())

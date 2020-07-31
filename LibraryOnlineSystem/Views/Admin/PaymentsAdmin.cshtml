@@ -54,8 +54,18 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Status)
-                </td>
+                    @{
+                        if (item.Status == "Unpaid")
+                        {
+                            @Html.ActionLink(" Mark as Paid", "P", new {userId = item.UserId, paymentId = item.PaymentLibraryId})  // Make it work
 
+                        }
+                            }
+                </td>
+               
+                
+                
+               
             </tr>
         }
     </tbody>

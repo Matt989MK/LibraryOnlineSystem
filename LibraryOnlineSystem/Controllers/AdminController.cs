@@ -14,6 +14,15 @@ using System.Web.WebPages;
 using Antlr.Runtime.Misc;
 using LibraryOnlineSystem;
 using LibraryOnlineSystem.Models;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
+using System.Dynamic;
+using System.IO;
+using BarcodeLib;
+using Microsoft.Ajax.Utilities;
+using Action = System.Action;
+using OnBarcode.Barcode;
 
 namespace LibraryOnlineSystem.Controllers
 {
@@ -54,6 +63,7 @@ namespace LibraryOnlineSystem.Controllers
 
             ViewBag.BookNames = bookNameList;
             user.ListOfReserves = bookReserves;
+            user.ListOfReserves = db.BookReserves.Where(a => a.UserId == userId).ToList();
             user.Bookings = bookingList;
             user.ListOfPayment = db.Payments.Where(a => a.UserId == userId).ToList();
             return View(user);
@@ -144,6 +154,7 @@ namespace LibraryOnlineSystem.Controllers
                 try
                 {
                     book.Rating = db.Comment.Where(a => a.BookId == book.BookId).Select(a => a.UserRating).Average();
+                  book.Rating= (float)Math.Round(book.Rating,2);
                 }
                 catch (Exception e)
                 {
@@ -208,10 +219,57 @@ namespace LibraryOnlineSystem.Controllers
             {
                 db.BookCodes.Add(bookCode);
                 db.SaveChanges();
+             
             }
-            
+
+
+
+                PrintLabel(bookCode.BookSerialNumber);
+
             return Redirect("/Admin/DisplayCopies/"+bookCode.BookId);
         }
+
+
+
+   
+
+
+
+        public ActionResult PrintLabel(string serialNumber)
+        {
+            // Create linear barcode object
+            Linear barcode = new Linear();
+            // Set barcode symbology type to Code-39
+            barcode.Type = BarcodeType.CODE39;
+            // Set barcode data to encode
+            barcode.Data = serialNumber;
+            // Set barcode bar width (X dimension) in pixel
+            barcode.X = 1;
+            // Set barcode bar height (Y dimension) in pixel
+            barcode.Y = 60;
+            // Draw & print generated barcode to png image file
+            var path = Path.Combine(Server.MapPath("~/Labels/"), "label" + serialNumber);
+
+            barcode.drawBarcode(path+".jpeg");//"~\\Labels\\" + "label" + serialNumber+".jpeg"
+            //"D://csharp-code39.png"
+            ViewBag.SerialNumber = serialNumber;                                                            // barcode.Print();
+            return View();
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         public ActionResult DisplayCopies(int id)
         {
             List<BookCode> bookCodes= new List<BookCode>();
@@ -219,10 +277,23 @@ namespace LibraryOnlineSystem.Controllers
 
             return View(bookCodes);
         }
+        // get all the books
+
+     
+        //display both on one page
         [HttpGet]
         public ActionResult AddBook()
         {
-            
+         //   dynamic BooksAuthors=new ExpandoObject();
+         List<Author> authors = db.Authors.ToList();
+
+         ViewBag.Authors = authors;
+
+           // BooksAuthors.Book = GetBook();
+           // BooksAuthors.Authors = GetAuthors();
+
+
+
             List<string> listOfUnit = new List<string>();
             foreach (Genre genre in (Genre[]) Enum.GetValues(typeof(Genre)))
             {
@@ -263,7 +334,8 @@ namespace LibraryOnlineSystem.Controllers
                 db.Books.Add(book);
                 db.SaveChanges();
                 TempData["message"] = string.Format("Saved {0}", book.Name);
-                return Redirect("/Admin/BookDatabase");
+                int lastBook = db.Books.Select(a=>a.BookId).Max();
+                return Redirect("/Book/AddAuthorsToBook?bookId=" + lastBook + "&"+ "authorId=0");
             }
             else
             {
@@ -687,7 +759,6 @@ namespace LibraryOnlineSystem.Controllers
             }
 
 
-
             foreach (int bookId in newBookings)
             {
                 int countOfBook = db.Bookings.Where(a => a.BookId == bookId).Count();
@@ -696,9 +767,7 @@ namespace LibraryOnlineSystem.Controllers
                     maxBookId = db.Bookings.Where(a => a.BookId == bookId).First().BookId;
                 }
             }
-
-
-
+            
             var genreGroup = genre.GroupBy(x => x);
             var maxCount = genreGroup.Max(g => g.Count());
             var mostCommons = genreGroup.Where(x => x.Count() == maxCount).Select(x => x.Key).Single();
@@ -706,8 +775,7 @@ namespace LibraryOnlineSystem.Controllers
             if (books.Where(a => a.BookId == maxBookId).Count()>0)
             {
                 ViewBag.MostPopularBookName = books.Where(a => a.BookId == maxBookId).First().Name;
-
-            }
+                }
             ViewBag.MaxBooking = bookCodeCount;
             ViewBag.BookCount = bookCodes.Count;
             return View(bookCodes);
@@ -717,6 +785,7 @@ namespace LibraryOnlineSystem.Controllers
             DateTime dateBeginning = Request["beginningDate"].AsDateTime();
             DateTime dateEnding = Request["endingDate"].AsDateTime();
             if (dateEnding == DateTime.MinValue) { dateEnding = DateTime.Today; }
+          
             List<User> users = db.Users.ToList();
             List<Comment> comments = db.Comment.ToList();
             ViewBag.UserCount = users.Count();

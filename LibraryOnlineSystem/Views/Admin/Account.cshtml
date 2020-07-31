@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Admin_Layout.cshtml";
 }
 
-<h2>Account</h2>
+<h2>My Account</h2>
 
 <div>
     <h4>User</h4>
@@ -28,7 +28,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.DateOfBirth)
+           Date Of Birth
         </dt>
 
         <dd>
@@ -44,7 +44,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.HouseNo)
+           House number
         </dt>
 
         <dd>
@@ -52,11 +52,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ZipCode)
+           PostCode
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ZipCode)
+            @Html.DisplayFor(model => model.ZipCode).ToString().ToUpper()
         </dd>
 
         <dt>
