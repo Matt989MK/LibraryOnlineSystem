@@ -690,6 +690,7 @@ namespace LibraryOnlineSystem.Controllers
             user.DateOfBirth = Request["DateOfBirth"].AsDateTime();
             user.ZipCode = Request["ZipCode"];
             user.UserRole = Request["UserRole"];
+            user.JoinDate = DateTime.Today;
             if (ModelState.IsValid)
             {
                 db.Users.Add(user);
@@ -784,12 +785,18 @@ namespace LibraryOnlineSystem.Controllers
         {
             DateTime dateBeginning = Request["beginningDate"].AsDateTime();
             DateTime dateEnding = Request["endingDate"].AsDateTime();
+            int usersCount = 0;
             if (dateEnding == DateTime.MinValue) { dateEnding = DateTime.Today; }
-          
+            if (db.Users.Where(a => a.JoinDate >= dateBeginning && a.JoinDate <= dateEnding).GroupBy(a => a.UserId).Select(a => a.Count()).Count() > 0)
+            {
+                usersCount = db.Users.Where(a => a.JoinDate >= dateBeginning && a.JoinDate <= dateEnding).Count();
+
+            }
             List<User> users = db.Users.ToList();
             List<Comment> comments = db.Comment.ToList();
-            ViewBag.UserCount = users.Count();
+            ViewBag.UserCount = usersCount;
             ViewBag.CommentCount = comments.Count();
+            ViewBag.BlockedUsers = users.Where(a => a.IsBanned==true).Count();
             //Add to User when they joined?
 
 
