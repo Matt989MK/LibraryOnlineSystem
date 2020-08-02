@@ -7,8 +7,8 @@ using System.Security.Policy;
 using LibraryOnlineSystem.Models;
 namespace LibraryOnlineSystem
 {
-    public class BookDataInitialiser: CreateDatabaseIfNotExists<LibraryContext>//CreateDatabaseIfNotExists<LibraryContext>
-    {//DropCreateDatabaseAlways<LibraryContext>
+    public class BookDataInitialiser: CreateDatabaseIfNotExists<LibraryContext> //CreateDatabaseIfNotExists<LibraryContext>
+    {//DropCreateDatabaseAlways<LibraryContext> 
         protected override void Seed(LibraryContext context)
         {
             LibraryRegulations libraryRegulations = new LibraryRegulations()

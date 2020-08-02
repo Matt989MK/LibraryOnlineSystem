@@ -381,6 +381,8 @@ namespace LibraryOnlineSystem.Controllers
             user.Surname = Request["SurName"];
             user.Password = hash;
             user.UserRole = "User";
+            user.JoinDate=DateTime.Today;
+            
           //  bool test = Equals(user.Password, user.ConfirmPassword);
             if (ModelState.IsValid)
             {

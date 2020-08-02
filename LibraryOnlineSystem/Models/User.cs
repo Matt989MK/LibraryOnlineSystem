@@ -48,6 +48,8 @@ namespace LibraryOnlineSystem.Models
       public virtual List<BookReserve> ListOfReserves { get; set; }
 
         public virtual List<Booking> Bookings { get; set; }
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
+        public virtual DateTime JoinDate { get; set; }
 
         public  virtual List<BookReview> ListOfReviews { get; set; }
 
