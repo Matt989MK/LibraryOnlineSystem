@@ -10,3 +10,18 @@ Password: abcdef!
 Admin
 Login: admin@gmail.com  
 Password: abcdef!
+
+
+
+
+
+
+When migrating there will be problems, here's how to solve them
+
+Roslyn.exe not found
+
+Update Package Microsoft.CodeDom.Providers.DoNetCompilerPlatform
+
+Change Path and login credentials to sqlServer in Web.Config
+
+If the database is outdated, copy and paste LibraryOnlineSystem.mdf and LibraryOnlineSystem.log to sqlserver/Data folder
