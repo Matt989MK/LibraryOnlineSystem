@@ -185,7 +185,9 @@ namespace LibraryOnlineSystem.Controllers
             listOfUser = db.Users.ToList();
             User user = listOfUser.Where(a => a.UserId ==Convert.ToInt32(Session["UserId"])).Single(); // GET USER ID
            
-
+            
+            bool gaveRating = false;
+            ViewBag.gaveRating = gaveRating;
 
             // CHECK IF USER BANNED
 
@@ -256,14 +258,16 @@ namespace LibraryOnlineSystem.Controllers
         [HttpPost]
         public ActionResult Details()
         {
-
+            List<User> listOfUser = new List<User>();
+            listOfUser = db.Users.ToList();
+            User user = listOfUser.Where(a => a.UserId == Convert.ToInt32(Session["UserId"])).Single();
             int id = Convert.ToInt32(Request.Params["BookId"]);
             Book book = db.Books.Find(id);//
             List<BookCode> bookCodesList = db.BookCodes.Where(a => a.BookId == id).ToList();
             book.BookCode = bookCodesList;
             Comment comment = new Comment();
             comment.Content = Request.Params["NewComment"];
-            comment.AuthorId = User.Identity.Name;
+            comment.AuthorId = user.Name;
             comment.PostId = 1;
             comment.BookId = id;
             comment.PersonId = 1;
