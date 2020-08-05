@@ -163,11 +163,10 @@
 
                     if (ViewBag.UserId != "")
                     {
-                        //if (ViewBag.IsBanned == false)
-                        //{
+                        
 
                         @Html.ActionLink("Reply", "CommentReply", new { id = item.BookId, commentID = item.CommentId }, null)
-                        //   }
+                       
                         if (item.PersonId.ToString()==Session["UserId"].ToString())
                         {
                             <nbsp> | </nbsp>

@@ -184,6 +184,36 @@ namespace LibraryOnlineSystem.Controllers
             List<User> listOfUser=new List<User>();
             listOfUser = db.Users.ToList();
             User user = listOfUser.Where(a => a.UserId ==Convert.ToInt32(Session["UserId"])).Single(); // GET USER ID
+           
+
+
+            // CHECK IF USER BANNED
+
+
+
+
+            int counter = 0;
+            foreach (var _payment in user.ListOfPayment)
+            {
+                if (_payment.DatePaid.HasValue)
+                {
+                    counter++;
+                }
+            }
+
+            if (counter == user.ListOfPayment.Count)
+            {
+                user.IsBanned = false;
+            }
+            else
+            {
+                user.IsBanned = true;
+            }
+
+            db.Users.AddOrUpdate(user);
+
+
+
 
             List<Book> listOfBook = new List<Book>();
             listOfBook = db.Books.ToList();
