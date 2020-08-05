@@ -184,10 +184,12 @@ namespace LibraryOnlineSystem.Controllers
             List<User> listOfUser=new List<User>();
             listOfUser = db.Users.ToList();
             User user = listOfUser.Where(a => a.UserId ==Convert.ToInt32(Session["UserId"])).Single(); // GET USER ID
+
            
-            
-            bool gaveRating = false;
-            ViewBag.gaveRating = gaveRating;
+
+
+          
+            ViewBag.gaveRating = false;
 
             // CHECK IF USER BANNED
 
@@ -267,13 +269,22 @@ namespace LibraryOnlineSystem.Controllers
             book.BookCode = bookCodesList;
             Comment comment = new Comment();
             comment.Content = Request.Params["NewComment"];
-            comment.AuthorId = user.Name;
+            comment.AuthorId = user.Name+" "+user.Surname;
+            
             comment.PostId = 1;
             comment.BookId = id;
             comment.PersonId = 1;
-
+            string checkNull = Request.Params["NewUserRating"];
             float.TryParse(Request.Params["NewUserRating"], out float results);
-            comment.UserRating = results;
+            if (checkNull != null)
+            {
+                comment.UserRating = results;
+
+            }
+         
+
+
+
 
 
 

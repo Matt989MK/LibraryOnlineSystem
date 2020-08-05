@@ -696,6 +696,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Labels\" />
+    <Folder Include="SignalR\hub\" />
     <Folder Include="Views\Payment\" />
     <Folder Include="Views\Stock\" />
   </ItemGroup>

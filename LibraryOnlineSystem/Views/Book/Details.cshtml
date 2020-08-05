@@ -68,7 +68,7 @@
         <div class="col-sm-5">
             <h2 style="color:cornflowerblue;font-family:'Times New Roman'">@Html.DisplayFor(model => model.Name)</h2>
             <h5>
-                Authors:
+                <b>Authors:</b><br></br>
                 @if (Model.Authors != null)
                 {
                     foreach (var author in Model.Authors)
@@ -80,7 +80,7 @@
                 }
             </h5>
             <h5>
-                Publisher:
+                <b>Publisher:</b>
                 @Html.DisplayFor(model => model.Publisher)
             </h5>
             <hr />
@@ -168,15 +168,18 @@
                     if (item.AuthorId == ViewBag.UserId)
                     {
 
-                        ViewBag.gaveRaing = true;
+                        ViewBag.gaveRating = true;
                     }
-                    Model.Rating += item.UserRating;
+                    if (item.UserRating != null )
+                    {
+                        Model.Rating += item.UserRating;
+                        <nbsp style="color:red"> @Html.DisplayFor(model => item.UserRating) </nbsp>
 
-                    <nbsp style="color:red"> @Html.DisplayFor(model => item.UserRating) </nbsp>
+                    }
+
                     @Html.DisplayFor(Model => item.Content)
 
                     <nbsp style="font-size:12px">|| Posted by: @Html.DisplayFor(Model => item.AuthorId)</nbsp>
-
                     if (ViewBag.UserId != "")
                     {
 
@@ -207,7 +210,7 @@
                         @Html.DisplayFor(model => reply.Content);
 
                         <nbsp style="font-size:14px"> -posted by ID @Html.DisplayFor(Model => reply.AuthorID)</nbsp>
-
+                        
 
                         <br />
                     }
@@ -262,11 +265,11 @@
                         @Html.TextBoxFor(model => model.BookId, new { style = "display: none;" });//, new { style = "display: none;" }
                         @Html.TextArea("NewComment", "");
                         <nbsp> Rating </nbsp>
-                        //if (!ViewBag.gaveRaing)
-                       // {
-                            @Html.TextArea("NewUserRating", "0", 1, 2, 0);
+                        if (ViewBag.gaveRating==false)
+                        {
+                            @Html.TextArea("NewUserRating", "", 1, 2, 0);
 
-                      //  }
+                        }
 
                         <input type="submit" value="send" />
                     }
