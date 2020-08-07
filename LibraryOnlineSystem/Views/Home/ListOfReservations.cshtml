@@ -11,19 +11,21 @@
     $(document).ready(function () {
         $('#example').DataTable();
     });</script>
-<h2>List Of Reservations</h2>
+<h2 class="text-center" style="color:darkred;text-decoration:underline">List Of Reservations :-</h2>
 
-
-<table class="table" id="example">
+<hr />
+<table class="table table-striped" id="example">
     <thead>
     <tr>
         <th> Book Title</th>
         <th>
-           Reservation ID
+            @*@Html.DisplayNameFor(model => model.BookReserveId)*@
+            Book Reserve ID
         </th>
 
         <th>
-            Reservation Date
+            @*@Html.DisplayNameFor(model => model.ReservationRequestTime)*@
+            Reservation Request Time
         </th>
         <th>
             Book Serial Number
@@ -32,25 +34,25 @@
     </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @ViewBag.TitleBook
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BookReserveId)
-                </td>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @ViewBag.TitleBook
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookReserveId)
+            </td>
 
-                <td>
-                    @Html.ValueFor(modelItem => item.ReservationRequestTime, "{0:dd/MM/yyyy}")
-                </td>
-                <td>
-                    @ViewBag.BookSerialNumber
-                </td>
+            <td>
+                @Html.ValueFor(modelItem => item.ReservationRequestTime, "{0:dd/MM/yyyy}")
+            </td>
+            <td>
+                @ViewBag.BookSerialNumber
+            </td>
 
 
-            </tr>
-        }
+        </tr>
+    }
     </tbody>
 </table>

@@ -5,53 +5,83 @@
 }
 
 <!DOCTYPE html>
+<style>
+    .bs-example {
+        margin: 20px;
+    }
 
+    .icon-input-btn {
+        display: inline-block;
+        position: relative;
+    }
+
+        .icon-input-btn input[type="submit"] {
+            padding-left: 2em;
+        }
+
+        .icon-input-btn .glyphicon {
+            display: inline-block;
+            position: absolute;
+            left: 0.65em;
+            top: 30%;
+        }
+</style>
+<script>
+    $(document).ready(function () {
+        $(".icon-input-btn").each(function () {
+            var btnFont = $(this).find(".btn").css("font-size");
+            var btnColor = $(this).find(".btn").css("color");
+            $(this).find(".glyphicon").css("font-size", btnFont);
+            $(this).find(".glyphicon").css("color", btnColor);
+            if ($(this).find(".btn-xs").length) {
+                $(this).find(".glyphicon").css("top", "24%");
+            }
+        });
+    });
+</script>
 <html>
 <body>
- 
+
     <div>
-      
-       
+
+
         <hr />
         <dl class="dl-horizontal">
 
 
-         
+            <dt>Comment</dt>
+            <br />
 
-
-           
-              
-
-                <dt>Comment</dt>
-
-                @foreach (var item in Model.Comment)
+            @foreach (var item in Model.Comment)
+            {
+                if (item.BookId == Model.BookId)
                 {
-                    if (item.BookId == Model.BookId)
-                    {
-                        <dd>
+                    <dd>
 
-                        
-                           @* <nbsp style="font-size:8px"> -post by ID @Html.DisplayFor(Model => item.AuthorId)</nbsp>*@
-                            @if (item.CommentId == Int32.Parse(Request.Params["CommentId"]))
+
+                        @* <nbsp style="font-size:8px"> -post by ID @Html.DisplayFor(Model => item.AuthorId)</nbsp>*@
+                        @if (item.CommentId == Int32.Parse(Request.Params["CommentId"]))
+                        {
+                            using (Html.BeginForm())
                             {
-                                using (Html.BeginForm())
-                                {
 
 
-                                    @Html.TextBoxFor(model => model.BookId, new { style = "display: none;" })
-                                    @Html.TextArea("NewReply", "")
-                                    <input type="submit" value="reply" )/>
-                                 
+                                @Html.TextBoxFor(model => model.BookId, new { style = "display: none;" })
+                                @Html.TextArea("NewReply", "")
+                                <br />
+                                <br />
+                                <span class="icon-input-btn"><span class="glyphicon glyphicon-send"></span><input type="submit" value="reply" class="btn btn-success" ) /></span>
 
-                                }
 
                             }
 
-                     </dd>
+                        }
 
-                    }
+                    </dd>
 
-                    @*<dd>
+                }
+
+                @*<dd>
                         @foreach (var reply in item.CommentReply)
                         {
 
@@ -66,16 +96,16 @@
 
 
 
-                }
+            }
 
 
 
-            </dl>
+        </dl>
 
-        </div>
-        <p>
-          
-            @Html.ActionLink("Back to List", "Index")
-        </p>
-    </body>
+    </div>
+    <p>
+
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
 </html>

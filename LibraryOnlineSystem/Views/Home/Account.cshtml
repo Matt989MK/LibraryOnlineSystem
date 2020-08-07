@@ -7,7 +7,13 @@
 
 <h2>Account</h2>
 
+
+<h2 class="text-center" style="color:darkred;text-decoration:underline">Account Details :-</h2>
+
+<hr />
+
 <div>
+    <h4 style="color:darkred;text-decoration:underline">User Details :-</h4>
     <h4>User</h4>
     <hr />
     <dl class="dl-horizontal">
@@ -28,7 +34,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.DateOfBirth)
+         Date of Birth
         </dt>
 
         <dd>
@@ -44,7 +50,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.HouseNo)
+          House Number
         </dt>
 
         <dd>
@@ -59,13 +65,13 @@
             @Html.DisplayFor(model => model.ZipCode)
         </dd>
 
-      
 
-       
-      
-        </dl>
+
+
+
+    </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "EditUser", "Home",new { id = Model.UserId },null) |
+    @Html.ActionLink("Edit", "EditUser", "Home", new { id = Model.UserId }, null) |
     @Html.ActionLink("Reset Password", "ForgotPassword")
 </p>

@@ -1,5 +1,5 @@
 ﻿@model LibraryOnlineSystem.Models.Book
-@if (Session["isAdmin"].ToString()==null)
+@if (Session["isAdmin"].ToString() == null)
 {
     Layout = "~/Views/Shared/_User_Layout.cshtml";
     ViewBag.Title = "Login";
@@ -18,60 +18,353 @@ else
     }
 }
 @*@{
-    ViewBag.Title = "Home Page";
-}*@
+        ViewBag.Title = "Home Page";
+    }*@
 
-    <div class="jumbotron">
-        <h3>Feel free to browse our latest books, borrow, reserve and discuss with other users!</h3>
-       
+<link href="//fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+<link href="~/css/bootstrap.css" rel="stylesheet" />
+<link href="~/css/style.css" rel="stylesheet" />
+<link href="~/css/fontawesome.css" rel="stylesheet" />
+
+<div>
+    <br />
+
+    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+            <div class="item active">
+                <img src="~/Images/background.jpg" height="500px">
+
+            </div>
+            <div class="item">
+                <img src="~/Images/BritishLibrary04.jpg" height="500px">
+
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
 
 
 
 
-        @using (Html.BeginForm())
-        {
-            @*@Html.AntiForgeryToken()*@
+    <!------------END--------------------->
+    <!-- about -->
+    <div class="about bg-light editContent py-5" id="about">
+        <div class="container py-3">
+            <div class="middle-heading text-center mb-5">
+                <h3 class="editContent">about</h3>
+            </div>
 
-            @*<div class="form-horizontal">
-
-                <hr />
-
-                <div class="form-group">
-
-                    <div class="col-md-10">
-                        <label for="fname">Book title</label>
-                        <input type="text" id="bookName" name="bookName">
+            <div class="row">
+                <div class="col-lg-4 mb-lg-0 mb-5 about-left">
+                    <h2 class="editContent" style="outline: currentcolor none medium; outline-offset: -2px; cursor: inherit;">Getting People reading together since 1998<br></h2>
+                </div>
+                <div class="col-lg-8 editContent about-right pl-4">
+                    <span class="editContent" style="outline: none; cursor: inherit;">T</span><p class="right-text editContent">he Ukrainian collection at the Harvard University Library, the largest collection outside Eastern Europe, is located primarily in Widener Library and Houghton Library, with the remainder housed in several specialized collections on campus (Fine Arts, Music, Anthropology, Science, Law), including the Institute's own Reference Library. The Ukrainian holdings of these Harvard University libraries can be searched through the HOLLIS (Harvard OnLine Library Information System) Catalog.</p>
+                
+                </div>
+            </div>
+            <img src="bundles/images/about.jpg" class="img-fluid mt-5" alt="">
+            <p class="iner mt-4 editContent" style="outline: none; cursor: inherit;"> Ukrainian books were first collected by the University Library well prior to the foundation of both the Ukrainian Studies program at Harvard University in 1968 and the Harvard Ukrainian Research Institute in 1973. Towards the end of the nineteenth century, the Library began to expand its acquisitions into areas concerning Eastern Europe.</p>
+            <br />
+            </div>
+    </div>
+    <!-- //about -->
+    <!-- services -->
+    <section class="services editContent  py-5" id="services">
+        <div class="container py-5">
+            <div class="middle-heading text-center mb-5">
+                <h3 class="editContent" style="outline: none; cursor: inherit;">services</h3>
+            </div>
+            <br />
+            <div class="row pt-lg-0 pt-5">
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 editContent">
+                    <div class="our-services-wrapper mb-60">
+                        <div class="services-inner editContent">
+                            @*<div class="our-services-icon">
+                                    <span class="fa fa-cog" style="outline: none; cursor: inherit;"></span>
+                                </div>*@
+                            <div class="our-services-text editContent">
+                                <h4 class="editContent" style="outline: currentcolor none medium; cursor: inherit; outline-offset: -2px;">Book Meetings<br></h4>
+                                <p class="editContent">Please call our staff during the opening hours to ask for any details and reservations or use the contact page</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-
-
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Search" class="btn btn-default" />
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 editContent">
+                    <div class="our-services-wrapper mb-md-0 mb-60">
+                        <div class="services-inner editContent">
+                            @*<div class="our-services-icon">
+                                    <span class="fa fa-cog" style="outline: none; cursor: inherit;"></span>
+                                </div>*@
+                            <div class="our-services-text editContent">
+                                <h4 class="editContent" style="outline: currentcolor none medium; cursor: inherit; outline-offset: -2px;">Book a room<br></h4>
+                                <p class="editContent">We will be offering a wide range of conference rooms for 6-12 people since September 2020, this feature is not available yet</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>*@
-        }
-        @*<p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>*@
-    </div>
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 editContent">
+                    <div class="our-services-wrapper mb-60">
+                        <div class="services-inner editContent">
+                            @*<div class="our-services-icon">
+                                    <span class="fa fa-cog" style="outline: none; cursor: inherit;"></span>
+                                </div>*@
+                            <div class="our-services-text editContent">
+                                <h4 class="editContent" style="outline: currentcolor none medium; cursor: inherit; outline-offset: -2px;">Borrow books<br></h4>
+                                <p class="editContent">We have a great range of books available and it's increasing, if you and more users would like to request a certain book to become available please get in touch with through the chat </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 editContent">
+                    <div class="our-services-wrapper mb-md-0 mb-60">
+                        <div class="services-inner editContent">
+                            @*<div class="our-services-icon">
+                                    <span class="fa fa-cog" style="outline: none; cursor: inherit;"></span>
+                                </div>*@
+                            <div class="our-services-text editContent">
+                                <h4 class="editContent" style="outline: currentcolor none medium; outline-offset: -2px; cursor: inherit;">donate<br></h4>
+                                <p class="editContent">To keep our services available and free to everyone, please consider a donation. Even £1 will help us with server and running costs</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 editContent">
+                    <div class="our-services-wrapper mb-md-0 mb-60">
+                        <div class="services-inner editContent">
+                            @*<div class="our-services-icon">
+                                    <span class="fa fa-cog" style="outline: none; cursor: inherit;"></span>
+                                </div>*@
+                            <div class="our-services-text editContent">
+                                <h4 class="editContent" style="outline: currentcolor none medium; outline-offset: -2px; cursor: inherit;">rent a laptop<br></h4>
+                                <p class="editContent" style="outline: none; cursor: inherit;">Apart from normal desktop computers in the library, we will offer laptop rentals for students since October 2020</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 editContent">
+                    <div class="our-services-wrapper editContent">
+                        <div class="services-inner editContent">
+                            @*<div class="our-services-icon">
+                                    <span class="fa fa-cog" style="outline: none; cursor: inherit;"></span>
+                                </div>*@
+                            <div class="our-services-text editContent">
+                                <h4 class="editContent" style="outline: currentcolor none medium; cursor: inherit; outline-offset: -2px;">meet famous writers<br></h4>
+                                <p class="editContent">We will be hosting meetings with writers from all over the world, check this page for updated list with individuals and dates</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>New Items</h2>
-        <p>
-            Find out what we have added to our collection lately!
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkAuthorId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Bestsellers</h2>
-        <p>Check out books that attract the most attention </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkAuthorId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>News </h2>
-        <p>Find out about our services and equipment.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkAuthorId=301867">Learn more &raquo;</a></p>
-    </div>
+    <section class="gallery position-relative py-5" id="gallery">
+        <div class="container py-3">
+            <div class="middle-heading text-center mb-5">
+
+            </div>
+            <div class="row gallery_grid-more project-grids w3ls">
+                <div class="col-md-3  col-sm-6 px-1 mb-md-0 mb-4 w3layoutsits_w3layouts_gallery_grid1">
+
+
+
+
+
+                </div>
+                <div class="col-md-3 col-sm-6 px-1 mb-md-0 mb-4 w3layoutsits_w3layouts_gallery_grid1">
+
+
+
+
+
+                </div>
+                <div class="col-md-3  col-sm-6 px-1 mb-md-0 mb-4 w3layoutsits_w3layouts_gallery_grid1">
+
+
+
+
+
+                </div>
+                <div class="col-md-3  col-sm-6 px-1 mb-md-0 mb-4 w3layoutsits_w3layouts_gallery_grid1">
+
+
+
+
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- popup for gallery -->
+        <div id="popup2" class="overlay">
+            <div class="popup1">
+                <img src="bundles/images/g1.jpg" alt="Popup Image" class="img-fluid" style="outline: none; cursor: inherit;">
+                <a class="close" href="#gallery">×</a>
+            </div>
+        </div>
+
+        <div id="popup3" class="overlay">
+            <div class="popup1">
+                <img src="bundles/images/g6.jpg" alt="Popup Image" class="img-fluid" style="outline: none; cursor: inherit;">
+                <a class="close" href="#gallery">×</a>
+            </div>
+        </div>
+
+        <div id="popup4" class="overlay">
+            <div class="popup1">
+                <img src="bundles/images/g11.jpg" alt="Popup Image" class="img-fluid" style="outline: none; cursor: inherit;">
+                <a class="close" href="#gallery">×</a>
+            </div>
+        </div>
+
+        <div id="popup5" class="overlay">
+            <div class="popup1">
+                <img src="bundles/images/g4.jpg" alt="Popup Image" class="img-fluid" style="outline: none; cursor: inherit;">
+                <a class="close" href="#gallery">×</a>
+            </div>
+        </div>
+
+        <div id="popup6" class="overlay">
+            <div class="popup1">
+                <img src="bundles/images/g3.jpg" alt="Popup Image" class="img-fluid" style="outline: none; cursor: inherit;">
+                <a class="close" href="#gallery">×</a>
+            </div>
+        </div>
+
+        <div id="popup7" class="overlay">
+            <div class="popup1">
+                <img src="bundles/images/g2.jpg" alt="Popup Image" class="img-fluid" style="outline: none; cursor: inherit;">
+                <a class="close" href="#gallery">×</a>
+            </div>
+        </div>
+        <div id="popup8" class="overlay">
+            <div class="popup1">
+                <img src="bundles/images/g5.jpg" alt="Popup Image" class="img-fluid" style="outline: none; cursor: inherit;">
+                <a class="close" href="#gallery">×</a>
+            </div>
+        </div>
+        <div id="popup9" class="overlay">
+            <div class="popup1">
+                <img src="bundles/images/g8.jpg" alt="Popup Image" class="img-fluid" style="outline: none; cursor: inherit;">
+                <a class="close" href="#gallery">×</a>
+            </div>
+        </div>
+        <div id="popup10" class="overlay">
+            <div class="popup1">
+                <img src="bundles/images/g9.jpg" alt="Popup Image" class="img-fluid" style="outline: none; cursor: inherit;">
+                <a class="close" href="#gallery">×</a>
+            </div>
+        </div>
+        <div id="popup11" class="overlay">
+            <div class="popup1">
+                <img src="bundles/images/g10.jpg" alt="Popup Image" class="img-fluid" style="outline: none; cursor: inherit;">
+                <a class="close" href="#gallery">×</a>
+            </div>
+        </div>
+        <div id="popup12" class="overlay">
+            <div class="popup1">
+                <img src="bundles/images/g7.jpg" alt="Popup Image" class="img-fluid" style="outline: none; cursor: inherit;">
+                <a class="close" href="#gallery">×</a>
+            </div>
+        </div>
+        <div id="popup13" class="overlay">
+            <div class="popup1">
+                <img src="bundles/images/g12.jpg" alt="Popup Image" class="img-fluid" style="outline: none; cursor: inherit;">
+                <a class="close" href="#gallery">×</a>
+            </div>
+        </div>
+        <!-- //popup for gallery -->
+    </section>
+
+
+    @*<section class="mail py-5 bg bg1" id="contact" style="background-color: rgba(0, 0, 0, 0); margin-top: 0px; background-image: url(&quot;bundles/Jessica-Reilly-and-Michael-Gainey-Feminist-Comic-Book-Club-CREDIT-Matthew-Suarez_t670.jpg&quot;); outline: currentcolor none medium; outline-offset: -2px; cursor: inherit;" src="bundles/images/g11.jpg">
+        <div class="container pt-3">
+            <div class="middle-heading1 text-center mb-5">
+                <h3 class="editContent">contact</h3>
+            </div>
+            <div class="row editContent agileinfo_mail_grids" style="outline: currentcolor none medium; cursor: inherit;">
+                <div class="col-lg-8 agileinfo_mail_grid_right">
+                    <form action="#" method="post">
+                        <div class="row">
+                            <div class="col-md-6 wthree_contact_left_grid pr-md-0">
+                                <div class="form-group editContent" style="outline: none; cursor: inherit;">
+                                    <input type="text" name="name" class="mb-4 form-control" placeholder="Name" required="">
+                                </div>
+                                <div class="form-group editContent">
+                                    <input type="email" name="email" class="mb-4 form-control" placeholder="Email" required="">
+                                </div>
+                            </div>
+                            <div class="col-md-6  wthree_contact_left_grid">
+                                <div class="form-group editContent">
+                                    <input type="text" name="phone number" class="mb-4 form-control" placeholder="Phone Number" required="">
+                                </div>
+                                <div class="form-group editContent">
+                                    <input type="text" name="subject" class="mb-4 form-control" placeholder="Subject" required="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group editContent">
+                            <textarea name="message" placeholder="Message" class="form-control" required=""></textarea>
+                        </div>
+                        <div class="submit-buttons">
+                            <button class="btn" style="outline: none; cursor: inherit;">Submit</button>
+                        </div>
+                    </form>
+                </div>*@
+    @*<div class="col-lg-4 mt-lg-0 mt-4 py-lg-5 py-4 px-0 contact-info">
+            <div class="contact-info1">
+                <h4 class="mb-4 editContent">Address Information</h4>
+                <p class="editContent" style="outline: rgba(233, 94, 94, 0.5) solid 2px; cursor: pointer; outline-offset: -2px;"><span class="fa mr-3 fa-map-marker" style="outline: none; cursor: inherit;"></span>PO Box 248, University Road, Leicester, LE1 9Q<span></span></p>
+                <p class="phone editContent py-2" style="outline: none; cursor: inherit;"><span class="fa mr-3 fa-phone" style="outline: none; cursor: inherit;"></span>Phone : +1 123 456 789 </p>
+
+                <p class="editContent" style="outline: none; cursor: inherit;"><span class="fa mr-3 fa-envelope" style="outline: none; cursor: inherit;"></span>Email : <a class="editContent" href="mailto:info@dentalmailmail.com" style="outline: none; cursor: inherit;">info@Library.com</a></p>
+            </div>
+        </div>*@
+    @*</div>
+            </div>
+
+
+        </section>*@
+
+
+
+    @*<div class="row">
+            <div class="col-md-4">
+                <h2>New Items</h2>
+                <p>
+                    Find out what we have added to our collection lately!
+                </p>
+                <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkAuthorId=301865">Learn more &raquo;</a></p>
+            </div>
+            <div class="col-md-4">
+                <h2>Bestsellers</h2>
+                <p>Check out books that attract the most attention </p>
+                <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkAuthorId=301866">Learn more &raquo;</a></p>
+            </div>
+            <div class="col-md-4">
+                <h2>News </h2>
+                <p>Find out about our services and equipment.</p>
+                <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkAuthorId=301867">Learn more &raquo;</a></p>
+            </div>
+        </div>*@
 </div>
+<!-- //header -->

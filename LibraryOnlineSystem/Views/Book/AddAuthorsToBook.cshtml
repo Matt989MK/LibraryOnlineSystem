@@ -11,18 +11,23 @@
     $(document).ready(function () {
         $('#example').DataTable();
     });</script>
+<h2 style="color:darkred;text-decoration:underline">Step 2</h2>
+<hr />
+<h2 class="text-center" style="color:red;text-decoration:underline">Add authors from the list</h2>
+<hr />
 <h2>Step 2</h2>
 <h2>Add authors from the list</h2>
 
 @Html.ActionLink("Create Author", "CreateAuthor", "Book") |
 
-<br/>
-<b>Currently Added Authors</b><br/>
+<br />
+<b>Currently Added Authors</b>
+<br />
 @foreach (Author author in ViewBag.ListOfAuthors)
 {
     @author.Name
-        @author.Surname
-    <br/>
+    @author.Surname
+    <br />
 }
 
 <br />

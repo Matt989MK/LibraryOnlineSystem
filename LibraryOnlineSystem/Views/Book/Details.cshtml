@@ -155,8 +155,12 @@
             </h5>
         </div>
     </div>
-    <hr />
-    <dt>Comment</dt>
+<hr />
+
+
+
+
+<dt>Comment</dt>
     <dl>
         <dd>
             @foreach (var item in Model.Comment)
@@ -170,27 +174,30 @@
 
                         ViewBag.gaveRating = true;
                     }
-                    if (item.UserRating != null )
+                    if (item.UserRating != null)
                     {
                         Model.Rating += item.UserRating;
-                        <nbsp style="color:red"> @Html.DisplayFor(model => item.UserRating) </nbsp>
-
+                        <nbsp style="font-size:14px;font-weight:bold">@Html.DisplayFor(Model => item.AuthorId)</nbsp>
+                        <br />
                     }
+                    @Html.DisplayFor(Model => item.Content)<nbsp style="color:red"> @Html.DisplayFor(model => item.UserRating) </nbsp>
+                    <br />
 
-                    @Html.DisplayFor(Model => item.Content)
 
-                    <nbsp style="font-size:12px">|| Posted by: @Html.DisplayFor(Model => item.AuthorId)</nbsp>
+
+
                     if (ViewBag.UserId != "")
                     {
 
 
-                        @Html.ActionLink("Reply", "CommentReply", new { id = item.BookId, commentID = item.CommentId }, null)
+                        @Html.ActionLink("Reply", "CommentReply", new { id = item.BookId, commentID = item.CommentId }, new { style = "font-size:10px" })
 
                         if (item.PersonId.ToString() == Session["UserId"].ToString())
                         {
-                            <nbsp> | </nbsp>
-                            @Html.ActionLink("DeleteComment", "DeleteComment", new { commentId = item.CommentId })
-                            <nbsp> | </nbsp>
+                            <nbsp>  </nbsp>
+
+                            @Html.ActionLink("Delete", "DeleteComment", new { commentId = item.CommentId }, new { style = "font-size:10px" })
+                            <nbsp>  </nbsp>
                         }
 
 
@@ -205,38 +212,24 @@
                     foreach (var reply in item.CommentReply)
                     {
 
-                        <nbsp> -----  </nbsp>
+        <nbsp> &nbsp; &nbsp;&nbsp;&nbsp;  </nbsp>
 
                         @Html.DisplayFor(model => reply.Content);
 
-                        <nbsp style="font-size:14px"> -posted by ID @Html.DisplayFor(Model => reply.AuthorID)</nbsp>
-                        
+                        <nbsp style="font-size:8px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Html.DisplayFor(Model => reply.AuthorID)</nbsp>
+
 
                         <br />
                     }
                     <br />
 
                 }
-
-
-
             }
 
-
-
-
-        </dd>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-
-        <dt>
-
+            <br />
+            <br />
             New Comment
-        </dt>
-        <dd>
+
             @if (ViewBag.UserId != "")
             {
                 using (Html.BeginForm())
@@ -265,13 +258,9 @@
                         @Html.TextBoxFor(model => model.BookId, new { style = "display: none;" });//, new { style = "display: none;" }
                         @Html.TextArea("NewComment", "");
                         <nbsp> Rating </nbsp>
-                        if (ViewBag.gaveRating==false)
-                        {
-                            @Html.TextArea("NewUserRating", "", 1, 2, 0);
+                        @Html.TextArea("NewUserRating", "0", 1, 2, 0);
 
-                        }
-
-                        <input type="submit" value="send" />
+                        <span class="icon-input-btn"><span class="glyphicon glyphicon-send"></span> <input type="submit" value="send" class="btn btn-success" /></span>
                     }
                 }
             }
@@ -282,9 +271,7 @@
 
 
 
-        </dd>
 
-    </dl>
 </div>
 <p>
 
