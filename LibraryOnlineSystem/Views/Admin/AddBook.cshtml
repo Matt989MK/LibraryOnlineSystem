@@ -24,6 +24,42 @@
         Globalize.culture('fr-FR');
     });
 </script>
+
+<style>
+    .bs-example {
+        margin: 20px;
+    }
+
+    .icon-input-btn {
+        display: inline-block;
+        position: relative;
+    }
+
+        .icon-input-btn input[type="submit"] {
+            padding-left: 2em;
+        }
+
+        .icon-input-btn .glyphicon {
+            display: inline-block;
+            position: absolute;
+            left: 0.65em;
+            top: 30%;
+        }
+</style>
+<script>
+    $(document).ready(function () {
+        $(".icon-input-btn").each(function () {
+            var btnFont = $(this).find(".btn").css("font-size");
+            var btnColor = $(this).find(".btn").css("color");
+            $(this).find(".glyphicon").css("font-size", btnFont);
+            $(this).find(".glyphicon").css("color", btnColor);
+            if ($(this).find(".btn-xs").length) {
+                $(this).find(".glyphicon").css("top", "24%");
+            }
+        });
+    });
+</script>
+
 <script>
     jQuery.extend(jQuery.validator.methods, {
         range: function (value, element, param) {
@@ -36,9 +72,10 @@
 
 </script>
 @* } *@
-<h2>Step 1</h2><br/>
-<h2>Fill the form and add a photo to and proceed to step 2</h2>
-
+<h2 style="color:darkred;text-decoration:underline">Step 1</h2>
+<br />
+<h2 class="text-center" style="color:red;text-decoration:underline">Fill the form and add a photo to and proceed to Step 2</h2>
+<hr />
 
 @using (Html.BeginForm("AddBook", "Admin",
     FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -46,7 +83,7 @@
 
     // @Html.EditorForModel()
     <div class="form-horizontal">
-        <h4>Book</h4>
+        <h4 style="color:darkred">Book :-</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -59,7 +96,7 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.Genre, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div>
+            <div class="col-md-10">
                 @Html.DropDownListFor(model => model.Genre, new SelectList(ViewBag.DictionaryPackages), new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Genre, "", new { @class = "text-danger" })
             </div>
@@ -113,7 +150,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Next" class="btn btn-default" />
+                <span class="icon-input-btn"><span class="glyphicon glyphicon-forward"></span><input type="submit" value="Next" class="btn btn-success" /></span>
             </div>
         </div>
     </div>
