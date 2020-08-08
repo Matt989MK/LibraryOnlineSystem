@@ -9,120 +9,111 @@
 }
 
 
-
-<div>
-    <h4>Book</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        
-        <dt>
-            @Html.DisplayNameFor(model => model.Genre)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Genre)
-        </dd>
-
-        <dt>
-           Date Of Publication
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DateOfPublication.Date.Year)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Overview)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Overview)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Authors)
-        </dt>
-        <dd>
-            @if (Model.Authors!=null)
-    {
-                foreach (var author in Model.Authors)
-                    {
-                 <nbsp> @author.Name</nbsp>
-                      @author.Surname
-                  ;<br/>
-                        }
+<style>
+    .bs-example {
+        margin: 20px;
     }
-                
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Publisher)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Publisher)
-        </dd>
-        <dt>
-            Books in Stock
-        </dt>
+    .icon-input-btn {
+        display: inline-block;
+        position: relative;
+    }
 
-        <dd>
-            @ViewBag.bookInStock
-        </dd>
+        .icon-input-btn input[type="submit"] {
+            padding-left: 2em;
+        }
 
+        .icon-input-btn .glyphicon {
+            display: inline-block;
+            position: absolute;
+            left: 0.65em;
+            top: 30%;
+        }
+</style>
+<script>
+    $(document).ready(function () {
+        $(".icon-input-btn").each(function () {
+            var btnFont = $(this).find(".btn").css("font-size");
+            var btnColor = $(this).find(".btn").css("color");
+            $(this).find(".glyphicon").css("font-size", btnFont);
+            $(this).find(".glyphicon").css("color", btnColor);
+            if ($(this).find(".btn-xs").length) {
+                $(this).find(".glyphicon").css("top", "24%");
+            }
+        });
+    });
+</script>
 
-        <dd>
-            <div class="editor-field">
-                @if (Model.ImageData == null)
-            {
-                    @:No Image
-                }
-                else
+<br />
+<br />
+<br />
+<div class="container">
+    <div class="row">
+        <div class="col-sm-2">
+            <span style="height:150px;width:100px;">
+                <div class="editor-field">
+                    @if (Model.ImageData == null)
+                    {
+                        @:No Image
+                    }
+                    else
+                    {
+                        <img width="150" height="150"
+                             src="@Url.Action("GetImage", "Admin", new { Model.BookId })" />
+                    }
+
+                </div>
+            </span>
+        </div>
+        <div class="col-sm-5">
+            <h2 style="color:cornflowerblue;font-family:'Times New Roman'">@Html.DisplayFor(model => model.Name)</h2>
+            <h5>
+                <b>Authors:</b><br></br>
+                @if (Model.Authors != null)
                 {
-                    <img width="150" height="150"
-                         src="@Url.Action("GetImage", "Admin", new { Model.BookId })" />
+                    foreach (var author in Model.Authors)
+                    {
+                        <nbsp> @author.Name</nbsp>
+                        @author.Surname
+                        ;<br />
+                    }
                 }
-
-            </div>
-        </dd>
-        <dd>
+            </h5>
+            <h5>
+                <b>Publisher:</b>
+                @Html.DisplayFor(model => model.Publisher)
+            </h5>
+            <hr />
+            <h3>Book Description</h3>
             @foreach (BookReview bookReview in Model.BookReviews)
             {
-                <dt>
-                    @Html.DisplayNameFor(model => bookReview.Content);
-                </dt>
-            <dd>
+
                 @Html.DisplayFor(model => bookReview.Content);
-            </dd>
-        }
-            </dd>
-        <dd>
-           
+
+            }
+
+            <br />
+            <br />
             @if (Model.BookCode.Count != 0)
             {
 
 
 
-                if (Model.BookCode.FirstOrDefault(a=>a.IsInLibrary==true) !=null && Model.Link == null)
+                if (Model.BookCode.FirstOrDefault(a => a.IsInLibrary == true) != null && Model.Link == null)
                 {
-                    if (ViewBag.isBanned==1)
+                    if (ViewBag.isBanned == 1)
                     {
                         <a>Please pay any outstanding fees to borrow a book again</a>
                     }
                     else
                     {
-                        @Html.ActionLink("Borrow Book", "BorrowBook", new {bookId = Model.BookId, userId = Session["UserId"]}, null)
+                        @Html.ActionLink("Borrow Book", "BorrowBook", new { bookId = Model.BookId, userId = Session["UserId"] }, null)
 
                     }
                 }
                 else if (Model.Link != null)
                 {
-          
+
                     <a href="@Model.Link">Online Source</a>
 
                 }
@@ -130,7 +121,7 @@
                 {
                     @Html.Display("Currently book is not in stock, it is earliest due... ")
                     ;
-                    @Html.ActionLink("Reserve", "ReservedBook", new {bookCodeId=Model.BookCode.FirstOrDefault().BookCodeId, userId = Session["UserId"]}, null)
+                    @Html.ActionLink("Reserve", "ReservedBook", new { bookCodeId = Model.BookCode.FirstOrDefault().BookCodeId, userId = Session["UserId"] }, null)
 
                 }
             }
@@ -140,11 +131,36 @@
                 <h2>Book is unavailable</h2>
             }
 
-             
 
-        </dd>
-        </dl>
-        <dt>Comment</dt>
+
+
+        </div>
+        <div class="col-sm-5">
+            <h4 style="color:darkred;font-weight:bold">Book Details :-</h4>
+            <h5>
+                Genre :
+                @Html.DisplayFor(model => model.Genre)
+            </h5>
+            <h5>
+                Date of Publication :
+                @Html.DisplayFor(model => model.DateOfPublication.Date.Year)
+            </h5>
+            <h5>
+                Overview :
+                @Html.DisplayFor(model => model.Overview)
+            </h5>
+            <h5 style="font-weight:bold;color:red">
+                Books In Stock :
+                @ViewBag.bookInStock
+            </h5>
+        </div>
+    </div>
+<hr />
+
+
+
+
+<dt>Comment</dt>
     <dl>
         <dd>
             @foreach (var item in Model.Comment)
@@ -153,28 +169,37 @@
 
                 if (item.BookId == Model.BookId)
                 {
+                    if (item.AuthorId == ViewBag.UserId)
+                    {
 
-                    Model.Rating += item.UserRating;
+                        ViewBag.gaveRating = true;
+                    }
+                    if (item.UserRating != null)
+                    {
+                        Model.Rating += item.UserRating;
+                        <nbsp style="font-size:14px;font-weight:bold">@Html.DisplayFor(Model => item.AuthorId)</nbsp>
+                        <br />
+                    }
+                    @Html.DisplayFor(Model => item.Content)<nbsp style="color:red"> @Html.DisplayFor(model => item.UserRating) </nbsp>
+                    <br />
 
-                    <nbsp style="color:red"> @Html.DisplayFor(model => item.UserRating) </nbsp>
-                    @Html.DisplayFor(Model => item.Content)
 
-                    <nbsp style="font-size:8px"> -post by ID @Html.DisplayFor(Model => item.AuthorId)</nbsp>
+
 
                     if (ViewBag.UserId != "")
                     {
-                        //if (ViewBag.IsBanned == false)
-                        //{
 
-                        @Html.ActionLink("Reply", "CommentReply", new { id = item.BookId, commentID = item.CommentId }, null)
-                        //   }
-                        if (item.PersonId.ToString()==Session["UserId"].ToString())
+
+                        @Html.ActionLink("Reply", "CommentReply", new { id = item.BookId, commentID = item.CommentId }, new { style = "font-size:10px" })
+
+                        if (item.PersonId.ToString() == Session["UserId"].ToString())
                         {
-                            <nbsp> | </nbsp>
-                            @Html.ActionLink("DeleteComment", "DeleteComment", new { commentId = item.CommentId})
-                            <nbsp> | </nbsp>
+                            <nbsp>  </nbsp>
+
+                            @Html.ActionLink("Delete", "DeleteComment", new { commentId = item.CommentId }, new { style = "font-size:10px" })
+                            <nbsp>  </nbsp>
                         }
-                        
+
 
                     }
 
@@ -187,11 +212,11 @@
                     foreach (var reply in item.CommentReply)
                     {
 
-                        <nbsp> -----  </nbsp>
+        <nbsp> &nbsp; &nbsp;&nbsp;&nbsp;  </nbsp>
 
                         @Html.DisplayFor(model => reply.Content);
 
-                        <nbsp style="font-size:8px"> -posted by ID @Html.DisplayFor(Model => reply.AuthorID)</nbsp>
+                        <nbsp style="font-size:8px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Html.DisplayFor(Model => reply.AuthorID)</nbsp>
 
 
                         <br />
@@ -199,26 +224,12 @@
                     <br />
 
                 }
-
-               
-
             }
-            
-           
 
-
-        </dd>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-
-        <dt>
-
+            <br />
+            <br />
             New Comment
-        </dt>
-        <dd>
+
             @if (ViewBag.UserId != "")
             {
                 using (Html.BeginForm())
@@ -243,13 +254,13 @@
                     }
                     else
                     {
-                        
-                        @Html.TextBoxFor(model => model.BookId, new { style = "display: none;"});//, new { style = "display: none;" }
+
+                        @Html.TextBoxFor(model => model.BookId, new { style = "display: none;" });//, new { style = "display: none;" }
                         @Html.TextArea("NewComment", "");
                         <nbsp> Rating </nbsp>
-                        @Html.TextArea("NewUserRating", "0.0", 1, 2, 0);
+                        @Html.TextArea("NewUserRating", "0", 1, 2, 0);
 
-                        <input type="submit" value="send" />
+                        <span class="icon-input-btn"><span class="glyphicon glyphicon-send"></span> <input type="submit" value="send" class="btn btn-success" /></span>
                     }
                 }
             }
@@ -260,13 +271,12 @@
 
 
 
-        </dd>
 
-        </dl>
-    </div>
+</div>
 <p>
-  
+
     @Html.ActionLink("Back to List", "Index") |
 
 
 </p>
+

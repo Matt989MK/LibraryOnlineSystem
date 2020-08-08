@@ -237,23 +237,72 @@ namespace LibraryOnlineSystem.Controllers
 
         public ActionResult PrintLabel(string serialNumber)
         {
-            // Create linear barcode object
-            Linear barcode = new Linear();
-            // Set barcode symbology type to Code-39
-            barcode.Type = BarcodeType.CODE39;
-            // Set barcode data to encode
-            barcode.Data = serialNumber;
-            // Set barcode bar width (X dimension) in pixel
-            barcode.X = 1;
-            // Set barcode bar height (Y dimension) in pixel
-            barcode.Y = 60;
-            // Draw & print generated barcode to png image file
-            var path = Path.Combine(Server.MapPath("~/Labels/"), "label" + serialNumber);
 
-            barcode.drawBarcode(path+".jpeg");//"~\\Labels\\" + "label" + serialNumber+".jpeg"
-            //"D://csharp-code39.png"
-            ViewBag.SerialNumber = serialNumber;                                                            // barcode.Print();
+           
+            List<BookCode> bookCodeList = db.BookCodes.ToList();
+
+            int bookId = bookCodeList.Where(a => a.BookSerialNumber == serialNumber).Single().BookId;
+            string bookName = db.Books.Where(a => a.BookId == bookId).Single().Name;
+            ViewBag.SerialNumber = serialNumber;
+            //Create an instance of PdfDocument.
+            // Printer IP Address and communication port
+            string ipAddress = "127.0.0.1";
+            int port = 9100;
+
+            // ZPL Command(s)
+            string ZPLString =
+                "^XA" +
+
+                "^FX Top section with logo, name and address." +
+                "^CF0,60" +
+                "^FO50,50^GB100,100,100^FS" +
+                "^FO75,75^FR^GB100,100,100^FS" +
+                "^FO93,93^GB40,40,40^FS" +
+                "^FO220,50^FD Leicester Library^FS" +
+                "^CF0,30" +
+                "^FO220,115^FD54 Gateway Street 50^FS" +
+                "^FO220,155^FDLeicester LE27DP^FS" +
+                "^FO220,195^FDUnited Kingdom (UK)^FS" +
+                "^FO50,250^GB700,1,3^FS" +
+
+                "^FX Second section with recipient address and permit information." +
+                "^CFA,60" +
+                "^FO50,300^FD"+ bookName + "^FS" +
+               
+
+                "^FO50,500^GB700,1,3^FS" +
+
+                "^FX Third section with barcode." +
+                "^BY5,2,270" +
+                "^FO100,550^BC^FD"+ serialNumber+"^FS" +
+
+
+                "^XZ";
+
+            try
+            {
+                // Open connection
+                System.Net.Sockets.TcpClient client = new System.Net.Sockets.TcpClient();
+                client.Connect(ipAddress, port);
+
+                // Write ZPL String to connection
+                System.IO.StreamWriter writer =
+                    new System.IO.StreamWriter(client.GetStream());
+                writer.Write(ZPLString);
+                writer.Flush();
+
+                // Close Connection
+                writer.Close();
+                client.Close();
+            }
+            catch (Exception ex)
+            {
+                // Catch Exception
+            }
+
             return View();
+                                                                 // barcode.Print();
+          
             }
 
 

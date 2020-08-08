@@ -4,15 +4,15 @@
     ViewBag.Title = "LoanHistory";
     Layout = "~/Views/Shared/_User_Layout.cshtml";
 }
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.csss" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" />
 <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" language="javascript">
     $(document).ready(function () {
         $('#example').DataTable();
     });</script>
-<h2>Loan History</h2>
 
+<h2 class="text-center" style="color:darkred;text-decoration:underline">Loan History :-</h2>
 <table class="table" id="example">
     <thead>
     <tr>
@@ -20,10 +20,10 @@
             @Html.DisplayNameFor(model => model.Book.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DateCreated)
+          Date Created
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DateReturned)
+          Date Returned
         </th>
 
     </tr>

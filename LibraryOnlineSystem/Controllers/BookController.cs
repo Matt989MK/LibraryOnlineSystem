@@ -185,6 +185,40 @@ namespace LibraryOnlineSystem.Controllers
             listOfUser = db.Users.ToList();
             User user = listOfUser.Where(a => a.UserId ==Convert.ToInt32(Session["UserId"])).Single(); // GET USER ID
 
+           
+
+
+          
+            ViewBag.gaveRating = false;
+
+            // CHECK IF USER BANNED
+
+
+
+
+            int counter = 0;
+            foreach (var _payment in user.ListOfPayment)
+            {
+                if (_payment.DatePaid.HasValue)
+                {
+                    counter++;
+                }
+            }
+
+            if (counter == user.ListOfPayment.Count)
+            {
+                user.IsBanned = false;
+            }
+            else
+            {
+                user.IsBanned = true;
+            }
+
+            db.Users.AddOrUpdate(user);
+
+
+
+
             List<Book> listOfBook = new List<Book>();
             listOfBook = db.Books.ToList();
             List<BookReview> listOfBookReviews = db.BookReviews.Where(a => a.BookId == booksId).ToList();
@@ -226,20 +260,31 @@ namespace LibraryOnlineSystem.Controllers
         [HttpPost]
         public ActionResult Details()
         {
-
+            List<User> listOfUser = new List<User>();
+            listOfUser = db.Users.ToList();
+            User user = listOfUser.Where(a => a.UserId == Convert.ToInt32(Session["UserId"])).Single();
             int id = Convert.ToInt32(Request.Params["BookId"]);
             Book book = db.Books.Find(id);//
             List<BookCode> bookCodesList = db.BookCodes.Where(a => a.BookId == id).ToList();
             book.BookCode = bookCodesList;
             Comment comment = new Comment();
             comment.Content = Request.Params["NewComment"];
-            comment.AuthorId = User.Identity.Name;
+            comment.AuthorId = user.Name+" "+user.Surname;
+            
             comment.PostId = 1;
             comment.BookId = id;
             comment.PersonId = 1;
-
+            string checkNull = Request.Params["NewUserRating"];
             float.TryParse(Request.Params["NewUserRating"], out float results);
-            comment.UserRating = results;
+            if (checkNull != null)
+            {
+                comment.UserRating = results;
+
+            }
+         
+
+
+
 
 
 

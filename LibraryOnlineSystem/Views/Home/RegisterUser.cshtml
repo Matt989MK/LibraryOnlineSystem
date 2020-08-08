@@ -4,11 +4,47 @@
     ViewBag.Title = "RegisterUser";
     Layout = "~/Views/Shared/_Login_Layout.cshtml";
 }
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>*@
+
+<style>
+        .bs-example {
+            margin: 20px;
+        }
+
+        .icon-input-btn {
+            display: inline-block;
+            position: relative;
+        }
+
+            .icon-input-btn input[type="submit"] {
+                padding-left: 2em;
+            }
+
+            .icon-input-btn .glyphicon {
+                display: inline-block;
+                position: absolute;
+                left: 0.65em;
+                top: 30%;
+            }
+    </style>
 <script>
-    $(document).ready(function() {
+        $(document).ready(function () {
+            $(".icon-input-btn").each(function () {
+                var btnFont = $(this).find(".btn").css("font-size");
+                var btnColor = $(this).find(".btn").css("color");
+                $(this).find(".glyphicon").css("font-size", btnFont);
+                $(this).find(".glyphicon").css("color", btnColor);
+                if ($(this).find(".btn-xs").length) {
+                    $(this).find(".glyphicon").css("top", "24%");
+                }
+            });
+        });
+    </script>
+
+<script>
+    $(document).ready(function () {
         $('#Password,#ConfirmPassword').on('keyup',
-            function() {
+            function () {
                 if ($('#Password').val() == $('#ConfirmPassword').val()) {
                     $('#message').html('Excellent');
                     document.getElementById("registerButton").disabled = false;
@@ -19,103 +55,193 @@
                     document.getElementById("registerButton").disabled = true;
                 }
             });
-        
+
     })
 </script>
-<h2>Registration Form</h2>
+@*<h2 style="color:white;text-decoration:underline">Registration Form</h2>
+    <div style="background-color:white;padding:3%">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Surname, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Surname, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DateOfBirth, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.HouseNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.HouseNo, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.HouseNo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ZipCode, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ZipCode, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ZipCode, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.UserRole, new { @Value = "User" })
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+
+@* @Html.Password("ConfirmPassword")*@
+@*<div class="form-group">
+        <div class="control-label col-md-2">
+            <b>Confirm Password:</b>
+        </div>
+        <div class="col-md-10">
+            <input id="ConfirmPassword"
+                   name="ConfirmPassword"
+                   type="password"
+                   class="form-control"
+                   value="" />
+            <td><span id="message"></span></td>
+        </div>
+    </div>*@
+@*<div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <span class="icon-input-btn"><span class="glyphicon glyphicon-saved"></span><input type="submit" value="Register" id="registerButton" class="btn btn-primary" /></span>
+                </div>
+            </div>
+        </div>
+    }*@
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
+    <div class="container">
+        <hr />
+        <div class="d-flex justify-content-center h-100">
+            <div class="card">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="card-header">
+                    <br />
+                    <h3>Registration Form</h3>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-users"></i></span>
+                            </div>
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", PlaceHolder = "Name" } })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
 
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-        </div>
-    </div>
+                        </div>
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            </div>
+                            @Html.EditorFor(model => model.Surname, new { htmlAttributes = new { @class = "form-control", PlaceHolder = "Surname" } })
+                            @Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-calendar"></i></span>
+                            </div>
+                            @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control", PlaceHolder = "Date of Birth" } })
+                            @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                            </div>
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", PlaceHolder = "Email" } })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-code"></i></span>
+                            </div>
+                            @Html.EditorFor(model => model.HouseNo, new { htmlAttributes = new { @class = "form-control", PlaceHolder = "House Number" } })
+                            @Html.ValidationMessageFor(model => model.HouseNo, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-code"></i></span>
+                            </div>
+                            @Html.EditorFor(model => model.ZipCode, new { htmlAttributes = new { @class = "form-control", PlaceHolder = "Postcode" } })
+                            @Html.ValidationMessageFor(model => model.ZipCode, "", new { @class = "text-danger" })
+                        </div>
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.UserRole, new { @Value = "User" })
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-key"></i></span>
+                            </div>
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", PlaceHolder = "Password" } })
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-key"></i></span>
+                            </div>
+                            <input id="ConfirmPassword"
+                                   name="ConfirmPassword"
+                                   type="password"
+                                   class="form-control"
+                                   placeholder="Confirm Password"
+                                   value="" />
+                            <span id="message"></span>
+                        </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Surname, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Surname, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.DateOfBirth, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.HouseNo, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.HouseNo, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.HouseNo, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.ZipCode, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.ZipCode, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.ZipCode, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.UserRole, new { @Value = "User" })
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.PasswordFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    @* @Html.Password("ConfirmPassword")*@
-    <div class="form-group">
-        <div class="control-label col-md-2">
-            <b>Confirm Password:</b>  
+                        <div class="form-group">
+                            <input type="submit" value="Register" id="registerButton" class="btn float-right login_btn" />
+                        </div>
+                    </form>
+                    <div class="card-footer">
+                        @Html.ActionLink("Back to List", "Login")
+                    </div>
+                </div>
             </div>
-        <div class="col-md-10">
-            <input id="ConfirmPassword"
-                   name="ConfirmPassword"
-                   type="password"
-                   value=""/>
-            <td><span id="message"></span></td>
         </div>
     </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Register" id="registerButton" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-    }
-
-    <div>
-        @Html.ActionLink("Back to List", "Index")
-    </div>
-    @section scripts
+}
+@section scripts
 {
-        @Scripts.Render("~/bundles/jqueryval")
-    }
+    @Scripts.Render("~/bundles/jqueryval")
+}

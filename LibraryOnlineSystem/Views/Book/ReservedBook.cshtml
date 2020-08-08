@@ -1,11 +1,10 @@
-﻿
-@model LibraryOnlineSystem.Models.BookReserve 
+﻿@model LibraryOnlineSystem.Models.BookReserve 
 @{
     ViewBag.Title = "ReservedBook";
     Layout = "~/Views/Shared/_User_Layout.cshtml";
 }
 
-<h2>Reserved Book</h2>
+<h2  class="text-center" style="color:darkred;text-decoration:underline">Reserved Book</h2>
 @*@{
     DateTime dateTime = new DateTime();
 
@@ -13,7 +12,7 @@
     int bookReserveId = (int)Session["bookReserveId"];
 }*@
 <p>
-    <H2>Book Successfully reserved, it will be available on @Model.ReservationRequestTime.AddDays(7).ToString("d") your reservation id is @Model.BookReserveId</H2>
+    <h2 style="color:forestgreen;text-align:center">Book Successfully Reserved, It will be available on @Model.ReservationRequestTime.AddDays(7).ToString("d") your Reservation ID is @Model.BookReserveId</h2>
     
       
     
@@ -23,19 +22,19 @@
        
        
         <th>
-           Reservation requested time
+            Reservation requested time
         </th>
         <th></th>
     </tr>
 
-     <tr>
+    <tr>
          
            
-            <td>
-                @Html.ValueFor(model => model.ReservationRequestTime, "{0:dd/MM/yyyy}")
-            </td>
+        <td>
+            @Html.ValueFor(model => model.ReservationRequestTime, "{0:dd/MM/yyyy}")
+        </td>
 
-        </tr>
+    </tr>
     
 
 </table>

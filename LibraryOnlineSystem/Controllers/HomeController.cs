@@ -41,6 +41,8 @@ namespace LibraryOnlineSystem.Controllers
             //  Session["isAdmin"] = "3";
             //Session["UserName"] = "test";
             CheckLogin();
+
+            
             return View();
         }
         //---------------Book
@@ -139,6 +141,8 @@ namespace LibraryOnlineSystem.Controllers
             PaymentLibrary payment = db.Payments.Where(a => a.PaymentLibraryId == paymentId).FirstOrDefault();
             payment.DatePaid = DateTime.Now;
             payment.Status = "Paid";
+            User user = db.Users.Where(a => a.UserId == userId).Single();
+           
             db.Payments.AddOrUpdate(payment);
             db.SaveChanges(); 
             return Redirect("Index");
