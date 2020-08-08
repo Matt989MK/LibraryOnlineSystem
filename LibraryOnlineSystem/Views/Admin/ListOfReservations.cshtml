@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Admin_Layout.cshtml";
 }
 
-<h2>List Of Reservations</h2>
+
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" />
 <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
@@ -14,32 +14,34 @@
         $('#example').DataTable();
     });</script>
 
-<table class="table" id="example">
+<h2 class="text-center" style="color:darkred;text-decoration:underline">List Of Reservations</h2>
+<hr />
+<table class="table table-striped" id="example">
     <thead>
-    <tr>
-        <th>
-          User ID
-        </th>
-        <th>
-            Book Title
-        </th>
-        <th>
-           Reservation ID
-        </th>
-        <th>
-           Book ID
-        </th>
-        <th>
-          Reservation Requested time
-        </th>
-        <th>
-            Book Serial Number
-        </th>
-        <th>
-            Available
-        </th>
-        <th></th>
-    </tr>
+        <tr>
+            <th>
+                User ID
+            </th>
+            <th>
+                Book Title
+            </th>
+            <th>
+                Reservation ID
+            </th>
+            <th>
+                Book ID
+            </th>
+            <th>
+                Reservation Requested time
+            </th>
+            <th>
+                Book Serial Number
+            </th>
+            <th>
+                Available
+            </th>
+            <th></th>
+        </tr>
     </thead>
     @{ int x = 0;}
     <tbody>
@@ -74,11 +76,11 @@
                         @Html.ActionLink("Finalize", "FinalizeReservation", new { userId = item.UserId, reservationId = item.BookReserveId });
                     }
                 </td>
-               
+
             </tr>
-            
-                x++;
-            
+
+            x++;
+
         }
     </tbody>
 </table>

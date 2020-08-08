@@ -5,16 +5,56 @@
     ViewBag.Title = "ReportPayment";
     Layout = "~/Views/Shared/_Admin_Layout.cshtml";
 }
-    <h2>Report on Payments</h2>
+
+
+
+<style>
+    .bs-example {
+        margin: 20px;
+    }
+
+    .icon-input-btn {
+        display: inline-block;
+        position: relative;
+    }
+
+    .icon-input-btn input[type="submit"] {
+        padding-left: 2em;
+    }
+
+    .icon-input-btn .glyphicon {
+        display: inline-block;
+        position: absolute;
+        left: 0.65em;
+        top: 30%;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        $(".icon-input-btn").each(function () {
+            var btnFont = $(this).find(".btn").css("font-size");
+            var btnColor = $(this).find(".btn").css("color");
+            $(this).find(".glyphicon").css("font-size", btnFont);
+            $(this).find(".glyphicon").css("color", btnColor);
+            if ($(this).find(".btn-xs").length) {
+                $(this).find(".glyphicon").css("top", "24%");
+            }
+        });
+    });
+</script>
+
+<h2 class="text-center" style="color:darkred;text-decoration:underline">Report on Payments</h2>
+<hr />
 @using (Html.BeginForm())
 {
     <label for="beginningDate">From: </label>
-    <input type="date" id="beginningDate" name="beginningDate">
+    <input type="date" id="beginningDate" class="form-control" name="beginningDate">
 
 
     <label for="endingDate"> To:</label>
-    <input type="date" id="endingDate" name="endingDate">
-    <input type="submit">
+    <input type="date" id="endingDate" class="form-control" name="endingDate">
+    <br />
+    <span class="icon-input-btn"><span class="glyphicon glyphicon-save"></span><input type="submit" class="btn btn-primary"></span>
 }
 
 <h3><b>Sum of all  paid fees</b></h3>
