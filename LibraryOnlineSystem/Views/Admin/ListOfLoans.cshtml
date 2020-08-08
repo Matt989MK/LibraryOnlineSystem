@@ -11,36 +11,36 @@
     $(document).ready(function () {
         $('#example').DataTable();
     });</script>
-<h2>List Of Loans</h2>
+<h2 class="text-center" style="color:darkred;text-decoration:underline">List Of Loans</h2>
+<hr />
 
-
-<table class="table" id="example">
+<table class="table table-striped" id="example">
     <thead>
-    <tr>
-        <th>
-            User ID
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.User.Name)
-        </th>
-        <th> Book Title</th>
-        <th>
-            @Html.DisplayNameFor(model => model.BookCodeId)
-        </th>
-        <th>
-         Date Loaned
-        </th>
-        <th>
-           Date Returned
-        </th>
-        <th>
-            Book Serial Number
-        </th>
-        <th>
-            Available
-        </th>
-        <th></th>
-    </tr>
+        <tr>
+            <th>
+                User ID
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.Name)
+            </th>
+            <th> Book Title</th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookCodeId)
+            </th>
+            <th>
+                Date Loaned
+            </th>
+            <th>
+                Date Returned
+            </th>
+            <th>
+                Book Serial Number
+            </th>
+            <th>
+                Available
+            </th>
+            <th></th>
+        </tr>
     </thead>
     @{ int x = 0;}
     <tbody>
@@ -73,14 +73,14 @@
                     @ViewBag.IsInLibrary[x]
                 </td>
                 <td>
-                    @if (item.DateReturned==null)
+                    @if (item.DateReturned == null)
                     {
-                        @Html.ActionLink("Return", "ReturnBook", new {bookCodeId=item.BookCodeId, SerialNumber=ViewBag.BookSerialNumber});
+                        @Html.ActionLink("Return", "ReturnBook", new { bookCodeId = item.BookCodeId, SerialNumber = ViewBag.BookSerialNumber });
                     }
                 </td>
             </tr>
             x++;
         }
-        </tbody>
+    </tbody>
 </table>
 

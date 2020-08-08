@@ -5,8 +5,44 @@
     Layout = "~/Views/Shared/_Admin_Layout.cshtml";
 }
 
-<h1>Report for Users</h1>
-<br />
+<style>
+    .bs-example {
+        margin: 20px;
+    }
+
+    .icon-input-btn {
+        display: inline-block;
+        position: relative;
+    }
+
+    .icon-input-btn input[type="submit"] {
+        padding-left: 2em;
+    }
+
+    .icon-input-btn .glyphicon {
+        display: inline-block;
+        position: absolute;
+        left: 0.65em;
+        top: 30%;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        $(".icon-input-btn").each(function () {
+            var btnFont = $(this).find(".btn").css("font-size");
+            var btnColor = $(this).find(".btn").css("color");
+            $(this).find(".glyphicon").css("font-size", btnFont);
+            $(this).find(".glyphicon").css("color", btnColor);
+            if ($(this).find(".btn-xs").length) {
+                $(this).find(".glyphicon").css("top", "24%");
+            }
+        });
+    });
+</script>
+
+
+<h1 class="text-center" style="color:darkred;text-decoration:underline">Report for Users</h1>
+<hr />
 @using (Html.BeginForm())
 {
     <label for="beginningDate">From: </label>

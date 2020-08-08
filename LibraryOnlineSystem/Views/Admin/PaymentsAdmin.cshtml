@@ -5,8 +5,7 @@
     Layout = "~/Views/Shared/_Admin_Layout.cshtml";
 }
 
-<h2>PaymentsAdmin</h2>
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.csss" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" />
 <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" language="javascript">
@@ -14,7 +13,9 @@
         $('#example').DataTable();
     });</script>
 
-<table class="table" id="example">
+<h2 class="text-center" style="color:darkred;text-decoration:underline">PaymentsAdmin</h2>
+<hr />
+<table class="table table-striped" id="example">
     <thead>
         <tr>
             <th>
@@ -33,7 +34,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Status)
             </th>
-           
+
         </tr>
     </thead>
     <tbody>
@@ -57,15 +58,15 @@
                     @{
                         if (item.Status == "Unpaid")
                         {
-                            @Html.ActionLink(" Mark as Paid", "P", new {userId = item.UserId, paymentId = item.PaymentLibraryId})  // Make it work
+                            @Html.ActionLink(" Mark as Paid", "P", new { userId = item.UserId, paymentId = item.PaymentLibraryId }) // Make it work
 
                         }
-                            }
+                    }
                 </td>
-               
-                
-                
-               
+
+
+
+
             </tr>
         }
     </tbody>
