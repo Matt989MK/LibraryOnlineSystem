@@ -1,4 +1,6 @@
-﻿@model LibraryOnlineSystem.Models.Comment
+﻿
+
+@model LibraryOnlineSystem.Models.Icomments
 
 @{
     ViewBag.Title = "DeleteComment";
@@ -48,28 +50,23 @@
 
 
         <dt>
-            @Html.DisplayNameFor(model => model.Content)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Content)
-        </dd>
-
-        <dt>
-            User Rating
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UserRating)
-        </dd>
-
-        @*<dt>
-                @Html.DisplayNameFor(model => model.IsBlocked)
+            @*@Html.DisplayNameFor(model => model.GetContent())*@
+        Content
             </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.IsBlocked)
-            </dd>*@
+        <dd>
+            
+            @{
+//var getContent = Model.GetContent();
+//Html.DisplayFor(model => getContent);
+                @ViewBag.CommentReplyDelete;
+            } 
+        </dd>
+
+       
+
+       
+
 
     </dl>
 

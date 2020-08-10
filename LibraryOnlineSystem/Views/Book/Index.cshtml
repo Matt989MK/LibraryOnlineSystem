@@ -16,13 +16,19 @@ else
     }
 }
 
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" />
+<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });</script>
+<h2 class="text-center" style="color:darkred;text-decoration:underline">List Of Reservations :-</h2>
 
-
-<br />
-<br />
-
-<table class="table">
-    <form action="Book">
+<hr />
+<table class="table table-striped" id="example">
+    <thead>
+    @*<form action="Book">
         <tr>
             <th>
                 @Html.TextBox("Name")
@@ -42,9 +48,9 @@ else
             <th>
 
             </th>
-            @*<th>
+            <th>
                     @Html.DisplayNameFor(model => model.Publisher)
-                </th>*@
+                </th>
             <th>
 
             </th>
@@ -57,7 +63,7 @@ else
             </th>
         </tr>
         <input type="submit" />
-    </form>
+    </form>*@
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Name)
@@ -79,7 +85,8 @@ else
             @Html.DisplayNameFor(model => model.Rating)
         </th>
     </tr>
-
+    </thead>
+    <tbody>
     @foreach (var item in Model)
     {
         <tr>
@@ -105,5 +112,5 @@ else
             </td>
         </tr>
     }
-
+    </tbody>
 </table>

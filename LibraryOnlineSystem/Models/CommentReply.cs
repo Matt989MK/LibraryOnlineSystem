@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 namespace LibraryOnlineSystem.Models
 {
     [Table("CommentReply")]//Create CommentReply
-    public class CommentReply
+    public class CommentReply : Icomments
     {
         [Key]
         public virtual int CommentReplyID { get; set; }
@@ -18,5 +18,15 @@ namespace LibraryOnlineSystem.Models
         public virtual int BookID { get; set; }//added this
         public virtual int PostID { get; set; }
         public virtual string Content { get; set; }
+
+        public string GetContent()
+        {
+            return Content;
+        }
+        public int GetCommentId()
+        {
+            return CommentID;
+        }
+
     }
 }

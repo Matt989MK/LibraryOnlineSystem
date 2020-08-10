@@ -327,6 +327,7 @@
     <Compile Include="Models\CommentReply.cs" />
     <Compile Include="Models\ErrorViewModel.cs" />
     <Compile Include="Models\Genre.cs" />
+    <Compile Include="Models\Icomments.cs" />
     <Compile Include="Models\LibraryContext.cs" />
     <Compile Include="Models\BookDataInitialiser.cs" />
     <Compile Include="Models\LibraryRegulations.cs" />
