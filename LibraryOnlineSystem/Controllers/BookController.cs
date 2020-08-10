@@ -50,7 +50,7 @@ namespace LibraryOnlineSystem.Controllers
             {
                 try
                 {
-                    book.Rating = db.Comment.Where(a => a.BookId == book.BookId).Select(a => a.UserRating).Average();
+                    book.Rating = (float)db.Comment.Where(a => a.BookId == book.BookId).Select(a => a.UserRating).Average();
                     book.Rating = (float)Math.Round(book.Rating, 2);
                 }
                 catch (Exception e)
@@ -209,16 +209,24 @@ namespace LibraryOnlineSystem.Controllers
         {
             //DAOBook daoBook=new DAOBook();
             //Book book = daoBook.getSelectedBook(id);
-
+            ViewBag.gaveRating = false;
             List<User> listOfUser=new List<User>();
             listOfUser = db.Users.ToList();
             User user = listOfUser.Where(a => a.UserId ==Convert.ToInt32(Session["UserId"])).Single(); // GET USER ID
-
            
+            List<Comment> listOfComments = db.Comment.Where(a=>a.BookId==booksId).ToList();
+
+            foreach (var comment in listOfComments)
+            {
+                if (comment.PersonId == user.UserId)
+                {
+                    ViewBag.gaveRating = true;
+                }
+            }
 
 
           
-            ViewBag.gaveRating = false;
+            
 
             // CHECK IF USER BANNED
 
@@ -310,6 +318,10 @@ namespace LibraryOnlineSystem.Controllers
                 comment.UserRating = results;
 
             }
+            else
+            {
+                comment.UserRating = null;
+            }
          
 
 
@@ -331,7 +343,7 @@ namespace LibraryOnlineSystem.Controllers
 
 
 
-            if (comment.UserRating <= 10 && comment.UserRating >= 0.0)
+            if ((comment.UserRating <= 10 && comment.UserRating >= 0.0) || comment.UserRating==null)
             {
                 db.Comment.Add(comment);
 

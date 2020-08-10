@@ -315,6 +315,10 @@
     <Compile Include="Migrations\202007311820123_AddUserJoinDate.designer.cs">
       <DependentUpon>202007311820123_AddUserJoinDate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202008101955230_AllowNullRating.cs" />
+    <Compile Include="Migrations\202008101955230_AllowNullRating.designer.cs">
+      <DependentUpon>202008101955230_AllowNullRating.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Author.cs" />
     <Compile Include="Models\Book.cs" />
@@ -720,6 +724,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202007311820123_AddUserJoinDate.resx">
       <DependentUpon>202007311820123_AddUserJoinDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008101955230_AllowNullRating.resx">
+      <DependentUpon>202008101955230_AllowNullRating.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

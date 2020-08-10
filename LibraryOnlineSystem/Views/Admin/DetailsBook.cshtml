@@ -190,7 +190,7 @@
                     }
                     if (item.UserRating != null)
                     {
-                        Model.Rating += item.UserRating;
+                        Model.Rating += (float)item.UserRating;
                         <nbsp style="font-size:14px;font-weight:bold">@Html.DisplayFor(Model => item.AuthorId)</nbsp>
                         <br />
                     }

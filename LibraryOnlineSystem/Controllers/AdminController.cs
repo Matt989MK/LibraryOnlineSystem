@@ -153,7 +153,7 @@ namespace LibraryOnlineSystem.Controllers
             {
                 try
                 {
-                    book.Rating = db.Comment.Where(a => a.BookId == book.BookId).Select(a => a.UserRating).Average();
+                    book.Rating = (float)db.Comment.Where(a => a.BookId == book.BookId).Select(a => a.UserRating).Average();
                   book.Rating= (float)Math.Round(book.Rating,2);
                 }
                 catch (Exception e)
