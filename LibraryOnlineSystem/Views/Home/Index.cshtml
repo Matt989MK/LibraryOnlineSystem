@@ -21,10 +21,460 @@ else
         ViewBag.Title = "Home Page";
     }*@
 
+<style>
+    .banner {
+        background: url(../images/banner.jpg) no-repeat center;
+        min-height: 49em;
+        background-size: cover;
+        position: relative;
+    }
+
+    .banner-main {
+        padding-top: 17em;
+        text-align: center;
+    }
+
+    .banner-sub {
+        color: #fff;
+        font-size: 40px;
+        text-transform: capitalize;
+        font-weight: 700;
+        letter-spacing: 3px;
+    }
+
+    .banner-main h6 {
+        font-size: 16px;
+        color: #cecece;
+        letter-spacing: 1px;
+        text-transform: capitalize;
+    }
+
+    .ser-lt span.fa {
+        width: 90px;
+        height: 90px;
+        line-height: 90px;
+        font-size: 35px;
+        color: #ffffff;
+        border: solid 2px rgb(202, 202, 202);
+        transform: rotate(-45deg);
+        border-radius: 4px;
+    }
+
+    span.line {
+        width: 10%;
+        height: 3px;
+        background: #fff;
+        display: block;
+        margin: 2.3em auto;
+    }
+    /*-- banner --*/
+    /*-- about --*/
+
+    .about-right {
+        border-left: 3px solid #445c6e;
+    }
+
+        .about-right span {
+            font-size: 55px;
+            float: left;
+            margin-right: 7px;
+            line-height: 42px;
+            color: #003666;
+            font-weight: 600;
+        }
+
+    .about-left h2 {
+        text-align: center;
+        line-height: 1.6;
+        text-transform: capitalize;
+        font-size: 35px;
+        color: #445c6e;
+        font-weight: 700;
+    }
+
+    p.iner {
+        text-align: center;
+    }
+    /*-- //about --*/
+    /*-- services --*/
+    .mb-60 {
+        margin-bottom: 60px;
+    }
+
+    .services-inner {
+        border: 2px solid #445c6e;
+        transition: .3s;
+        border-radius: 4px;
+        border-radius: 4px;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        -o-border-radius: 4px;
+        -ms-border-radius: 4px;
+    }
+
+    .our-services-icon {
+        margin-top: -28px;
+    }
+
+        .our-services-icon span.fa {
+            margin-left: 141px;
+            color: #445c6e;
+            font-size: 30px;
+            background: #fff;
+            border: 2px solid #445c6e;
+            border-radius: 4px;
+            border-radius: 4px;
+            -webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            -o-border-radius: 4px;
+            -ms-border-radius: 4px;
+            width: 55px;
+            height: 55px;
+            line-height: 50px;
+            text-align: center;
+        }
+
+    .our-services-text {
+        overflow: hidden;
+        padding: 25px;
+        text-align: center;
+    }
+
+        .our-services-text h4 {
+            color: #222222;
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            padding-bottom: 10px;
+            position: relative;
+            text-transform: uppercase;
+        }
+
+            .our-services-text h4::before {
+                background: #445c6e none repeat scroll 0 0;
+                bottom: 0px;
+                content: "";
+                height: 1px;
+                position: absolute;
+                width: 100px;
+                margin-left: auto;
+            }
+
+    .our-services-wrapper:hover .services-inner {
+        background: #fff none repeat scroll 0 0;
+        border: 2px solid transparent;
+        box-shadow: 0px 1px 10px 0px #445c6e;
+    }
+
+    .our-services-text p {
+        margin-bottom: 0;
+    }
+
+    .services p {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 26px;
+        color: #666;
+    }
+
+    .services {
+        position: relative;
+    }
+    /*-- //services-- */
+    /*-- team --*/
+    .secnd_sty4 {
+        background-color: #003666;
+    }
+
+    .team-left img, .team-middle img, .team-right img {
+        border-radius: 50%;
+    }
+
+    .team-social ul.social-icons li {
+        display: inline-block;
+    }
+
+    .team-left h4, .team-middle h4, .team-right h4 {
+        color: #fff;
+        font-size: 26px;
+        text-transform: capitalize;
+        margin-bottom: 12px;
+        font-weight: 600;
+    }
+
+    .team-left p, .team-middle p, .team-right p {
+        padding: 0 2em;
+    }
+
+    .team-social ul.social-icons li a {
+        display: block;
+        color: #fff;
+        text-decoration: none;
+        font-size: 15px;
+        width: 35px;
+        height: 35px;
+        border-radius: 4px;
+        border-radius: 4px;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        -o-border-radius: 4px;
+        -ms-border-radius: 4px;
+        line-height: 32px;
+        background: transparent;
+        border: 1.4px solid #fff;
+    }
+    /*-- //team --*/
+    /*-- popup --*/
+
+    .overlay {
+        position: absolute;
+        top: 0px;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.7);
+        transition: opacity 0ms;
+        visibility: hidden;
+        opacity: 0;
+        z-index: 99;
+    }
+
+        .overlay:target {
+            visibility: visible;
+            opacity: 1;
+        }
+
+
+    .popup {
+        background: #fff;
+        border-radius: 5px;
+        max-width: 500px;
+        position: relative;
+        margin: 8em auto;
+        padding: 3em 1em;
+    }
+
+    .popup1 {
+        background: #fff;
+        border-radius: 5px;
+        max-width: 315px;
+        position: relative;
+        margin: 8em auto;
+        padding: 3em 1em;
+    }
+
+    .popup p {
+        font-size: 15px;
+        color: #666;
+        letter-spacing: .5px;
+        line-height: 30px;
+    }
+
+    .popup .close, .popup1 .close {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        transition: all 200ms;
+        font-size: 30px;
+        font-weight: bold;
+        text-decoration: none;
+        color: #000;
+    }
+
+    .popup h2 {
+        margin-top: 0;
+        color: #fff;
+    }
+
+    .popup .close:hover {
+        color: #30c39e;
+    }
+
+    /*-- //popup --*/
+    /*-- services-bottom --*/
+    .servcies-bg {
+        background: #003666;
+    }
+
+    .agileits_w3layouts_about_counter_left p {
+        font-size: 3em;
+        font-weight: 600;
+        color: #ffffff;
+    }
+
+    .agileits_w3layouts_about_counter_left h3 {
+        color: #fff;
+        font-size: 18px;
+        text-transform: capitalize;
+        letter-spacing: 2px;
+    }
+
+    /*-- //services-bottom --*/
+    /*-- blog --*/
+    .blog-side h3 span {
+        color: #445c6e;
+        margin-right: 7px;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+
+    .blog-side h3 {
+        text-transform: capitalize;
+        font-size: 32px;
+        letter-spacing: 2px;
+        color: #000;
+        margin-top: 4em;
+    }
+
+    .card-body {
+        background: #f1f1f1;
+    }
+
+    h5.blog-title.card-title.font-weight-bold {
+        font-size: 22px;
+        text-transform: capitalize;
+        letter-spacing: 2px;
+        color: #717171;
+    }
+
+    .blog_icon span.fa {
+        font-size: 25px;
+        color: #445c6e;
+    }
+    /*-- //blog --*/
+    /*-- contact --*/
+    section#contact {
+        background: url(../images/contact.jpg) no-repeat center;
+        background-size: cover;
+    }
+
+    .agileinfo_mail_grids {
+        background: rgba(255, 255, 255, 0.21);
+        padding: 2em 1em;
+        border-radius: 5px;
+        border-radius: 4px;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        -o-border-radius: 4px;
+        -ms-border-radius: 4px;
+    }
+
+    .contact-info1 {
+        padding: 1em;
+    }
+
+    .agileinfo_mail_grid_right input[type="text"], .agileinfo_mail_grid_right input[type="email"], .agileinfo_mail_grid_right textarea {
+        outline: none;
+        padding: 10px 20px;
+        font-size: 17px;
+        letter-spacing: 1px;
+        color: #555;
+        background: #e4e4e4 !important;
+        width: 100%;
+        border: none;
+    }
+
+    .agileinfo_mail_grid_right textarea {
+        min-height: 200px;
+        width: 100%;
+        resize: none;
+    }
+
+    .submit-buttons .btn {
+        outline: none;
+        border: none;
+        cursor: pointer;
+        -webkit-transition: 0.5s all;
+        -moz-transition: 0.5s all;
+        -o-transition: 0.5s all;
+        -ms-transition: 0.5s all;
+        transition: 0.5s all;
+        background: #445c6e;
+        color: #fff;
+        font-size: 17px;
+        letter-spacing: 1px;
+        padding: 10px 30px;
+        display: inline-block;
+        border: 2px solid #fff;
+        border-radius: 4px;
+        border-radius: 4px;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        -o-border-radius: 4px;
+        -ms-border-radius: 4px;
+    }
+
+
+    h4.heading-con-w3ls {
+        font-size: 30px;
+        letter-spacing: 1px;
+    }
+
+    .contact-info p {
+        color: #dcdbdb;
+        font-size: 15px;
+        letter-spacing: .5px;
+    }
+
+        .contact-info p span.fa {
+            color: #fff;
+            font-size: 18px;
+        }
+
+        .contact-info p a {
+            font-size: 17px;
+            color: #dcdbdb;
+        }
+
+    .contact-info h4 {
+        font-size: 27px;
+        color: #fff;
+        text-transform: capitalize;
+    }
+    /*-- //contact --*/
+    /*-- footer --*/
+    .social-icons ul li {
+        display: inline-block;
+    }
+
+        .social-icons ul li a {
+            color: #999;
+            text-align: center;
+        }
+
+            .social-icons ul li a span {
+                height: 42px;
+                width: 42px;
+                font-size: 13px;
+                background: transparent;
+                line-height: 42px;
+                color: #eaeaea;
+                border: 1px solid #ffffff;
+                border-radius: 4px;
+                -webkit-border-radius: 4px;
+                -moz-border-radius: 4px;
+                -o-border-radius: 4px;
+                -ms-border-radius: 4px;
+                transition: 0.5s all;
+                -webkit-transition: 0.5s all;
+                -moz-transition: 0.5s all;
+                -o-transition: 0.5s all;
+                -ms-transition: 0.5s all;
+            }
+
+    .copyright p, .copyright p a {
+        color: #fff;
+        font-size: 16px;
+        margin: 0;
+        letter-spacing: 2px;
+    }
+</style>
+
 <link href="//fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
 <link href="~/css/bootstrap.css" rel="stylesheet" />
-<link href="~/css/style.css" rel="stylesheet" />
+@*<link href="~/css/style.css" rel="stylesheet" />*@
 <link href="~/css/fontawesome.css" rel="stylesheet" />
 
 <div>
@@ -76,14 +526,13 @@ else
                     <h2 class="editContent" style="outline: currentcolor none medium; outline-offset: -2px; cursor: inherit;">Getting People reading together since 1998<br></h2>
                 </div>
                 <div class="col-lg-8 editContent about-right pl-4">
-                    <span class="editContent" style="outline: none; cursor: inherit;">T</span><p class="right-text editContent">he Ukrainian collection at the Harvard University Library, the largest collection outside Eastern Europe, is located primarily in Widener Library and Houghton Library, with the remainder housed in several specialized collections on campus (Fine Arts, Music, Anthropology, Science, Law), including the Institute's own Reference Library. The Ukrainian holdings of these Harvard University libraries can be searched through the HOLLIS (Harvard OnLine Library Information System) Catalog.</p>
-                
+                    <span class="editContent" style="outline: none; cursor: inherit;">s</span><p class="right-text editContent">orem ipsum amet consectetur maximus vitae enim ac, suscipit mollis purus. Morbi dictum nibh vel pellentesque congue. Cras ut purus tellus. Duis rhoncus sem nec arcu tincidunt tincidunt Morbi dictum nibh vel pellentesque congue.</p>
+                    <p class="my-3 editContent" style="outline: currentcolor none medium; outline-offset: -2px; cursor: inherit;">maximus vitae enim ac, suscipit mollis purus. Morbi dictum nibh vel pellentesque congue. Cras ut purus tellus. Duis rhoncus sem nec arcu tincidunt tincidunt.</p>
                 </div>
             </div>
             <img src="bundles/images/about.jpg" class="img-fluid mt-5" alt="">
-            <p class="iner mt-4 editContent" style="outline: none; cursor: inherit;"> Ukrainian books were first collected by the University Library well prior to the foundation of both the Ukrainian Studies program at Harvard University in 1968 and the Harvard Ukrainian Research Institute in 1973. Towards the end of the nineteenth century, the Library began to expand its acquisitions into areas concerning Eastern Europe.</p>
-            <br />
-            </div>
+            <p class="iner mt-4 editContent" style="outline: none; cursor: inherit;"> Nunc fermentum adipiscing tempor cursus nascetur adipiscing adipiscing. Primis aliquam mus lacinia lobortis phasellus suscipit. Fermentum lobortis non tristique ante proin sociis accumsan lobortis. Auctor etiam porttitor phasellus tempus cubilia ultrices tempor sagittis. Nisl fermentum consequat integer interdum integer purus sapien. Nibh eleifend nulla nascetur pharetra commodo mi augue interdum tellus. Ornare cursus augue feugiat sodales velit lorem. Semper elementum ullamcorper lacinia natoque aenean scelerisque.</p>
+        </div>
     </div>
     <!-- //about -->
     <!-- services -->
@@ -95,14 +544,14 @@ else
             <br />
             <div class="row pt-lg-0 pt-5">
                 <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 editContent">
-                    <div class="our-services-wrapper mb-60">
+                    <div class="our-services-wrapper">
                         <div class="services-inner editContent">
                             @*<div class="our-services-icon">
                                     <span class="fa fa-cog" style="outline: none; cursor: inherit;"></span>
                                 </div>*@
                             <div class="our-services-text editContent">
                                 <h4 class="editContent" style="outline: currentcolor none medium; cursor: inherit; outline-offset: -2px;">Book Meetings<br></h4>
-                                <p class="editContent">Please call our staff during the opening hours to ask for any details or o have your questions answered and reservations or use the contact page</p>
+                                <p class="editContent">Proin varius pellentesque nunc tincidunt ante. Proin varius pellentesque nunc tincidunt ante Init id lacus</p>
                             </div>
                         </div>
                     </div>
@@ -115,7 +564,7 @@ else
                                 </div>*@
                             <div class="our-services-text editContent">
                                 <h4 class="editContent" style="outline: currentcolor none medium; cursor: inherit; outline-offset: -2px;">Book a room<br></h4>
-                                <p class="editContent">We will be offering a wide range of conference rooms for 6-12 people since September 2020, this feature is not available yet</p>
+                                <p class="editContent">Proin varius pellentesque nunc tincidunt ante. Proin varius pellentesque nunc tincidunt ante Init id lacus</p>
                             </div>
                         </div>
                     </div>
@@ -127,8 +576,8 @@ else
                                     <span class="fa fa-cog" style="outline: none; cursor: inherit;"></span>
                                 </div>*@
                             <div class="our-services-text editContent">
-                                <h4 class="editContent" style="outline: currentcolor none medium; cursor: inherit; outline-offset: -2px;">Borrow books<br></h4>
-                                <p class="editContent">We have a great range of books available and it's increasing, if you would like to request a certain book to become available please get in touch </p>
+                                <h4 class="editContent" style="outline: currentcolor none medium; cursor: inherit; outline-offset: -2px;">lend books<br></h4>
+                                <p class="editContent">Proin varius pellentesque nunc tincidunt ante. Proin varius pellentesque nunc tincidunt ante Init id lacus</p>
                             </div>
                         </div>
                     </div>
@@ -141,7 +590,7 @@ else
                                 </div>*@
                             <div class="our-services-text editContent">
                                 <h4 class="editContent" style="outline: currentcolor none medium; outline-offset: -2px; cursor: inherit;">donate<br></h4>
-                                <p class="editContent">To keep our services free to everyone, please consider a donation. Even £1 will help us with server and running costs</p>
+                                <p class="editContent">Proin varius pellentesque nunc tincidunt ante. Proin varius pellentesque nunc tincidunt ante Init id lacus</p>
                             </div>
                         </div>
                     </div>
@@ -154,7 +603,7 @@ else
                                 </div>*@
                             <div class="our-services-text editContent">
                                 <h4 class="editContent" style="outline: currentcolor none medium; outline-offset: -2px; cursor: inherit;">rent a laptop<br></h4>
-                                <p class="editContent" style="outline: none; cursor: inherit;">Apart from normal desktop computers in the library, we will offer laptop rentals for students since October 2020</p>
+                                <p class="editContent" style="outline: none; cursor: inherit;">Proin varius pellentesque nunc tincidunt ante. Proin varius pellentesque nunc tincidunt ante Init id lacus</p>
                             </div>
                         </div>
                     </div>
@@ -167,7 +616,7 @@ else
                                 </div>*@
                             <div class="our-services-text editContent">
                                 <h4 class="editContent" style="outline: currentcolor none medium; cursor: inherit; outline-offset: -2px;">meet famous writers<br></h4>
-                                <p class="editContent">We will be hosting meetings with writers from all over the world, check this page for updated list with individuals and dates</p>
+                                <p class="editContent">Proin varius pellentesque nunc tincidunt ante. Proin varius pellentesque nunc tincidunt ante Init id lacus</p>
                             </div>
                         </div>
                     </div>

@@ -90,26 +90,51 @@ namespace LibraryOnlineSystem.Controllers
             return View(bookReserve);
         }
 
-        public ActionResult DeleteComment(int? commentId)
+        [HttpGet]
+        public ActionResult DeleteComment(int? commentId, int commentReplyId)
         {
-            if (commentId == null)
+
+            Icomments iComments;
+
+
+            if (commentId != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                //Comment comment = db.Comment.Where(a => a.CommentId == commentId).Single();
+                ViewBag.ReplyCommentCheck = 0;
+
+                iComments = db.Comment.Where(a => a.CommentId == commentId).Single();
+                return View(iComments);
+                
             }
-            Comment comment = db.Comment.Where(a => a.CommentId == commentId).Single();
-            if (comment == null)
+            else
             {
-                return HttpNotFound();
+                //CommentReply replyComment = db.CommentReply.Where(a => a.CommentReplyID == commentReplyId).Single();
+
+                ViewBag.ReplyCommentCheck = 1;
+                iComments = db.CommentReply.Where(a => a.CommentReplyID == commentReplyId).Single();
+                ViewBag.CommentReplyDelete = iComments.GetContent();
+                return View(iComments);
             }
-            return View(comment);
+
         }
 
         [HttpPost]
-        public ActionResult DeleteComment(int commentId)
+        public ActionResult DeleteComment(int? commentId,int? commentReplyId)
         {
-            Comment comment = db.Comment.Where(a => a.CommentId == commentId).Single();
 
-            db.Comment.Remove(comment);
+            //List<CommentReply> commentReplyList = db.CommentReply.ToList();
+            //int replyCommentID = commentReplyList.Where(a => a.CommentID == commentId).Single().CommentReplyID;
+            if (commentId != null)
+            {
+                Comment comment = db.Comment.Where(a => a.CommentId == commentId).Single();
+
+                db.Comment.Remove(comment);
+            }else 
+            {
+                CommentReply replyCommentID = db.CommentReply.Where(a => a.CommentReplyID == commentReplyId).Single();
+                db.CommentReply.Remove((replyCommentID));
+            }
+          
             db.SaveChanges();
             return Redirect("/Book/Index");
         }
@@ -122,7 +147,7 @@ namespace LibraryOnlineSystem.Controllers
             List<BookReview> listOfBookReviews = db.BookReviews.Where(a => a.BookId == id).ToList();
             Book book = listOfBook.Where(a => a.BookId == id).Single();
             book.BookReviews = listOfBookReviews;
-
+          
 
 
             return View(book);
@@ -134,11 +159,15 @@ namespace LibraryOnlineSystem.Controllers
         {
             int id = Convert.ToInt32(Request.Params["BookId"]);
             int commentID = Convert.ToInt32(Request.Params["CommentId"]);
+            List <User> listOfUser= db.Users.ToList();
+            User user = listOfUser.Where(a => a.UserId == Convert.ToInt32(Session["UserId"])).Single();
             Book book = db.Books.Find(id);//
+            string authorName = user.Name+" " + user.Surname;
             CommentReply commentReply = new CommentReply();
             commentReply.Content = Request.Params["NewReply"];
             commentReply.CommentID = commentID;
-            commentReply.AuthorID = User.Identity.Name;
+
+            commentReply.AuthorID = authorName;
             commentReply.PostID = 1;
             commentReply.BookID = id;
             commentReply.PersonID = 1;
