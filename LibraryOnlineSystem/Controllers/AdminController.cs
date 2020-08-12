@@ -240,7 +240,7 @@ namespace LibraryOnlineSystem.Controllers
 
            
             List<BookCode> bookCodeList = db.BookCodes.ToList();
-
+            // Add exception if doesnt exist
             int bookId = bookCodeList.Where(a => a.BookSerialNumber == serialNumber).Single().BookId;
             string bookName = db.Books.Where(a => a.BookId == bookId).Single().Name;
             ViewBag.SerialNumber = serialNumber;
@@ -619,6 +619,7 @@ namespace LibraryOnlineSystem.Controllers
             user.ZipCode = Request["ZipCode"];
             user.UserRole = Request["UserRole"];
             user.Password = db.Users.Where(a => a.Email == user.Email).Single().Password;
+            user.JoinDate = db.Users.Where(a => a.Email == user.Email).Single().JoinDate;
             if (ModelState.IsValid)
             {
                 db.Users.AddOrUpdate(user);

@@ -1,13 +1,10 @@
-﻿@using System.Web.UI.WebControls
-@using LibraryOnlineSystem.Models
-@using Microsoft.Ajax.Utilities
+﻿@using LibraryOnlineSystem.Models
 @model LibraryOnlineSystem.Models.Book
 
 @{
     ViewBag.Title = "DetailsBook";
     Layout = "~/Views/Shared/_Admin_Layout.cshtml";
 }
-
 
 <style>
     .bs-example {
@@ -44,9 +41,8 @@
     });
 </script>
 
-<br />
-<br />
-<br />
+<h2 class="text-center" style="color:darkred;text-decoration:underline">Details</h2>
+<hr />
 <div class="container">
     <div class="row">
         <div class="col-sm-2">
@@ -138,113 +134,185 @@
         <div class="col-sm-5">
             <h4 style="color:darkred;font-weight:bold">Book Details :-</h4>
             <h5>
-                Genre :
+                <b> Genre :</b>
                 @Html.DisplayFor(model => model.Genre)
             </h5>
             <h5>
-                Date of Publication :
+                <b>  Date of Publication :</b>
                 @Html.DisplayFor(model => model.DateOfPublication.Date.Year)
             </h5>
             <h5>
-                Overview :
+                <b> Staff Overview :</b><br />
+
                 @Html.DisplayFor(model => model.Overview)
             </h5>
-            <h5 style="font-weight:bold;color:red">
-                Books In Stock :
+            <h5 style="font-weight: bold;font-size: 24px;color: black" ;>
+                <b>Books In Stock :</b>
                 @ViewBag.bookInStock
             </h5>
         </div>
     </div>
     <hr />
-    <dd>
 
-        @if (Model.Link != null)
+    <hr />
+    <h4>Comment</h4>
+
+    @if (ViewBag.UserId != "")
+    {
+        using (Html.BeginForm())
         {
 
-            <a href="@Model.Link">Online Source</a>
-
-        }
-        else
-        {
-            @Html.Display("Currently book is not in stock, it is earliest due... ")
-            ;
-        }
-
-    </dd>
-    </dl>
-
-
-    <dt>Comments</dt>
-    <dl>
-        <dd>
-            @foreach (var item in Model.Comment)
+            bool isUserBanned = false;
+            foreach (var item in Model.Comment)
             {
-
-
-                if (item.BookId == Model.BookId)
+                if (item.IsBlocked)
                 {
-                    if (item.AuthorId == ViewBag.UserId)
-                    {
-
-                        ViewBag.gaveRating = true;
-                    }
-                    if (item.UserRating != null)
-                    {
-                        Model.Rating += (float)item.UserRating;
-                        <nbsp style="font-size:14px;font-weight:bold">@Html.DisplayFor(Model => item.AuthorId)</nbsp>
-                        <br />
-                    }
-                    @Html.DisplayFor(Model => item.Content)<nbsp style="color:red"> @Html.DisplayFor(model => item.UserRating) </nbsp>
-                    <br />
-
-
-
-
-                    if (ViewBag.UserId != "")
-                    {
-
-
-                        @Html.ActionLink("Reply", "CommentReply", new { id = item.BookId, commentID = item.CommentId }, new { style = "font-size:10px" })
-
-
-                        <nbsp> &nbsp; </nbsp>
-                        @Html.ActionLink("Delete", "DeleteComment", "Book", new { commentId = item.CommentId }, new { style = "font-size:10px" })
-
-
-
-
-                    }
-
-
-                    <br />
-
-                }
-                if (item.CommentReply != null)
-                {
-                    foreach (var reply in item.CommentReply)
-                    {
-
-                        <nbsp> &nbsp; &nbsp;&nbsp;&nbsp;  </nbsp>
-
-                        @Html.DisplayFor(model => reply.Content);
-
-                        <nbsp style="font-size:8px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Html.DisplayFor(Model => reply.AuthorID)</nbsp>
-                       
-                            @Html.ActionLink("Delete", "DeleteComment", "Book", new { commentReplyId = reply.CommentReplyID }, new { style = "font-size:10px" })
-
-                        
-
-                        <br />
-                    }
-                    <br />
-
+                    //if (item.AuthorId == User.Identity.Name)
+                    //{
+                    //    isUserBanned = true;
+                    //    //return;
+                    //TODO
+                    //}
                 }
             }
+            if (isUserBanned == true || ViewBag.isban == true)
+            {
+                <h2>you are banned</h2>
+            }
+            else
+            {
+
+                @Html.TextBoxFor(model => model.BookId, new { style = "display: none;" });//, new { style = "display: none;" }
+                @Html.TextArea("NewComment", "");
+                <nbsp> Rating </nbsp>
+                @Html.TextArea("NewUserRating", "0.0", 1, 2, 0);
+
+                <span class="icon-input-btn"><span class="glyphicon glyphicon-send"></span> <input type="submit" value="send" class="btn btn-success" /></span>
+            }
+        }
+    }
+    else
+    {
+        <h2>Please log in first</h2>
+    }
+
+
+    @foreach (var item in Model.Comment)
+    {
+
+
+        if (item.BookId == Model.BookId)
+        {
+            <nbsp style="font-size:14px;font-weight:bold">@Html.DisplayFor(Model => item.AuthorId)</nbsp>
+            <br />
+
+            @Html.DisplayFor(Model => item.Content)
+            <nbsp style="color:red"> @Html.DisplayFor(model => item.UserRating) </nbsp>
+
+            if (ViewBag.UserId != "")
+            {
+                // if (ViewBag.isban == false)
+                // {
+
+                // @Html.ActionLink("Reply", "CommentReply", new { id = item.BookId, commentID = item.CommentId }, null)
+                // }
+
+
+                if (ViewBag.UserId == "admin@gmail.com")
+                {
+                    <nbsp> | </nbsp>
+                    @Html.ActionLink("DeleteComment", "DeleteComment", new { id = item.CommentId, bookID = item.BookId })
+                    <nbsp> | </nbsp>
+
+                    @Html.ActionLink("Ban this user or change content", "BanUser", new { id = item.CommentId })
+
+                }
+
+            }
+        }
+        <br />
+        if (item.CommentReply != null)
+        {
+            foreach (var reply in item.CommentReply)
+            {
+
+                <nbsp> &nbsp; &nbsp;&nbsp;&nbsp;  </nbsp>
+
+
+                <nbsp style="font-size:14px;font-weight:bold">@Html.DisplayFor(Model => reply.AuthorID)</nbsp>
+                <br />
+                <nbsp> &nbsp; &nbsp;&nbsp;&nbsp;  </nbsp> @Html.DisplayFor(model => reply.Content); <nbsp> &nbsp; &nbsp;  </nbsp>
+
+
+
+                @Html.ActionLink("Delete", "DeleteComment", "Book", new { commentReplyId = reply.CommentReplyID }, new { style = "font-size:10px" })
 
 
 
 
+                <br />
+            }
+            <br />
+
+
+        }
+
+
+
+    }
+
+
+
+
+
+    <br />
+
+
+    @*  New Comment*@
+
+    @if (ViewBag.UserId != "")
+    {
+        using (Html.BeginForm())
+        {
+
+            bool isUserBanned = false;
+            foreach (var item in Model.Comment)
+            {
+                if (item.IsBlocked)
+                {
+                    //if (item.AuthorId == User.Identity.Name)
+                    //{
+                    //    isUserBanned = true;
+                    //    //return;
+                    //TODO
+                    //}
+                }
+            }
+            if (isUserBanned == true || ViewBag.isban == true)
+            {
+                <h2>you are banned</h2>
+            }
+            else
+            {
+                @*@Html.TextBoxFor(model => model.BookId, new { style = "display: none;" });
+                    @Html.TextArea("NewComment", "");
+                    <nbsp> Rating </nbsp>
+                    @Html.TextArea("NewUserRating", "0.0", 1, 2, 0);
+
+                    <input type="submit" value="send" />*@
+
+                //Should admin comment?
+            }
+        }
+    }
+    else
+    {
+        <h2>Please log in first</h2>
+    }
+
+    <br />
 </div>
+
 <p>
 
     @Html.ActionLink("Back to List", "BookDatabase") |

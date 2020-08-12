@@ -15,67 +15,93 @@
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Main Menu", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-
-                    <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink(" Book Collection", "Index", "Book")</li>
-
-
-                        <li>@Html.ActionLink("Fees", "Payments", "Home", new { userId = Session["UserId"] }, null)</li>
-
-
-                        @* <li>@Html.ActionLink("About", "Index", "Home")</li>*@
-
-                        <li>@Html.ActionLink("Reservations", "ListOfReservations", "Home", new { userId = Session["Userid"] }, null)</li>
-
-                        <li>@Html.ActionLink("Loan History", "LoanHistory", "Home", new { userId = Session["Userid"] }, null)</li>
-                        <li>@Html.ActionLink("Account", "Account", "Home", new { userId = Session["Userid"] }, null)</li>
-                        <li><a>@Session["UserName"]</a></li>
-
-                        <li>@Html.ActionLink("Log out", "LogOut", "Home")</li>
-                    </ul>
-
-                </ul>
-            </div>
-
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @Html.ActionLink("Main Menu", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
         </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink(" Book Collection", "Index", "Book")</li>
+
+
+                    <li>@Html.ActionLink("Fees", "Payments", "Home", new { userId = Session["UserId"] }, null)</li>
+
+
+                    @* <li>@Html.ActionLink("About", "Index", "Home")</li>*@
+
+                    <li>@Html.ActionLink("Reservations", "ListOfReservations", "Home", new { userId = Session["Userid"] }, null)</li>
+
+                    <li>@Html.ActionLink("Loan History", "LoanHistory", "Home", new { userId = Session["Userid"] }, null)</li>
+                    <li>@Html.ActionLink("Account", "Account", "Home", new { userId = Session["Userid"] }, null)</li>
+                    <li><a>@Session["UserName"]</a></li>
+
+                    <li>@Html.ActionLink("Log out", "LogOut", "Home")</li>
+                </ul>
+
+            </ul>
+        </div>
+
     </div>
+</div>
 
+@*<div class="col-sm-2" style="float:right">
+    <h4 style="color:blue;text-decoration:underline">Library News</h4>
+    <ul>
+        <li><a href="#">One</a></li>
+        <li><a href="#">Two</a></li>
+        <li><a href="#">Three</a></li>
+        <li><a href="#">Four</a></li>
+        <li><a href="#">Five</a></li>
 
-    <div class="body-content container">
-        @RenderBody()
+    </ul>
+</div>*@
+@*<div class="col-sm-2" style=" position: relative; float:right">
+            <h4 style="font-size: 30px; color:blue;text-decoration:underline">Library News</h4>
+            <ul style="font-size: 20px;">
+                <li><a href="#">One</a></li>
+                <li><a href="#">Two</a></li>
+                <li><a href="#">Three</a></li>
+                <li><a href="#">Four</a></li>
+                <li><a href="#">Five</a></li>
 
-        <br />
-        <br />
-        <br />
-        <br />
+            </ul>
+        </div>*@
 
-        @*<div style="text-align:center;">
+<div class="body-content container">
+    @RenderBody()
+
+    <br />
+    <br />
+    <br />
+    <br />
+
+    @*<div style="text-align:center;">
                 <footer>
                     <p>&copy; @DateTime.Now.Year. All Rights Reserved - Online Library System</p>
                 </footer>
             </div>*@
-        @*background-image: url(&quot;bundles/Jessica-Reilly-and-Michael-Gainey-Feminist-Comic-Book-Club-CREDIT-Matthew-Suarez_t670.jpg&quot;);*@
+    @*background-image: url(&quot;bundles/Jessica-Reilly-and-Michael-Gainey-Feminist-Comic-Book-Club-CREDIT-Matthew-Suarez_t670.jpg&quot;);*@
 
 
-    </div>
+</div>
+
     <!-- //contact -->
     <!-- footer -->
+@*
+    fixed footer code
+    style="position: fixed; left: 0; bottom: 0;width: 100%"*@
+<footer class="container" style="position: relative; left: 0; bottom: 0; width: 100%; margin-top: 300px;>
+        <h3 class="container">Contact</h3>
+        <hr />
 
-    <h3 class="container">Contact</h3>
-    <hr />
-    <footer class="py-3">
         <div style="background-color:darkgray;padding:2%;" ">
             <div class="row container">
                 <div class="col-sm-1"></div>
@@ -119,15 +145,16 @@
                 </div>
                 <div class="col-sm-1"></div>
             </div>
-        </div>
-
-
+            
         <div class="container">
             <div class="copyright text-center p-3">
                 <p style="color:black">&copy; @DateTime.Now.Year. All Rights Reserved - Online Library System</p>
             </div>
 
         </div>
+        </div>
+
+
     </footer>
 
 

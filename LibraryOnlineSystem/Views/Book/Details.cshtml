@@ -138,29 +138,64 @@
         <div class="col-sm-5">
             <h4 style="color:darkred;font-weight:bold">Book Details :-</h4>
             <h5>
-                Genre :
+                <b> Genre :</b>
                 @Html.DisplayFor(model => model.Genre)
             </h5>
             <h5>
-                Date of Publication :
+                <b>  Date of Publication :</b>
                 @Html.DisplayFor(model => model.DateOfPublication.Date.Year)
             </h5>
             <h5>
-                Overview :
+                <b> Staff Overview :</b><br />
+
                 @Html.DisplayFor(model => model.Overview)
             </h5>
-            <h5 style="font-weight:bold;color:red">
-                Books In Stock :
+            <h5 style="font-weight: bold;font-size: 24px;color: black" ;>
+                <b>Books In Stock :</b>
                 @ViewBag.bookInStock
             </h5>
         </div>
     </div>
-<hr />
+    <hr />
 
 
 
 
-<dt>Comment</dt>
+    @if (ViewBag.UserId != "")
+    {
+        using (Html.BeginForm())
+        {
+
+            bool isUserBanned = false;
+
+            if (isUserBanned == true || ViewBag.isban == true)
+            {
+                <h2>you are banned</h2>
+            }
+            else
+            {
+
+                @Html.TextBoxFor(model => model.BookId, new { style = "display: none;" });//, new { style = "display: none;" }
+                @Html.TextArea("NewComment", "", htmlAttributes: new { style = "width: 350px; height: 70px;", placeholder = "New comment" });
+
+                if (ViewBag.gaveRating == false)
+                {
+                    <nbsp> Rating </nbsp>
+                    @Html.TextArea("NewUserRating", "0", 1, 2, 0);
+
+                }
+
+                <span class="icon-input-btn"><span class="glyphicon glyphicon-send"></span> <input type="submit" value="send" class="btn btn-success" /></span>
+            }
+        }
+    }
+    else
+    {
+        <h2>Please log in first</h2>
+    }
+    <br />
+    <dt>Comments</dt>
+    <br />
     <dl>
         <dd>
             @foreach (var item in Model.Comment)
@@ -212,11 +247,19 @@
                     foreach (var reply in item.CommentReply)
                     {
 
-        <nbsp> &nbsp; &nbsp;&nbsp;&nbsp;  </nbsp>
+                        <nbsp> &nbsp; &nbsp;&nbsp;&nbsp;  </nbsp>
 
-                        @Html.DisplayFor(model => reply.Content);
 
-                        <nbsp style="font-size:8px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Html.DisplayFor(Model => reply.AuthorID)</nbsp>
+                        <nbsp style="font-size:14px;font-weight:bold">@Html.DisplayFor(Model => reply.AuthorID)</nbsp>
+                        <br />
+                        <nbsp> &nbsp; &nbsp;&nbsp;&nbsp;  </nbsp> @Html.DisplayFor(model => reply.Content); <nbsp> &nbsp; &nbsp;  </nbsp>
+
+
+                        if (reply.PersonID.ToString() == Session["UserId"].ToString())
+                        {
+                            @Html.ActionLink("Delete", "DeleteComment", "Book", new { commentReplyId = reply.CommentReplyID }, new { style = "font-size:10px" })
+
+                        }
 
 
                         <br />
@@ -228,51 +271,7 @@
 
             <br />
             <br />
-            New Comment
 
-            @if (ViewBag.UserId != "")
-            {
-                using (Html.BeginForm())
-                {
-
-                    bool isUserBanned = false;
-                    foreach (var item in Model.Comment)
-                    {
-                        if (item.IsBlocked)
-                        {
-                            //if (item.AuthorId == User.Identity.Name)
-                            //{
-                            //    isUserBanned = true;
-                            //    //return;
-                            //TODO
-                            //}
-                        }
-                    }
-                    if (isUserBanned == true || ViewBag.isban == true)
-                    {
-                        <h2>you are banned</h2>
-                    }
-                    else
-                    {
-                      
-                        @Html.TextBoxFor(model => model.BookId, new { style = "display: none;" });//, new { style = "display: none;" }
-                        @Html.TextArea("NewComment", "");
-
-                        if (ViewBag.gaveRating==false)
-                        {
-                            <nbsp> Rating </nbsp>
-                            @Html.TextArea("NewUserRating", "0", 1, 2, 0);
-
-                        }
-                    
-                        <span class="icon-input-btn"><span class="glyphicon glyphicon-send"></span> <input type="submit" value="send" class="btn btn-success" /></span>
-                    }
-                }
-            }
-            else
-            {
-                <h2>Please log in first</h2>
-            }
 
 
 
