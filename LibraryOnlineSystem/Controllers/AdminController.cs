@@ -315,7 +315,7 @@ namespace LibraryOnlineSystem.Controllers
             payment.Status = "Paid";
             db.Payments.AddOrUpdate(payment);
             db.SaveChanges();
-            return Redirect("Admin/PaymentsAdmin");
+            return Redirect("PaymentsAdmin");
         }
 
 
