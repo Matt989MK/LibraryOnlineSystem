@@ -60,5 +60,13 @@ namespace LibraryOnlineSystem.Controllers
 
             return Redirect("/News");
         }
+
+
+        public ActionResult Details(int newsId)
+        {
+            News newsList = db.News.Where(a => a.NewsId == newsId).Single();
+
+            return View(newsList);
+        }
     }
 }

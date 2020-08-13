@@ -39,7 +39,8 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.NewsTitle)
+                @Html.ActionLink(item.NewsTitle, "Details", new { newsId=item.NewsId })
+
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.NewsAuthor)

@@ -15,50 +15,7 @@ namespace LibraryOnlineSystem.Controllers
         // GET: Base
         private LibraryContext db = new LibraryContext();
         // GET: Base
-        //protected override ViewResult View(IView view, object model)
-        //{
-
-
-        //    List<News> listOfNews = db.News.ToList();
-        //    List<string> pinnedNews = new List<string>();
-        //    List<string> libraryNews = new List<string>();
-        //    foreach (var news in listOfNews)
-        //    {
-        //        if (news.IsPinned)
-        //        {
-        //            pinnedNews.Add(news.NewsTitle);
-        //        }
-
-        //        if (news.DisplayOnNews)
-        //        {
-        //            libraryNews.Add(news.NewsTitle);
-        //        }
-        //    }
-
-        //    this.ViewBag.PinnedNews = pinnedNews;
-        //    this.ViewBag.libraryNews = libraryNews;
-
-
-        //    return base.View(view, model);
-        //}
-
-
-        //public class ViewBagPropertyModule : Module
-        //{
-        //    protected override void AttachToComponentRegistration(IComponentRegistry cr,
-        //        IComponentRegistration reg)
-        //    {
-        //        Type limitType = reg.Activator.LimitType;
-        //        if (typeof(Controller).IsAssignableFrom(limitType))
-        //        {
-        //            registration.Activated += (s, e) =>
-        //            {
-        //                dynamic viewBag = ((Controller)e.Instance).ViewBag;
-        //                viewBag.MyProperty = "value";
-        //            };
-        //        }
-        //    }
-        //}
+       
 
         public class MyPropertyActionFilter : ActionFilterAttribute
         {
@@ -73,6 +30,7 @@ namespace LibraryOnlineSystem.Controllers
                 List<News> listOfNews = db.News.ToList();
                 List<string> pinnedNews = new List<string>();
                 List<string> libraryNews = new List<string>();
+                List<int> newsId= new List<int>();
                 foreach (var news in listOfNews)
                 {
                     if (news.IsPinned)
@@ -83,12 +41,14 @@ namespace LibraryOnlineSystem.Controllers
                     if (news.DisplayOnNews)
                     {
                         libraryNews.Add(news.NewsTitle);
+                        newsId.Add(news.NewsId);
                     }
                 }
 
 
                 filterContext.Controller.ViewBag.PinnedNews = pinnedNews;
                 filterContext.Controller.ViewBag.libraryNews = libraryNews;
+                filterContext.Controller.ViewBag.newsIds = newsId;
 
             }
         }

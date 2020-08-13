@@ -75,7 +75,7 @@
 
             @for (int i = 0; i < Enumerable.Count(ViewBag.libraryNews); i++)
             {
-                <li><a href="#">@ViewBag.libraryNews[i]</a></li>
+                <li><a href="/News/Details?newsId=@ViewBag.newsIds[i]">@ViewBag.libraryNews[i]</a></li>
             }
 
 
