@@ -12,6 +12,15 @@ namespace LibraryOnlineSystem.Controllers
     {
         private LibraryContext db = new LibraryContext();
 
+
+
+
+        public ActionResult News()
+        {
+            List<News> newsList = db.News.ToList();
+
+            return View(newsList);
+        }
         // GET: News
         public ActionResult RecentNews()
         {
@@ -50,6 +59,14 @@ namespace LibraryOnlineSystem.Controllers
             }
 
             return Redirect("/News");
+        }
+
+
+        public ActionResult Details(int newsId)
+        {
+            News newsList = db.News.Where(a => a.NewsId == newsId).Single();
+
+            return View(newsList);
         }
     }
 }

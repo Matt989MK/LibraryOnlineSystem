@@ -38,6 +38,8 @@
                         <ul class="dropdown-menu">
                             <li>@Html.ActionLink("Book Database", "BookDatabase", "Admin")</li>
                             <li>@Html.ActionLink("Book Report", "ReportBook", "Admin")</li>
+                            <li>@Html.ActionLink("Reservations", "ListOfReservations", "Admin")</li>
+                            <li>@Html.ActionLink("Loans", "ListOfLoans", "Admin")</li>
 
                         </ul>
                     </li>
@@ -82,17 +84,22 @@
                     </li>
                     
                        
-                            @* <li>@Html.ActionLink("Stocks Report", "ReportStock", "Admin")</li>*@
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    Updates
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("Regulations", "Regulations", "Admin")</li>
+                                    <li>@Html.ActionLink("News", "PostNews", "News")</li>
+                                    <li>@Html.ActionLink("My Account", "Account", "Admin", new { userId = Session["UserId"] }, null)</li>
+
+                                </ul>
+                            </li>
+
+
                         
-                        
-
-                   
-
-
-                            <li>@Html.ActionLink("Regulations", "Regulations", "Admin")</li>
-                    <li>@Html.ActionLink("Reservations", "ListOfReservations", "Admin")</li>
-                    <li>@Html.ActionLink("Loans", "ListOfLoans", "Admin")</li>
-                    <li>@Html.ActionLink("My Account", "Account", "Admin", new { userId = Session["UserId"] }, null)</li>
+                    
                     <li>
                         <a>@Session["UserName"]</a>
                     </li>
