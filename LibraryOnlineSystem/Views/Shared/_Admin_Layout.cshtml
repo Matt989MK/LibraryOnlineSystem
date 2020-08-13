@@ -67,7 +67,7 @@
                             <li>@Html.ActionLink("Payments Report", "ReportPayment", "Admin")</li>
                         </ul>
                     </li>
-
+                    
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                             Stocks
@@ -75,13 +75,21 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li>@Html.ActionLink("Stocks", "Stocks", "Admin", new { userId = Session["UserId"] }, null)</li>
-                            @* <li>@Html.ActionLink("Stocks Report", "ReportStock", "Admin")</li>*@
+
+                            @*  <li>@Html.ActionLink("Archive", "Archive", "Admin")</li>*@
+                            <li>@Html.ActionLink("Return Book", "ReturnBook", "Admin")</li>
                         </ul>
                     </li>
+                    
+                       
+                            @* <li>@Html.ActionLink("Stocks Report", "ReportStock", "Admin")</li>*@
+                        
+                        
+
                    
 
 
-                    <li>@Html.ActionLink("Regulations", "Regulations", "Admin")</li>
+                            <li>@Html.ActionLink("Regulations", "Regulations", "Admin")</li>
                     <li>@Html.ActionLink("Reservations", "ListOfReservations", "Admin")</li>
                     <li>@Html.ActionLink("Loans", "ListOfLoans", "Admin")</li>
                     <li>@Html.ActionLink("My Account", "Account", "Admin", new { userId = Session["UserId"] }, null)</li>
@@ -108,8 +116,8 @@
 
     </div>
     <<footer class="container" style="position: relative;  bottom:-30px; left: -13px;width: 102%; margin-top: 500px;">
-        <h3 class="container">Contact</h3>
-        <hr />
+        @*<h3 class="container">Contact</h3>
+        <hr />*@
 
         <div style="background-color:darkgray;padding:2%;">
             <div class="row container">
