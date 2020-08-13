@@ -62,6 +62,7 @@
 
 <script>
     jQuery.extend(jQuery.validator.methods, {
+        style="color:black"
         range: function (value, element, param) {
             //Use the Globalization plugin to parse the value
             var val = $.global.parseFloat(value);
@@ -83,7 +84,7 @@
 
     // @Html.EditorForModel()
     <div class="form-horizontal">
-        <h4 style="color:darkred">Book :-</h4>
+        <h4 style="color:black">Book :-</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
