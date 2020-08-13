@@ -1,24 +1,25 @@
-﻿@model LibraryOnlineSystem.Models.News
+﻿@using System.Web.UI.WebControls
+@model LibraryOnlineSystem.Models.News
 
 @{
     ViewBag.Title = "View";
     Layout = "~/Views/Shared/_Admin_Layout.cshtml";
 }
 
-<h2>View</h2>
+<h2>News</h2>
 
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>News</h4>
+        
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.NewsTitle, htmlAttributes: new { @class = "control-label col-md-2" })
+            @*@Html.LabelFor(model => model.NewsTitle, htmlAttributes: new { @class = "control-label col-md-2" })*@
             <div class="col-md-10">
-                @Html.EditorFor(model => model.NewsTitle, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.NewsTitle, new { htmlAttributes = new { @class = "form-control", placeholder = "News Title" } })
                 @Html.ValidationMessageFor(model => model.NewsTitle, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -26,15 +27,18 @@
        
 
         <div class="form-group">
-            @Html.LabelFor(model => model.NewsContent, htmlAttributes: new { @class = "control-label col-md-2" })
+            @*@Html.LabelFor(model => model.NewsContent, htmlAttributes: new { @class = "control-label col-md-2" })*@
             <div class="col-md-10">
-                @Html.EditorFor(model => model.NewsContent, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.NewsContent, new { htmlAttributes = new { @class = "form-control", placeholder = "Content" } })
                 @Html.ValidationMessageFor(model => model.NewsContent, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.IsPinned, htmlAttributes: new { @class = "control-label col-md-2" })
+            @*@Html.LabelFor(model => model.IsPinned, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <div class="control-label col-md-2">
+                <b>Pin the post</b>
+            </div>
             <div class="col-md-10">
                 <div class="checkbox">
                     @Html.EditorFor(model => model.IsPinned)
@@ -42,9 +46,12 @@
                 </div>
             </div>
         </div>
-
+        
         <div class="form-group">
-            @Html.LabelFor(model => model.DisplayOnNews, htmlAttributes: new { @class = "control-label col-md-2" })
+            @*@Html.LabelFor(model => model.DisplayOnNews, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <div class="control-label col-md-2">
+                <b>Display on the News</b>
+            </div>
             <div class="col-md-10">
                 <div class="checkbox">
                     @Html.EditorFor(model => model.DisplayOnNews)

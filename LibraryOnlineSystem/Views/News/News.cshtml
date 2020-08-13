@@ -1,0 +1,62 @@
+﻿@model IEnumerable<LibraryOnlineSystem.Models.News>
+
+@{
+    ViewBag.Title = "News";
+    Layout = "~/Views/Shared/_Admin_Layout.cshtml";
+}
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" />
+<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });</script>
+<h2 class="text-center" style="color:black">News</h2>
+<hr />
+
+<table class="table table-striped" id="example">
+    <thead>
+    <tr>
+        <th>
+            Title
+        </th>
+        <th>
+            Author
+        </th>
+        <th>
+            Content
+        </th>
+      
+        <th>
+            Publication date
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NewsTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NewsAuthor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NewsContent)
+            </td>
+          
+            <td>
+                @Html.ValueFor(modelItem => item.NewsPublicationDate, "{0:dd/MM/yyyy}")
+            </td>
+            @*<td>
+                @Html.ActionLink("Edit", "Edit", new {id = item.NewsId}) |
+                @Html.ActionLink("Details", "Details", new {id = item.NewsId}) |
+                @Html.ActionLink("Delete", "Delete", new {id = item.NewsId})
+            </td>*@
+        </tr>
+    }
+    </tbody>
+</table>

@@ -12,6 +12,15 @@ namespace LibraryOnlineSystem.Controllers
     {
         private LibraryContext db = new LibraryContext();
 
+
+
+
+        public ActionResult News()
+        {
+            List<News> newsList = db.News.ToList();
+
+            return View(newsList);
+        }
         // GET: News
         public ActionResult RecentNews()
         {
