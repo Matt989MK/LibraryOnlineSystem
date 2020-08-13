@@ -17,7 +17,7 @@ namespace LibraryOnlineSystem.Models
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<Comment> Comment { get; set; }
         public DbSet<CommentReply> CommentReply { get; set; }
-
+        public DbSet<News> News { get; set; }
         public DbSet<PaymentLibrary> Payments { get; set; }
         public DbSet<BookReview> BookReviews { get; set; }
         public DbSet<BookCode> BookCodes { get; set; }

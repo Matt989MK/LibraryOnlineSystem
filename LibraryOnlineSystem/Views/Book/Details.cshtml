@@ -258,9 +258,9 @@
                         if (reply.PersonID.ToString() == Session["UserId"].ToString())
                         {
                             @Html.ActionLink("Delete", "DeleteComment", "Book", new { commentReplyId = reply.CommentReplyID }, new { style = "font-size:10px" })
-
+           
                         }
-
+                        <br/>
 
                         <br />
                     }

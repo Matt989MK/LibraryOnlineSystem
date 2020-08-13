@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace LibraryOnlineSystem.Controllers
 {
-    public class UserController : Controller
+    public class UserController : BaseController
     {
         // GET: LogIn
         public ActionResult LogIn()

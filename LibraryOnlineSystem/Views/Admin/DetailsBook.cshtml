@@ -155,7 +155,7 @@
     <hr />
 
     <hr />
-    <h4>Comment</h4>
+
 
     @if (ViewBag.UserId != "")
     {
@@ -183,9 +183,9 @@
             {
 
                 @Html.TextBoxFor(model => model.BookId, new { style = "display: none;" });//, new { style = "display: none;" }
-                @Html.TextArea("NewComment", "");
+                @Html.TextArea("NewComment", "", htmlAttributes: new { style = "width: 350px; height: 70px;", placeholder = "New comment" });
                 <nbsp> Rating </nbsp>
-                @Html.TextArea("NewUserRating", "0.0", 1, 2, 0);
+                @Html.TextArea("NewUserRating", "0", 1, 2, 0);
 
                 <span class="icon-input-btn"><span class="glyphicon glyphicon-send"></span> <input type="submit" value="send" class="btn btn-success" /></span>
             }

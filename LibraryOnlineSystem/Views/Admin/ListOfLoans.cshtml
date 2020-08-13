@@ -11,7 +11,7 @@
     $(document).ready(function () {
         $('#example').DataTable();
     });</script>
-<h2 class="text-center" style="color:darkred;text-decoration:underline">List Of Loans</h2>
+<h2 class="text-center" style="color:black">List Of Loans</h2>
 <hr />
 
 <table class="table table-striped" id="example">
@@ -52,7 +52,7 @@
                     @Html.DisplayFor(modelItem => item.UserId)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.User.Name)
+                    @ViewBag.UserNames[x]
                 </td>
                 <td>
                     @ViewBag.ListOfNames[x]

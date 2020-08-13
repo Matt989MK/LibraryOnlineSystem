@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace LibraryOnlineSystem.Controllers
 {
-    public class StockController : Controller
+    public class StockController : BaseController
     {
         // GET: Stock
         public ActionResult Index()

@@ -298,8 +298,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Connection\ConnectionToDatabase.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BookController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\StockController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -319,8 +321,13 @@
     <Compile Include="Migrations\202008101955230_AllowNullRating.designer.cs">
       <DependentUpon>202008101955230_AllowNullRating.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202008121554491_addedNews.cs" />
+    <Compile Include="Migrations\202008121554491_addedNews.designer.cs">
+      <DependentUpon>202008121554491_addedNews.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Author.cs" />
+    <Compile Include="Models\BaseController.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\BookAuthors.cs" />
     <Compile Include="Models\BookCode.cs" />
@@ -697,11 +704,13 @@
     <Content Include="Views\Shared\_Login_Layout.cshtml" />
     <Content Include="Views\Admin\DeleteSerialNumber.cshtml" />
     <Content Include="Views\Admin\PrintLabel.cshtml" />
+    <Content Include="Views\News\PostNews.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Labels\" />
     <Folder Include="SignalR\hub\" />
+    <Folder Include="Views\Base\" />
     <Folder Include="Views\Payment\" />
     <Folder Include="Views\Stock\" />
   </ItemGroup>
@@ -727,6 +736,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202008101955230_AllowNullRating.resx">
       <DependentUpon>202008101955230_AllowNullRating.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008121554491_addedNews.resx">
+      <DependentUpon>202008121554491_addedNews.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

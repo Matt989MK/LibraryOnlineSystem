@@ -11,7 +11,7 @@ using Microsoft.Ajax.Utilities;
 
 namespace LibraryOnlineSystem.Controllers
 {
-    public class BookController : Controller
+    public class BookController : BaseController
     {
         private LibraryContext db = new LibraryContext();
         // GET: Book

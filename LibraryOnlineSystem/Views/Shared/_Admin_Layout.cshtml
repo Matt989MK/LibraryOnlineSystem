@@ -43,7 +43,6 @@
                     </li>
 
 
-                    <li>@Html.ActionLink("My Account", "Account", "Admin", new { userId = Session["UserId"] }, null)</li>
 
 
                     <li class="dropdown">
@@ -79,15 +78,16 @@
                             @* <li>@Html.ActionLink("Stocks Report", "ReportStock", "Admin")</li>*@
                         </ul>
                     </li>
-                    <li>
-                        <a>@Session["UserName"]</a>
-                    </li>
+                   
 
 
                     <li>@Html.ActionLink("Regulations", "Regulations", "Admin")</li>
                     <li>@Html.ActionLink("Reservations", "ListOfReservations", "Admin")</li>
                     <li>@Html.ActionLink("Loans", "ListOfLoans", "Admin")</li>
-
+                    <li>@Html.ActionLink("My Account", "Account", "Admin", new { userId = Session["UserId"] }, null)</li>
+                    <li>
+                        <a>@Session["UserName"]</a>
+                    </li>
                     <li>@Html.ActionLink("Log out", "LogOut", "Admin")</li>
 
                 </ul>
@@ -107,11 +107,11 @@
         <br />
 
     </div>
-    <footer class="container" style="position: relative; left: 0; bottom: 0; width: 100%; margin-top: 500px;>
+    <<footer class="container" style="position: relative;  bottom:-30px; left: -13px;width: 102%; margin-top: 500px;">
         <h3 class="container">Contact</h3>
         <hr />
 
-        <div style="background-color:darkgray;padding:2%;" ">
+        <div style="background-color:darkgray;padding:2%;">
             <div class="row container">
                 <div class="col-sm-1"></div>
                 <div class="col-sm-3">

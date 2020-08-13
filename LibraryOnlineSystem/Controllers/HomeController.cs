@@ -20,16 +20,19 @@ using System.Net;
 
 namespace LibraryOnlineSystem.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private LibraryContext db = new LibraryContext();
         Random rnd = new Random();
         private int? paymentTestId;
+
+        
         public void CheckLogin()
         {
 
             if (Session["UserId"] == null)
             {
+                Response.Redirect("Base/LaunchVariables",true);
                 Response.Redirect("/home/login", true);
                 Response.End();
 
@@ -40,9 +43,11 @@ namespace LibraryOnlineSystem.Controllers
         {
             //  Session["isAdmin"] = "3";
             //Session["UserName"] = "test";
+          //  LaunchVariables();
+         // ViewBag.LibraryNews1= LaunchLibraryNews();
             CheckLogin();
 
-            
+
             return View();
         }
         //---------------Book

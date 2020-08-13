@@ -7,7 +7,7 @@ using LibraryOnlineSystem.Models;
 
 namespace LibraryOnlineSystem.Controllers
 {
-    public class PaymentController : Controller
+    public class PaymentController : BaseController
     {
         // GET: Payment
         public ActionResult Index()

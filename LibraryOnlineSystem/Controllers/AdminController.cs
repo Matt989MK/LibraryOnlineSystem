@@ -26,7 +26,7 @@ using OnBarcode.Barcode;
 
 namespace LibraryOnlineSystem.Controllers
 {
-    public class AdminController : Controller
+    public class AdminController : BaseController
     {
         private LibraryContext db = new LibraryContext();
 
@@ -415,22 +415,33 @@ namespace LibraryOnlineSystem.Controllers
         [HttpPost]
         public ActionResult Regulations(int fine, int borrowTime)
         {
+            List<User> listOfUser = new List<User>();
+            listOfUser = db.Users.ToList();
+
+            User user = listOfUser.Where(a => a.UserId == Convert.ToInt32(Session["UserId"])).Single();
+            string authorName = user.Name + " " + user.Surname;
             News news = new News();
             LibraryRegulations libraryRegulations = new LibraryRegulations();
+            news.NewsTitle = "Changes in ";
             if (libraryRegulations.BorrowTime != borrowTime)
             {
                 news.NewsContent = "You can borrow your book up to: " + borrowTime.ToString() + " days now." + Environment.NewLine;
-
+                news.NewsTitle += " Loan Length ";
             }
 
             if (libraryRegulations.Fine != fine)
             {
                 news.NewsContent += "Fine for not returning a book on time is now : £" + fine.ToString();
-
+                news.NewsTitle += " Late Fees ";
             }
+            
+            news.IsPinned = true;
+            news.DisplayOnNews = true;
+            news.NewsAuthor = authorName;
+            news.NewsPublicationDate=DateTime.Today;;
             libraryRegulations.BorrowTime = borrowTime;
             libraryRegulations.Fine = fine;
-
+            db.News.Add(news);
             db.LibraryRegulations.AddOrUpdate(libraryRegulations);
             db.SaveChanges();
             return View();
@@ -970,7 +981,8 @@ namespace LibraryOnlineSystem.Controllers
             List<String> listOfNames = new List<string>();
             List<String> listOfFirstNames = new List<string>();
             List<String> listOfSurNames = new List<string>();
-
+            List<string> userNames = new List<string>();
+            List<User> listofUsers = db.Users.ToList();
             string bookName;
             foreach (var booking in listOfBookings)
             {
@@ -979,7 +991,11 @@ namespace LibraryOnlineSystem.Controllers
                 listOfNames.Add(bookName);
                 listOfSerialNumbers.Add(bookCode.BookSerialNumber);
                 listOfIsInLibrary.Add(bookCode.IsInLibrary);
+
+              userNames.Add(db.Users.Where(a => a.UserId == booking.UserId).Single().Name+ " "+ db.Users.Where(a => a.UserId == booking.UserId).Single().Surname);
             }
+
+            ViewBag.UserNames = userNames;
             ViewBag.BookSerialNumber = listOfSerialNumbers;
             ViewBag.ListOfNames = listOfNames;
             ViewBag.ListOfFirstNames = listOfFirstNames;
