@@ -325,6 +325,10 @@
     <Compile Include="Migrations\202008121554491_addedNews.designer.cs">
       <DependentUpon>202008121554491_addedNews.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202008131404274_changedOverviews.cs" />
+    <Compile Include="Migrations\202008131404274_changedOverviews.designer.cs">
+      <DependentUpon>202008131404274_changedOverviews.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Author.cs" />
     <Compile Include="Models\BaseController.cs" />
@@ -739,6 +743,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202008121554491_addedNews.resx">
       <DependentUpon>202008121554491_addedNews.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008131404274_changedOverviews.resx">
+      <DependentUpon>202008131404274_changedOverviews.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

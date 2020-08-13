@@ -81,12 +81,11 @@
             </h5>
             <hr />
             <h3>Book Description</h3>
-            @foreach (BookReview bookReview in Model.BookReviews)
-            {
+          
 
-                @Html.DisplayFor(model => bookReview.Content);
+                @Html.DisplayFor(model => model.BookReviews);
 
-            }
+            
 
             <br />
             <br />

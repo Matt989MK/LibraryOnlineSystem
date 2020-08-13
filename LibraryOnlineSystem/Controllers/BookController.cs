@@ -144,9 +144,9 @@ namespace LibraryOnlineSystem.Controllers
         {
             List<Book> listOfBook = new List<Book>();
             listOfBook = db.Books.ToList();
-            List<BookReview> listOfBookReviews = db.BookReviews.Where(a => a.BookId == id).ToList();
+          //  List<BookReview> listOfBookReviews = db.BookReviews.Where(a => a.BookId == id).ToList();
             Book book = listOfBook.Where(a => a.BookId == id).Single();
-            book.BookReviews = listOfBookReviews;
+          //  book.BookReviews = listOfBookReviews;
           
 
 
@@ -195,8 +195,8 @@ namespace LibraryOnlineSystem.Controllers
 
             List<Book> listOfBook = new List<Book>();
             listOfBook = db.Books.ToList();
-            List<BookReview> listOfBookReviews = db.BookReviews.Where(a => a.BookId == id).ToList();
-            book.BookReviews = listOfBookReviews;
+            //List<BookReview> listOfBookReviews = db.BookReviews.Where(a => a.BookId == id).ToList();
+            //book.BookReviews = listOfBookReviews;
 
             return RedirectToAction("Details", new { booksId = id });
 
@@ -258,7 +258,7 @@ namespace LibraryOnlineSystem.Controllers
 
             List<Book> listOfBook = new List<Book>();
             listOfBook = db.Books.ToList();
-            List<BookReview> listOfBookReviews = db.BookReviews.Where(a => a.BookId == booksId).ToList();
+            string listOfBookReviews = db.Books.Where(a => a.BookId == booksId).Single().BookReviews;
             Book book = listOfBook.Where(a => a.BookId == booksId).Single();
             book.BookReviews = listOfBookReviews;
             List<BookCode> bookCodesList = db.BookCodes.Where(a => a.BookId == booksId ).ToList();//&& a.IsInLibrary == true
@@ -358,7 +358,7 @@ namespace LibraryOnlineSystem.Controllers
 
             List<Book> listOfBook = new List<Book>();
             listOfBook = db.Books.ToList();
-            List<BookReview> listOfBookReviews = db.BookReviews.Where(a => a.BookId == id).ToList();
+            string listOfBookReviews = db.Books.Where(a => a.BookId == id).Single().BookReviews;
             book.BookReviews = listOfBookReviews;
 
             return View(book);

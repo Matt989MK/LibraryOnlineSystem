@@ -58,7 +58,7 @@
                     @{
                         if (item.Status == "Unpaid")
                         {
-                            @Html.ActionLink(" Mark as Paid", "P", new { userId = item.UserId, paymentId = item.PaymentLibraryId }) // Make it work
+                            @Html.ActionLink(" Mark as Paid", "MarkAsPaid", new { userId = item.UserId, paymentId = item.PaymentLibraryId }) // Make it work
 
                         }
                     }

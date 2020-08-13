@@ -26,7 +26,7 @@ namespace LibraryOnlineSystem.Models
         public string Overview{ get; set; }
         [Required(ErrorMessage = "Please Input a publisher"), MaxLengthAttribute(40)]
         public string Publisher{ get; set; }
-        public List<BookReview> BookReviews { get; set; }
+        public string BookReviews { get; set; }
         [NotMapped]
         public virtual List<Author> Authors { get; set; }
         public virtual List<Comment> Comment { get; set; }//added this

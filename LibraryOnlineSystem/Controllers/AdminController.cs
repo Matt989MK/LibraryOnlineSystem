@@ -307,8 +307,16 @@ namespace LibraryOnlineSystem.Controllers
 
 
 
-
-
+       
+        public ActionResult MarkAsPaid(int userId, int paymentLibraryId)
+        {
+            PaymentLibrary payment = db.Payments.Where(a => a.UserId == userId && a.PaymentLibraryId == paymentLibraryId).Single();
+            
+            payment.Status = "Paid";
+            db.Payments.AddOrUpdate(payment);
+            db.SaveChanges();
+            return Redirect("Admin/PaymentsAdmin");
+        }
 
 
 
@@ -509,9 +517,9 @@ namespace LibraryOnlineSystem.Controllers
         {
             List<Book> listOfBook = new List<Book>();
             listOfBook = db.Books.ToList();
-            List<BookReview> listOfBookReviews = db.BookReviews.Where(a => a.BookId == bookId).ToList();
+            string bookReview = db.Books.Where(a => a.BookId == bookId).Single().BookReviews;
             Book book = listOfBook.Where(a => a.BookId == bookId).Single();
-            book.BookReviews = listOfBookReviews;
+            book.BookReviews = bookReview;
             
             List<BookCode> bookCodesList = db.BookCodes.Where(a => a.BookId == bookId && a.IsInLibrary == true).ToList();
             book.BookCode = bookCodesList;

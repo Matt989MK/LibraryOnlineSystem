@@ -43,7 +43,7 @@ namespace LibraryOnlineSystem.Controllers
         {
             //  Session["isAdmin"] = "3";
             //Session["UserName"] = "test";
-          //  LaunchVariables();
+            LaunchVariables();
          // ViewBag.LibraryNews1= LaunchLibraryNews();
             CheckLogin();
 

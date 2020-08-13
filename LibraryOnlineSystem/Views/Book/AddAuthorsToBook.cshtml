@@ -11,9 +11,9 @@
     $(document).ready(function () {
         $('#example').DataTable();
     });</script>
-<h2 style="color:darkred;text-decoration:underline">Step 2</h2>
+<h2 style="color:black">Step 2</h2>
 <hr />
-<h2 class="text-center" style="color:red;text-decoration:underline">Add authors from the list</h2>
+<h2 class="text-center" style="color:black">Add authors from the list</h2>
 <hr />
 
 
@@ -24,7 +24,7 @@
 <br />
 @foreach (Author author in ViewBag.ListOfAuthors)
 {
-    @author.Name
+    @author.Name<nbsp>  </nbsp>
     @author.Surname
     <br />
 }
