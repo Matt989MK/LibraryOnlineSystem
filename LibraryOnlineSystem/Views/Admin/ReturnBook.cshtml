@@ -49,8 +49,8 @@
     <div class="form-horizontal">
 
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.BookCodeId)
+        @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.BookCodeId)*@
 
 
 
@@ -65,19 +65,7 @@
             </div>
         </div>
 
-        <div class="form-group">
-           @* @Html.LabelFor(model => model.IsInLibrary, htmlAttributes: new { @class = "control-label col-md-2" })*@
-            <div class = "control-label col-md-2">
-                <b> Availability</b> 
-            </div>
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.IsInLibrary)
-                    @Html.ValidationMessageFor(model => model.IsInLibrary, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
+        
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <span class="icon-input-btn"><span class="glyphicon glyphicon-save"></span><input type="submit" value="Save" class="btn btn-success" /></span>

@@ -1,31 +1,5 @@
 
 
-html,
-body {
-	margin: 0;
-	font-size: 100%;
-	background: #fff;
-	font-family: 'Nunito', sans-serif;
-}
-html {
-  scroll-behavior: smooth;
-}
-body a {
-	text-decoration: none;
-	transition: 0.5s all;
-	-webkit-transition: 0.5s all;
-	-moz-transition: 0.5s all;
-	-o-transition: 0.5s all;
-	-ms-transition: 0.5s all;
-	cursor: pointer !important;
-}
-button,.btn{
-	cursor: pointer !important;
-}
-a:hover {
-	text-decoration: none;
-}
-
 input[type="button"],
 input[type="submit"] {
 	transition: 0.5s all;
