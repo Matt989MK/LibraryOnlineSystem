@@ -1,34 +1,19 @@
-﻿using System;
+﻿using LibraryOnlineSystem.Models;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Data;
-using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Net;
-using System.Security.Cryptography.X509Certificates;
 using System.Web;
-using System.Web.DynamicData;
 using System.Web.Mvc;
 using System.Web.WebPages;
-using Antlr.Runtime.Misc;
-using LibraryOnlineSystem;
-using LibraryOnlineSystem.Models;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
-using System.Dynamic;
-using System.IO;
-using BarcodeLib;
-using Microsoft.Ajax.Utilities;
-using Action = System.Action;
-using OnBarcode.Barcode;
 
 namespace LibraryOnlineSystem.Controllers
 {
     public class AdminController : BaseController
     {
-        private LibraryContext db = new LibraryContext();
+        private readonly LibraryContext db = new LibraryContext();
 
         // GET: Admin
         public ActionResult Index()
@@ -44,21 +29,21 @@ namespace LibraryOnlineSystem.Controllers
         [HttpGet]
         public ActionResult DetailsUser(int userId)
         {
-            User user=new User();
+            User user = new User();
             BookCode bookCode = new BookCode();
-            user =db.Users.Where(a => a.UserId == userId).Single();
+            user = db.Users.Where(a => a.UserId == userId).Single();
             List<BookReserve> bookReserves = db.BookReserves.Where(a => a.UserId == userId).ToList();
             List<Booking> bookingList = db.Bookings.Where(a => a.UserId == userId).ToList();
-           // List<PaymentLibrary> paymentLibrary = db.Payments.Where(a => a.UserId == userId).ToList();
+            // List<PaymentLibrary> paymentLibrary = db.Payments.Where(a => a.UserId == userId).ToList();
 
             string bookName;
-            List<string> bookNameList=new List<string>();
+            List<string> bookNameList = new List<string>();
             foreach (var booking in bookingList)
             {
                 bookCode = db.BookCodes.Where(a => a.BookCodeId == booking.BookCodeId).Single();
                 bookName = db.Books.Where(a => a.BookId == bookCode.BookId).Single().Name;
                 bookNameList.Add(bookName);
-               
+
             }
 
             ViewBag.BookNames = bookNameList;
@@ -73,10 +58,10 @@ namespace LibraryOnlineSystem.Controllers
         {
             List<BookCode> bookCode = db.BookCodes.ToList();
             var test = bookCode.Where(a => a.BookCodeId == id).Single();
-           // ViewBag.SerialNumber = test.BookSerialNumber;
+            // ViewBag.SerialNumber = test.BookSerialNumber;
             return test.BookSerialNumber;
         }
-       
+
 
         public ActionResult StockDetails()
         {
@@ -93,7 +78,7 @@ namespace LibraryOnlineSystem.Controllers
             return View();
         }
 
-       
+
         public FileContentResult GetImage(int bookId)
         {
             Book book = db.Books.FirstOrDefault(a => a.BookId == bookId);
@@ -122,19 +107,19 @@ namespace LibraryOnlineSystem.Controllers
         public ActionResult PaymentsAdmin()
         {
 
-          //  List<Booking> bookingList = new List<Booking>();
+            //  List<Booking> bookingList = new List<Booking>();
             List<PaymentLibrary> paymentList = new List<PaymentLibrary>();
 
-          //  bookingList = db.Bookings.Where(a => a.DateReturned < DateTime.Now).ToList();
+            //  bookingList = db.Bookings.Where(a => a.DateReturned < DateTime.Now).ToList();
             paymentList = db.Payments.ToList();
-         
+
 
             return View(paymentList);
         }//------------------ADMIN
 
         public ActionResult BookDatabase(string Name, string Genre, string Rating)
         {
-           
+
             List<Author> listOfAuthor = new List<Author>();
             List<Book> lstBooks = new List<Book>();
             if (Name != null && Genre == "Any")
@@ -154,7 +139,7 @@ namespace LibraryOnlineSystem.Controllers
                 try
                 {
                     book.Rating = (float)db.Comment.Where(a => a.BookId == book.BookId).Select(a => a.UserRating).Average();
-                  book.Rating= (float)Math.Round(book.Rating,2);
+                    book.Rating = (float)Math.Round(book.Rating, 2);
                 }
                 catch (Exception e)
                 {
@@ -195,13 +180,13 @@ namespace LibraryOnlineSystem.Controllers
             ViewBag.BookCurrentlyInStock = new List<int>();
             foreach (var book in listOfBooks)
             {
-                
-                
-                book.BookCode = bookCodesList.Where(a => a.BookId == book.BookId&&a.IsInLibrary==true).ToList();
+
+
+                book.BookCode = bookCodesList.Where(a => a.BookId == book.BookId && a.IsInLibrary == true).ToList();
                 ViewBag.TotalCountBook.Add(bookCodesList.Where(a => a.BookId == book.BookId).Count());
                 ViewBag.BookCurrentlyInStock.Add(bookCodesList.Where(a => a.BookId == book.BookId && a.IsInLibrary == true).Count());
             }
-      
+
             return View(listOfBooks);
         }
 
@@ -214,31 +199,31 @@ namespace LibraryOnlineSystem.Controllers
         [HttpPost]
         public ActionResult CreateCopy(BookCode bookCode)
         {
-            
-                if (!db.BookCodes.Select(a => a.BookSerialNumber).Contains(bookCode.BookSerialNumber))
+
+            if (!db.BookCodes.Select(a => a.BookSerialNumber).Contains(bookCode.BookSerialNumber))
             {
                 db.BookCodes.Add(bookCode);
                 db.SaveChanges();
-             
+
             }
 
 
 
-                PrintLabel(bookCode.BookSerialNumber);
+            PrintLabel(bookCode.BookSerialNumber);
 
-            return Redirect("/Admin/DisplayCopies/"+bookCode.BookId);
+            return Redirect("/Admin/DisplayCopies/" + bookCode.BookId);
         }
 
 
 
-   
+
 
 
 
         public ActionResult PrintLabel(string serialNumber)
         {
 
-           
+
             List<BookCode> bookCodeList = db.BookCodes.ToList();
             // Add exception if doesnt exist
             try
@@ -296,24 +281,24 @@ namespace LibraryOnlineSystem.Controllers
                 writer.Close();
                 client.Close();
             }
-         
-            catch (Exception ex)
+
+            catch (Exception)
             {
                 // Catch Exception
             }
 
             return View();
-                                                                 // barcode.Print();
-          
-            }
+            // barcode.Print();
+
+        }
 
 
 
-       
+
         public ActionResult MarkAsPaid(int userId, int paymentLibraryId)
         {
             PaymentLibrary payment = db.Payments.Where(a => a.UserId == userId && a.PaymentLibraryId == paymentLibraryId).Single();
-            
+
             payment.Status = "Paid";
             db.Payments.AddOrUpdate(payment);
             db.SaveChanges();
@@ -331,30 +316,30 @@ namespace LibraryOnlineSystem.Controllers
 
         public ActionResult DisplayCopies(int id)
         {
-            List<BookCode> bookCodes= new List<BookCode>();
+            List<BookCode> bookCodes = new List<BookCode>();
             bookCodes = db.BookCodes.Where(a => a.BookId == id).ToList();
 
             return View(bookCodes);
         }
         // get all the books
 
-     
+
         //display both on one page
         [HttpGet]
         public ActionResult AddBook()
         {
-         //   dynamic BooksAuthors=new ExpandoObject();
-         List<Author> authors = db.Authors.ToList();
+            //   dynamic BooksAuthors=new ExpandoObject();
+            List<Author> authors = db.Authors.ToList();
 
-         ViewBag.Authors = authors;
+            ViewBag.Authors = authors;
 
-           // BooksAuthors.Book = GetBook();
-           // BooksAuthors.Authors = GetAuthors();
+            // BooksAuthors.Book = GetBook();
+            // BooksAuthors.Authors = GetAuthors();
 
 
 
             List<string> listOfUnit = new List<string>();
-            foreach (Genre genre in (Genre[]) Enum.GetValues(typeof(Genre)))
+            foreach (Genre genre in (Genre[])Enum.GetValues(typeof(Genre)))
             {
                 listOfUnit.Add(genre.ToString());
             }
@@ -363,7 +348,7 @@ namespace LibraryOnlineSystem.Controllers
             return View("AddBook", new Book());//"AddBook", new Book()
         }
         [HttpPost]
-        public ActionResult AddBook(Book book,HttpPostedFileBase image)
+        public ActionResult AddBook(Book book, HttpPostedFileBase image)
         {
             List<string> listOfUnit = new List<string>();
             foreach (Genre genre in (Genre[])Enum.GetValues(typeof(Genre)))
@@ -378,31 +363,31 @@ namespace LibraryOnlineSystem.Controllers
             //book.DateOfPublication = Request["DateOfPublication"].AsDateTime();
             //book.Overview = Request["Overview"];
             //book.Publisher = Request["Publisher"];
-           
-           
-               
-             
-                if (ModelState.IsValid)
+
+
+
+
+            if (ModelState.IsValid)
+            {
+                if (image != null)
                 {
-                    if (image != null)
-                    {
-                        book.ImageMimeType = image.ContentType;
-                        book.ImageData = new byte[image.ContentLength];
-                        image.InputStream.Read(book.ImageData, 0, image.ContentLength);
-                    }
+                    book.ImageMimeType = image.ContentType;
+                    book.ImageData = new byte[image.ContentLength];
+                    image.InputStream.Read(book.ImageData, 0, image.ContentLength);
+                }
                 db.Books.Add(book);
                 db.SaveChanges();
                 TempData["message"] = string.Format("Saved {0}", book.Name);
-                int lastBook = db.Books.Select(a=>a.BookId).Max();
-                return Redirect("/Book/AddAuthorsToBook?bookId=" + lastBook + "&"+ "authorId=0");
+                int lastBook = db.Books.Select(a => a.BookId).Max();
+                return Redirect("/Book/AddAuthorsToBook?bookId=" + lastBook + "&" + "authorId=0");
             }
             else
             {
-                
+
                 return View();//"Error"
             }
-            
-           
+
+
         }
         [HttpPost]
         public JsonResult isUserExists(string email)
@@ -444,11 +429,11 @@ namespace LibraryOnlineSystem.Controllers
                 news.NewsContent += "Fine for not returning a book on time is now : £" + fine.ToString();
                 news.NewsTitle += " Late Fees ";
             }
-            
+
             news.IsPinned = true;
             news.DisplayOnNews = true;
             news.NewsAuthor = authorName;
-            news.NewsPublicationDate=DateTime.Today;;
+            news.NewsPublicationDate = DateTime.Today; ;
             libraryRegulations.BorrowTime = borrowTime;
             libraryRegulations.Fine = fine;
             db.News.Add(news);
@@ -460,17 +445,17 @@ namespace LibraryOnlineSystem.Controllers
         [HttpGet]
         public ActionResult ReturnBook()
         {
-           // string sn = RouteData.Values["SerialNumber"] + Request.Url.Query;
-          // BookCode bookCode=db.BookCodes.Where(a=>a.BookSerialNumber==bookSerialNumber).Single();
+            // string sn = RouteData.Values["SerialNumber"] + Request.Url.Query;
+            // BookCode bookCode=db.BookCodes.Where(a=>a.BookSerialNumber==bookSerialNumber).Single();
             return View();
         }
 
         [HttpPost]
         public ActionResult ReturnBook(string bookSerialNumber)
         {
-        
-        //    bookSerialNumber = RouteData.Values["SerialNumber"] + Request.Url.Query;
-            LibraryRegulations libraryRegulations= new LibraryRegulations();
+
+            //    bookSerialNumber = RouteData.Values["SerialNumber"] + Request.Url.Query;
+            LibraryRegulations libraryRegulations = new LibraryRegulations();
             List<BookCode> bookCode = db.BookCodes.ToList();
             List<Booking> bookings = db.Bookings.ToList();
             BookCode bookCode1 = bookCode.Where(a => a.BookSerialNumber == bookSerialNumber).Single();
@@ -512,7 +497,7 @@ namespace LibraryOnlineSystem.Controllers
             {
                 return View("Error");
             }
-          
+
         }
         [HttpGet]
         public ActionResult DetailsBook(int bookId)
@@ -522,7 +507,7 @@ namespace LibraryOnlineSystem.Controllers
             string bookReview = db.Books.Where(a => a.BookId == bookId).Single().BookReviews;
             Book book = listOfBook.Where(a => a.BookId == bookId).Single();
             book.BookReviews = bookReview;
-            
+
             List<BookCode> bookCodesList = db.BookCodes.Where(a => a.BookId == bookId && a.IsInLibrary == true).ToList();
             book.BookCode = bookCodesList;
             int bookCurrentlyStocked = bookCodesList.Count;
@@ -544,12 +529,12 @@ namespace LibraryOnlineSystem.Controllers
 
 
             ViewBag.bookInStock = bookCurrentlyStocked;
-        
+
 
             return View(book);
-           
+
         }
-      
+
         [HttpPost]
         public ActionResult EditBook(Book book, HttpPostedFileBase image)
         {
@@ -572,8 +557,8 @@ namespace LibraryOnlineSystem.Controllers
 
                 return View(book);
             }
-            
-          
+
+
         }
         [HttpGet]
         public ViewResult EditBook(int bookId)
@@ -596,15 +581,15 @@ namespace LibraryOnlineSystem.Controllers
             {
                 return View("Error");
             }
-           
-            
-            return Redirect("Stocks?userId"+Session["UserId"]);
+
+
+            return Redirect("Stocks?userId" + Session["UserId"]);
         }
         [HttpGet]
         public ActionResult DeleteBook(int? id)
         {
 
-            if(id == null)
+            if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -613,7 +598,7 @@ namespace LibraryOnlineSystem.Controllers
             {
                 return HttpNotFound();
             }
-           return View(book);
+            return View(book);
         }
         [HttpPost]
         public ActionResult DeleteBook(int id)
@@ -624,13 +609,13 @@ namespace LibraryOnlineSystem.Controllers
             return Redirect("/Admin/BookDatabase");
         }
 
-       
+
         [HttpPost]
         public ActionResult EditUser(int userId, User user)
         {
-           // var hash = SecurePasswordHasher.Hash(Request["Password"]);
+            // var hash = SecurePasswordHasher.Hash(Request["Password"]);
 
-            
+
             user.Name = Request["Name"];
             user.Surname = Request["SurName"];
             user.Email = Request["Email"];
@@ -678,7 +663,7 @@ namespace LibraryOnlineSystem.Controllers
             listOfUnit.Add("Admin");
             listOfUnit.Add("User");
 
-            ViewBag.DictionaryPackages = listOfUnit; 
+            ViewBag.DictionaryPackages = listOfUnit;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -753,7 +738,7 @@ namespace LibraryOnlineSystem.Controllers
             var hash = SecurePasswordHasher.Hash(Request["Password"]);
 
             user = new User();
-            user.Name =Request["Name"] ;
+            user.Name = Request["Name"];
             user.Surname = Request["SurName"];
             user.Email = Request["Email"];
             user.Password = hash;
@@ -769,7 +754,7 @@ namespace LibraryOnlineSystem.Controllers
             }
 
             // return RedirectToAction("Index","User");
-           return View("AddedUser");
+            return View("AddedUser");
         }
 
         public ActionResult UsersAdmin()
@@ -801,30 +786,30 @@ namespace LibraryOnlineSystem.Controllers
             return View();
         }
         //--------
-        
+
         public ActionResult ReportBook()
         {
-            DateTime dateBeginning= Request["beginningDate"].AsDateTime();
-            DateTime dateEnding= Request["endingDate"].AsDateTime();
-            
+            DateTime dateBeginning = Request["beginningDate"].AsDateTime();
+            DateTime dateEnding = Request["endingDate"].AsDateTime();
+
             if (dateEnding == DateTime.MinValue) { dateEnding = DateTime.Today; }
 
             int bookCodeCount = 0;
             List<BookCode> bookCodes = db.BookCodes.ToList();
-            int maxBookId=0;
+            int maxBookId = 0;
             if (db.Bookings.Where(a => a.DateCreated >= dateBeginning && a.DateCreated <= dateEnding).GroupBy(a => a.BookId).Select(a => a.Count()).Count() > 0)
             {
-                 bookCodeCount = db.Bookings.Where(a => a.DateCreated >= dateBeginning && a.DateCreated <= dateEnding).GroupBy(a => a.BookId).Select(a => a.Count()).Max();// most popular book
+                bookCodeCount = db.Bookings.Where(a => a.DateCreated >= dateBeginning && a.DateCreated <= dateEnding).GroupBy(a => a.BookId).Select(a => a.Count()).Max();// most popular book
 
             }
 
-            List<int> newBookingsTest=db.Bookings.Where(a=>a.DateCreated> dateBeginning && a.DateCreated< dateEnding).Select(a=>a.BookId).ToList();
+            List<int> newBookingsTest = db.Bookings.Where(a => a.DateCreated > dateBeginning && a.DateCreated < dateEnding).Select(a => a.BookId).ToList();
             List<int> newBookingsTestAll = db.Bookings.Select(a => a.BookId).ToList();
 
-            List<int> newBookings=db.Bookings.Where(a=>a.DateCreated> dateBeginning && a.DateCreated< dateEnding).Select(a=>a.BookId).Distinct().ToList();
+            List<int> newBookings = db.Bookings.Where(a => a.DateCreated > dateBeginning && a.DateCreated < dateEnding).Select(a => a.BookId).Distinct().ToList();
             ViewBag.BookBorrowCount = newBookingsTest.Count;
-            List<Book> books=db.Books.ToList();
-          List<string> genre= new List<string>();
+            List<Book> books = db.Books.ToList();
+            List<string> genre = new List<string>();
             foreach (var book in books)
             {
                 genre.Add(db.Books.Where(a => a.BookId == book.BookId).FirstOrDefault().Genre.ToString());
@@ -839,15 +824,15 @@ namespace LibraryOnlineSystem.Controllers
                     maxBookId = db.Bookings.Where(a => a.BookId == bookId).First().BookId;
                 }
             }
-            
+
             var genreGroup = genre.GroupBy(x => x);
             var maxCount = genreGroup.Max(g => g.Count());
             var mostCommons = genreGroup.Where(x => x.Count() == maxCount).Select(x => x.Key).Single();
             ViewBag.MostCommonCategory = mostCommons;
-            if (books.Where(a => a.BookId == maxBookId).Count()>0)
+            if (books.Where(a => a.BookId == maxBookId).Count() > 0)
             {
                 ViewBag.MostPopularBookName = books.Where(a => a.BookId == maxBookId).First().Name;
-                }
+            }
             ViewBag.MaxBooking = bookCodeCount;
             ViewBag.BookCount = bookCodes.Count;
             return View(bookCodes);
@@ -867,7 +852,7 @@ namespace LibraryOnlineSystem.Controllers
             List<Comment> comments = db.Comment.ToList();
             ViewBag.UserCount = usersCount;
             ViewBag.CommentCount = comments.Count();
-            ViewBag.BlockedUsers = users.Where(a => a.IsBanned==true).Count();
+            ViewBag.BlockedUsers = users.Where(a => a.IsBanned == true).Count();
             //Add to User when they joined?
 
 
@@ -875,7 +860,7 @@ namespace LibraryOnlineSystem.Controllers
         }
         public ActionResult ReportBooking()
         {
-           List<Booking> bookings = db.Bookings.ToList();
+            List<Booking> bookings = db.Bookings.ToList();
             return View();
         }
         public ActionResult ReportPayment()
@@ -886,20 +871,20 @@ namespace LibraryOnlineSystem.Controllers
 
             if (dateEnding == DateTime.MinValue) { dateEnding = DateTime.Today; }
 
-           // db.Bookings.Where(a => a.DateCreated > dateBeginning && a.DateCreated < dateEnding).Select(a => a.BookId).Distinct().ToList();
-            List<PaymentLibrary> payments = db.Payments.Where(a=>a.DatePaid>dateBeginning && a.DatePaid<dateEnding).ToList();
+            // db.Bookings.Where(a => a.DateCreated > dateBeginning && a.DateCreated < dateEnding).Select(a => a.BookId).Distinct().ToList();
+            List<PaymentLibrary> payments = db.Payments.Where(a => a.DatePaid > dateBeginning && a.DatePaid < dateEnding).ToList();
             List<PaymentLibrary> totalPaymentsList = db.Payments.ToList();
             int lateCounter = 0;
             int totalPayments = 0;
             int missedPayments = 0;
-            int outstandingPayments=0;
+            int outstandingPayments = 0;
             int allPayments = 0;
             List<Booking> booking = db.Bookings.ToList();
             foreach (var payment in totalPaymentsList)
             {
 
                 allPayments++;
-                 if (payment.Status == "Unpaid"){missedPayments++;outstandingPayments += payment.Amount; lateCounter++;}
+                if (payment.Status == "Unpaid") { missedPayments++; outstandingPayments += payment.Amount; lateCounter++; }
             }
 
             allPayments = 0;
@@ -908,7 +893,7 @@ namespace LibraryOnlineSystem.Controllers
 
                 allPayments++;
                 if (payment.Status == "Paid") { totalPayments += payment.Amount; }
-                
+
             }
             ViewBag.totalPayment = totalPayments;
             ViewBag.lateCounter = lateCounter;
@@ -928,15 +913,15 @@ namespace LibraryOnlineSystem.Controllers
             List<Stock> stocks = db.Stocks.ToList();
             return View();
         }
-       
+
 
         [HttpGet]
         public ActionResult FinalizeReservation(int reservationId)
         {
-           
-           
+
+
             BookReserve bookReserve = db.BookReserves.Where(a => a.BookReserveId == reservationId).Single();
-            User user = db.Users.Where(a => a.UserId==bookReserve.UserId).Single();
+            User user = db.Users.Where(a => a.UserId == bookReserve.UserId).Single();
             BookCode bookCode = new BookCode();
             bookCode = db.BookCodes.Where(a => a.BookCodeId == bookReserve.BookCodeId && a.IsInLibrary == true).First();
             bookCode.IsInLibrary = false;
@@ -947,7 +932,7 @@ namespace LibraryOnlineSystem.Controllers
             booking.DateReturned = null;
             booking.BookCodeId = bookCode.BookCodeId;
             booking.Book = db.Books.Where(a => a.BookCode.FirstOrDefault().BookCodeId == bookCode.BookCodeId).Single();
-            
+
             user.Bookings.Add(booking);
             if (ModelState.IsValid)
             {
@@ -961,20 +946,20 @@ namespace LibraryOnlineSystem.Controllers
         }
         public ActionResult ListOfReservations()
         {
-            BookCode bookCode=new BookCode();
+            BookCode bookCode = new BookCode();
             string bookName;
             List<BookReserve> listOfBookReserves = db.BookReserves.ToList();
-            List<string> listOfSerialNumbers=new List<string>();
+            List<string> listOfSerialNumbers = new List<string>();
             List<bool> listOfIsInLibrary = new List<bool>();
-            List<String> listOfNames=new List<string>();
+            List<String> listOfNames = new List<string>();
             foreach (var bookReserve in listOfBookReserves)
             {
-                bookCode= db.BookCodes.Where(a => a.BookCodeId == bookReserve.BookCodeId).Single();
+                bookCode = db.BookCodes.Where(a => a.BookCodeId == bookReserve.BookCodeId).Single();
                 bookName = db.Books.Where(a => a.BookId == bookCode.BookId).Single().Name;
                 listOfNames.Add(bookName);
                 listOfSerialNumbers.Add(bookCode.BookSerialNumber);
                 listOfIsInLibrary.Add(bookCode.IsInLibrary);
-                
+
             }
             ViewBag.BookSerialNumber = listOfSerialNumbers;
             ViewBag.ListOfNames = listOfNames;
@@ -984,7 +969,7 @@ namespace LibraryOnlineSystem.Controllers
 
         public ActionResult ListOfLoans()
         {
-            BookCode bookCode=new BookCode();
+            BookCode bookCode = new BookCode();
             List<Booking> listOfBookings = db.Bookings.ToList();
             List<string> listOfSerialNumbers = new List<string>();
             List<bool> listOfIsInLibrary = new List<bool>();
@@ -1002,7 +987,7 @@ namespace LibraryOnlineSystem.Controllers
                 listOfSerialNumbers.Add(bookCode.BookSerialNumber);
                 listOfIsInLibrary.Add(bookCode.IsInLibrary);
 
-              userNames.Add(db.Users.Where(a => a.UserId == booking.UserId).Single().Name+ " "+ db.Users.Where(a => a.UserId == booking.UserId).Single().Surname);
+                userNames.Add(db.Users.Where(a => a.UserId == booking.UserId).Single().Name + " " + db.Users.Where(a => a.UserId == booking.UserId).Single().Surname);
             }
 
             ViewBag.UserNames = userNames;
@@ -1022,6 +1007,6 @@ namespace LibraryOnlineSystem.Controllers
             base.Dispose(disposing);
         }
 
-       
+
     }
 }

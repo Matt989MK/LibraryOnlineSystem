@@ -1,38 +1,30 @@
 ﻿using LibraryOnlineSystem.Models;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Data.Entity.Migrations;
-using System.Diagnostics.Contracts;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 using LibraryOnlineSystem.Paypal;
 using PayPal.Api;
-using System.Runtime.Remoting.Contexts;
-using System.Net.Mail;
-using System.Security.Policy;
-using System.Web.WebPages;
-using Microsoft.Ajax.Utilities;
-using WebMatrix.WebData;
-using System.ComponentModel.DataAnnotations;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity.Migrations;
+using System.Linq;
 using System.Net;
+using System.Net.Mail;
+using System.Web.Mvc;
+using System.Web.WebPages;
 
 namespace LibraryOnlineSystem.Controllers
 {
     public class HomeController : BaseController
     {
-        private LibraryContext db = new LibraryContext();
-        Random rnd = new Random();
-        private int? paymentTestId;
+        private readonly LibraryContext db = new LibraryContext();
+        readonly Random rnd = new Random();
+        private readonly int? paymentTestId;
 
-        
+
         public void CheckLogin()
         {
 
             if (Session["UserId"] == null)
             {
-                Response.Redirect("Base/LaunchVariables",true);
+                Response.Redirect("Base/LaunchVariables", true);
                 Response.Redirect("/home/login", true);
                 Response.End();
 
@@ -43,8 +35,8 @@ namespace LibraryOnlineSystem.Controllers
         {
             //  Session["isAdmin"] = "3";
             //Session["UserName"] = "test";
-           // LaunchVariables();
-         // ViewBag.LibraryNews1= LaunchLibraryNews();
+            // LaunchVariables();
+            // ViewBag.LibraryNews1= LaunchLibraryNews();
             CheckLogin();
 
 
@@ -147,9 +139,9 @@ namespace LibraryOnlineSystem.Controllers
             payment.DatePaid = DateTime.Now;
             payment.Status = "Paid";
             User user = db.Users.Where(a => a.UserId == userId).Single();
-           
+
             db.Payments.AddOrUpdate(payment);
-            db.SaveChanges(); 
+            db.SaveChanges();
             return Redirect("Index");
         }
         public ActionResult Payments(int userId)
@@ -158,12 +150,12 @@ namespace LibraryOnlineSystem.Controllers
             List<Booking> bookingList = db.Bookings.Where(a => a.User.UserId == userId && a.DateReturned < DateTime.Now).ToList();
             List<PaymentLibrary> paymentList = db.Payments.Where(a => a.UserId == userId).ToList();
             List<Booking> bookingListDisplay = db.Bookings.Where(a => a.User.UserId == userId).ToList();
-            if (paymentList.Count !=0)
+            if (paymentList.Count != 0)
             {
                 string paymentAmount = paymentList.FirstOrDefault().Amount.ToString();
                 ViewBag.paymentAmount = paymentAmount;
             }
-            
+
 
             List<string> bookNames = new List<string>();
             List<DateTime?> datesReturned = new List<DateTime?>();
@@ -171,7 +163,7 @@ namespace LibraryOnlineSystem.Controllers
             {
                 Book book = db.Books.Where(a => a.BookId == booking.BookId).Single();
 
-              
+
                 bookNames.Add(book.Name);
                 //if (booking.DateReturned == null)
                 //{
@@ -190,10 +182,10 @@ namespace LibraryOnlineSystem.Controllers
             ViewBag.datesReturned = datesReturned;
             return View(paymentList);
         }
-       
-        public ActionResult PaymentWithPaypal(int? paymentId,string Cancel = null)
+
+        public ActionResult PaymentWithPaypal(int? paymentId, string Cancel = null)
         {
-           
+
             //getting the apiContext  
             APIContext apiContext = PaypalConfiguration.GetAPIContext();
             try
@@ -219,7 +211,7 @@ namespace LibraryOnlineSystem.Controllers
                         db.Payments.AddOrUpdate(paymentLibrary);
                         db.SaveChanges();
                     }
-                   
+
                     //CreatePayment function gives us the payment approval url  
                     //on which payer is redirected for paypal account payment  
                     var createdPayment = this.CreatePayment(apiContext, baseURI + "guid=" + guid);
@@ -264,14 +256,14 @@ namespace LibraryOnlineSystem.Controllers
                 return View("FailureView");
             }
             //on successful payment, show success page to user. 
-            string guid1=ViewBag.guid;
+            string guid1 = ViewBag.guid;
             PaymentLibrary paymentLibrary1 = db.Payments.Where(a => a.guId == guid1).Single();
-                paymentLibrary1.DatePaid = DateTime.Now;
-                paymentLibrary1.Status = "Paid";
-                db.Payments.AddOrUpdate(paymentLibrary1);
-                db.SaveChanges();
-            
-           
+            paymentLibrary1.DatePaid = DateTime.Now;
+            paymentLibrary1.Status = "Paid";
+            db.Payments.AddOrUpdate(paymentLibrary1);
+            db.SaveChanges();
+
+
             return View("SuccessView");
         }
         [HttpGet]
@@ -279,7 +271,7 @@ namespace LibraryOnlineSystem.Controllers
         {
             return View();
         }
-       
+
         private PayPal.Api.Payment payment;
         private Payment ExecutePayment(APIContext apiContext, string payerId, string paymentId)
         {
@@ -329,10 +321,10 @@ namespace LibraryOnlineSystem.Controllers
                 subtotal = "1"
             };
             //Final amount with details  
-            
+
             var amount = new Amount()
             {
-                
+
                 currency = "GBP",
                 total = "3", // Total must be equal to sum of tax, shipping and subtotal.  
                 details = details
@@ -341,7 +333,7 @@ namespace LibraryOnlineSystem.Controllers
             // Adding description about the transaction  
             transactionList.Add(new Transaction()
             {
-                
+
                 description = "Transaction description",
                 invoice_number = rnd.Next(1, 1000).ToString()
                 , //Generate an Invoice No  
@@ -361,13 +353,13 @@ namespace LibraryOnlineSystem.Controllers
         [HttpPost]
         public JsonResult isUserExists(string email)
         {
-          
-           // db.Configuration.ValidateOnSaveEnabled = false;
 
-            bool isExist = db.Users.Where(a => a.Email==email).Count()>0;
-          //      db.Configuration.ValidateOnSaveEnabled = true;
+            // db.Configuration.ValidateOnSaveEnabled = false;
 
-                return Json(!isExist,JsonRequestBehavior.AllowGet);
+            bool isExist = db.Users.Where(a => a.Email == email).Count() > 0;
+            //      db.Configuration.ValidateOnSaveEnabled = true;
+
+            return Json(!isExist, JsonRequestBehavior.AllowGet);
         }
         [HttpGet]
         public ActionResult RegisterUser()
@@ -378,10 +370,10 @@ namespace LibraryOnlineSystem.Controllers
         [HttpPost]
         public ActionResult RegisterUser(User user)
         {
-             user=new User();
+            user = new User();
             var hash = SecurePasswordHasher.Hash(Request["Password"]);
-            
-           // user.ConfirmPassword = hash;
+
+            // user.ConfirmPassword = hash;
             user.Email = Request["Email"];
             user.HouseNo = Request["HouseNo"];
             user.DateOfBirth = Request["DateOfBirth"].AsDateTime();
@@ -390,13 +382,13 @@ namespace LibraryOnlineSystem.Controllers
             user.Surname = Request["SurName"];
             user.Password = hash;
             user.UserRole = "User";
-            user.JoinDate=DateTime.Today;
-            
-          //  bool test = Equals(user.Password, user.ConfirmPassword);
+            user.JoinDate = DateTime.Today;
+
+            //  bool test = Equals(user.Password, user.ConfirmPassword);
             if (ModelState.IsValid)
             {
                 db.Configuration.ValidateOnSaveEnabled = false;
-         //       user.ConfirmPassword = user.Password;
+                //       user.ConfirmPassword = user.Password;
                 db.Users.Add(user);
                 db.SaveChanges();
                 db.Configuration.ValidateOnSaveEnabled = true;
@@ -410,7 +402,7 @@ namespace LibraryOnlineSystem.Controllers
             {
                 return View();
             }
-           
+
         }
 
 
@@ -421,7 +413,7 @@ namespace LibraryOnlineSystem.Controllers
             return Redirect("/Home/Login");
         }
 
-      
+
 
         [HttpPost]
         public ActionResult Login(User user)
@@ -486,8 +478,8 @@ namespace LibraryOnlineSystem.Controllers
         public ActionResult ListOfReservations(int userId)
         {
             BookCode bookCode = new BookCode();
-            List<BookReserve> listOfBookReserves = db.BookReserves.Where(a=>a.UserId==userId).ToList();
-            Book book=new Book();
+            List<BookReserve> listOfBookReserves = db.BookReserves.Where(a => a.UserId == userId).ToList();
+            Book book = new Book();
             foreach (var bookReserve in listOfBookReserves)
             {
                 bookCode = db.BookCodes.Where(a => a.BookCodeId == bookReserve.BookCodeId).Single();
@@ -512,18 +504,18 @@ namespace LibraryOnlineSystem.Controllers
 
                 try
                 {
-                    Random random=new Random();
-                  //generate token
-                  string tokenString = random.Next(1, 1000).ToString();
-                   // var token = WebSecurity.GeneratePasswordResetToken(email);
+                    Random random = new Random();
+                    //generate token
+                    string tokenString = random.Next(1, 1000).ToString();
+                    // var token = WebSecurity.GeneratePasswordResetToken(email);
                     //save token and user to db
-                    Token token=new Token();
+                    Token token = new Token();
                     token.TokenId = tokenString;
                     token.Email = email;
                     db.Tokens.Add(token);
                     db.SaveChanges();
-                   // var resetLink = "<a href='" + Url.Action("ResetPassword", "Home", new { token=tokenString }, "http") + "'>Reset Password</a>";
-                   var resetLink = "https://localhost:44362/Home/ResetPassword?token=" + tokenString;
+                    // var resetLink = "<a href='" + Url.Action("ResetPassword", "Home", new { token=tokenString }, "http") + "'>Reset Password</a>";
+                    var resetLink = "https://localhost:44362/Home/ResetPassword?token=" + tokenString;
                     MailMessage mail = new MailMessage();
                     SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
                     mail.From = new MailAddress("hahefhguas1234@gmail.com");
@@ -534,11 +526,11 @@ namespace LibraryOnlineSystem.Controllers
                     SmtpServer.Port = 587;
                     SmtpServer.Credentials = new System.Net.NetworkCredential("hahefhguas1234@gmail.com", "ZAQ13wsx");
                     SmtpServer.EnableSsl = true;
-                    
+
                     SmtpServer.Send(mail);
                     return View("EmailSent");
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     return View("Error");
                 }
@@ -550,7 +542,7 @@ namespace LibraryOnlineSystem.Controllers
                 return View("UserDoesntExist");
             }
 
-            
+
         }
         [HttpGet]
         public ActionResult ResetPassword(string token)
@@ -567,9 +559,9 @@ namespace LibraryOnlineSystem.Controllers
             {
                 return View("Error");
             }
-           
 
-          
+
+
         }
 
         [HttpPost]
@@ -616,7 +608,7 @@ namespace LibraryOnlineSystem.Controllers
         {
             // var hash = SecurePasswordHasher.Hash(Request["Password"]);
 
-            
+
             user.Name = Request["Name"];
             user.Surname = Request["SurName"];
             user.Email = Request["Email"];
@@ -639,5 +631,5 @@ namespace LibraryOnlineSystem.Controllers
             }
         }
     }
-    }
+}
 

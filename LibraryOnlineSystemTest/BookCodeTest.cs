@@ -1,6 +1,6 @@
-﻿using System;
+﻿using LibraryOnlineSystem.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using LibraryOnlineSystem.Models;
+using System;
 namespace LibraryOnlineSystemTest
 {
     [TestClass]
@@ -12,7 +12,7 @@ namespace LibraryOnlineSystemTest
         {
 
             //create an instance of the class we want to create
-            BookCode bookCode= new BookCode();
+            BookCode bookCode = new BookCode();
             //create some test data to assign to the property
             Int32 TestData = 1;
             //assign the data to the property

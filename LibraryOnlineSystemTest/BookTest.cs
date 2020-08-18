@@ -1,16 +1,13 @@
-﻿using System;
-using System.Diagnostics.Eventing.Reader;
-using System.Linq;
+﻿using LibraryOnlineSystem.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using LibraryOnlineSystem;
-using LibraryOnlineSystem.Models;
+using System;
 
 namespace LibraryOnlineSystemTest
 {
     [TestClass]
     public class BookTest
     {
-        private LibraryContext db = new LibraryContext();
+        private readonly LibraryContext db = new LibraryContext();
         [TestMethod]
         public void AddNewBook()
         {
@@ -27,8 +24,8 @@ namespace LibraryOnlineSystemTest
             };
             //db.Books.Add(book);
             //db.SaveChanges();
-            
-            Assert.AreEqual(book.BookId,1);
+
+            Assert.AreEqual(book.BookId, 1);
         }
     }
 }

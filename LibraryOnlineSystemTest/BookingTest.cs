@@ -1,6 +1,6 @@
-﻿using System;
+﻿using LibraryOnlineSystem.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using LibraryOnlineSystem.Models;
+using System;
 namespace LibraryOnlineSystemTest
 {
     [TestClass]
@@ -11,7 +11,7 @@ namespace LibraryOnlineSystemTest
         {
 
             //create an instance of the class we want to create
-            LibraryOnlineSystem.Models.Booking booking=new LibraryOnlineSystem.Models.Booking();
+            LibraryOnlineSystem.Models.Booking booking = new LibraryOnlineSystem.Models.Booking();
             //create some test data to assign to the property
             Int32 TestData = 1;
             //assign the data to the property
@@ -101,7 +101,7 @@ namespace LibraryOnlineSystemTest
 
             };
             //create some test data to assign to the property
-           
+
             //assign the data to the property
             booking.User = TestData;
             //test to see that the two values are the same

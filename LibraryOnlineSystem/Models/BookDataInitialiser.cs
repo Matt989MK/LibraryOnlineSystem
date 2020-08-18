@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using LibraryOnlineSystem.Models;
+using System;
 using System.Data.Entity;
-using System.Security.Policy;
-using LibraryOnlineSystem.Models;
 namespace LibraryOnlineSystem
 {
-    public class BookDataInitialiser: CreateDatabaseIfNotExists<LibraryContext> //CreateDatabaseIfNotExists<LibraryContext>
+    public class BookDataInitialiser : CreateDatabaseIfNotExists<LibraryContext> //CreateDatabaseIfNotExists<LibraryContext>
     {//DropCreateDatabaseAlways<LibraryContext> 
         protected override void Seed(LibraryContext context)
         {
             LibraryRegulations libraryRegulations = new LibraryRegulations()
             {
-                Fine =3,
+                Fine = 3,
                 BorrowTime = 7
             };
             //------------------------------------- PEOPLE
@@ -53,21 +49,21 @@ namespace LibraryOnlineSystem
 
 
 
-            Book book=new Book()
+            Book book = new Book()
             {
                 DateOfPublication = DateTime.Now,
                 Genre = Genre.Action,
                 Name = "Harry Potter",
                 Overview = "good book",
                 Publisher = "JKR",
-                
+
                 BookId = 1,
-                Rating =5,
+                Rating = 5,
                 //BookImage = "~/Images/BookImageTest.png",
-             };
-             context.Books.Add(book);
+            };
+            context.Books.Add(book);
             Book book2 = new Book()
-             {
+            {
                 DateOfPublication = DateTime.Now,
                 Genre = Genre.Horror,
                 Name = "Lord of The Rings",
@@ -77,12 +73,12 @@ namespace LibraryOnlineSystem
                 Rating = 5,
                 //BookImage = "~/Images/BookImageTest.png",
                 Link = "http://www.china.doingbusinessguide.co.uk/media/880543/Doing_Business_in_China_Guide_PDF.pdf",
-                
-                
+
+
             };
             context.Books.Add(book2);
 
-           
+
             Book book3 = new Book()
             {
                 DateOfPublication = DateTime.Now,
@@ -102,18 +98,18 @@ namespace LibraryOnlineSystem
                 Name = "Doom",
                 Overview = "Slayer book",
                 Publisher = "Bethesda",
-               // BookImage = "~/Images/BookImageTest.png",
+                // BookImage = "~/Images/BookImageTest.png",
                 BookId = 6,
                 Rating = 5,
             };
             context.Books.Add(book4);
-           
+
             BookCode bookCode = new BookCode()
             {
                 BookCodeId = 1,
                 BookId = 1,
                 BookSerialNumber = "33233",
-                IsInLibrary =true
+                IsInLibrary = true
             };
             context.BookCodes.Add(bookCode);
             BookCode bookCode1 = new BookCode()
@@ -168,10 +164,10 @@ namespace LibraryOnlineSystem
             //=------------------ User
             var hash = SecurePasswordHasher.Hash("abcdef!");
 
-            User user =new User();
+            User user = new User();
             {
                 user.Name = "Matt";
-                user.Surname="Sean";
+                user.Surname = "Sean";
                 user.DateOfBirth = new DateTime(2020, 10, 10);
                 user.Email = "abc123@gmail.com";
                 user.HouseNo = "35";
@@ -179,21 +175,21 @@ namespace LibraryOnlineSystem
                 user.UserRole = "User";
                 user.ZipCode = "Le27dp";
                 user.UserId = 1;
-               // user.ConfirmPassword = hash;
+                // user.ConfirmPassword = hash;
             }
             context.Users.Add((user));
             User user2 = new User();
             {
                 user2.Name = "Ethan";
                 user2.Surname = "Jason";
-                user2.DateOfBirth = new DateTime(2000,10,10);
+                user2.DateOfBirth = new DateTime(2000, 10, 10);
                 user2.Email = "admin@gmail.com";
                 user2.HouseNo = "35";
                 user2.Password = hash;
                 user2.UserRole = "Admin";
                 user2.ZipCode = "Le2 7dp";
                 user2.UserId = 2;
-                
+
             }
             context.Users.Add((user2));
 
@@ -213,14 +209,14 @@ namespace LibraryOnlineSystem
             context.Users.Add((user3));
 
             ////============ Payment
-           
+
             BookReserve bookReserve = new BookReserve()
             {
                 BookReserveId = 1,
                 BookCodeId = 1,
                 UserId = 1,
                 ReservationRequestTime = DateTime.Now,
-                
+
             };
             context.BookReserves.Add(bookReserve);
             //=============Reviews
@@ -253,8 +249,8 @@ namespace LibraryOnlineSystem
                 booking.BookId = 1;
                 booking.DateCreated = new DateTime(2019, 12, 05);
                 booking.DateReturned = new DateTime(2019, 12, 12);
-                
-                }
+
+            }
             context.Bookings.Add(booking);
             Booking booking1 = new Booking();
             {
@@ -273,7 +269,7 @@ namespace LibraryOnlineSystem
                 booking2.BookId = 2;
                 booking2.DateCreated = new DateTime(2021, 12, 05);
                 booking2.DateReturned = null;
-                
+
             }
             context.Bookings.Add(booking2);
             Booking booking3 = new Booking();
@@ -287,11 +283,11 @@ namespace LibraryOnlineSystem
             }
             context.Bookings.Add(booking3);
             //--------------------------Payment
-           // LibraryRegulations libraryRegulations = new LibraryRegulations();
+            // LibraryRegulations libraryRegulations = new LibraryRegulations();
 
             PaymentLibrary payment = new PaymentLibrary();
             {
-              //  Booking bookingPayment1 = context.Bookings.Where(a => a.BookingId == 1).Single();
+                //  Booking bookingPayment1 = context.Bookings.Where(a => a.BookingId == 1).Single();
                 payment.UserId = 1;
                 payment.Amount = libraryRegulations.Fine;
                 payment.DatePaid = null;
@@ -354,7 +350,7 @@ namespace LibraryOnlineSystem
             com4.AuthorId = "1";
             com4.Content = " Great book! ";
             com4.PersonId = 1;
-            com4.BookId =3;
+            com4.BookId = 3;
             com4.PostId = 1;
             com4.IsBlocked = false;
             com4.UserRating = 6f;
@@ -387,9 +383,9 @@ namespace LibraryOnlineSystem
 
             //--------------------------------------------------------------Loan info
 
-          
+
         }
 
-        
+
     }
 }

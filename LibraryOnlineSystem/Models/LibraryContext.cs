@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Data.Entity.ModelConfiguration.Conventions;
-using System.Linq;
-using System.Web;
-using System.Web.UI.WebControls;
+﻿using System.Data.Entity;
 
 namespace LibraryOnlineSystem.Models
 {
-    public class LibraryContext:DbContext
+    public class LibraryContext : DbContext
     {
         public DbSet<Author> Authors { get; set; }
         public DbSet<Book> Books { get; set; }
-      public DbSet<Token> Tokens { get; set; }
+        public DbSet<Token> Tokens { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<Comment> Comment { get; set; }
@@ -27,7 +21,7 @@ namespace LibraryOnlineSystem.Models
         public DbSet<BookAuthors> BookAuthors { get; set; }
 
         public LibraryContext()
-            :base ("name=LibraryDBConnectionString")
+            : base("name=LibraryDBConnectionString")
         {
         }
         //protected override void OnModelCreating(DbModelBuilder modelBuilder)

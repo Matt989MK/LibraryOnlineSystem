@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using LibraryOnlineSystem.Models;
+﻿using System.Web.Mvc;
 
 namespace LibraryOnlineSystem.Controllers
 {
@@ -16,13 +11,13 @@ namespace LibraryOnlineSystem.Controllers
             return View();
         }
 
-        
+
         // GET: Payment/Details/5
         public ActionResult Details(int id)
         {
             //List<Payment> listOfPayment= new List<Payment>();
             //listOfPayment = db.Payments.ToList();
-            
+
             return View();
         }
 

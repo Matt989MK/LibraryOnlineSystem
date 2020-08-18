@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LibraryOnlineSystem.Models;
+﻿using LibraryOnlineSystem.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace LibraryOnlineSystemTest
 {
     [TestClass]
-   public class CommentTest
+    public class CommentTest
     {
-        
+
         [TestMethod]
         public void AuthorIdPropertyOk()
         {

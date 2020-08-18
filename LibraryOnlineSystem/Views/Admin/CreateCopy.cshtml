@@ -67,11 +67,15 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.IsInLibrary, htmlAttributes: new { @class = "control-label col-md-2" })
+            @*@Html.LabelFor(model => model.IsInLibrary, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <div class="control-label col-md-2">
+                <b>Set Availability</b>
+            </div>
             <div class="col-md-10">
+
                 <div class="checkbox">
                     @Html.EditorFor(model => model.IsInLibrary)
-                    @Html.ValidationMessageFor(model => model.IsInLibrary, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.IsInLibrary, "", new {@class = "text-danger"})
                 </div>
             </div>
         </div>

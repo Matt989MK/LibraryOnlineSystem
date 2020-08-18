@@ -1,25 +1,20 @@
-﻿using Autofac.Core;
-using LibraryOnlineSystem.Models;
-using System;
+﻿using LibraryOnlineSystem.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Web;
 using System.Web.Mvc;
-using ApplicationShutdownReason = System.Web.ApplicationShutdownReason;
 
 namespace LibraryOnlineSystem.Controllers
 {
     public class BaseController : Controller
     {
         // GET: Base
-        private LibraryContext db = new LibraryContext();
+        private readonly LibraryContext db = new LibraryContext();
         // GET: Base
-       
+
 
         public class MyPropertyActionFilter : ActionFilterAttribute
         {
-            private LibraryContext db = new LibraryContext();
+            private readonly LibraryContext db = new LibraryContext();
 
             public override void OnResultExecuting(ResultExecutingContext filterContext)
             {
@@ -30,7 +25,7 @@ namespace LibraryOnlineSystem.Controllers
                 List<News> listOfNews = db.News.ToList();
                 List<string> pinnedNews = new List<string>();
                 List<string> libraryNews = new List<string>();
-                List<int> newsId= new List<int>();
+                List<int> newsId = new List<int>();
                 foreach (var news in listOfNews)
                 {
                     if (news.IsPinned)
@@ -75,7 +70,7 @@ namespace LibraryOnlineSystem.Controllers
             ViewBag.PinnedNews = pinnedNews;
             ViewBag.libraryNews = libraryNews;
 
-        
+
 
         }
 
@@ -86,7 +81,7 @@ namespace LibraryOnlineSystem.Controllers
 
             foreach (var news in listOfNews)
             {
-              
+
 
                 if (news.DisplayOnNews)
                 {

@@ -1,19 +1,16 @@
-﻿using System;
+﻿using LibraryOnlineSystem.Models;
+using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using LibraryOnlineSystem.Models;
-using Microsoft.Ajax.Utilities;
 
 namespace LibraryOnlineSystem.Controllers
 {
     public class BookController : BaseController
     {
-        private LibraryContext db = new LibraryContext();
+        private readonly LibraryContext db = new LibraryContext();
         // GET: Book
         //public ActionResult Index()
         //{
@@ -104,7 +101,7 @@ namespace LibraryOnlineSystem.Controllers
 
                 iComments = db.Comment.Where(a => a.CommentId == commentId).Single();
                 return View(iComments);
-                
+
             }
             else
             {
@@ -119,7 +116,7 @@ namespace LibraryOnlineSystem.Controllers
         }
 
         [HttpPost]
-        public ActionResult DeleteComment(int? commentId,int? commentReplyId)
+        public ActionResult DeleteComment(int? commentId, int? commentReplyId)
         {
 
             //List<CommentReply> commentReplyList = db.CommentReply.ToList();
@@ -129,12 +126,13 @@ namespace LibraryOnlineSystem.Controllers
                 Comment comment = db.Comment.Where(a => a.CommentId == commentId).Single();
 
                 db.Comment.Remove(comment);
-            }else 
+            }
+            else
             {
                 CommentReply replyCommentID = db.CommentReply.Where(a => a.CommentReplyID == commentReplyId).Single();
                 db.CommentReply.Remove((replyCommentID));
             }
-          
+
             db.SaveChanges();
             return Redirect("/Book/Index");
         }
@@ -144,10 +142,10 @@ namespace LibraryOnlineSystem.Controllers
         {
             List<Book> listOfBook = new List<Book>();
             listOfBook = db.Books.ToList();
-          //  List<BookReview> listOfBookReviews = db.BookReviews.Where(a => a.BookId == id).ToList();
+            //  List<BookReview> listOfBookReviews = db.BookReviews.Where(a => a.BookId == id).ToList();
             Book book = listOfBook.Where(a => a.BookId == id).Single();
-          //  book.BookReviews = listOfBookReviews;
-          
+            //  book.BookReviews = listOfBookReviews;
+
 
 
             return View(book);
@@ -159,10 +157,10 @@ namespace LibraryOnlineSystem.Controllers
         {
             int id = Convert.ToInt32(Request.Params["BookId"]);
             int commentID = Convert.ToInt32(Request.Params["CommentId"]);
-            List <User> listOfUser= db.Users.ToList();
+            List<User> listOfUser = db.Users.ToList();
             User user = listOfUser.Where(a => a.UserId == Convert.ToInt32(Session["UserId"])).Single();
             Book book = db.Books.Find(id);//
-            string authorName = user.Name+" " + user.Surname;
+            string authorName = user.Name + " " + user.Surname;
             CommentReply commentReply = new CommentReply();
             commentReply.Content = Request.Params["NewReply"];
             commentReply.CommentID = commentID;
@@ -210,11 +208,11 @@ namespace LibraryOnlineSystem.Controllers
             //DAOBook daoBook=new DAOBook();
             //Book book = daoBook.getSelectedBook(id);
             ViewBag.gaveRating = false;
-            List<User> listOfUser=new List<User>();
+            List<User> listOfUser = new List<User>();
             listOfUser = db.Users.ToList();
-            User user = listOfUser.Where(a => a.UserId ==Convert.ToInt32(Session["UserId"])).Single(); // GET USER ID
-           
-            List<Comment> listOfComments = db.Comment.Where(a=>a.BookId==booksId).ToList();
+            User user = listOfUser.Where(a => a.UserId == Convert.ToInt32(Session["UserId"])).Single(); // GET USER ID
+
+            List<Comment> listOfComments = db.Comment.Where(a => a.BookId == booksId).ToList();
 
             foreach (var comment in listOfComments)
             {
@@ -225,8 +223,8 @@ namespace LibraryOnlineSystem.Controllers
             }
 
 
-          
-            
+
+
 
             // CHECK IF USER BANNED
 
@@ -261,7 +259,7 @@ namespace LibraryOnlineSystem.Controllers
             string listOfBookReviews = db.Books.Where(a => a.BookId == booksId).Single().BookReviews;
             Book book = listOfBook.Where(a => a.BookId == booksId).Single();
             book.BookReviews = listOfBookReviews;
-            List<BookCode> bookCodesList = db.BookCodes.Where(a => a.BookId == booksId ).ToList();//&& a.IsInLibrary == true
+            List<BookCode> bookCodesList = db.BookCodes.Where(a => a.BookId == booksId).ToList();//&& a.IsInLibrary == true
             book.BookCode = bookCodesList;
             int bookCurrentlyStocked = bookCodesList.Count;
             List<BookAuthors> bookAuthors = db.BookAuthors.Where(a => a.BookId == booksId).ToList();
@@ -280,7 +278,7 @@ namespace LibraryOnlineSystem.Controllers
                 }
             }
 
-            if (user.IsBanned==true)
+            if (user.IsBanned == true)
             {
                 ViewBag.isBanned = 1;
             }
@@ -306,8 +304,8 @@ namespace LibraryOnlineSystem.Controllers
             book.BookCode = bookCodesList;
             Comment comment = new Comment();
             comment.Content = Request.Params["NewComment"];
-            comment.AuthorId = user.Name+" "+user.Surname;
-            
+            comment.AuthorId = user.Name + " " + user.Surname;
+
             comment.PostId = 1;
             comment.BookId = id;
             comment.PersonId = 1;
@@ -322,7 +320,7 @@ namespace LibraryOnlineSystem.Controllers
             {
                 comment.UserRating = null;
             }
-         
+
 
 
 
@@ -343,7 +341,7 @@ namespace LibraryOnlineSystem.Controllers
 
 
 
-            if ((comment.UserRating <= 10 && comment.UserRating >= 0.0) || comment.UserRating==null)
+            if ((comment.UserRating <= 10 && comment.UserRating >= 0.0) || comment.UserRating == null)
             {
                 db.Comment.Add(comment);
 
@@ -434,8 +432,8 @@ namespace LibraryOnlineSystem.Controllers
             {
                 Book book = db.Books.Find(bookId);
                 List<BookAuthors> bookAuthorses = new List<BookAuthors>();
-              //  bookAuthorses = db.BookAuthors.Where(a => a.BookId == bookId).ToList();
-                
+                //  bookAuthorses = db.BookAuthors.Where(a => a.BookId == bookId).ToList();
+
 
                 ViewBag.BookId = book.BookId;
                 int bookID = book.BookId;
@@ -445,35 +443,35 @@ namespace LibraryOnlineSystem.Controllers
                 // book.Authors.Where(a=>a.Id==bookAuthor.AuthorId).Count()
                 if (book.Authors == null)
                 {
-                  //  Author author = db.Authors.Where(a => a.Id == bookAuthor.AuthorId).Single();
+                    //  Author author = db.Authors.Where(a => a.Id == bookAuthor.AuthorId).Single();
                     //int authorIdTest = db.Authors.Where(a => a.Id == bookAuthor.AuthorId).Single().Id;
-                        // book.Authors.Add(author);
-                        var testi = db.BookAuthors.Where(a => a.BookId == bookID).ToList();
-                        var testi2 = testi.Select(a => a.AuthorId).Contains(bookAuthor.AuthorId);
-                   // db.Books.AddOrUpdate(book);
+                    // book.Authors.Add(author);
+                    var testi = db.BookAuthors.Where(a => a.BookId == bookID).ToList();
+                    var testi2 = testi.Select(a => a.AuthorId).Contains(bookAuthor.AuthorId);
+                    // db.Books.AddOrUpdate(book);
                     if (!testi2)//!db.BookAuthors.Select(a=>a.AuthorId).Contains(bookAuthor.AuthorId)
                     {
                         db.BookAuthors.Add(bookAuthor);
-                        
+
                     }
-                 
-                  //  db.BookAuthors.Distinct();
+
+                    //  db.BookAuthors.Distinct();
                     db.SaveChanges();
                 }
-              
+
                 db.BookAuthors.Distinct();
                 db.SaveChanges();
             }
 
             var ListOfBookAuthors = db.BookAuthors.Where(a => a.BookId == bookId).ToList();
-            List<Author> ListOfAuthors=new List<Author>();
+            List<Author> ListOfAuthors = new List<Author>();
             foreach (var author in ListOfBookAuthors)
             {
                 ListOfAuthors.Add(author.Author);
             }
 
             ViewBag.ListOfAuthors = ListOfAuthors;
-          
+
             return View(authorList);
         }
 

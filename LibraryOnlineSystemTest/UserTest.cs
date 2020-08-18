@@ -1,10 +1,10 @@
-﻿using System;
+﻿using LibraryOnlineSystem.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using LibraryOnlineSystem.Models;
+using System;
 namespace LibraryOnlineSystemTest
 {
     [TestClass]
-  public  class UserTest
+    public class UserTest
     {
         [TestMethod]
         public void UserIdPropertyOk()

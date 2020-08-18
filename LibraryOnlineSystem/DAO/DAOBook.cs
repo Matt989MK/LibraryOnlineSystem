@@ -1,38 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Data.SqlClient;
-using LibraryOnlineSystem.Connection;
-using LibraryOnlineSystem.Queries;
+﻿using LibraryOnlineSystem.Connection;
 using LibraryOnlineSystem.Models;
+using LibraryOnlineSystem.Queries;
+using System;
+using System.Data.SqlClient;
 namespace LibraryOnlineSystem
 {
     public class DAOBook
     {
         public Book getSelectedBook(int id)
         {
-             Book book = new Book();
+            Book book = new Book();
 
-             // Create a variable for the connection string
-            String connectionUrl =ConnectionToDatabase.CONNECTIONURL;
+            // Create a variable for the connection string
+            String connectionUrl = ConnectionToDatabase.CONNECTIONURL;
             SqlConnection con = new SqlConnection(connectionUrl);
             con.Open();
             String SQL = QueriesBook.getSelectedBook(id);
             SqlCommand sqlCommand = new SqlCommand(SQL, con);
             SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
-         
+
             while (sqlDataReader.Read())
             {
 
                 //   [AuthorId],[AuthorId] ,[Name] ,[DateOfPublication],[Genre],[Overview],[Publisher]"
                 book.BookId = sqlDataReader.GetInt32(0);
-              //  book.AuthorList = sqlDataReader.GetInt32(0)
-              book.Name = sqlDataReader.GetString(2);
-              book.DateOfPublication = sqlDataReader.GetDateTime(3);
-             // book.Genre = sqlDataReader.GetString(4);
-              book.Overview = sqlDataReader.GetString(5);
-              book.Publisher = sqlDataReader.GetString(6);
+                //  book.AuthorList = sqlDataReader.GetInt32(0)
+                book.Name = sqlDataReader.GetString(2);
+                book.DateOfPublication = sqlDataReader.GetDateTime(3);
+                // book.Genre = sqlDataReader.GetString(4);
+                book.Overview = sqlDataReader.GetString(5);
+                book.Publisher = sqlDataReader.GetString(6);
 
 
 

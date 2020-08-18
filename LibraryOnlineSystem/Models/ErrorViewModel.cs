@@ -1,5 +1,3 @@
-using System;
-
 namespace LibraryOnlineSystem.Models
 {
     public class ErrorViewModel

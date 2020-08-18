@@ -1,8 +1,6 @@
-﻿using System;
+﻿using LibraryOnlineSystem.Models;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
-using LibraryOnlineSystem.Models;
 
 namespace LibraryOnlineSystem
 {
@@ -10,7 +8,7 @@ namespace LibraryOnlineSystem
     {
         [Key]
         public int Id { get; set; }
-    
+
 
         public string Name { get; set; }
 
@@ -18,7 +16,7 @@ namespace LibraryOnlineSystem
 
         public List<Book> BookList { get; set; }
 
-      
+
 
         public void AddAuthor()
         {

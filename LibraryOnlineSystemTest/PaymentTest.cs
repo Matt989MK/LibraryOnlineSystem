@@ -1,17 +1,17 @@
-﻿using System;
+﻿using LibraryOnlineSystem.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using LibraryOnlineSystem.Models;
+using System;
 namespace LibraryOnlineSystemTest
 {
     [TestClass]
-   public class PaymentTest
+    public class PaymentTest
     {
         [TestMethod]
         public void PaymentIdPropertyOk()
         {
 
             //create an instance of the class we want to create
-           PaymentLibrary payment = new PaymentLibrary();
+            PaymentLibrary payment = new PaymentLibrary();
             //create some test data to assign to the property
             Int32 TestData = 1;
             //assign the data to the property
@@ -78,8 +78,8 @@ namespace LibraryOnlineSystemTest
             //create an instance of the class we want to create
             PaymentLibrary payment = new PaymentLibrary();
             //create some test data to assign to the property
-           Booking testData = new Booking();
-           testData.BookingId = 1;
+            Booking testData = new Booking();
+            testData.BookingId = 1;
             //assign the data to the property
             payment.BookingId = testData.BookingId;
             //test to see that the two values are the same

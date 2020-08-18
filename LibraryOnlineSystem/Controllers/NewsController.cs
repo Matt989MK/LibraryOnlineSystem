@@ -1,16 +1,15 @@
-﻿using System;
+﻿using LibraryOnlineSystem.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.WebPages;
-using LibraryOnlineSystem.Models;
 
 namespace LibraryOnlineSystem.Controllers
 {
     public class NewsController : BaseController
     {
-        private LibraryContext db = new LibraryContext();
+        private readonly LibraryContext db = new LibraryContext();
 
 
 
@@ -37,12 +36,12 @@ namespace LibraryOnlineSystem.Controllers
             List<User> listOfUser = new List<User>();
             listOfUser = db.Users.ToList();
 
-            User user =listOfUser.Where(a => a.UserId == Convert.ToInt32(Session["UserId"])).Single();
-            string authorName = user.Name +" "+ user.Surname;
+            User user = listOfUser.Where(a => a.UserId == Convert.ToInt32(Session["UserId"])).Single();
+            string authorName = user.Name + " " + user.Surname;
 
 
 
-            
+
 
             news.NewsContent = Request.Params["NewsContent"];
             news.NewsPublicationDate = DateTime.Today;
