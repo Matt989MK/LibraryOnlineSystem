@@ -26,6 +26,7 @@ namespace LibraryOnlineSystem.Controllers
             {
                 Response.Redirect("Base/LaunchVariables", true);
                 Response.Redirect("/home/login", true);
+               
                 Response.End();
 
             }
@@ -38,7 +39,8 @@ namespace LibraryOnlineSystem.Controllers
             // LaunchVariables();
             // ViewBag.LibraryNews1= LaunchLibraryNews();
             CheckLogin();
-
+            getRecommendations();
+            SetRecommendations();
 
             return View();
         }

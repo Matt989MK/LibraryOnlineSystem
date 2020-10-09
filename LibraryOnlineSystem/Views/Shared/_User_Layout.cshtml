@@ -57,32 +57,62 @@
         </div>
     </div>
 
-    @*<div class="col-sm-2" style="float:right">
-            <h4 style="color:blue;text-decoration:underline">Library News</h4>
-            <ul>
-                <li><a href="#">One</a></li>
-                <li><a href="#">Two</a></li>
-                <li><a href="#">Three</a></li>
-                <li><a href="#">Four</a></li>
-                <li><a href="#">Five</a></li>
 
-            </ul>
-        </div>*@
 
-    <div class="col-sm-2" style=" position: relative; float:right">
-        <h4 style="font-size: 30px; color:black;">Library News</h4>
-        <ul style="font-size: 20px;">
+   
+    
 
-            @for (int i = 0; i < Enumerable.Count(ViewBag.libraryNews); i++)
-            {
-                <li><a href="/News/Details?newsId=@ViewBag.newsIds[i]">@ViewBag.libraryNews[i]</a></li>
-            }
+<div class="col-sm-2" style=" position: relative; float:right">
+    <h4 style="font-size: 30px; color:black;">Library News</h4>
+    <ul style="font-size: 20px;">
 
+        @for (int i = 0; i < Enumerable.Count(ViewBag.libraryNews); i++)
+        {
+            <li><a href="/News/Details?newsId=@ViewBag.newsIds[i]">@ViewBag.libraryNews[i]</a></li>
+        }
+
+
+    </ul>
+</div>
+
+<div class="col-sm-2" style="position: relative; float: left">
+   
+    <h4 style="font-size: 30px; color: black;">For You</h4>
+    <ul style="font-size: 20px;">
+        <ul class="recommendationID "id="recommendationID">
 
         </ul>
-    </div>
+       
+        <script>
+            function DisplayRecommendation() {
+                var RecommendedBooks = @Html.Raw(Json.Encode(ViewBag.RecommendedBooks));
+                for (var i = 0; i < RecommendedBooks.length; i++) {
 
-    <div class="body-content container">
+                    console.log(RecommendedBooks[i]["Name"]);
+
+                    function buildTicket(bookId, bookName) {
+                        $("#recommendationID").append('<li><a href=../Book/Details?booksId=' + bookId + ' ><i class="fa fa-twitter fa-2x"></i>' + bookName + '</a></li>');//<i class="fa fa-twitter fa-2x"></i>
+                    }; 
+                    buildTicket(RecommendedBooks[i]["BookId"],RecommendedBooks[i]["Name"])
+                  
+                    
+                }
+               
+                return RecommendedBooks[0]["Name"];
+            }
+
+            console.log(DisplayRecommendation())
+
+        </script>
+
+    </ul>
+</div>
+
+
+
+
+
+<div class="body-content container">
         @RenderBody()
 
         <br />
