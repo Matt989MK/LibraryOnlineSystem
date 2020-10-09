@@ -9,6 +9,8 @@ namespace LibraryOnlineSystem.Models
         public DbSet<Token> Tokens { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Booking> Bookings { get; set; }
+        public DbSet<Recommendation> Recommendations { get; set; }
+
         public DbSet<Comment> Comment { get; set; }
         public DbSet<CommentReply> CommentReply { get; set; }
         public DbSet<News> News { get; set; }

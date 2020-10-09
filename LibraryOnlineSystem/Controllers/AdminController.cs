@@ -1,6 +1,7 @@
 ﻿using LibraryOnlineSystem.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Data.Entity.Migrations;
 using System.Linq;
@@ -18,6 +19,8 @@ namespace LibraryOnlineSystem.Controllers
         // GET: Admin
         public ActionResult Index()
         {
+            createCSV();
+            GetData();
             return View(db.Users.ToList());
         }
         [HttpGet]
@@ -300,6 +303,7 @@ namespace LibraryOnlineSystem.Controllers
             PaymentLibrary payment = db.Payments.Where(a => a.UserId == userId && a.PaymentLibraryId == paymentLibraryId).Single();
 
             payment.Status = "Paid";
+            payment.DatePaid = DateTime.Today;
             db.Payments.AddOrUpdate(payment);
             db.SaveChanges();
             return Redirect("PaymentsAdmin");
@@ -792,7 +796,7 @@ namespace LibraryOnlineSystem.Controllers
             DateTime dateBeginning = Request["beginningDate"].AsDateTime();
             DateTime dateEnding = Request["endingDate"].AsDateTime();
 
-            if (dateEnding == DateTime.MinValue) { dateEnding = DateTime.Today; }
+            if (dateEnding == DateTime.MinValue) { dateEnding = DateTime.MaxValue; }
 
             int bookCodeCount = 0;
             List<BookCode> bookCodes = db.BookCodes.ToList();
@@ -803,10 +807,10 @@ namespace LibraryOnlineSystem.Controllers
 
             }
 
-            List<int> newBookingsTest = db.Bookings.Where(a => a.DateCreated > dateBeginning && a.DateCreated < dateEnding).Select(a => a.BookId).ToList();
+            List<int> newBookingsTest = db.Bookings.Where(a => a.DateCreated >= dateBeginning && a.DateCreated <= dateEnding).Select(a => a.BookId).ToList();
             List<int> newBookingsTestAll = db.Bookings.Select(a => a.BookId).ToList();
 
-            List<int> newBookings = db.Bookings.Where(a => a.DateCreated > dateBeginning && a.DateCreated < dateEnding).Select(a => a.BookId).Distinct().ToList();
+            List<int> newBookings = db.Bookings.Where(a => a.DateCreated >= dateBeginning && a.DateCreated <= dateEnding).Select(a => a.BookId).Distinct().ToList();
             ViewBag.BookBorrowCount = newBookingsTest.Count;
             List<Book> books = db.Books.ToList();
             List<string> genre = new List<string>();
@@ -818,7 +822,8 @@ namespace LibraryOnlineSystem.Controllers
 
             foreach (int bookId in newBookings)
             {
-                int countOfBook = db.Bookings.Where(a => a.BookId == bookId).Count();
+                int countOfBook = db.Bookings.Where(a => a.BookId == bookId && a.DateCreated >= dateBeginning && a.DateCreated <= dateEnding).Count();
+                //db.Bookings.Where(a => a.DateCreated >= dateBeginning && a.DateCreated <= dateEnding).GroupBy(a => a.BookId).Select(a=>a.Count());
                 if (countOfBook == bookCodeCount)
                 {
                     maxBookId = db.Bookings.Where(a => a.BookId == bookId).First().BookId;
@@ -827,7 +832,7 @@ namespace LibraryOnlineSystem.Controllers
 
             var genreGroup = genre.GroupBy(x => x);
             var maxCount = genreGroup.Max(g => g.Count());
-            var mostCommons = genreGroup.Where(x => x.Count() == maxCount).Select(x => x.Key).Single();
+            var mostCommons = genreGroup.Where(x => x.Count() == maxCount).Select(x => x.Key).First();
             ViewBag.MostCommonCategory = mostCommons;
             if (books.Where(a => a.BookId == maxBookId).Count() > 0)
             {
@@ -998,6 +1003,51 @@ namespace LibraryOnlineSystem.Controllers
             ViewBag.IsInLibrary = listOfIsInLibrary;
             return View(listOfBookings);
         }
+
+        public void GetData()
+        {
+            DataOperations dataOperations = new DataOperations();
+           RecommendationData recommendationData = dataOperations.GetJsonData();
+           for (int i = 0; i < recommendationData.count; i++)
+           {
+               db.Recommendations.AddOrUpdate(recommendationData.recommendations[i]);
+               db.SaveChanges();
+           }
+        }
+        public void createCSV()
+        {
+            //List<int> listOfBookingsTEST = db.Bookings.Select(a=>a.BookId).Distinct().ToList();
+
+            List<Booking> listOfBookings = db.Bookings.Distinct().ToList();
+            Dictionary<int,string> usersBooks = new Dictionary<int, string>();
+            List<int> listOfUsers = listOfBookings.Select(a => a.UserId).ToList();
+            foreach (var user in listOfUsers)
+            {
+                string listOfBooks = "";
+                foreach (var booking in listOfBookings)
+                {
+                    if (booking.UserId == user && !listOfBooks.Contains(booking.BookId.ToString()) )
+                    {
+                        listOfBooks += booking.BookId+",";
+
+                    }
+                }
+
+                if (!usersBooks.ContainsKey(user) )
+                {
+                    usersBooks.Add(user, listOfBooks);
+
+                }
+
+            }
+            String csv = String.Join(
+                Environment.NewLine,
+                usersBooks.Select(d => $"{d.Key},{d.Value},")
+            );
+            System.IO.File.WriteAllText(Server.MapPath(@"~/csvData.csv"), csv);
+         
+        }
+       
         protected override void Dispose(bool disposing)
         {
             if (disposing)
